@@ -1,0 +1,6 @@
+﻿Lastname,Firstname,DateOfBirth,TraveldocumentNumber,Sex,Street,Postcode,City,Country,Telephone,Email,LastnameAtBirth,NationalityAtBirth,CountryOfBirth,PlaceOfBirth,NationalityForApplication,TraveldocumentDateOfIssue,TraveldocumentValidUntil,TraveldocumentIssuingAuthority,status,bookedSlot,bookedAt,notifyTelegram
+AHMED,MOHAMED,1/15/2000,A12345678,1,15 Tahrir St,11511,Cairo,65,201001234567,mohamed@email.com,AHMED,71,71,Cairo,71,1/15/2020,1/15/2030,71,PENDING,,,201001234567
+HASSAN,FATMA,3/20/2001,B98765432,2,22 Nile Corniche,11511,Cairo,65,201009876543,fatma@email.com,HASSAN,71,71,Alexandria,71,3/10/2021,3/10/2031,71,PENDING,,,201009876543
+IBRAHIM,OMAR,7/5/1999,C11223344,1,8 Pyramids Rd,12556,Giza,65,201005554433,omar@email.com,IBRAHIM,71,71,Giza,71,6/1/2019,6/1/2029,71,PENDING,,,201005554433
+MAHMOUD,SARA,11/30/2002,D55667788,2,3 Al Azhar St,11511,Cairo,65,201112223344,sara@email.com,MAHMOUD,71,71,Cairo,71,9/15/2022,9/15/2032,71,PENDING,,,201112223344
+ALI,KHALED,2/10/1998,E99001122,1,45 Ramses Ave,11511,Cairo,65,201223334455,khaled@email.com,ALI,71,71,Cairo,71,2/20/2018,2/20/2028,71,PENDING,,,201223334455

@@ -1,0 +1,33 @@
+{
+  "runId": "live-slot-test-003",
+  "sessionCookie": "AspxAutoDetectCookieSupport=1; ASP.NET_SessionId=ry13ny5r04ymscyfvf4rzucd",
+  "Language": "en",
+  "Office": "KOPENHAGEN",
+  "CalendarId": "9677702",
+  "PersonCount": "1",
+  "currentMonday": "6/1/2026 12:00:00 AM",
+  "currentSlot": "6/3/2026 2:30:00 PM",
+  "captureArtifacts": true,
+  "maxCaptchaRetries": 3,
+  "student": {
+    "Lastname": "HASSAN",
+    "Firstname": "SARA",
+    "DateOfBirth": "3/15/1995",
+    "TraveldocumentNumber": "B8888888",
+    "Sex": "2",
+    "Street": "12 Nile St",
+    "Postcode": "11511",
+    "City": "Cairo",
+    "Country": "49",
+    "Telephone": "201122334455",
+    "Email": "sara.hassan.test@example.com",
+    "LastnameAtBirth": "HASSAN",
+    "NationalityAtBirth": "49",
+    "CountryOfBirth": "49",
+    "PlaceOfBirth": "Cairo",
+    "NationalityForApplication": "49",
+    "TraveldocumentDateOfIssue": "6/1/2020",
+    "TraveldocumentValidUntil": "6/1/2030",
+    "TraveldocumentIssuingAuthority": "49"
+  }
+}

@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+playwright
+requests
+python-dotenv
+httpx
