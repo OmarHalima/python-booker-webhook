@@ -929,6 +929,18 @@ def inject_base_href(html: str) -> str:
     return f'<base href="{APPOINTMENT_ORIGIN}/">{html}'
 
 
+def load_capture_html_in_browser(page: "Page", html: str, run_id: str = "") -> None:
+    """Load capture form HTML into browser on a real BMEIA URL (not about:blank).
+
+    Navigates to APPOINTMENT_ORIGIN first so fetch/form-submit use the correct
+    origin, then injects the HTML via set_content.
+    """
+    if "about:blank" in (page.url or ""):
+        page.goto(f"{APPOINTMENT_ORIGIN}/HomeWeb/Scheduler", wait_until="domcontentloaded")
+    page.set_content(inject_base_href(html), wait_until="domcontentloaded")
+    _wait_postback_settle(page, run_id, "load_capture_html_in_browser")
+
+
 def fill_form_fields(page: Page, payload: Dict[str, Any]) -> None:
     run_id = str(payload.get("_runId") or payload.get("runId") or "")
     student = payload["student"]

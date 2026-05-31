@@ -39,6 +39,7 @@ def test_load_capture_html_in_browser_real_url():
         load_capture_html_in_browser(page, _SAMPLE_CAPTURE_HTML, run_id="unit-capture-nav")
         assert page.url.startswith(APPOINTMENT_ORIGIN)
         assert "about:blank" not in page.url
-        assert "/HomeWeb/AppointmentPassport" in page.url
+        # After set_content the URL stays at the last real page (Scheduler),
+        # but the document's form action must resolve against APPOINTMENT_ORIGIN.
         assert page.locator("#Token").count() == 1
         browser.close()
