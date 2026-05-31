@@ -2,7 +2,11 @@
 
 Receives payloads from n8n via HTTP webhook, books Austrian embassy appointments via Playwright.
 
-**Primary path (v2):** turbo — scheduler POST + minimal browser submit (~4–11s) on `POST /webhook/booker`.
+**Primary path (v2):** turbo — scheduler POST + minimal browser submit (~6–12s; best ~6.4s) on `POST /webhook/booker`.
+
+**Captcha:** OCR first, Gemini fallback (`CAPTCHA_SOLVER=ocr_with_gemini_fallback`). DOM screenshot only — `CAPTCHA_PARALLEL_FETCH=false`. See [docs/CAPTCHA_INVESTIGATION.md](docs/CAPTCHA_INVESTIGATION.md).
+
+**n8n workflow:** import [workflows/booker.json](workflows/booker.json) (HTTP timeout 300s, `runId`, serial slot booking).
 
 **Legacy path:** full Playwright wizard (~26s) on `POST /webhook/booker-legacy`.
 
@@ -45,11 +49,13 @@ Webhook endpoints:
 
 | Endpoint | Flow |
 |----------|------|
-| `POST http://localhost:8000/webhook/booker` | **Turbo** (default, ~4–11s) |
+| `POST http://localhost:8000/webhook/booker` | **Turbo** (default, ~6–12s) |
 | `POST http://localhost:8000/webhook/booker-legacy` | Full Playwright wizard (~26s) |
 | `POST http://localhost:8000/webhook/booker-turbo` | Alias of `/webhook/booker` |
 
-Optional turbo fields: `submitMode` (`browser` default), `maxCaptchaRetries` (use `5` for Gemini on attempts 4–5), `useSchedulerPost: true`.
+Optional turbo fields: `submitMode` (`browser` default), `maxCaptchaRetries` (use **5**), `useSchedulerPost: true`.
+
+Key `.env` for turbo captcha: `CAPTCHA_PARALLEL_FETCH=false`, `CAPTCHA_SOLVER=ocr_with_gemini_fallback`, `CAPTCHA_OCR_BASE_URL`, `GEMINI_API_KEY`. Details: [docs/TURBO_APP.md](docs/TURBO_APP.md#captcha-configuration-recommended).
 
 ## 3) n8n payload shape
 

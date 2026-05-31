@@ -4,3 +4,4 @@ playwright
 requests
 python-dotenv
 httpx
+opencv-python-headless

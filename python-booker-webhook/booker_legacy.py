@@ -3,6 +3,7 @@ import os
 import re
 import threading
 import uuid
+from concurrent.futures import Future, ThreadPoolExecutor, TimeoutError as FutureTimeoutError
 from contextlib import contextmanager
 
 try:
@@ -18,7 +19,7 @@ from urllib.parse import parse_qs
 
 import requests
 from fastapi import HTTPException
-from playwright.sync_api import BrowserContext, Page, TimeoutError as PlaywrightTimeoutError, sync_playwright
+from playwright.sync_api import Browser, BrowserContext, Page, TimeoutError as PlaywrightTimeoutError, sync_playwright
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -59,6 +60,15 @@ DEBUG_LOG_PATH = Path(__file__).with_name("debug-ce612b.log")
 _BOOKING_SEM: Optional[threading.Semaphore] = None
 _BOOKING_SEM_INIT = threading.Lock()
 _GLOBAL_BOOKING_LOCK_PATH = ARTIFACTS_DIR / ".global_booking.lock"
+_PLAYWRIGHT_RUNTIME_LOCK = threading.Lock()
+_PLAYWRIGHT_RUNTIME: Dict[str, Any] = {
+    "pw": None,
+    "browser": None,
+    "started_at": 0.0,
+    "runs": 0,
+}
+_CAPTCHA_FETCH_EXECUTOR: Optional[ThreadPoolExecutor] = None
+_CAPTCHA_FETCH_EXECUTOR_LOCK = threading.Lock()
 
 def _env_int(name: str, default: int, *, minimum: int = 0) -> int:
     try:
@@ -79,6 +89,193 @@ def _env_bool(name: str, default: bool) -> bool:
     if raw is None:
         return default
     return raw.strip().lower() in ("1", "true", "yes", "on")
+
+
+def playwright_reuse_browser() -> bool:
+    return _env_bool("PLAYWRIGHT_REUSE_BROWSER", True)
+
+
+def playwright_reuse_max_age_sec() -> int:
+    return _env_int("PLAYWRIGHT_REUSE_MAX_AGE_SEC", 1800, minimum=60)
+
+
+def playwright_reuse_max_runs() -> int:
+    return _env_int("PLAYWRIGHT_REUSE_MAX_RUNS", 100, minimum=1)
+
+
+def playwright_slow_mo() -> int:
+    try:
+        return max(0, int(os.getenv("PLAYWRIGHT_SLOW_MO", "80")))
+    except (TypeError, ValueError):
+        return 80
+
+
+def captcha_parallel_fetch_enabled() -> bool:
+    return _env_bool("CAPTCHA_PARALLEL_FETCH", False)
+
+
+def captcha_parallel_timeout_ms() -> int:
+    return _env_int("CAPTCHA_PARALLEL_TIMEOUT_MS", 1200, minimum=100)
+
+
+def _is_browser_connected(browser: Optional[Browser]) -> bool:
+    if browser is None:
+        return False
+    try:
+        return bool(browser.is_connected())
+    except Exception:
+        return False
+
+
+def _shutdown_shared_runtime_locked() -> None:
+    browser = _PLAYWRIGHT_RUNTIME.get("browser")
+    pw = _PLAYWRIGHT_RUNTIME.get("pw")
+    _PLAYWRIGHT_RUNTIME["browser"] = None
+    _PLAYWRIGHT_RUNTIME["pw"] = None
+    _PLAYWRIGHT_RUNTIME["started_at"] = 0.0
+    _PLAYWRIGHT_RUNTIME["runs"] = 0
+    try:
+        if browser is not None:
+            browser.close()
+    except Exception:
+        pass
+    try:
+        if pw is not None:
+            pw.stop()
+    except Exception:
+        pass
+
+
+def _launch_browser(pw: Any) -> Tuple[Browser, bool, int]:
+    slow_mo = playwright_slow_mo()
+    headless = playwright_headless()
+    browser = pw.chromium.launch(
+        headless=headless,
+        slow_mo=slow_mo,
+        args=["--disable-dev-shm-usage", "--disable-gpu"],
+    )
+    return browser, headless, slow_mo
+
+
+def _acquire_browser_runtime(run_id: str) -> Dict[str, Any]:
+    with _PLAYWRIGHT_RUNTIME_LOCK:
+        if not playwright_reuse_browser():
+            pw = sync_playwright().start()
+            browser, headless, slow_mo = _launch_browser(pw)
+            return {
+                "pw": pw,
+                "browser": browser,
+                "headless": headless,
+                "slowMo": slow_mo,
+                "ephemeral": True,
+                "reused": False,
+            }
+
+        now = time.time()
+        browser = _PLAYWRIGHT_RUNTIME.get("browser")
+        age = now - float(_PLAYWRIGHT_RUNTIME.get("started_at") or 0.0)
+        runs = int(_PLAYWRIGHT_RUNTIME.get("runs") or 0)
+        should_recycle = (
+            browser is None
+            or not _is_browser_connected(browser)
+            or age >= playwright_reuse_max_age_sec()
+            or runs >= playwright_reuse_max_runs()
+        )
+        if should_recycle:
+            _shutdown_shared_runtime_locked()
+            pw = sync_playwright().start()
+            browser, headless, slow_mo = _launch_browser(pw)
+            _PLAYWRIGHT_RUNTIME["pw"] = pw
+            _PLAYWRIGHT_RUNTIME["browser"] = browser
+            _PLAYWRIGHT_RUNTIME["started_at"] = now
+            _PLAYWRIGHT_RUNTIME["runs"] = 0
+            reused = False
+        else:
+            pw = _PLAYWRIGHT_RUNTIME["pw"]
+            headless = playwright_headless()
+            slow_mo = playwright_slow_mo()
+            reused = True
+
+        _PLAYWRIGHT_RUNTIME["runs"] = int(_PLAYWRIGHT_RUNTIME.get("runs") or 0) + 1
+        return {
+            "pw": pw,
+            "browser": _PLAYWRIGHT_RUNTIME["browser"],
+            "headless": headless,
+            "slowMo": slow_mo,
+            "ephemeral": False,
+            "reused": reused,
+            "runtimeRuns": int(_PLAYWRIGHT_RUNTIME.get("runs") or 0),
+            "runtimeAgeSec": int(time.time() - float(_PLAYWRIGHT_RUNTIME.get("started_at") or time.time())),
+        }
+
+
+def _release_ephemeral_runtime(runtime: Dict[str, Any]) -> None:
+    if not runtime.get("ephemeral"):
+        return
+    browser = runtime.get("browser")
+    pw = runtime.get("pw")
+    try:
+        if browser is not None:
+            browser.close()
+    except Exception:
+        pass
+    try:
+        if pw is not None:
+            pw.stop()
+    except Exception:
+        pass
+
+
+@contextmanager
+def open_booking_page(
+    *,
+    run_id: str,
+    run_dir: Path,
+    capture_artifacts: bool,
+    ignore_https_errors: bool = True,
+    base_url: Optional[str] = None,
+    viewport: Optional[Dict[str, int]] = None,
+) -> Tuple[BrowserContext, Page, Optional[Path], Dict[str, Any]]:
+    runtime = _acquire_browser_runtime(run_id)
+    browser: Browser = runtime["browser"]
+    context: Optional[BrowserContext] = None
+    page: Optional[Page] = None
+    video_dir: Optional[Path] = None
+    try:
+        kwargs: Dict[str, Any] = {"ignore_https_errors": ignore_https_errors}
+        if base_url:
+            kwargs["base_url"] = base_url
+        if viewport:
+            kwargs["viewport"] = viewport
+        if capture_artifacts:
+            video_dir = run_dir / "video"
+            video_dir.mkdir(parents=True, exist_ok=True)
+            kwargs["record_video_dir"] = str(video_dir)
+            kwargs["record_video_size"] = {"width": 1280, "height": 720}
+        context = browser.new_context(**kwargs)
+        _configure_playwright_context(context)
+        page = context.new_page()
+        yield context, page, video_dir, runtime
+    finally:
+        try:
+            if page is not None:
+                page.close()
+        except Exception:
+            pass
+        try:
+            if context is not None:
+                context.close()
+        except Exception:
+            pass
+        _release_ephemeral_runtime(runtime)
+
+
+def _get_captcha_fetch_executor() -> ThreadPoolExecutor:
+    global _CAPTCHA_FETCH_EXECUTOR
+    with _CAPTCHA_FETCH_EXECUTOR_LOCK:
+        if _CAPTCHA_FETCH_EXECUTOR is None:
+            _CAPTCHA_FETCH_EXECUTOR = ThreadPoolExecutor(max_workers=4, thread_name_prefix="captcha-fetch")
+        return _CAPTCHA_FETCH_EXECUTOR
 
 
 def playwright_headless() -> bool:
@@ -573,17 +770,22 @@ def post_select_slot(context: BrowserContext, payload: Dict[str, Any]) -> str:
 
 
 def fetch_captcha_bytes(context: BrowserContext, url: str, session_cookie: str) -> bytes:
-    response = context.request.get(
+    # Use requests (not context.request) so this function is safe to call from a
+    # ThreadPoolExecutor background thread.  context.request.get() uses the Playwright
+    # greenlet event loop and raises greenlet.error when called from a different thread.
+    resp = requests.get(
         url,
         headers={
             "Cookie": session_cookie,
             "Referer": SCHEDULER_URL,
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "Accept": "image/png,image/*,*/*",
         },
+        timeout=15,
     )
-    if not response.ok:
-        raise ValueError(f"Captcha download failed: {response.status} {response.status_text}")
-    return response.body()
+    if not resp.ok:
+        raise ValueError(f"Captcha download failed: {resp.status_code} {resp.reason}")
+    return resp.content
 
 def capture_captcha_bytes_from_dom(page: Page) -> bytes:
     # Capture exactly what is shown in the real browser page.
@@ -591,6 +793,183 @@ def capture_captcha_bytes_from_dom(page: Page) -> bytes:
     if img.count() < 1:
         raise ValueError("Captcha image element #Captcha_CaptchaImage not found in DOM.")
     return img.first.screenshot(type="png")
+
+
+def _assess_captcha_difficulty(img_bytes: bytes) -> str:
+    """Returns 'easy', 'medium', or 'hard' based on brightness/contrast stats.
+
+    Hard styles (checkered, dark grunge, faint): defeat OCR and Gemini alike.
+    Easy styles (colored pastel, 3D metallic): near-100% solve rate.
+    """
+    try:
+        import io as _io
+        import numpy as _np
+        from PIL import Image as _PILImage
+
+        img = _PILImage.open(_io.BytesIO(img_bytes)).convert("L")
+        arr = _np.array(img, dtype=_np.float32)
+        mean_brightness = float(arr.mean())
+        pct_extreme = float(_np.mean((arr < 35) | (arr > 215)))
+
+        if mean_brightness < 65:
+            return "hard"
+        if pct_extreme > 0.55:
+            return "hard"
+        if mean_brightness < 120 and pct_extreme > 0.35:
+            return "medium"
+        return "easy"
+    except Exception:
+        return "easy"
+
+
+def _reload_botdetect_captcha(page: Page, run_id: str, old_vcid: str) -> bool:
+    """Trigger BotDetect reload via JS API or reload link, wait for new VCID.
+
+    Returns True when the new captcha is fully loaded and ready.
+    """
+    try:
+        triggered = page.evaluate(
+            """() => {
+              const ct = document.querySelector('#CaptchaText');
+              if (ct && ct.Captcha && typeof ct.Captcha.reloadImage === 'function') {
+                ct.Captcha.reloadImage();
+                return 'api';
+              }
+              const link = document.querySelector('#Captcha_ReloadLink');
+              if (link) { link.click(); return 'link'; }
+              return null;
+            }"""
+        )
+        if not triggered:
+            return False
+    except Exception:
+        return False
+
+    try:
+        page.wait_for_function(
+            f"""() => {{
+              const ct = document.querySelector('#CaptchaText');
+              const vcid = document.querySelector('#BDC_VCID_Captcha');
+              const img = document.querySelector('#Captcha_CaptchaImage');
+              if (!ct || !vcid || !img) return false;
+              if (ct.disabled) return false;
+              if (vcid.value === '{old_vcid}') return false;
+              if (!img.complete || img.naturalWidth === 0) return false;
+              if (typeof ct.Captcha === 'undefined') return false;
+              return true;
+            }}""",
+            timeout=15000,
+        )
+        return True
+    except Exception:
+        return False
+
+
+def wait_botdetect_ready(page: Page, settle_ms: int = 150) -> None:
+    try:
+        page.wait_for_selector("#Captcha_CaptchaImage", timeout=15000)
+        # Wait for the image to be visible with non-zero size AND fully loaded
+        # (img.complete == true).  BotDetect's script-include attaches an onload
+        # listener and removes the disabled attribute from #CaptchaText only after
+        # the image fires its load event.  Checking offsetWidth > 0 alone is not
+        # enough — the element can be visible before the pixel data has arrived.
+        page.wait_for_function(
+            """() => {
+              const img = document.querySelector('#Captcha_CaptchaImage');
+              if (!img) return false;
+              if (getComputedStyle(img).visibility === 'hidden' || img.offsetWidth === 0) return false;
+              if (!img.complete || img.naturalWidth === 0) return false;
+              const ct = document.querySelector('#CaptchaText');
+              if (!ct || ct.disabled) return false;
+              // BotDetect's script-include attaches .Captcha to the input element
+              // only after its oninput/onkeyup Hs listener is fully registered.
+              // Without this check, attempt 1 types before the listener is wired
+              // and BDC_Hs_Captcha stays at the empty-string initial value.
+              if (typeof ct.Captcha === 'undefined') return false;
+              return true;
+            }""",
+            timeout=20000,
+        )
+    except Exception:
+        pass
+    if settle_ms > 0:
+        try:
+            page.wait_for_timeout(settle_ms)
+        except Exception:
+            pass
+
+
+def fetch_captcha_with_parallel_prefetch(
+    *,
+    page: Page,
+    context: BrowserContext,
+    fresh: FreshFields,
+    session_cookie: str,
+    settle_ms: int,
+    run_id: str = "",
+    attempt: int = 0,
+) -> Tuple[bytes, bytes, str, Dict[str, float]]:
+    """Fetch captcha with optional parallel URL prefetch while waiting BotDetect readiness."""
+    timings: Dict[str, float] = {}
+    site_captcha_png = b""
+    future: Optional[Future[bytes]] = None
+    if captcha_parallel_fetch_enabled():
+        t_fetch = time.perf_counter()
+        future = _get_captcha_fetch_executor().submit(
+            fetch_captcha_bytes, context, fresh.captcha_image_url, session_cookie
+        )
+        timings["captchaParallelFetchMsScheduled"] = (time.perf_counter() - t_fetch) * 1000
+
+    t_wait = time.perf_counter()
+    wait_botdetect_ready(page, settle_ms=settle_ms)
+    timings["captchaParallelWaitMs"] = (time.perf_counter() - t_wait) * 1000
+
+    if future is not None:
+        try:
+            t_join = time.perf_counter()
+            fetched = future.result(timeout=max(0.1, captcha_parallel_timeout_ms() / 1000.0))
+            timings["captchaParallelFetchMs"] = (time.perf_counter() - t_join) * 1000
+            if page.locator("#Captcha_CaptchaImage").count():
+                site_captcha_png = page.locator("#Captcha_CaptchaImage").first.screenshot(type="png")
+            return fetched, site_captcha_png, "parallel_url_fetch", timings
+        except FutureTimeoutError:
+            if run_id:
+                dlog(
+                    run_id,
+                    "H_captcha_source",
+                    "app.py:fetch_captcha_with_parallel_prefetch",
+                    "parallel_fetch_timeout_fallback_dom",
+                    {"attempt": attempt, "timeoutMs": captcha_parallel_timeout_ms()},
+                )
+        except Exception as exc:
+            if run_id:
+                dlog(
+                    run_id,
+                    "H_captcha_source",
+                    "app.py:fetch_captcha_with_parallel_prefetch",
+                    "parallel_fetch_failed_fallback_dom",
+                    {"attempt": attempt, "error": str(exc)[:180]},
+                )
+
+    try:
+        if page.locator("#Captcha_CaptchaImage").count():
+            site_captcha_png = page.locator("#Captcha_CaptchaImage").first.screenshot(type="png")
+        return capture_captcha_bytes_from_dom(page), site_captcha_png, "dom_screenshot", timings
+    except Exception as dom_exc:
+        if run_id:
+            dlog(
+                run_id,
+                "H_captcha_source",
+                "app.py:fetch_captcha_with_parallel_prefetch",
+                "dom_capture_failed_fallback_url",
+                {"attempt": attempt, "error": str(dom_exc)[:180]},
+            )
+        return (
+            fetch_captcha_bytes(context, fresh.captcha_image_url, session_cookie),
+            site_captcha_png,
+            "url_fetch_fallback",
+            timings,
+        )
 
 
 def _call_gemini_generate(model: str, api_key: str, payload: Dict[str, Any], timeout: int = 45) -> requests.Response:
@@ -1531,8 +1910,13 @@ def _wait_load_settle(page: Page, dom_timeout_ms: Optional[int] = None) -> None:
 
 
 def _captcha_keystroke_delay_ms() -> int:
+    # A floor of 20 ms per keystroke gives BotDetect's oninput/onkeyup handlers time
+    # to fire and update BDC_Hs_Captcha between characters.  Zero-delay bursts can
+    # cause the JS event queue to batch all events and compute a hash for an empty
+    # string instead of the final typed value.
+    _CAPTCHA_KEYSTROKE_MIN_MS = 20
     try:
-        return max(0, int(os.getenv("CAPTCHA_KEYSTROKE_DELAY_MS", "35")))
+        return max(_CAPTCHA_KEYSTROKE_MIN_MS, int(os.getenv("CAPTCHA_KEYSTROKE_DELAY_MS", "35")))
     except (TypeError, ValueError):
         return 35
 
@@ -1542,7 +1926,9 @@ def _fill_captcha_text_like_user(page: Page, captcha_text: str) -> None:
     loc = page.locator("#CaptchaText").first
     loc.click(timeout=captcha_field_click_ms())
     loc.fill("")
-    text = captcha_text or ""
+    # BotDetect's Hs is HMAC(key, typed_text.toUpperCase()). Always type uppercase
+    # so the submitted CaptchaText and the Hs hash are computed from the same case.
+    text = (captcha_text or "").upper()
     delay = _captcha_keystroke_delay_ms()
     try:
         loc.press_sequentially(text, delay=delay)
@@ -2967,47 +3353,33 @@ def run_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
     run_dir = ARTIFACTS_DIR / run_id
     run_dir.mkdir(parents=True, exist_ok=True)
 
-    with sync_playwright() as p:
-        browser = None
-        context = None
-        page = None
-        recorder = None
-        video_dir = None
-        artifacts: Dict[str, Any] = {"runId": run_id}
-        result: Dict[str, Any] = {}
+    artifacts: Dict[str, Any] = {"runId": run_id}
+    result: Dict[str, Any] = {}
+    video_dir: Optional[Path] = None
+    timings_ms: Dict[str, float] = {}
+    parallel_used_any = False
 
-        try:
-            try:
-                slow_mo = max(0, int(os.getenv("PLAYWRIGHT_SLOW_MO", "80")))
-            except (TypeError, ValueError):
-                slow_mo = 80
-            headless = playwright_headless()
-            browser = p.chromium.launch(
-                headless=headless,
-                slow_mo=slow_mo,
-                args=["--disable-dev-shm-usage", "--disable-gpu"],
-            )
+    try:
+        with open_booking_page(
+            run_id=run_id,
+            run_dir=run_dir,
+            capture_artifacts=capture_artifacts,
+            ignore_https_errors=True,
+        ) as (context, page, video_dir, runtime_meta):
             dlog(
                 run_id,
                 "H_config",
                 "app.py:run_booking_flow",
                 "playwright_launch",
-                {"headless": headless, "slowMo": slow_mo},
+                {
+                    "headless": runtime_meta.get("headless"),
+                    "slowMo": runtime_meta.get("slowMo"),
+                    "reusedBrowser": runtime_meta.get("reused"),
+                    "runtimeRuns": runtime_meta.get("runtimeRuns"),
+                    "runtimeAgeSec": runtime_meta.get("runtimeAgeSec"),
+                },
             )
-            if capture_artifacts:
-                video_dir = run_dir / "video"
-                video_dir.mkdir(parents=True, exist_ok=True)
-                context = browser.new_context(
-                    ignore_https_errors=True,
-                    record_video_dir=str(video_dir),
-                    record_video_size={"width": 1280, "height": 720},
-                )
-            else:
-                context = browser.new_context(ignore_https_errors=True)
-
-            _configure_playwright_context(context)
             set_context_cookies(context, payload["sessionCookie"])
-            page = context.new_page()
 
             # #region agent log
             def _log_submit_request(req) -> None:
@@ -3220,25 +3592,21 @@ def run_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
                     },
                 )
 
-                # Primary source: screenshot from live DOM image to avoid any transfer mismatch.
-                captcha_source = "dom_screenshot"
-                try:
-                    site_captcha_png = b""
-                    if page.locator("#Captcha_CaptchaImage").count():
-                        site_captcha_png = page.locator("#Captcha_CaptchaImage").first.screenshot(type="png")
-                    captcha_bytes = capture_captcha_bytes_from_dom(page)
-                except Exception as dom_exc:
-                    # Fallback: direct endpoint fetch using fresh VCID.
-                    captcha_source = "url_fetch_fallback"
-                    dlog(
-                        run_id,
-                        "H_captcha_source",
-                        "app.py:run_booking_flow",
-                        "dom_capture_failed",
-                        {"attempt": attempt, "error": str(dom_exc)[:180]},
-                    )
-                    captcha_bytes = fetch_captcha_bytes(context, fresh.captcha_image_url, payload["sessionCookie"])
-                    site_captcha_png = b""
+                captcha_bytes, site_captcha_png, captcha_source, parallel_timings = fetch_captcha_with_parallel_prefetch(
+                    page=page,
+                    context=context,
+                    fresh=fresh,
+                    session_cookie=payload["sessionCookie"],
+                    settle_ms=_env_int("BOTDETECT_SETTLE_MS", 150, minimum=0),
+                    run_id=run_id,
+                    attempt=attempt,
+                )
+                timings_ms[f"captchaParallelWaitMs_attempt{attempt}"] = parallel_timings.get(
+                    "captchaParallelWaitMs", 0.0
+                )
+                if "captchaParallelFetchMs" in parallel_timings:
+                    timings_ms[f"captchaParallelFetchMs_attempt{attempt}"] = parallel_timings["captchaParallelFetchMs"]
+                parallel_used_any = parallel_used_any or (captcha_source == "parallel_url_fetch")
 
                 dlog(
                     run_id,
@@ -3251,6 +3619,9 @@ def run_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
                         "captchaUrlTail": fresh.captcha_image_url[-32:],
                         "vcidTail": fresh.bdc_vcid[-8:] if fresh.bdc_vcid else "",
                         "bytes": len(captcha_bytes),
+                        "parallelUsed": captcha_source == "parallel_url_fetch",
+                        "parallelWaitMs": round(parallel_timings.get("captchaParallelWaitMs", 0.0), 1),
+                        "parallelFetchMs": round(parallel_timings.get("captchaParallelFetchMs", 0.0), 1),
                     },
                 )
                 captcha_text = solve_captcha(
@@ -3503,49 +3874,17 @@ def run_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
                         "manual_review_failed",
                         {"error": str(exc)[:200]},
                     )
-            # Flush video to disk before responding
-            try:
-                if page:
-                    try:
-                        page.close()
-                    except Exception:
-                        pass
-            finally:
-                try:
-                    if context:
-                        context.close()
-                except Exception:
-                    pass
-                try:
-                    if browser:
-                        browser.close()
-                except Exception:
-                    pass
-
             if capture_artifacts and video_dir:
                 videos = sorted(str(p) for p in video_dir.glob("*.webm"))
                 if videos:
                     artifacts["videos"] = videos
 
             return_payload = {**result, "runId": run_id}
+            if timings_ms:
+                return_payload["timingsMs"] = timings_ms
+            return_payload["captchaParallelUsed"] = parallel_used_any
             if capture_artifacts:
                 return_payload["artifacts"] = artifacts
             return return_payload
-        except Exception:
-            # Best-effort shutdown on unexpected exceptions
-            try:
-                if page:
-                    page.close()
-            except Exception:
-                pass
-            try:
-                if context:
-                    context.close()
-            except Exception:
-                pass
-            try:
-                if browser:
-                    browser.close()
-            except Exception:
-                pass
-            raise
+    except Exception:
+        raise

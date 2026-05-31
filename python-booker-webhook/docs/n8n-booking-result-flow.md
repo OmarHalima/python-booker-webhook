@@ -140,6 +140,39 @@ Deploy **latest `app.py`** on the VPS and restart uvicorn so `ALREADY_BOOKED` / 
 
 ---
 
+## 7. Production checklist (n8n + VPS)
+
+### VPS (python booker)
+
+| Item | Value |
+|------|-------|
+| Endpoint | `POST /webhook/booker` (turbo v2) |
+| `CAPTCHA_PARALLEL_FETCH` | **`false`** — DOM screenshot only |
+| `CAPTCHA_SOLVER` | `ocr_with_gemini_fallback` |
+| `CAPTCHA_OCR_BASE_URL` | Your OCR `/predict` service |
+| `GEMINI_API_KEY` | Fallback when OCR fails |
+| `BOOKING_USE_GLOBAL_LOCK` | `true` for serial n8n booking |
+| Restart | `uvicorn app:app --host 0.0.0.0 --port 8000` after `.env` changes |
+
+Regression: `python scripts/compare_captcha_fetch.py` — expect DOM ≠ URL (0/5) until Option B is implemented.
+
+### n8n workflow
+
+Tracked export: [`workflows/booker.json`](../workflows/booker.json) (import in n8n UI).
+
+| HTTP Request node | Setting |
+|-------------------|---------|
+| URL | Your ngrok/VPS `.../webhook/booker` |
+| Timeout | **300000** ms |
+| Body | `useSchedulerPost`, `submitMode: browser`, `runId: $execution.id`, `captureArtifacts: true` |
+| Retry | `retryOnFail: true`, 2 tries, 60s wait (503 busy) |
+
+### Kairo vs Kopenhagen
+
+Same code path — only payload fields change. Scanner and booker must share `Office`, `CalendarId`, and `sessionCookie`. See [TESTING_KOPENHAGEN.md](./TESTING_KOPENHAGEN.md).
+
+---
+
 ## 5. Before / after (why Telegram showed CAPTCHA)
 
 | Scenario | Old n8n + old booker | Now |

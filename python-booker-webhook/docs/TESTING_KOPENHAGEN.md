@@ -52,17 +52,24 @@ Historical Kairo sample: `docs/turbo-booker-archive/test-payloads/curl-test-payl
 
 No code change required — only payload constants.
 
-## What we validated on KOPENHAGEN (2026-05-30)
+## What we validated on KOPENHAGEN (2026-05-30 → 2026-05-31)
 
 | Item | Result |
 |------|--------|
-| Turbo v2 (`/webhook/booker`) | **SUCCESS** ~4–11s per slot |
+| Turbo v2 (`/webhook/booker`) | **SUCCESS** ~6.4s best (attempt 1), ~6–12s typical |
 | Legacy (`/webhook/booker-legacy`) | **SUCCESS** ~26s |
 | Slot mismatch fix (`useSchedulerPost`) | Correct `StartTime` vs `currentSlot` |
-| Serial 3-slot chain | Stable; OCR is main failure mode |
-| Gemini on captcha attempts 4–5 | Recovers some OCR failures |
+| Warm browser reuse (`PLAYWRIGHT_REUSE_BROWSER=true`) | Working — saves ~2s launch overhead on retries |
+| DOM captcha screenshot (`CAPTCHA_PARALLEL_FETCH=false`) | **Required** — URL fetch can return wrong image for session |
+| Parallel URL fetch (`CAPTCHA_PARALLEL_FETCH=true`) | **CAPTCHA_FAIL** — solver reads different bytes than browser |
+| Gemini-first solver | Default; **SUCCESS attempt 1** in 6.4s with DOM screenshot |
+| OCR-first + Gemini fallback | Production default (`CAPTCHA_SOLVER=ocr_with_gemini_fallback`); **SUCCESS ~5.8s** |
 | HTTP-only turbo (`submitMode: http`) | **CAPTCHA_FAIL** — use browser mode |
+| OCR-only on hard BotDetect styles | **CAPTCHA_FAIL 5/5** — use Gemini-first |
+| Style-gate assessment | Logs `easy`/`hard`; reload loop unreliable — use `CAPTCHA_MAX_STYLE_RELOADS=0` |
+| `BDC_Hs_Captcha` race fix (attempt 1) | Fixed — `typeof ct.Captcha !== 'undefined'` ensures JS is wired |
 
+Full captcha investigation findings: [CAPTCHA_INVESTIGATION.md](./CAPTCHA_INVESTIGATION.md).  
 Full history: [turbo-booker-archive/README.md](turbo-booker-archive/README.md).
 
 ## Commands (test office)

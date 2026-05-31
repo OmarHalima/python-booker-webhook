@@ -38,6 +38,56 @@ def captcha_ocr_timeout() -> int:
         return 30
 
 
+def captcha_ocr_enhance_enabled() -> bool:
+    return (os.getenv("CAPTCHA_OCR_ENHANCE", "true") or "").strip().lower() in (
+        "1",
+        "true",
+        "yes",
+        "on",
+    )
+
+
+def enhance_botdetect_image(img_bytes: bytes) -> bytes:
+    """Grayscale, upscale, CLAHE, Otsu threshold, morph open — improves BotDetect OCR.
+
+    BotDetect serves multiple captcha styles: some have dark backgrounds (~mean < 127)
+    and lighter text, others have light/white backgrounds (~mean >= 127) with darker text.
+    THRESH_BINARY_INV is correct for dark backgrounds (background→white, text→black).
+    THRESH_BINARY is correct for light backgrounds (background→white, text→black).
+    Both produce the canonical black-text-on-white-background that OCR models expect.
+    Using the wrong direction inverts the output and degrades accuracy significantly.
+    """
+    import cv2
+    import numpy as np
+
+    arr = np.frombuffer(img_bytes, np.uint8)
+    img = cv2.imdecode(arr, cv2.IMREAD_GRAYSCALE)
+    if img is None:
+        return img_bytes
+    h, w = img.shape
+    if h < 48:
+        scale = 48 // h + 1
+        img = cv2.resize(img, (w * scale, h * scale), interpolation=cv2.INTER_CUBIC)
+    # Reduce clipLimit and widen tileGridSize to avoid over-amplifying background noise.
+    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 4))
+    img = clahe.apply(img)
+    # Choose threshold direction so the result is always black text on white background.
+    # Dark-background captcha: BINARY_INV maps dark bg→white and lighter text→black.
+    # Light-background captcha: BINARY maps light bg→white and darker text→black.
+    pre_thresh_mean = float(img.mean())
+    if pre_thresh_mean < 127:
+        thresh_flag = cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU
+    else:
+        thresh_flag = cv2.THRESH_BINARY + cv2.THRESH_OTSU
+    _, img = cv2.threshold(img, 0, 255, thresh_flag)
+    kernel = np.ones((2, 2), np.uint8)
+    img = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
+    ok, buf = cv2.imencode(".png", img)
+    if not ok:
+        return img_bytes
+    return buf.tobytes()
+
+
 def parse_ocr_response(body: Any) -> str:
     if not isinstance(body, dict):
         raise ValueError(f"OCR response is not a JSON object: {type(body).__name__}")
@@ -87,6 +137,7 @@ def solve_captcha_bytes_with_ocr(
     root = (base_url or captcha_ocr_base_url()).strip().rstrip("/")
     if not root:
         raise ValueError("CAPTCHA_OCR_BASE_URL is missing.")
-    data = predict_file(root, image_bytes, timeout=timeout)
+    ocr_bytes = enhance_botdetect_image(image_bytes) if captcha_ocr_enhance_enabled() else image_bytes
+    data = predict_file(root, ocr_bytes, timeout=timeout)
     raw = parse_ocr_response(data)
     return validate_captcha_text(raw, source="OCR")
