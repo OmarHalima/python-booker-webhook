@@ -3,7 +3,6 @@ import os
 import re
 import threading
 import uuid
-from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 from contextlib import contextmanager
 
 try:
@@ -367,148 +366,7 @@ def choose_appointment_wait_ms() -> int:
     return _env_int("CHOOSE_APPOINTMENT_WAIT_MS", 60000, minimum=1000)
 
 
-def scheduler_post_timeout_ms() -> int:
-    return _env_int("SCHEDULER_POST_TIMEOUT_MS", 90000, minimum=10000)
-
-
-def scheduler_post_retries() -> int:
-    return _env_int("SCHEDULER_POST_RETRIES", 3, minimum=1)
-
-
-def scheduler_post_retry_delay_ms() -> int:
-    return _env_int("SCHEDULER_POST_RETRY_DELAY_MS", 2000, minimum=0)
-
-
-def scheduler_post_client() -> str:
-    """requests = same HTTP stack as n8n (default). playwright = APIRequestContext."""
-    return (os.getenv("SCHEDULER_POST_CLIENT") or "requests").strip().lower()
-
-
-def _scheduler_post_headers_and_form(payload: Dict[str, Any]) -> Tuple[Dict[str, str], Dict[str, str]]:
-    referer = str(
-        payload.get("schedulerReferer")
-        or f"{APPOINTMENT_ORIGIN}/?fromSpecificInfo=True"
-    )
-    headers = {
-        "Cookie": payload["sessionCookie"],
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Origin": APPOINTMENT_ORIGIN,
-        "Referer": referer,
-        "User-Agent": payload.get(
-            "userAgent",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        ),
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.9",
-    }
-    person_count = str(payload.get("PersonCount") or "1").strip() or "1"
-    form = {
-        "Language": payload["Language"],
-        "Office": payload["Office"],
-        "CalendarId": str(payload["CalendarId"]),
-        "PersonCount": person_count,
-        "Monday": payload["currentMonday"],
-        "Start": payload["currentSlot"],
-        "Command": "Next",
-    }
-    return headers, form
-
-
-def _session_cookie_from_requests(session: requests.Session, base_cookie: str) -> str:
-    pairs = parse_cookie_header(base_cookie)
-    for cookie in session.cookies:
-        if cookie.domain and "bmeia.gv.at" not in cookie.domain:
-            continue
-        pairs[cookie.name] = cookie.value
-    return "; ".join(f"{k}={v}" for k, v in pairs.items())
-
-
-def post_select_slot_via_requests(payload: Dict[str, Any], run_id: str = "") -> Tuple[str, str]:
-    """POST Scheduler with requests (same as n8n). Returns (html, updated Cookie header)."""
-    headers, form = _scheduler_post_headers_and_form(payload)
-    timeout_sec = scheduler_post_timeout_ms() / 1000.0
-    session = requests.Session()
-    for name, value in parse_cookie_header(payload["sessionCookie"]).items():
-        session.cookies.set(name, value, domain="appointment.bmeia.gv.at", path="/")
-
-    if run_id:
-        dlog(
-            run_id,
-            "H_scheduler",
-            "booker_legacy:post_select_slot_via_requests",
-            "scheduler_post_start",
-            {
-                "timeoutSec": timeout_sec,
-                "office": form.get("Office"),
-                "monday": form.get("Monday"),
-                "start": form.get("Start"),
-            },
-        )
-
-    resp = session.post(
-        SCHEDULER_URL,
-        data=form,
-        headers=headers,
-        timeout=timeout_sec,
-        allow_redirects=True,
-    )
-    if not resp.ok:
-        raise ValueError(f"POST Select Slot failed: {resp.status_code} {resp.text[:300]}")
-
-    set_cookie_raw = resp.headers.get("Set-Cookie") or ""
-    updated_cookie = merge_session_cookie_from_set_cookie(payload["sessionCookie"], set_cookie_raw)
-    updated_cookie = _session_cookie_from_requests(session, updated_cookie)
-    payload["sessionCookie"] = updated_cookie
-
-    if run_id:
-        dlog(
-            run_id,
-            "H_scheduler",
-            "booker_legacy:post_select_slot_via_requests",
-            "scheduler_post_ok",
-            {"status": resp.status_code, "htmlLen": len(resp.text or ""), "client": "requests"},
-        )
-    return resp.text, updated_cookie
-
-
-def post_select_slot_playwright(
-    context: BrowserContext, payload: Dict[str, Any], run_id: str = ""
-) -> str:
-    headers, form = _scheduler_post_headers_and_form(payload)
-    timeout_ms = scheduler_post_timeout_ms()
-    if run_id:
-        dlog(
-            run_id,
-            "H_scheduler",
-            "booker_legacy:post_select_slot_playwright",
-            "scheduler_post_start",
-            {
-                "timeoutMs": timeout_ms,
-                "office": form.get("Office"),
-                "monday": form.get("Monday"),
-                "start": form.get("Start"),
-                "client": "playwright",
-            },
-        )
-    response = context.request.post(
-        SCHEDULER_URL,
-        headers=headers,
-        form=form,
-        timeout=timeout_ms,
-    )
-    if not response.ok:
-        raise ValueError(f"POST Select Slot failed: {response.status} {response.status_text}")
-    if run_id:
-        dlog(
-            run_id,
-            "H_scheduler",
-            "booker_legacy:post_select_slot_playwright",
-            "scheduler_post_ok",
-            {"status": response.status, "client": "playwright"},
-        )
-    return response.text()
-
-
+def start_radios_wait_ms() -> int:
     return _env_int("START_RADIOS_WAIT_MS", 25000, minimum=1000)
 
 
@@ -518,87 +376,6 @@ def submit_next_click_ms() -> int:
 
 def submit_next_navigation_ms() -> int:
     return _env_int("SUBMIT_NEXT_NAVIGATION_MS", 45000, minimum=1000)
-
-
-def captcha_fetch_timeout_ms() -> int:
-    return _env_int("CAPTCHA_FETCH_TIMEOUT_MS", 2000, minimum=500)
-
-
-def booking_max_seconds() -> float:
-    try:
-        return max(3.0, float(os.getenv("BOOKING_MAX_SECONDS", "5")))
-    except (TypeError, ValueError):
-        return 5.0
-
-
-def turbo_captcha_solver_mode() -> str:
-    """Turbo captcha: race (OCR+Gemini parallel, default), ocr, gemini, or legacy fallback chain."""
-    return (os.getenv("TURBO_CAPTCHA_SOLVER") or "race").strip().lower()
-
-
-def turbo_captcha_race_timeout_sec() -> float:
-    try:
-        return max(1.0, float(os.getenv("TURBO_CAPTCHA_RACE_TIMEOUT_SEC", "4")))
-    except (TypeError, ValueError):
-        return 4.0
-
-
-def turbo_gemini_timeout_sec() -> int:
-    return _env_int("TURBO_GEMINI_TIMEOUT_SEC", 6, minimum=2)
-
-
-def turbo_ocr_timeout_sec() -> int:
-    return _env_int("TURBO_OCR_TIMEOUT_SEC", 4, minimum=2)
-
-
-def turbo_captcha_client_ready_ms() -> int:
-    return _env_int("TURBO_CAPTCHA_CLIENT_READY_MS", 250, minimum=80)
-
-
-def turbo_captcha_post_fill_ms() -> int:
-    return _env_int("TURBO_CAPTCHA_POST_FILL_MS", 80, minimum=0)
-
-
-def turbo_playwright_action_ms() -> int:
-    """Max per Playwright action during turbo submit-only step."""
-    return _env_int("TURBO_PLAYWRIGHT_ACTION_MS", 2500, minimum=500)
-
-
-def turbo_submit_nav_ms() -> int:
-    return _env_int("TURBO_SUBMIT_NAV_MS", 2500, minimum=500)
-
-
-class BookingTimeoutError(TimeoutError):
-    """Raised when BOOKING_MAX_SECONDS budget is exceeded."""
-
-
-class BookingDeadline:
-    def __init__(self, max_seconds: float) -> None:
-        self.max_seconds = max_seconds
-        self._deadline = time.perf_counter() + max_seconds
-
-    @classmethod
-    def from_payload(cls, payload: Dict[str, Any]) -> "BookingDeadline":
-        raw = payload.get("bookingMaxSeconds", payload.get("maxBookingSeconds"))
-        if raw not in (None, ""):
-            try:
-                return cls(max(3.0, float(raw)))
-            except (TypeError, ValueError):
-                pass
-        return cls(booking_max_seconds())
-
-    def remaining_ms(self) -> int:
-        return max(0, int((self._deadline - time.perf_counter()) * 1000))
-
-    def elapsed_ms(self) -> float:
-        return max(0.0, (self.max_seconds * 1000) - self.remaining_ms())
-
-    def check(self, stage: str = "") -> None:
-        if self.remaining_ms() <= 0:
-            msg = f"Booking deadline exceeded ({self.max_seconds}s)"
-            if stage:
-                msg = f"{msg} at {stage}"
-            raise BookingTimeoutError(msg)
 
 
 def captcha_field_click_ms() -> int:
@@ -764,140 +541,56 @@ def _has_selector(page: Page, selector: str) -> bool:
         return False
 
 
-def post_select_slot(context: BrowserContext, payload: Dict[str, Any], run_id: str = "") -> str:
-    """POST /HomeWeb/Scheduler — uses requests by default (never Playwright unless env forces it)."""
-    return fetch_scheduler_capture_html(payload, run_id=run_id, context=context)
+def post_select_slot(context: BrowserContext, payload: Dict[str, Any]) -> str:
+    referer = str(
+        payload.get("schedulerReferer")
+        or f"{APPOINTMENT_ORIGIN}/?fromSpecificInfo=True"
+    )
+    headers = {
+        "Cookie": payload["sessionCookie"],
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Origin": APPOINTMENT_ORIGIN,
+        "Referer": referer,
+        "User-Agent": payload.get(
+            "userAgent",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        ),
+    }
+    form = {
+        "Language": payload["Language"],
+        "Office": payload["Office"],
+        "CalendarId": str(payload["CalendarId"]),
+        "PersonCount": "1",
+        "Monday": payload["currentMonday"],
+        "Start": payload["currentSlot"],
+        "Command": "Next",
+    }
 
-
-def fetch_scheduler_capture_html(
-    payload: Dict[str, Any],
-    *,
-    run_id: str = "",
-    context: Optional[BrowserContext] = None,
-) -> str:
-    """
-    POST /HomeWeb/Scheduler with Monday+Start; return capture HTML.
-    Default: Python requests (same stack as n8n). Playwright API only if SCHEDULER_POST_CLIENT=playwright.
-    """
-    if scheduler_post_client() == "playwright":
-        if context is None:
-            raise ValueError("Playwright scheduler client requires BrowserContext.")
-        return post_select_slot_playwright(context, payload, run_id=run_id)
-
-    max_attempts = scheduler_post_retries()
-    retry_delay_ms = scheduler_post_retry_delay_ms()
-    last_exc: Optional[Exception] = None
-
-    for attempt in range(1, max_attempts + 1):
-        try:
-            html, updated_cookie = post_select_slot_via_requests(payload, run_id=run_id)
-            if context is not None:
-                set_context_cookies(context, updated_cookie)
-            return html
-        except Exception as exc:
-            last_exc = exc
-            msg = str(exc)
-            transient = any(
-                token in msg
-                for token in (
-                    "ETIMEDOUT",
-                    "Timeout",
-                    "timeout",
-                    "ECONNRESET",
-                    "ENOTFOUND",
-                    "ECONNREFUSED",
-                    "Read timed out",
-                )
-            )
-            if run_id:
-                dlog(
-                    run_id,
-                    "H_scheduler",
-                    "booker_legacy:fetch_scheduler_capture_html",
-                    "scheduler_post_error",
-                    {
-                        "attempt": attempt,
-                        "client": "requests",
-                        "transient": transient,
-                        "error": msg[:400],
-                    },
-                )
-            if transient and attempt < max_attempts:
-                if retry_delay_ms > 0:
-                    time.sleep(retry_delay_ms / 1000.0)
-                continue
-            break
-
-    raise ValueError(
-        f"Scheduler POST to {SCHEDULER_URL} failed after {max_attempts} attempt(s) "
-        f"(client=requests): {last_exc}"
-    ) from last_exc
+    response = context.request.post(SCHEDULER_URL, headers=headers, form=form)
+    if not response.ok:
+        raise ValueError(f"POST Select Slot failed: {response.status} {response.status_text}")
+    return response.text()
 
 
 def fetch_captcha_bytes(context: BrowserContext, url: str, session_cookie: str) -> bytes:
-    """Fetch captcha PNG — requests first (fast); Playwright API fallback."""
-    try:
-        return fetch_captcha_bytes_http(url, session_cookie)
-    except Exception:
-        ms = captcha_fetch_timeout_ms()
-        response = context.request.get(
-            url,
-            headers={
-                "Cookie": session_cookie,
-                "Referer": SCHEDULER_URL,
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-            },
-            timeout=ms,
-        )
-        if not response.ok:
-            raise ValueError(f"Captcha download failed: {response.status} {response.status_text}")
-        return response.body()
-
-
-def fetch_captcha_bytes_http(
-    url: str,
-    session_cookie: str,
-    *,
-    timeout_ms: Optional[int] = None,
-) -> bytes:
-    timeout_sec = (timeout_ms or captcha_fetch_timeout_ms()) / 1000.0
-    resp = requests.get(
+    response = context.request.get(
         url,
         headers={
             "Cookie": session_cookie,
             "Referer": SCHEDULER_URL,
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-            "Accept": "image/png,image/*,*/*",
         },
-        timeout=timeout_sec,
     )
-    if not resp.ok:
-        raise ValueError(f"Captcha download failed: {resp.status_code}")
-    return resp.content
+    if not response.ok:
+        raise ValueError(f"Captcha download failed: {response.status} {response.status_text}")
+    return response.body()
 
-
-def wait_botdetect_captcha_ready(page: Page, run_id: str = "", timeout_ms: Optional[int] = None) -> None:
-    """Wait briefly for BotDetect captcha image (bounded by CAPTCHA_FETCH_TIMEOUT_MS)."""
-    ms = timeout_ms if timeout_ms is not None else captcha_fetch_timeout_ms()
-    try:
-        page.wait_for_selector("#Captcha_CaptchaImage", timeout=ms)
-        page.wait_for_function(
-            """() => {
-              const img = document.querySelector('#Captcha_CaptchaImage');
-              if (!img) return false;
-              return getComputedStyle(img).visibility !== 'hidden' && img.offsetWidth > 0;
-            }""",
-            timeout=ms,
-        )
-    except Exception:
-        pass
-
-
-def capture_captcha_bytes_from_dom(page: Page, timeout_ms: Optional[int] = None) -> bytes:
-    ms = timeout_ms if timeout_ms is not None else captcha_fetch_timeout_ms()
+def capture_captcha_bytes_from_dom(page: Page) -> bytes:
+    # Capture exactly what is shown in the real browser page.
     img = page.locator("#Captcha_CaptchaImage")
-    img.first.wait_for(state="visible", timeout=ms)
-    return img.first.screenshot(type="png", timeout=ms)
+    if img.count() < 1:
+        raise ValueError("Captcha image element #Captcha_CaptchaImage not found in DOM.")
+    return img.first.screenshot(type="png")
 
 
 def _call_gemini_generate(model: str, api_key: str, payload: Dict[str, Any], timeout: int = 45) -> requests.Response:
@@ -915,124 +608,19 @@ def _extract_captcha_text_from_gemini_json(data: Dict[str, Any]) -> str:
     return normalize_captcha_text(text)
 
 
-_CAPTCHA_LABELED_PATHS: Dict[str, str] = {}
-
-
-def captcha_labeled_image_path(run_id: str, attempt: int) -> Optional[str]:
-    return _CAPTCHA_LABELED_PATHS.get(f"{run_id}:{attempt}")
-
-
 def _captcha_solver_mode() -> str:
     """ocr (default: ocr then gemini fallback), gemini-only, or ocr-only."""
     return (os.getenv("CAPTCHA_SOLVER") or "ocr_with_gemini_fallback").strip().lower()
 
 
-def _resolve_run_artifact_dir(run_id: str) -> Optional[Path]:
-    if not run_id:
-        return None
-    ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
-    turbo_dir = ARTIFACTS_DIR / f"{run_id}-turbo"
-    if turbo_dir.is_dir():
-        return turbo_dir
-    run_dir = ARTIFACTS_DIR / run_id
-    run_dir.mkdir(parents=True, exist_ok=True)
-    return run_dir
-
-
-def _annotate_captcha_png(image_bytes: bytes, answer: str, source: str) -> bytes:
-    """Draw captcha image with model answer in a label bar below."""
-    import io
-
-    from PIL import Image, ImageDraw, ImageFont
-
-    img = Image.open(io.BytesIO(image_bytes)).convert("RGBA")
-    label_h = 32
-    out = Image.new("RGBA", (max(img.width, 120), img.height + label_h), (255, 255, 255, 255))
-    out.paste(img, (0, 0))
-    draw = ImageDraw.Draw(out)
-    label = f"{source}: {answer}"
-    draw.rectangle([0, img.height, out.width, img.height + label_h], fill=(32, 32, 32, 255))
-    try:
-        font = ImageFont.truetype("arial.ttf", 18)
-    except OSError:
-        try:
-            font = ImageFont.truetype("DejaVuSans.ttf", 18)
-        except OSError:
-            font = ImageFont.load_default()
-    draw.text((6, img.height + 6), label, fill=(255, 255, 255, 255), font=font)
-    buf = io.BytesIO()
-    out.convert("RGB").save(buf, format="PNG")
-    return buf.getvalue()
-
-
-def save_captcha_labeled_log(
-    image_bytes: bytes,
-    answer: str,
-    *,
-    run_id: str = "",
-    attempt: int = 0,
-    source: str = "OCR",
-    vcid: str = "",
-    raw_answer: str = "",
-) -> Optional[str]:
-    """Save captcha PNG with model answer drawn on it; return file path."""
-    if not run_id or not image_bytes or not answer:
-        return None
-    run_dir = _resolve_run_artifact_dir(run_id)
-    if not run_dir:
-        return None
-    try:
-        labeled_bytes = _annotate_captcha_png(image_bytes, answer, source)
-        log_dir = run_dir / "captcha-logs"
-        log_dir.mkdir(parents=True, exist_ok=True)
-        safe_source = re.sub(r"[^A-Za-z0-9_-]+", "_", source).strip("_") or "model"
-        path = log_dir / f"attempt_{attempt:02d}_{safe_source}_{answer}.png"
-        path.write_bytes(labeled_bytes)
-        _CAPTCHA_LABELED_PATHS[f"{run_id}:{attempt}"] = str(path)
-        dlog(
-            run_id,
-            "H_captcha_log",
-            "booker_legacy:save_captcha_labeled_log",
-            "captcha_labeled_saved",
-            {
-                "attempt": attempt,
-                "source": source,
-                "captchaText": answer,
-                "captchaRaw": raw_answer or answer,
-                "captchaLabeledImage": str(path),
-                "vcidTail": vcid[-8:] if vcid else "",
-            },
-        )
-        return str(path)
-    except Exception as exc:
-        dlog(
-            run_id,
-            "H_captcha_log",
-            "booker_legacy:save_captcha_labeled_log",
-            "captcha_labeled_save_failed",
-            {
-                "attempt": attempt,
-                "source": source,
-                "captchaText": answer,
-                "error": str(exc)[:200],
-            },
-        )
-        return None
-
-
 def solve_captcha_with_ocr(
-    image_bytes: bytes,
-    run_id: str = "",
-    attempt: int = 0,
-    vcid: str = "",
-    *,
-    timeout: Optional[int] = None,
+    image_bytes: bytes, run_id: str = "", attempt: int = 0, vcid: str = ""
 ) -> str:
     base = captcha_ocr_base_url()
     if not base:
         raise ValueError("CAPTCHA_OCR_BASE_URL is missing.")
 
-    ocr_timeout = timeout if timeout is not None else captcha_ocr_timeout()
+    timeout = captcha_ocr_timeout()
     if run_id:
         dlog(
             run_id,
@@ -1043,13 +631,13 @@ def solve_captcha_with_ocr(
                 "attempt": attempt,
                 "baseUrl": base,
                 "imageBytes": len(image_bytes),
-                "timeout": ocr_timeout,
+                "timeout": timeout,
                 "vcidTail": vcid[-8:] if vcid else "",
             },
         )
 
     try:
-        data = ocr_predict_file(base, image_bytes, timeout=ocr_timeout)
+        data = ocr_predict_file(base, image_bytes, timeout=timeout)
     except requests.RequestException as exc:
         if run_id:
             dlog(
@@ -1072,15 +660,6 @@ def solve_captcha_with_ocr(
 
     raw = parse_ocr_response(data)
     captcha = validate_captcha_text(raw, source="OCR")
-    labeled_path = save_captcha_labeled_log(
-        image_bytes,
-        captcha,
-        run_id=run_id,
-        attempt=attempt,
-        source="OCR",
-        vcid=vcid,
-        raw_answer=str(raw),
-    )
     if run_id:
         dlog(
             run_id,
@@ -1089,11 +668,8 @@ def solve_captcha_with_ocr(
             "ocr_text_parsed",
             {
                 "attempt": attempt,
-                "captchaText": captcha,
-                "captchaRaw": str(raw),
                 "normalizedLen": len(captcha),
                 "isAlnum": captcha.isalnum(),
-                "captchaLabeledImage": labeled_path or "",
             },
         )
     return captcha
@@ -1121,98 +697,7 @@ def solve_captcha(image_bytes: bytes, run_id: str = "", attempt: int = 0, vcid: 
         return solve_captcha_with_gemini(image_bytes, run_id=run_id, attempt=attempt, vcid=vcid)
 
 
-def solve_captcha_turbo(
-    image_bytes: bytes, run_id: str = "", attempt: int = 0, vcid: str = ""
-) -> Tuple[str, str]:
-    """Fast turbo captcha solve — parallel OCR+Gemini race by default."""
-    mode = turbo_captcha_solver_mode()
-    if mode == "gemini":
-        return solve_captcha_with_gemini(
-            image_bytes, run_id=run_id, attempt=attempt, vcid=vcid
-        ), "gemini"
-    if mode == "ocr":
-        return solve_captcha_with_ocr(
-            image_bytes, run_id=run_id, attempt=attempt, vcid=vcid
-        ), "ocr"
-    if mode in ("ocr_with_gemini_fallback", "fallback"):
-        text = solve_captcha(image_bytes, run_id=run_id, attempt=attempt, vcid=vcid)
-        return text, "ocr_or_gemini_fallback"
-
-    return _solve_captcha_race(image_bytes, run_id=run_id, attempt=attempt, vcid=vcid)
-
-
-def _solve_captcha_race(
-    image_bytes: bytes, run_id: str = "", attempt: int = 0, vcid: str = ""
-) -> Tuple[str, str]:
-    """Run OCR and Gemini in parallel; return the first valid answer."""
-    timeout = turbo_captcha_race_timeout_sec()
-    ocr_base = captcha_ocr_base_url()
-    gemini_key = os.getenv("GEMINI_API_KEY", "").strip()
-    tasks: Dict[Any, str] = {}
-
-    def _try_ocr() -> str:
-        return solve_captcha_with_ocr(
-            image_bytes,
-            run_id=run_id,
-            attempt=attempt,
-            vcid=vcid,
-            timeout=turbo_ocr_timeout_sec(),
-        )
-
-    def _try_gemini() -> str:
-        return solve_captcha_with_gemini(
-            image_bytes,
-            run_id=run_id,
-            attempt=attempt,
-            vcid=vcid,
-            timeout=turbo_gemini_timeout_sec(),
-        )
-
-    with ThreadPoolExecutor(max_workers=2) as pool:
-        if ocr_base:
-            tasks[pool.submit(_try_ocr)] = "ocr"
-        if gemini_key:
-            tasks[pool.submit(_try_gemini)] = "gemini"
-        if not tasks:
-            raise ValueError("TURBO captcha race needs CAPTCHA_OCR_BASE_URL and/or GEMINI_API_KEY.")
-
-        done, pending = wait(tasks.keys(), timeout=timeout, return_when=FIRST_COMPLETED)
-        first_error: Optional[Exception] = None
-        for fut in done:
-            source = tasks[fut]
-            try:
-                return fut.result(), f"{source}_race"
-            except Exception as exc:
-                first_error = exc
-                if run_id:
-                    dlog(
-                        run_id,
-                        "H_turbo",
-                        "booker_legacy:_solve_captcha_race",
-                        "captcha_race_candidate_failed",
-                        {"attempt": attempt, "source": source, "error": str(exc)[:200]},
-                    )
-
-        late_budget = max(0.25, timeout * 0.5)
-        for fut in pending:
-            source = tasks[fut]
-            try:
-                return fut.result(timeout=late_budget), f"{source}_race_late"
-            except Exception as exc:
-                if first_error is None:
-                    first_error = exc
-
-        raise ValueError(f"Turbo captcha race failed: {first_error}")
-
-
-def solve_captcha_with_gemini(
-    image_bytes: bytes,
-    run_id: str = "",
-    attempt: int = 0,
-    vcid: str = "",
-    *,
-    timeout: Optional[int] = None,
-) -> str:
+def solve_captcha_with_gemini(image_bytes: bytes, run_id: str = "", attempt: int = 0, vcid: str = "") -> str:
     api_key = os.getenv("GEMINI_API_KEY", "").strip()
     if not api_key:
         raise ValueError("GEMINI_API_KEY is missing.")
@@ -1254,9 +739,7 @@ def solve_captcha_with_gemini(
         ]
     }
 
-    gemini_timeout = timeout if timeout is not None else 45
-
-    resp = _call_gemini_generate(model, api_key, payload, timeout=gemini_timeout)
+    resp = _call_gemini_generate(model, api_key, payload, timeout=45)
     if run_id:
         dlog(
             run_id,
@@ -1273,7 +756,7 @@ def solve_captcha_with_gemini(
 
     # If primary model is rate-limited, immediately try fallback model (if configured).
     if resp.status_code == 429 and fallback_model:
-        resp_fallback = _call_gemini_generate(fallback_model, api_key, payload, timeout=gemini_timeout)
+        resp_fallback = _call_gemini_generate(fallback_model, api_key, payload, timeout=45)
         if run_id:
             dlog(
                 run_id,
@@ -1293,16 +776,8 @@ def solve_captcha_with_gemini(
         raise ValueError(f"Gemini API error {resp.status_code}: {resp.text[:600]}")
 
     data = resp.json()
-    raw_gemini = _extract_captcha_text_from_gemini_json(data)
-    captcha = validate_captcha_text(raw_gemini, source="Gemini")
-    labeled_path = save_captcha_labeled_log(
-        image_bytes,
-        captcha,
-        run_id=run_id,
-        attempt=attempt,
-        source="Gemini",
-        vcid=vcid,
-        raw_answer=raw_gemini,
+    captcha = validate_captcha_text(
+        _extract_captcha_text_from_gemini_json(data), source="Gemini"
     )
     if run_id:
         dlog(
@@ -1312,11 +787,8 @@ def solve_captcha_with_gemini(
             "gemini_text_parsed",
             {
                 "attempt": attempt,
-                "captchaText": captcha,
-                "captchaRaw": raw_gemini,
                 "normalizedLen": len(captcha),
                 "isAlnum": captcha.isalnum(),
-                "captchaLabeledImage": labeled_path or "",
             },
         )
     return captcha
@@ -1624,12 +1096,6 @@ def classify_post_submit_html(html: str) -> Optional[Tuple[str, str]]:
     if "no appointments available" in blob or "keine termine" in blob:
         msg = texts[0] if texts else "No appointments available."
         return ("SLOT_TAKEN", msg)
-
-    if "text from the picture does not match" in blob or (
-        "captcha" in blob and "does not match" in blob
-    ):
-        msg = texts[0] if texts else "Captcha: The text from the picture does not match with your entry."
-        return ("CAPTCHA_FAIL", msg)
 
     return None
 
@@ -2059,342 +1525,18 @@ def _captcha_keystroke_delay_ms() -> int:
         return 35
 
 
-def _captcha_post_fill_settle_ms() -> int:
-    return _env_int("CAPTCHA_POST_FILL_MS", 300, minimum=0)
-
-
-def _captcha_bdc_hs_min_len() -> int:
-    return _env_int("CAPTCHA_BDC_HS_MIN_LEN", 8, minimum=1)
-
-
-def _captcha_client_ready_timeout_ms() -> int:
-    return _env_int("CAPTCHA_CLIENT_READY_MS", 400, minimum=100)
-
-
-def fill_form_fields_js(page: Page, payload: Dict[str, Any]) -> None:
-    """Bulk-fill applicant fields in one JS call (faster than per-field Playwright fill)."""
-    student = payload.get("student") or {}
-    dsgvo_raw: Any = payload.get("dsgvoAccepted", payload.get("DSGVOAccepted", True))
-    if isinstance(dsgvo_raw, str):
-        want_dsgvo = dsgvo_raw.strip().lower() in ("1", "true", "yes", "on")
-    else:
-        want_dsgvo = bool(dsgvo_raw)
-
-    sex_map = {"male": "1", "female": "2", "unknown": "3", "m": "1", "f": "2"}
-    sex_raw = str(student.get("Sex", "")).strip()
-    sex_val = sex_map.get(sex_raw.lower(), sex_raw)
-
-    fields = {
-        "Lastname": student.get("Lastname", ""),
-        "Firstname": student.get("Firstname", ""),
-        "DateOfBirth": student.get("DateOfBirth", ""),
-        "TraveldocumentNumber": student.get("TraveldocumentNumber", ""),
-        "Street": student.get("Street", ""),
-        "Postcode": str(student.get("Postcode", "")),
-        "City": student.get("City", ""),
-        "Telephone": str(student.get("Telephone", "")),
-        "Email": student.get("Email", ""),
-        "LastnameAtBirth": student.get("LastnameAtBirth", ""),
-        "PlaceOfBirth": student.get("PlaceOfBirth", ""),
-        "TraveldocumentDateOfIssue": student.get("TraveldocumentDateOfIssue", ""),
-        "TraveldocumentValidUntil": student.get("TraveldocumentValidUntil", ""),
-        "Sex": sex_val,
-        "Country": str(student.get("Country", "")),
-        "NationalityAtBirth": str(student.get("NationalityAtBirth", "")),
-        "CountryOfBirth": str(student.get("CountryOfBirth", "")),
-        "NationalityForApplication": str(student.get("NationalityForApplication", "")),
-        "TraveldocumentIssuingAuthority": str(student.get("TraveldocumentIssuingAuthority", "")),
-    }
-    page.evaluate(
-        """({fields, dsgvo}) => {
-          for (const [id, value] of Object.entries(fields)) {
-            const el = document.querySelector('#' + id);
-            if (!el || value === '' || value == null) continue;
-            if (el.tagName === 'SELECT') el.value = String(value);
-            else el.value = String(value);
-            el.dispatchEvent(new Event('input', { bubbles: true }));
-            el.dispatchEvent(new Event('change', { bubbles: true }));
-          }
-          if (dsgvo) {
-            const cb = document.querySelector('#DSGVOAccepted[type="checkbox"]');
-            if (cb && !cb.checked) {
-              cb.checked = true;
-              cb.dispatchEvent(new Event('change', { bubbles: true }));
-            }
-          }
-        }""",
-        {"fields": fields, "dsgvo": want_dsgvo},
-    )
-
-
-def _fill_captcha_text_like_user(page: Page, captcha_text: str) -> Dict[str, Any]:
-    """Type captcha with BotDetect-compatible keyboard/input events (Tampermonkey-style)."""
-    text = normalize_captcha_text(captcha_text or "")
+def _fill_captcha_text_like_user(page: Page, captcha_text: str) -> None:
+    """Dispatches keystroke/input events BotDetect/client scripts may depend on."""
     loc = page.locator("#CaptchaText").first
-    loc.click(timeout=min(captcha_field_click_ms(), turbo_playwright_action_ms()))
-    try:
-        result = page.evaluate(
-            """(text) => {
-          const el = document.querySelector('#CaptchaText');
-          if (!el) return { ok: false, reason: 'no_field' };
-          el.focus();
-          el.value = '';
-          const upper = String(text || '').toUpperCase();
-          for (const ch of upper) {
-            for (const type of ['keydown', 'keypress', 'input', 'keyup']) {
-              el.dispatchEvent(
-                new KeyboardEvent(type, { key: ch, bubbles: true, cancelable: true })
-              );
-            }
-            el.value += ch;
-            el.dispatchEvent(new Event('input', { bubbles: true }));
-          }
-          el.dispatchEvent(new Event('change', { bubbles: true }));
-          el.blur();
-          const hs = document.querySelector('#BDC_Hs_Captcha')?.value || '';
-          const vcid = document.querySelector('#BDC_VCID_Captcha')?.value || '';
-          return {
-            ok: true,
-            filled: el.value || '',
-            hsLen: hs.length,
-            hsTail: hs.slice(-8),
-            vcidTail: vcid.slice(-8),
-          };
-        }""",
-            text,
-        )
-        if isinstance(result, dict) and result.get("ok"):
-            return result
-    except Exception:
-        pass
-
+    loc.click(timeout=captcha_field_click_ms())
     loc.fill("")
+    text = captcha_text or ""
     delay = _captcha_keystroke_delay_ms()
     try:
         loc.press_sequentially(text, delay=delay)
     except Exception:
         loc.type(text, delay=delay)
-    loc.evaluate("el => { el.blur(); el.dispatchEvent(new Event('change', { bubbles: true })); }")
-    hs = page.locator("#BDC_Hs_Captcha").first.input_value() if page.locator("#BDC_Hs_Captcha").count() else ""
-    vcid = page.locator("#BDC_VCID_Captcha").first.input_value() if page.locator("#BDC_VCID_Captcha").count() else ""
-    filled = loc.input_value()
-    return {
-        "ok": bool(filled),
-        "filled": filled,
-        "hsLen": len(hs),
-        "hsTail": hs[-8:] if hs else "",
-        "vcidTail": vcid[-8:] if vcid else "",
-        "fallback": True,
-    }
-
-
-def _wait_captcha_client_ready(
-    page: Page,
-    run_id: str = "",
-    attempt: int = 0,
-    *,
-    ready_timeout_ms: Optional[int] = None,
-    settle_ms: Optional[int] = None,
-) -> Dict[str, Any]:
-    """Wait until BotDetect client script populates BDC_Hs after captcha typing."""
-    deadline = time.time() + (
-        (ready_timeout_ms if ready_timeout_ms is not None else _captcha_client_ready_timeout_ms())
-        / 1000.0
-    )
-    min_hs = _captcha_bdc_hs_min_len()
-    last: Dict[str, Any] = {"hsLen": 0, "ready": False}
-    while time.time() < deadline:
-        snap = page.evaluate(
-            """() => {
-          const hs = document.querySelector('#BDC_Hs_Captcha')?.value || '';
-          const vcid = document.querySelector('#BDC_VCID_Captcha')?.value || '';
-          const filled = document.querySelector('#CaptchaText')?.value || '';
-          return {
-            hsLen: hs.length,
-            hsTail: hs.slice(-8),
-            vcidTail: vcid.slice(-8),
-            filledLen: filled.length,
-            filled: filled,
-          };
-        }"""
-        )
-        if isinstance(snap, dict):
-            last = snap
-            if int(snap.get("hsLen") or 0) >= min_hs:
-                last["ready"] = True
-                break
-        page.wait_for_timeout(50)
-    post_fill_ms = settle_ms if settle_ms is not None else _captcha_post_fill_settle_ms()
-    if post_fill_ms > 0:
-        page.wait_for_timeout(post_fill_ms)
-    if run_id:
-        dlog(
-            run_id,
-            "H_captcha_fill",
-            "booker_legacy:_wait_captcha_client_ready",
-            "bdc_hs_ready",
-            {
-                "attempt": attempt,
-                "ready": bool(last.get("ready")),
-                "hsLen": last.get("hsLen"),
-                "hsTail": last.get("hsTail"),
-                "filledLen": last.get("filledLen"),
-            },
-        )
-    return last
-
-
-def verify_captcha_submit_ready(
-    page: Page,
-    expected_text: str,
-    captured_vcid: str,
-    run_id: str = "",
-    attempt: int = 0,
-) -> Tuple[bool, Dict[str, Any]]:
-    """Ensure captcha image/VCID did not rotate between OCR and submit."""
-    expected = normalize_captcha_text(expected_text)
-    snap = page.evaluate(
-        """() => {
-          const hs = document.querySelector('#BDC_Hs_Captcha')?.value || '';
-          const vcid = document.querySelector('#BDC_VCID_Captcha')?.value || '';
-          const filled = document.querySelector('#CaptchaText')?.value || '';
-          const img = document.querySelector('#Captcha_CaptchaImage');
-          const imgSrc = img ? (img.getAttribute('src') || '') : '';
-          return {
-            hsLen: hs.length,
-            hsTail: hs.slice(-8),
-            vcid: vcid,
-            vcidTail: vcid.slice(-8),
-            filled: filled,
-            imgVisible: !!(img && img.offsetWidth > 0),
-            imgSrcTail: imgSrc.slice(-32),
-          };
-        }"""
-    )
-    if not isinstance(snap, dict):
-        snap = {}
-    dom_vcid = str(snap.get("vcid") or "")
-    dom_filled = normalize_captcha_text(str(snap.get("filled") or ""))
-    hs_len = int(snap.get("hsLen") or 0)
-    min_hs = _captcha_bdc_hs_min_len()
-    vcid_ok = bool(captured_vcid) and dom_vcid == captured_vcid
-    text_ok = dom_filled == expected
-    hs_ok = hs_len >= min_hs
-    ok = vcid_ok and text_ok and hs_ok
-    info = {
-        "attempt": attempt,
-        "vcidMatch": vcid_ok,
-        "textMatch": text_ok,
-        "hsOk": hs_ok,
-        "hsLen": hs_len,
-        "hsTail": snap.get("hsTail"),
-        "capturedVcidTail": captured_vcid[-8:] if captured_vcid else "",
-        "domVcidTail": snap.get("vcidTail"),
-        "expectedCaptcha": expected,
-        "domCaptcha": dom_filled,
-        "imgVisible": snap.get("imgVisible"),
-        "imgSrcTail": snap.get("imgSrcTail"),
-    }
-    if run_id:
-        dlog(
-            run_id,
-            "H_captcha_sync",
-            "booker_legacy:verify_captcha_submit_ready",
-            "pre_submit_captcha_check",
-            info,
-        )
-    return ok, info
-
-
-def capture_captcha_bytes_for_solve(
-    page: Page,
-    context: BrowserContext,
-    session_cookie: str,
-    *,
-    run_id: str = "",
-    attempt: int = 0,
-) -> Tuple[bytes, str]:
-    """Fetch captcha PNG within CAPTCHA_FETCH_TIMEOUT_MS (default 2s)."""
-    t0 = time.perf_counter()
-    budget_ms = captcha_fetch_timeout_ms()
-
-    def _remaining_ms() -> int:
-        elapsed = (time.perf_counter() - t0) * 1000
-        return max(100, int(budget_ms - elapsed))
-
-    dom_vcid = ""
-    try:
-        dom_vcid = str(
-            page.evaluate("() => document.querySelector('#BDC_VCID_Captcha')?.value || ''")
-            or ""
-        ).strip()
-    except Exception:
-        pass
-
-    img_src = ""
-    try:
-        img_src = str(
-            page.evaluate(
-                "() => document.querySelector('#Captcha_CaptchaImage')?.getAttribute('src') || ''"
-            )
-            or ""
-        )
-    except Exception:
-        pass
-
-    captcha_bytes: Optional[bytes] = None
-    source = ""
-
-    if dom_vcid:
-        captcha_url = f"{APPOINTMENT_ORIGIN}/BotDetectCaptcha.ashx?get=image&c=Captcha&t={dom_vcid}"
-        try:
-            captcha_bytes = fetch_captcha_bytes_http(
-                captcha_url, session_cookie, timeout_ms=_remaining_ms()
-            )
-            source = "http_vcid"
-        except Exception as http_exc:
-            if run_id:
-                dlog(
-                    run_id,
-                    "H_captcha_fetch",
-                    "booker_legacy:capture_captcha_bytes_for_solve",
-                    "http_fetch_failed_try_dom",
-                    {"attempt": attempt, "error": str(http_exc)[:180]},
-                )
-
-    if captcha_bytes is None:
-        try:
-            captcha_bytes = capture_captcha_bytes_from_dom(page, timeout_ms=_remaining_ms())
-            source = "dom_screenshot"
-        except Exception as dom_exc:
-            if dom_vcid:
-                captcha_url = f"{APPOINTMENT_ORIGIN}/BotDetectCaptcha.ashx?get=image&c=Captcha&t={dom_vcid}"
-                captcha_bytes = fetch_captcha_bytes(context, captcha_url, session_cookie)
-                source = "url_fetch_fallback"
-            else:
-                raise ValueError(
-                    f"Captcha capture failed within {budget_ms}ms: {dom_exc}"
-                ) from dom_exc
-
-    if run_id:
-        dlog(
-            run_id,
-            "H_captcha_fetch",
-            "booker_legacy:capture_captcha_bytes_for_solve",
-            "captcha_image_captured",
-            {
-                "attempt": attempt,
-                "source": source,
-                "bytes": len(captcha_bytes),
-                "fetchMs": round((time.perf_counter() - t0) * 1000, 1),
-                "budgetMs": budget_ms,
-                "vcidTail": dom_vcid[-8:] if dom_vcid else "",
-                "imgSrcTail": img_src[-32:] if img_src else "",
-            },
-        )
-    if not dom_vcid:
-        raise ValueError("Missing live BDC_VCID_Captcha in DOM at captcha capture.")
-    return captcha_bytes, dom_vcid
+    loc.evaluate("el => el.blur()")
 
 
 def _inject_agent_command_next_for_captcha(page: Page) -> bool:
@@ -3270,7 +2412,7 @@ def navigate_to_capture_form_via_scheduler_post(
     Fast path: POST Select Slot (same as n8n) then load capture HTML into the browser.
     Avoids full wizard re-walk that can show a different week when sessionCookie is reused.
     """
-    html = fetch_scheduler_capture_html(payload, run_id=run_id, context=context)
+    html = post_select_slot(context, payload)
     if recorder and run_dir:
         recorder.save_html("scheduler_post_response", html)
 
@@ -4083,11 +3225,7 @@ def run_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
                         "dom_capture_failed",
                         {"attempt": attempt, "error": str(dom_exc)[:180]},
                     )
-                    captcha_bytes = fetch_captcha_bytes(
-                        context,
-                        f"{APPOINTMENT_ORIGIN}/BotDetectCaptcha.ashx?get=image&c=Captcha&t={dom_vcid or fresh.bdc_vcid}",
-                        payload["sessionCookie"],
-                    )
+                    captcha_bytes = fetch_captcha_bytes(context, fresh.captcha_image_url, payload["sessionCookie"])
                     site_captcha_png = b""
 
                 dlog(
@@ -4104,30 +3242,10 @@ def run_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
                     },
                 )
                 captcha_text = solve_captcha(
-                    captcha_bytes,
-                    run_id=run_id,
-                    attempt=attempt,
-                    vcid=dom_vcid or fresh.bdc_vcid,
+                    captcha_bytes, run_id=run_id, attempt=attempt, vcid=fresh.bdc_vcid
                 )
 
                 _fill_captcha_text_like_user(page, captcha_text)
-                _wait_captcha_client_ready(page, run_id=run_id, attempt=attempt)
-                submit_ready, _sync = verify_captcha_submit_ready(
-                    page,
-                    captcha_text,
-                    dom_vcid or fresh.bdc_vcid,
-                    run_id=run_id,
-                    attempt=attempt,
-                )
-                if not submit_ready:
-                    dlog(
-                        run_id,
-                        "H_captcha_sync",
-                        "app.py:run_booking_flow",
-                        "captcha_stale_skip_submit",
-                        {"attempt": attempt, **_sync},
-                    )
-                    continue
                 # #region agent log
                 dom_captcha_after_fill = page.locator("#CaptchaText").first.input_value() if page.locator("#CaptchaText").count() else ""
                 dom_hs_after_fill = page.locator("#BDC_Hs_Captcha").first.input_value() if page.locator("#BDC_Hs_Captcha").count() else ""
@@ -4180,11 +3298,9 @@ def run_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
                     artifacts["captchaArtifacts"].append(
                         {
                             "attempt": attempt,
-                            "captchaText": captcha_text,
                             "onSiteCaptchaImage": on_site_path,
                             "sentToGeminiImage": sent_to_gemini_path,
                             "afterPasteScreenshot": after_paste_path,
-                            "labeledCaptchaImage": captcha_labeled_image_path(run_id, attempt),
                         }
                     )
                     artifacts["screenshots"].append(recorder.screenshot(f"attempt_{attempt:02d}_after_captcha_fill"))
