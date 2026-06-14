@@ -1,5 +1,10 @@
 # Environment
 .env
+.env.n8n.local
+versions/**/.env.n8n.local
+versions/**/python/.env
+versions/**/artifacts/*
+!versions/**/artifacts/.gitkeep
 .venv/
 
 # Runtime / debug

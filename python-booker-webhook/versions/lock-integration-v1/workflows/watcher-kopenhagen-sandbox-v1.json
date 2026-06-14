@@ -1,0 +1,854 @@
+{
+  "name": "watcher-kopenhagen-sandbox-v1",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 5
+            }
+          ]
+        }
+      },
+      "id": "f30669cc-f9a7-48b4-9039-dd0244542ff2",
+      "name": "Every 5 Seconds",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -5744,
+        1168
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const CONFIG = {\n  Office: 'KOPENHAGEN',\n  CalendarId: '9677702',\n  PersonCount: '1',\n  Language: 'en',\n  MaxWeeksToScan: 12\n};\n\nreturn [{ json: CONFIG }];"
+      },
+      "id": "dc8cd862-4813-4808-a5bf-feac1358c49a",
+      "name": "Config",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -5520,
+        1168
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// The cookie value is always the same — no HTTP request needed.\n// ASP.NET generates a fresh SessionId on the first POST automatically.\nconst prev = $input.first().json;\nreturn [{\n  json: {\n    ...prev,\n    sessionCookie: 'AspxAutoDetectCookieSupport=1'\n  }\n}];"
+      },
+      "id": "b7d3156e-2443-4ac2-88b6-f208927068ac",
+      "name": "Set Cookie (hardcoded)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -5296,
+        1168
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Cookie is already set. Just merge config into state.\nconst data = $input.first().json;\nreturn [{ json: data }];"
+      },
+      "id": "dc90de5f-d312-432f-a9d7-9f4b88954fe6",
+      "name": "Pass Through Session",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -5072,
+        1168
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build initial POST state\nconst data = $input.first().json;\n\nconst now = new Date();\nconst day = now.getDay();\nconst diff = now.getDate() - day + (day === 0 ? -6 : 1);\nconst monday = new Date(now);\nmonday.setDate(diff);\nconst mondayStr = `${monday.getMonth()+1}/${monday.getDate()}/${monday.getFullYear()} 12:00:00 AM`;\n\nreturn [{\n  json: {\n    ...data,\n    currentMonday: mondayStr,\n    weekIndex: 0,\n    slotsFound: false,\n    foundSlots: [],\n    done: false\n  }\n}];"
+      },
+      "id": "d863ad91-363c-4df2-a9c8-bce1399866ff",
+      "name": "Init Week State",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -4848,
+        1168
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://appointment.bmeia.gv.at/HomeWeb/Scheduler",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Cookie",
+              "value": "={{ $json.sessionCookie }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/x-www-form-urlencoded"
+            },
+            {
+              "name": "Origin",
+              "value": "https://appointment.bmeia.gv.at"
+            },
+            {
+              "name": "Referer",
+              "value": "https://appointment.bmeia.gv.at/?fromSpecificInfo=True"
+            },
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "Language",
+              "value": "={{ $json.Language }}"
+            },
+            {
+              "name": "Office",
+              "value": "={{ $json.Office }}"
+            },
+            {
+              "name": "CalendarId",
+              "value": "={{ $json.CalendarId }}"
+            },
+            {
+              "name": "PersonCount",
+              "value": "={{ $json.PersonCount }}"
+            },
+            {
+              "name": "Monday",
+              "value": "={{ $json.currentMonday }}"
+            },
+            {
+              "name": "Command",
+              "value": "Next"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "id": "44e391ce-4960-4a66-93a5-c469e39f4fc0",
+      "name": "POST Scheduler (check week)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -4624,
+        1168
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse HTML response and extract slots + session cookie\nconst response = $input.first().json;\nconst html = response.body || response.data || '';;\n\n// Extract fresh session cookie from this response if present\nlet sessionCookie = $('Init Week State').first().json.sessionCookie;\nconst headers = response.headers || {};\nconst setCookie = headers['set-cookie'] || headers['Set-Cookie'];\nif (setCookie) {\n  const cookieStr = Array.isArray(setCookie) ? setCookie.join('; ') : setCookie;\n  const match = cookieStr.match(/ASP\\.NET_SessionId=([^;,\\s]+)/);\n  if (match) {\n    sessionCookie = `AspxAutoDetectCookieSupport=1; ASP.NET_SessionId=${match[1]}`;\n  }\n}\n\nconst state = $('Init Week State').first().json;\n\n// Find available slots\nconst slotRegex = /name=\"Start\"\\s+type=\"radio\"\\s+value=\"([^\"]+)\"|name=\"Start\"[^>]+value=\"([^\"]+)\"/gi;\nconst slots = [];\nlet m;\nwhile ((m = slotRegex.exec(html)) !== null) {\n  slots.push(decodeURIComponent(m[1] || m[2]));\n}\n\n// Check navigation buttons\nconst hasNextWeek = html.includes('value=\"Next week\"');\nconst hasBack = html.includes('value=\"Back\"');\n\n// Extract week label — format: \"Week M/D/YYYY - M/D/YYYY\"\nconst weekMatch = html.match(/Week\\s+([\\d]{1,2}\\/[\\d]{1,2}\\/[\\d]{4}\\s*-\\s*[\\d]{1,2}\\/[\\d]{1,2}\\/[\\d]{4})/);\nconst weekLabel = weekMatch ? weekMatch[1].trim() : 'unknown';\n\n// Extract Monday hidden input value (what the server thinks is current Monday)\nconst mondayMatch = html.match(/name=\"Monday\"[^>]*value=\"([^\"]+)\"/);\nconst currentMonday = mondayMatch ? mondayMatch[1] : state.currentMonday;\n\n// Extract Token\nconst tokenMatch = html.match(/name=\"Token\"[^>]*value=\"([^\"]+)\"/);\nconst token = tokenMatch ? tokenMatch[1] : null;\n\n// Extract error message\nconst hasError = html.includes('no appointments available');\n\nconst isDone = slots.length > 0 || !hasNextWeek || (state.weekIndex + 1) >= state.MaxWeeksToScan;\n\nconsole.log(`Week: ${weekLabel} | Monday: ${currentMonday} | Slots: ${slots.length} | hasNextWeek: ${hasNextWeek} | done: ${isDone}`);\n\nreturn [{\n  json: {\n    ...state,\n    sessionCookie,\n    weekIndex: state.weekIndex + 1,\n    currentMonday,\n    weekLabel,\n    slotsFound: slots.length > 0,\n    foundSlots: slots,\n    hasNextWeek,\n    hasError,\n    token,\n    done: isDone\n  }\n}];"
+      },
+      "id": "4d0874e8-de81-4278-899c-34537a027d49",
+      "name": "Parse HTML for Slots",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -4400,
+        1168
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "cond-done",
+              "leftValue": "={{ $json.done }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "1169484e-b098-40f8-a211-ee2f50102a0d",
+      "name": "Done scanning?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -4176,
+        1168
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://appointment.bmeia.gv.at/HomeWeb/Scheduler",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Cookie",
+              "value": "={{ $json.sessionCookie }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/x-www-form-urlencoded"
+            },
+            {
+              "name": "Origin",
+              "value": "https://appointment.bmeia.gv.at"
+            },
+            {
+              "name": "Referer",
+              "value": "https://appointment.bmeia.gv.at/HomeWeb/Scheduler"
+            },
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "Language",
+              "value": "={{ $json.Language }}"
+            },
+            {
+              "name": "Office",
+              "value": "={{ $json.Office }}"
+            },
+            {
+              "name": "CalendarId",
+              "value": "={{ $json.CalendarId }}"
+            },
+            {
+              "name": "PersonCount",
+              "value": "={{ $json.PersonCount }}"
+            },
+            {
+              "name": "Monday",
+              "value": "={{ $json.currentMonday }}"
+            },
+            {
+              "name": "Command",
+              "value": "Next week"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "id": "99eba7de-7e12-41a0-bdfa-4f4a3755fc6a",
+      "name": "POST Next Week",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3952,
+        1248
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse next-week HTML - same logic as Parse HTML for Slots\nconst prevState = $('Parse HTML for Slots').first().json;\nconst httpResponse = $input.first().json;\nconst html = httpResponse.body || '';\n\nlet sessionCookie = prevState.sessionCookie;\n\nconst slotRegex = /name=\"Start\"\\s+type=\"radio\"\\s+value=\"([^\"]+)\"|name=\"Start\"[^>]+value=\"([^\"]+)\"/gi;\nconst slots = [];\nlet m;\nwhile ((m = slotRegex.exec(html)) !== null) {\n  slots.push(decodeURIComponent(m[1] || m[2]));\n}\n\nconst hasNextWeek = html.includes('value=\"Next week\"');\nconst weekMatch = html.match(/Week\\s+([\\d]{1,2}\\/[\\d]{1,2}\\/[\\d]{4}\\s*-\\s*[\\d]{1,2}\\/[\\d]{1,2}\\/[\\d]{4})/);\nconst weekLabel = weekMatch ? weekMatch[1].trim() : 'unknown';\nconst mondayMatch = html.match(/name=\"Monday\"[^>]*value=\"([^\"]+)\"/);\nconst currentMonday = mondayMatch ? mondayMatch[1] : prevState.currentMonday;\nconst tokenMatch = html.match(/name=\"Token\"[^>]*value=\"([^\"]+)\"/);\nconst token = tokenMatch ? tokenMatch[1] : null;\nconst hasError = html.includes('no appointments available');\n\nconst isDone = slots.length > 0 || !hasNextWeek || (prevState.weekIndex + 1) >= prevState.MaxWeeksToScan;\n\nconsole.log(`Week: ${weekLabel} | Monday: ${currentMonday} | Slots: ${slots.length} | hasNextWeek: ${hasNextWeek} | done: ${isDone}`);\n\nreturn [{\n  json: {\n    ...prevState,\n    sessionCookie,\n    weekIndex: prevState.weekIndex + 1,\n    currentMonday,\n    weekLabel,\n    slotsFound: slots.length > 0,\n    foundSlots: slots,\n    hasNextWeek,\n    hasError,\n    token,\n    done: isDone\n  }\n}];"
+      },
+      "id": "5e53c90a-d638-4e16-9fce-87e9b829ac83",
+      "name": "Parse Next Week HTML",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -3728,
+        1168
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "cond-done2",
+              "leftValue": "={{ $json.done }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "8726c7ba-be5f-4f16-ac26-e4c07663496e",
+      "name": "Done (loop check)?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -3504,
+        1248
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "bd2ba1e7-124e-47d7-b235-a57ecae60900",
+      "name": "Merge Results",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -3280,
+        1168
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "cond-slots",
+              "leftValue": "={{ $json.slotsFound }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "fffc6829-e934-48bf-932a-1de6825f16f0",
+      "name": "Slots found?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -3056,
+        1168
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format a rich notification message with all slot details\nconst data = $input.first().json;\n\nconst slotList = data.foundSlots\n  .map((s, i) => `${i+1}. ${s}`)\n  .join('\\n');\n\nconst message = [\n  '🇦🇹 APPOINTMENT SLOT AVAILABLE!',\n  '',\n  `Office: ${data.Office}`,\n  `Calendar ID: ${data.CalendarId}`,\n  `Week: ${data.weekLabel}`,\n  '',\n  `Available slots (${data.foundSlots.length}):`,\n  slotList,\n  '',\n  `Session Cookie: ${data.sessionCookie}`,\n  `Token: ${data.token || 'N/A'}`,\n  '',\n  'Act NOW — these slots disappear in seconds!',\n  `Time detected: ${new Date().toISOString()}`\n].join('\\n');\n\nconst shortMessage = `🇦🇹 SLOTS AVAILABLE NOW!\\n${data.foundSlots.length} slot(s) at ${data.weekLabel}\\nFirst slot: ${data.foundSlots[0]}`;\n\nreturn [{\n  json: {\n    ...data,\n    notificationMessage: message,\n    telegramMessage: shortMessage,\n    firstSlot: data.foundSlots[0],\n    detectedAt: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "504f1a2b-1775-42a3-b90a-06853e987d84",
+      "name": "Prepare Notification",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2832,
+        1072
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "1377621332",
+        "text": "={{ $json.telegramMessage }}",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "fae04a52-e838-4f29-9b71-b8816d20a1df",
+      "name": "Send Telegram Alert",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -2608,
+        976
+      ],
+      "webhookId": "ab0a3810-0acd-46dd-9ba7-4839c32c77bd",
+      "credentials": {
+        "telegramApi": {
+          "id": "YqEjQvYeHBuiR4Cl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://appointment.bmeia.gv.at/HomeWeb/Scheduler",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Cookie",
+              "value": "={{ $json.sessionCookie }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/x-www-form-urlencoded"
+            },
+            {
+              "name": "Origin",
+              "value": "https://appointment.bmeia.gv.at"
+            },
+            {
+              "name": "Referer",
+              "value": "https://appointment.bmeia.gv.at/HomeWeb/Scheduler"
+            },
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "Language",
+              "value": "={{ $json.Language }}"
+            },
+            {
+              "name": "Office",
+              "value": "={{ $json.Office }}"
+            },
+            {
+              "name": "CalendarId",
+              "value": "={{ $json.CalendarId }}"
+            },
+            {
+              "name": "PersonCount",
+              "value": "={{ $json.PersonCount }}"
+            },
+            {
+              "name": "Monday",
+              "value": "={{ $json.currentMonday }}"
+            },
+            {
+              "name": "Start",
+              "value": "={{ $json.firstSlot }}"
+            },
+            {
+              "name": "Command",
+              "value": "Next"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "id": "4a3651c2-4448-4f38-9250-36167f064546",
+      "name": "POST Select Slot",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2608,
+        1168
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Log that no slots were found in this scan cycle\nconst data = $input.first().json;\nconsole.log(`[${new Date().toISOString()}] No slots found. Scanned ${data.weekIndex} week(s). Will retry next cycle.`);\nreturn [{ json: { status: 'no_slots', scannedWeeks: data.weekIndex, timestamp: new Date().toISOString() } }];"
+      },
+      "id": "56e8d7a1-3414-4047-9c2a-6ed8efc8e4af",
+      "name": "Log: No Slots Found",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2832,
+        1264
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://appointment.bmeia.gv.at/BotDetectCaptcha.ashx",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "get",
+              "value": "image"
+            },
+            {
+              "name": "c",
+              "value": "Captcha"
+            },
+            {
+              "name": "t",
+              "value": "457e867b043b47dc9b3104e4af14fbd8"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Referer",
+              "value": "https://appointment.bmeia.gv.at/HomeWeb/Scheduler"
+            },
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+            },
+            {
+              "name": "Cookie",
+              "value": "AspxAutoDetectCookieSupport=1; ASP.NET_SessionId=m3j2rced0jw3r1hwsjnfkot1"
+            },
+            {
+              "name": "cookie",
+              "value": "AspxAutoDetectCookieSupport=1;ASP.NET_SessionId=m3j2rced0jw3r1hwsjnfkot1;"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "captcha.png"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -5744,
+        1488
+      ],
+      "id": "c73114dd-02bb-4cbf-9f4d-08d9836d76f7",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-3-flash-preview",
+          "mode": "list",
+          "cachedResultName": "models/gemini-3-flash-preview"
+        },
+        "text": "only get me the code of captcha ... do not type anything else ",
+        "inputType": "binary",
+        "binaryPropertyName": "captcha.png",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        -5520,
+        1488
+      ],
+      "id": "067b433e-5d17-40e7-b35d-ebd97797b741",
+      "name": "Analyze an image",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "SjzEIsq5bEXWRHRD",
+          "name": "agent7"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://n8n.acmeai.crabdance.com/webhook/booker-lock-sandbox",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "timeout": 300000
+        }
+      },
+      "id": "84732c25-f416-42fe-927c-1a263637ef46",
+      "name": "Send to Booker Webhook",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2160,
+        1168
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const prevData = $('Prepare Notification').first().json;\nconst response = $input.first().json;\nconst html = response.body || response.data || '';\n\nconst vcidMatch = html.match(/name=\"BDC_VCID_Captcha\"[^>]+value=\"([^\"]+)\"/);\nconst hsMatch = html.match(/name=\"BDC_Hs_Captcha\"[^>]+value=\"([^\"]+)\"/);\nconst spMatch = html.match(/name=\"BDC_SP_Captcha\"[^>]+value=\"([^\"]+)\"/);\nconst bwMatch = html.match(/name=\"BDC_BackWorkaround_Captcha\"[^>]+value=\"([^\"]+)\"/);\n\nconst BDC_VCID = vcidMatch ? vcidMatch[1] : null;\nconst BDC_Hs = hsMatch ? hsMatch[1] : null;\nconst BDC_SP = spMatch ? spMatch[1] : null;\nconst BDC_BW = bwMatch ? bwMatch[1] : '0';\n\nconst tokenMatch = html.match(/id=\"Token\"[^>]+value=\"([^\"]+)\"/);\nconst token = tokenMatch ? tokenMatch[1] : prevData.token;\n\nconst startTimeMatch = html.match(/id=\"StartTime\"[^>]+value=\"([^\"]+)\"/);\nconst startTime = startTimeMatch ? startTimeMatch[1] : prevData.firstSlot;\n\n// Extract form action endpoint (differs between visa types)\nconst actionMatch = html.match(/form action=\"([^\"]+)\"/);\nconst formAction = actionMatch ? actionMatch[1] : '/HomeWeb/Appointment';\nconst bookingEndpoint = `https://appointment.bmeia.gv.at${formAction}`;\n\nconst captchaImageUrl = BDC_VCID\n  ? `https://appointment.bmeia.gv.at/BotDetectCaptcha.ashx?get=image&c=Captcha&t=${BDC_VCID}`\n  : null;\n\nif (!BDC_VCID) {\n  console.warn('Could not extract CAPTCHA VCID — booking page may not have loaded correctly');\n}\n\nreturn [{\n  json: {\n    ...prevData,\n    token,\n    startTime,\n    BDC_VCID_Captcha: BDC_VCID,\n    BDC_Hs_Captcha: BDC_Hs,\n    BDC_SP_Captcha: BDC_SP,\n    BDC_BackWorkaround_Captcha: BDC_BW,\n    captchaImageUrl,\n    bookingEndpoint,\n    bookingFormReady: !!BDC_VCID\n  }\n}];"
+      },
+      "id": "e2ef1a85-79d5-4576-a1f5-f7876aa86c61",
+      "name": "Extract Booking Form Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2384,
+        1168
+      ]
+    }
+  ],
+  "connections": {
+    "Init Week State": {
+      "main": [
+        [
+          {
+            "node": "POST Scheduler (check week)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POST Scheduler (check week)": {
+      "main": [
+        [
+          {
+            "node": "Parse HTML for Slots",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse HTML for Slots": {
+      "main": [
+        [
+          {
+            "node": "Done scanning?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Done scanning?": {
+      "main": [
+        [
+          {
+            "node": "Merge Results",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "POST Next Week",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POST Next Week": {
+      "main": [
+        [
+          {
+            "node": "Parse Next Week HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Next Week HTML": {
+      "main": [
+        [
+          {
+            "node": "Done (loop check)?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Done (loop check)?": {
+      "main": [
+        [
+          {
+            "node": "Merge Results",
+            "type": "main",
+            "index": 1
+          }
+        ],
+        [
+          {
+            "node": "POST Next Week",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Results": {
+      "main": [
+        [
+          {
+            "node": "Slots found?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slots found?": {
+      "main": [
+        [
+          {
+            "node": "Prepare Notification",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log: No Slots Found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Notification": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram Alert",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "POST Select Slot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Telegram Alert": {
+      "main": [
+        []
+      ]
+    },
+    "POST Select Slot": {
+      "main": [
+        [
+          {
+            "node": "Extract Booking Form Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Set Cookie (hardcoded)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pass Through Session": {
+      "main": [
+        [
+          {
+            "node": "Init Week State",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Cookie (hardcoded)": {
+      "main": [
+        [
+          {
+            "node": "Pass Through Session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Analyze an image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Booking Form Data": {
+      "main": [
+        [
+          {
+            "node": "Send to Booker Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Every 5 Seconds": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timeSavedMode": "dynamic",
+    "timezone": "Africa/Cairo",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "557e6b8bb0e911f7ae8ea43d8e301a926d3fd408266c42b134cffb60424264aa"
+  },
+  "nodeGroups": [],
+  "tags": []
+}

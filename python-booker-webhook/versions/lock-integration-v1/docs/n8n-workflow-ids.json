@@ -1,0 +1,23 @@
+{
+  "booker_lock_sandbox": {
+    "id": "CLTCcjVtgfjqyMnF",
+    "name": "booker-lock-sandbox-v1",
+    "webhookPath": "booker-lock-sandbox",
+    "bookerPublicUrl": "https://bluish-finalist-carnage.ngrok-free.dev"
+  },
+  "watcher_kopenhagen_sandbox": {
+    "id": "8o4tnLxWbWKRgfTq",
+    "name": "watcher-kopenhagen-sandbox-v1",
+    "office": "KOPENHAGEN",
+    "calendarId": "9677702"
+  },
+  "live_booker": {
+    "id": "V2giHI6bqFpWq8ff",
+    "name": "booker",
+    "webhookPath": "booker"
+  },
+  "live_watcher": {
+    "id": "KTw5aLQjJhT7fpxN",
+    "name": "Austria Kairo Appointment Watcher v3"
+  }
+}
