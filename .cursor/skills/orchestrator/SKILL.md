@@ -25,6 +25,7 @@ Pick the **primary intent** (one only). If multiple independent lanes exist, spl
 | `docs` | README, AGENT_HANDOFF, architecture docs |
 | `ci-github` | failing check, PR status |
 | `explore-only` | "where is", "how does", read-only discovery |
+| `code-intelligence` | GitNexus query, impact, symbol context, execution flows |
 | `e2e-test` | live booking, scan_slots, turbo payload, KOPENHAGEN |
 | `orchestrate-meta` | user asks to route/orchestrate/plan multi-step work |
 
@@ -48,9 +49,11 @@ Quick map (details in [routing-table.md](routing-table.md)):
 |--------|-------------------|------------------|-------|-----|
 | `new-feature` | brainstorming → writing-plans → TDD → verification | `explore` | python-booker, refactor-guardrails | engram |
 | `bug-debug` | systematic-debugging → **captcha-pipeline** → verification | **captcha-investigator** or `deep-web-debugger` | python-booker, testing | browser, engram |
-| `refactor-structure` | writing-plans → **booker-package-extract** → verification | **booker-domain-reviewer** | refactor-guardrails, project-architecture | — |
+| `explore-only` | **gitnexus-code-intelligence** | `explore` | project-architecture | **gitnexus** |
+| `code-intelligence` | **gitnexus-code-intelligence** | — | project-architecture | **gitnexus** |
+| `code-review` | requesting-code-review → **gitnexus-code-intelligence** | **booker-domain-reviewer** or `code-reviewer` | testing, python-booker | **gitnexus** |
+| `refactor-structure` | writing-plans → **booker-package-extract** → **gitnexus-code-intelligence** | **booker-domain-reviewer** | refactor-guardrails, project-architecture | **gitnexus** |
 | `test-work` | TDD → **booker-pytest** → verification | — | testing | — |
-| `code-review` | requesting-code-review | **booker-domain-reviewer** or `code-reviewer` | testing, python-booker | — |
 | `security-review` | — | `security-review` | refactor-guardrails | — |
 | `n8n-workflow` | **n8n-booker-workflows** | **n8n-booker-specialist** | n8n-workflows | n8n-mcp |
 | `vps-ops` | **vps-booker-ops** → verification | **vps-booker-operator** or `shell` | python-booker | ssh-remote-management |
@@ -58,7 +61,6 @@ Quick map (details in [routing-table.md](routing-table.md)):
 | `e2e-test` | **booker-e2e-kopenhagen** | — | testing, python-booker | browser |
 | `docs` | documentation-engineering | — | project-architecture | — |
 | `ci-github` | verification | `ci-investigator` | testing | github |
-| `explore-only` | — | `explore` | project-architecture | gitnexus, engram |
 | `orchestrate-meta` | dispatching-parallel-agents | multiple | all applicable | — |
 
 ## Step 3 — Apply project rules
@@ -108,3 +110,4 @@ Tell the user briefly:
 | 1 | `python-booker-webhook/docs/AGENT_HANDOFF.md` |
 | 2 | `AGENTS.md` |
 | 3 | This skill + [routing-table.md](routing-table.md) |
+| 4 | [docs/GITNEXUS.md](../../docs/GITNEXUS.md) — code graph MCP (when using gitnexus) |

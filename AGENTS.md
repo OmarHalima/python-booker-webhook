@@ -20,8 +20,20 @@ Session hook injects the routing card automatically via `.cursor/hooks.json`.
 | `booker-e2e-kopenhagen` | — |
 | `booker-pytest` | — |
 | `booker-package-extract` | `booker-domain-reviewer` |
+| `gitnexus-code-intelligence` | — (MCP `user-gitnexus`) |
 
 All under `.cursor/skills/` and `.cursor/agents/`. See [`.cursor/README.md`](.cursor/README.md).
+
+## Code intelligence (GitNexus)
+
+Self-hosted code graph on VPS, wired into the orchestrator for exploration and pre-merge impact analysis.
+
+| Doc | Purpose |
+|-----|---------|
+| [`docs/GITNEXUS.md`](docs/GITNEXUS.md) | Endpoints, VPS deploy, MCP setup, orchestrator mapping |
+| [`.cursor/skills/gitnexus-code-intelligence/SKILL.md`](.cursor/skills/gitnexus-code-intelligence/SKILL.md) | Agent playbook |
+
+MCP server: **`user-gitnexus`** — always pass `repo: "python-booker-webhook"`.
 
 ## Read first
 

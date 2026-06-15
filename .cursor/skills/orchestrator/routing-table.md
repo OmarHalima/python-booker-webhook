@@ -44,6 +44,7 @@ Invoke via Task or user `@agent` when domain-specific expertise beats generic su
 | `booker-e2e-kopenhagen` | scan_slots, turbo payload, live KOPENHAGEN tests |
 | `booker-pytest` | Add/run tests in `tests/unit|integration|e2e/` |
 | `booker-package-extract` | Phase 4 monolith → `booker/` package |
+| `gitnexus-code-intelligence` | GitNexus MCP queries, impact, flows — see [docs/GITNEXUS.md](../../docs/GITNEXUS.md) |
 
 ---
 
@@ -91,7 +92,7 @@ Invoke via Task or user `@agent` when domain-specific expertise beats generic su
 | `user-ssh-remote-management` | VPS at `193.203.191.168` (user `omar`) — deploy, logs, Hermes |
 | `cursor-ide-browser` | Live BMEIA page inspection, captcha DOM |
 | `user-github` | PRs, issues, CI |
-| `user-gitnexus` | Code graph / cross-repo search |
+| `user-gitnexus` | Code graph on VPS — **orchestrator intents:** `explore-only`, `code-intelligence`, `code-review`, `refactor-structure`. Full doc: [docs/GITNEXUS.md](../../docs/GITNEXUS.md) |
 | `plugin-context7-context7` | Library/framework docs lookup |
 
 **n8n MCP:** Always read SDK reference before writing workflow code.
@@ -140,11 +141,22 @@ Invoke via Task or user `@agent` when domain-specific expertise beats generic su
 
 ```
 1. writing-plans
-2. code-reviewer subagent (baseline audit)
-3. incremental moves (see refactor-guardrails.mdc Phase 4)
-4. pytest after each step
-5. code-reviewer subagent (final)
+2. gitnexus-code-intelligence: impact on symbols to move
+3. code-reviewer subagent (baseline audit)
+4. incremental moves (see refactor-guardrails.mdc Phase 4)
+5. pytest after each step
+6. code-reviewer subagent (final)
 ```
+
+### code-intelligence / explore-only
+
+```
+1. gitnexus-code-intelligence skill
+2. list_repos → query → context (→ impact if editing)
+3. Read AGENT_HANDOFF.md if touching production paths
+```
+
+See [docs/GITNEXUS.md](../../docs/GITNEXUS.md).
 
 ### n8n-workflow
 
@@ -190,6 +202,7 @@ Use `dispatching-parallel-agents` or parallel Task calls. Merge results before f
 | Unit tests | `python-booker-webhook/tests/unit/` |
 | Sandbox lock work | `python-booker-webhook/sandboxes/lock-integration-v1/` |
 | OCR fix release v1.0.1 | `python-booker-webhook/sandboxes/v1.0.1/` (port 8011) |
+| GitNexus code graph | [docs/GITNEXUS.md](../../docs/GITNEXUS.md) — MCP `user-gitnexus` |
 | VPS booker | port 8000, `uvicorn app:app` |
 | VPS OCR | port 8001, `/predict` |
 

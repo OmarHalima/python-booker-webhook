@@ -8,6 +8,7 @@ Routes every session to the right skills, subagents, rules, and MCP tools.
 |------|------|
 | [`skills/orchestrator/SKILL.md`](skills/orchestrator/SKILL.md) | Main router |
 | [`skills/orchestrator/routing-table.md`](skills/orchestrator/routing-table.md) | Full mapping |
+| [`docs/GITNEXUS.md`](../docs/GITNEXUS.md) | GitNexus ↔ orchestrator integration |
 
 ## Project skills
 
@@ -19,6 +20,9 @@ Routes every session to the right skills, subagents, rules, and MCP tools.
 | [`booker-e2e-kopenhagen`](skills/booker-e2e-kopenhagen/SKILL.md) | Live KOPENHAGEN test flows |
 | [`booker-pytest`](skills/booker-pytest/SKILL.md) | Unit/integration test conventions |
 | [`booker-package-extract`](skills/booker-package-extract/SKILL.md) | Phase 4 monolith extraction |
+| [`gitnexus-code-intelligence`](skills/gitnexus-code-intelligence/SKILL.md) | GitNexus MCP — flows, context, impact |
+
+Full GitNexus doc: [`docs/GITNEXUS.md`](../docs/GITNEXUS.md)
 
 ## Project agents
 
