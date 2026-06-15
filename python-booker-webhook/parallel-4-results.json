@@ -1,0 +1,73 @@
+{
+  "batchMs": 5857.2,
+  "sharedSession": true,
+  "slotCountAvailable": 3,
+  "results": [
+    {
+      "index": 1,
+      "runId": "parallel-4-1",
+      "applicant": "ONE PARA",
+      "slot": "6/18/2026 10:30:00 AM",
+      "httpStatus": 500,
+      "startedAt": "2026-06-14T04:15:46.015229+00:00",
+      "elapsedMs": 5849.9,
+      "body": {
+        "detail": "Cannot switch to a different thread\n\tCurrent:  <greenlet.greenlet object at 0x0000027BCE3C3580 (otid=0x0000027BB7C1C120) current active started main>\n\tExpected: <greenlet.greenlet object at 0x0000027BB7CA8CC0 (otid=0x0000027BB7A94AE0) suspended active started main>"
+      }
+    },
+    {
+      "index": 2,
+      "runId": "parallel-4-2",
+      "applicant": "TWO PARA",
+      "slot": "6/18/2026 11:30:00 AM",
+      "httpStatus": 200,
+      "startedAt": "2026-06-14T04:15:46.015698+00:00",
+      "elapsedMs": 5844.5,
+      "body": {
+        "ok": true,
+        "resultType": "SUCCESS",
+        "attempt": 1,
+        "captchaText": "8Y6N",
+        "finalUrl": "https://appointment.bmeia.gv.at/HomeWeb/AppointmentPassport",
+        "mode": "turbo",
+        "submitMode": "browser",
+        "runId": "parallel-4-2",
+        "timingsMs": {
+          "schedulerNavMs": 1528.5669000004418,
+          "captchaFetchMs_attempt1": 360.4457000037655,
+          "captchaParallelWaitMs_attempt1": 192.4291000032099,
+          "captchaSolveMs_attempt1": 942.6807999989251,
+          "submitMs_attempt1": 303.50670000188984,
+          "totalMs": 5804.638300003717
+        },
+        "artifactsDir": "C:\\Users\\WD\\Downloads\\files\\python-booker-webhook\\artifacts\\parallel-4-2-turbo",
+        "timestamp": "2026-06-14T04:15:51.842982Z",
+        "captchaParallelUsed": false
+      }
+    },
+    {
+      "index": 3,
+      "runId": "parallel-4-3",
+      "applicant": "THREE PARA",
+      "slot": "6/19/2026 11:30:00 AM",
+      "httpStatus": 500,
+      "startedAt": "2026-06-14T04:15:46.016153+00:00",
+      "elapsedMs": 5852.1,
+      "body": {
+        "detail": "Cannot switch to a different thread\n\tCurrent:  <greenlet.greenlet object at 0x0000027BB7CA0680 (otid=0x0000027BD059BF30) current active started main>\n\tExpected: <greenlet.greenlet object at 0x0000027BB7CA8CC0 (otid=0x0000027BB7A94AE0) suspended active started main>"
+      }
+    },
+    {
+      "index": 4,
+      "runId": "parallel-4-4",
+      "applicant": "FOUR PARA",
+      "slot": "6/19/2026 11:30:00 AM",
+      "httpStatus": 500,
+      "startedAt": "2026-06-14T04:15:46.018067+00:00",
+      "elapsedMs": 5852.9,
+      "body": {
+        "detail": "Cannot switch to a different thread\n\tCurrent:  <greenlet.greenlet object at 0x0000027BB76EB780 (otid=0x0000027BD059B1B0) current active started main>\n\tExpected: <greenlet.greenlet object at 0x0000027BB7CA8CC0 (otid=0x0000027BB7A94AE0) suspended active started main>"
+      }
+    }
+  ]
+}

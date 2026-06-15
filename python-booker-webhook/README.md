@@ -12,6 +12,8 @@ Receives payloads from n8n via HTTP webhook, books Austrian embassy appointments
 
 **Testing:** All dev benchmarks use **`Office: KOPENHAGEN`** as a stand-in for **Cairo (KAIRO)** production — see [docs/TESTING_KOPENHAGEN.md](docs/TESTING_KOPENHAGEN.md).
 
+**Agent handoff (start here in a new session):** [docs/AGENT_HANDOFF.md](docs/AGENT_HANDOFF.md) — current VPS status, captcha decisions, open work.
+
 See [docs/turbo-booker-archive/README.md](docs/turbo-booker-archive/README.md) for the full project history.
 
 ## 1) Setup

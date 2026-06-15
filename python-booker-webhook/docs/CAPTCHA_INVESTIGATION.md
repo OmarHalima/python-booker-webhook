@@ -355,4 +355,7 @@ BotDetect serves a **new captcha on every HTTP GET**. Parallel URL fetch must no
 2. **Fix style-gate reload** — wait for image change instead of VCID-only.
 3. **Custom trained CRNN/CNN model** — training data on SUCCESS in `artifacts/<runId>-turbo/solved_captchas/`.
 4. **Style-gate threshold tuning**
-5. **Gemini API rate limiting**
+5. **VPS OCR desync / wrong-answer pipeline (2026-05-31):** `ocr_with_gemini_fallback` does not call Gemini on wrong OCR text; VPS run `1411526` failed 10× OCR; user reports OCR answer ≠ artifact PNG (possible n8n retry overwrite, OCR `:8001` cross-talk, or post-fail HTML vs pre-submit PNG confusion). **Production VPS uses `gemini_first`** until fixed — see [`AGENT_HANDOFF.md`](AGENT_HANDOFF.md).
+6. **Captcha byte provenance:** log SHA256 + unique OCR filenames; avoid artifact overwrite on n8n retry (same `runId`).
+7. **Gemini fallback on CAPTCHA_FAIL** (not only OCR exception) or Gemini on `difficulty == hard`.
+8. **Gemini API rate limiting**

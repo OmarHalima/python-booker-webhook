@@ -7,7 +7,7 @@
           "interval": [
             {
               "field": "seconds",
-              "secondsInterval": 20
+              "secondsInterval": 5
             }
           ]
         }
@@ -17,21 +17,21 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -6160,
-        1232
+        -5744,
+        1168
       ]
     },
     {
       "parameters": {
-        "jsCode": "const CONFIG = {\n  Office: 'KOPENHAGEN',\n  CalendarId: '9677702',\n  PersonCount: '1',\n  Language: 'en',\n  MaxWeeksToScan: 12\n};\n\nreturn [{ json: CONFIG }];"
+        "jsCode": "const CONFIG = {\n  Office: 'KAIRO',\n  CalendarId: '44281520',\n  PersonCount: '1',\n  Language: 'en',\n  MaxWeeksToScan: 12\n};\n\nreturn [{ json: CONFIG }];"
       },
       "id": "dc8cd862-4813-4808-a5bf-feac1358c49a",
       "name": "Config",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -5504,
-        1232
+        -5520,
+        1168
       ]
     },
     {
@@ -43,8 +43,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -5280,
-        1232
+        -5296,
+        1168
       ]
     },
     {
@@ -57,7 +57,7 @@
       "typeVersion": 2,
       "position": [
         -5072,
-        1232
+        1168
       ]
     },
     {
@@ -70,7 +70,7 @@
       "typeVersion": 2,
       "position": [
         -4848,
-        1232
+        1168
       ]
     },
     {
@@ -147,7 +147,7 @@
       "typeVersion": 4.2,
       "position": [
         -4624,
-        1232
+        1168
       ]
     },
     {
@@ -160,7 +160,7 @@
       "typeVersion": 2,
       "position": [
         -4400,
-        1232
+        1168
       ]
     },
     {
@@ -192,8 +192,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -4192,
-        1232
+        -4176,
+        1168
       ]
     },
     {
@@ -269,8 +269,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -3968,
-        1344
+        -3952,
+        1248
       ]
     },
     {
@@ -282,8 +282,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -3744,
-        1344
+        -3728,
+        1168
       ]
     },
     {
@@ -315,8 +315,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -3520,
-        1344
+        -3504,
+        1248
       ]
     },
     {
@@ -326,8 +326,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        -3312,
-        1232
+        -3280,
+        1168
       ]
     },
     {
@@ -359,8 +359,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -3088,
-        1232
+        -3056,
+        1168
       ]
     },
     {
@@ -372,8 +372,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2864,
-        1104
+        -2832,
+        1072
       ]
     },
     {
@@ -389,7 +389,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -2656,
+        -2608,
         976
       ],
       "webhookId": "ab0a3810-0acd-46dd-9ba7-4839c32c77bd",
@@ -477,8 +477,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -2432,
-        1104
+        -2608,
+        1168
       ]
     },
     {
@@ -490,8 +490,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2864,
-        1344
+        -2832,
+        1264
       ]
     },
     {
@@ -547,8 +547,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        -4032,
-        1664
+        -5744,
+        1488
       ],
       "id": "c73114dd-02bb-4cbf-9f4d-08d9836d76f7",
       "name": "HTTP Request"
@@ -571,8 +571,8 @@
       "type": "@n8n/n8n-nodes-langchain.googleGemini",
       "typeVersion": 1.2,
       "position": [
-        -3824,
-        1664
+        -5520,
+        1488
       ],
       "id": "067b433e-5d17-40e7-b35d-ebd97797b741",
       "name": "Analyze an image",
@@ -586,7 +586,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://n8n.acmeai.crabdance.com/webhook-test/booker",
+        "url": "https://n8n.acmeai.crabdance.com/webhook/booker",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ JSON.stringify($json) }}",
@@ -599,8 +599,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -1968,
-        1104
+        -2160,
+        1168
       ]
     },
     {
@@ -612,20 +612,9 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2208,
-        1104
+        -2384,
+        1168
       ]
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [
-        -5744,
-        1232
-      ],
-      "id": "873fe2fa-044f-451e-83bc-fe762f3326fb",
-      "name": "When clicking ‘Execute workflow’"
     }
   ],
   "pinData": {
@@ -669,32 +658,18 @@
           "item": 0
         }
       }
-    ],
-    "Every 60 Seconds": [
-      {
-        "json": {
-          "timestamp": "2026-04-26T14:59:40.002+03:00",
-          "Readable date": "April 26th 2026, 2:59:40 pm",
-          "Readable time": "2:59:40 pm",
-          "Day of week": "Sunday",
-          "Year": "2026",
-          "Month": "April",
-          "Day of month": "26",
-          "Hour": "14",
-          "Minute": "59",
-          "Second": "40",
-          "Timezone": "Africa/Cairo (UTC+03:00)"
-        },
-        "pairedItem": {
-          "item": 0
-        }
-      }
     ]
   },
   "connections": {
     "Every 60 Seconds": {
       "main": [
-        []
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Init Week State": {
@@ -903,33 +878,23 @@
           }
         ]
       ]
-    },
-    "When clicking ‘Execute workflow’": {
-      "main": [
-        [
-          {
-            "node": "Config",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
     }
   },
   "active": true,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
-    "timeSavedMode": "fixed",
+    "timeSavedMode": "dynamic",
     "timezone": "Africa/Cairo",
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": false
   },
-  "versionId": "8bfe0d66-b54d-47be-8112-ec3bc15f15dd",
+  "versionId": "98b282d1-df8f-4527-a496-5a5f4a017e6d",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "557e6b8bb0e911f7ae8ea43d8e301a926d3fd408266c42b134cffb60424264aa"
   },
+  "nodeGroups": [],
   "id": "KTw5aLQjJhT7fpxN",
   "tags": []
 }

@@ -33,7 +33,7 @@ def _print_section(title: str) -> None:
     print(f"\n=== {title} ===")
 
 
-def test_predict_url(base: str, sample_url: str) -> str:
+def check_predict_url(base: str, sample_url: str) -> str:
     _print_section("Test A: POST /predict_url")
     data = predict_url(base, sample_url)
     print("raw JSON:", data)
@@ -43,7 +43,7 @@ def test_predict_url(base: str, sample_url: str) -> str:
     return text
 
 
-def test_predict_file_from_url(base: str, sample_url: str) -> str:
+def check_predict_file_from_url(base: str, sample_url: str) -> str:
     _print_section("Test B: POST /predict (file upload, bytes from sample URL)")
     img = requests.get(sample_url, timeout=30).content
     print("downloaded bytes:", len(img))
@@ -55,7 +55,7 @@ def test_predict_file_from_url(base: str, sample_url: str) -> str:
     return text
 
 
-def test_predict_local_file(base: str, path: Path) -> str:
+def check_predict_local_file(base: str, path: Path) -> str:
     _print_section(f"Test C: POST /predict (local file {path})")
     img = path.read_bytes()
     print("file bytes:", len(img))
@@ -77,20 +77,20 @@ def main() -> int:
     sample = DEFAULT_SAMPLE_IMAGE_URL
 
     try:
-        test_predict_url(base, sample)
-        test_predict_file_from_url(base, sample)
+        check_predict_url(base, sample)
+        check_predict_file_from_url(base, sample)
 
         if len(sys.argv) > 1:
             local = Path(sys.argv[1])
             if local.is_file():
-                test_predict_local_file(base, local)
+                check_predict_local_file(base, local)
             else:
                 print(f"Warning: local path not found, skipping Test C: {local}")
         else:
             artifacts = Path(__file__).with_name("artifacts")
             candidates = list(artifacts.glob("**/images/*captcha*.png"))
             if candidates:
-                test_predict_local_file(base, candidates[0])
+                check_predict_local_file(base, candidates[0])
             else:
                 print("\n(Optional Test C skipped: pass a PNG path or add artifacts/.../images/*captcha*.png)")
 
