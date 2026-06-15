@@ -270,7 +270,7 @@ python -m py_compile app.py booker_legacy.py
 | Doc | Use when |
 |-----|----------|
 | **[N8N_BOOKER_LOCK_IMPLEMENTATION_PLAN.md](N8N_BOOKER_LOCK_IMPLEMENTATION_PLAN.md)** | Lock + n8n/ngrok integration checklist, test matrix, findings log |
-| **[../versions/lock-integration-v1/README.md](../versions/lock-integration-v1/README.md)** | Isolated sandbox: booker-lock + **KOPENHAGEN watcher** E2E, scripts, workflow IDs |
+| **[../sandboxes/lock-integration-v1/README.md](../sandboxes/lock-integration-v1/README.md)** | Isolated sandbox: booker-lock + **KOPENHAGEN watcher** E2E, scripts, workflow IDs |
 | **This file** | Session handoff / current status |
 | [CAPTCHA_INVESTIGATION.md](CAPTCHA_INVESTIGATION.md) | Captcha root-cause history |
 | [TURBO_APP.md](TURBO_APP.md) | Turbo env vars and endpoints |

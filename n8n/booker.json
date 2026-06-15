@@ -1,0 +1,3574 @@
+{
+  "name": "booker",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "const payload = $('Webhook1').first().json.body || $('Webhook1').first().json;\n\n// rows coming from Filter_slots\nconst rows = $input.all();\n\nreturn rows.map((item, index) => ({\n  json: {\n    ...payload,\n\n    // row data from Slots blacklist\n    row: item.json,\n\n    // useful direct fields\n    currentSlot: item.json.slotValue,\n    slotIndex: index,\n    isFromBlacklist: true,\n    retryCount: payload.retryCount || 0\n  }\n}));"
+      },
+      "id": "41911127-0791-442e-925d-6cfe67f69de2",
+      "name": "Rebuild_Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2240,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "38a916d0-d97d-459e-a000-eb45649c8869",
+              "leftValue": "={{ $json.office }}",
+              "rightValue": "=KAIRO",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "53c9028d-a3ab-4977-961d-e87e022c0861",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "=PENDING",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        -2464,
+        512
+      ],
+      "id": "dcbe4d4a-76ef-4c1f-8bef-9c250c86d16c",
+      "name": "Filter_slots"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "B0yhFJlFzV7EozJz",
+          "mode": "list",
+          "cachedResultName": "Slots blacklist",
+          "cachedResultUrl": "/projects/u6GSSZJOn8Ti3yOW/datatables/B0yhFJlFzV7EozJz"
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        -2688,
+        512
+      ],
+      "id": "410f8233-e2c2-47e3-ab0a-1e847e38dbd9",
+      "name": "Get_All_Blacklisted_Slots"
+    },
+    {
+      "parameters": {
+        "chatId": "1377621332",
+        "text": "=All Done",
+        "additionalFields": {}
+      },
+      "id": "b6de9b51-e3f4-473d-be12-f903d5ae6672",
+      "name": "Telegram: All Done",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -1792,
+        320
+      ],
+      "webhookId": "8381e960-0c64-4168-be76-9ce29627d51a",
+      "credentials": {
+        "telegramApi": {
+          "id": "YqEjQvYeHBuiR4Cl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "booker",
+        "options": {}
+      },
+      "id": "bd6af898-4b38-4a30-b8f5-db6bffe2fd28",
+      "name": "Webhook1",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -3808,
+        416
+      ],
+      "webhookId": "booker-wf2"
+    },
+    {
+      "parameters": {
+        "chatId": "1377621332",
+        "text": "=⚠️ No more PENDING students!\n\nAll slots detected but no students available.\nSlots found: {{ $json.freshSlots ? $json.freshSlots.join(', ') : 'N/A' }}\nCheck applicants table for current status.",
+        "additionalFields": {}
+      },
+      "id": "42de466f-2809-41f1-ab3f-85d47699672e",
+      "name": "Telegram: No Students Left",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -1344,
+        608
+      ],
+      "webhookId": "8381e960-0c64-4168-be76-9ce29627d51a",
+      "credentials": {
+        "telegramApi": {
+          "id": "YqEjQvYeHBuiR4Cl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "1377621332",
+        "text": "=✅ APPOINTMENT BOOKED!\n\nStudent: {{ $('Mark Student COMPLETED').first().json.Firstname }}{{ $('Mark Student COMPLETED').item.json.Lastname }}\nPassport: {{ $('Mark Student COMPLETED').first().json.TraveldocumentNumber }}\nSlot: {{ $json.slotValue }}\nOffice: {{ $json.office }}\nBooked at: {{ $('Mark Student COMPLETED').first().json.bookedAt }}",
+        "additionalFields": {}
+      },
+      "id": "5c145f28-7f6c-43a2-b050-ddf6612864d6",
+      "name": "Telegram: Booked!",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        0
+      ],
+      "webhookId": "0aa55013-057a-4d20-a9ed-3b2f0bcf22d5",
+      "credentials": {
+        "telegramApi": {
+          "id": "YqEjQvYeHBuiR4Cl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "Slots blacklist",
+          "mode": "name"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "slotValue",
+              "keyValue": "={{ $('Merge Student + Slot').first().json.currentSlot }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "BOOKED",
+            "result": "SUCCESS",
+            "assignedToStudentId": "={{ $json.id }}",
+            "slotValue": "={{ $json.bookedSlot }}",
+            "attemptedAt": "={{ $('Merge Student + Slot').first().json.row.attemptedAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "slotValue",
+              "displayName": "slotValue",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "weekLabel",
+              "displayName": "weekLabel",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "office",
+              "displayName": "office",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "calendarId",
+              "displayName": "calendarId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "detectedAt",
+              "displayName": "detectedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "assignedToStudentId",
+              "displayName": "assignedToStudentId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "attemptedAt",
+              "displayName": "attemptedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "result",
+              "displayName": "result",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "46553aaf-5841-430f-9ea3-10c2a560edb9",
+      "name": "Mark Slot BOOKED",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        224,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "applicants",
+          "mode": "name"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyValue": "={{ $('Merge Student + Slot').first().json.student.id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "bookedSlot": "={{ $('Merge Student + Slot').first().json.currentSlot }}",
+            "bookedAt": "={{ new Date().toISOString() }}",
+            "notifyTelegram": "={{ $('Merge Student + Slot').first().json.student.notifyTelegram }}",
+            "status": "COMPLETED"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Lastname",
+              "displayName": "Lastname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Firstname",
+              "displayName": "Firstname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "DateOfBirth",
+              "displayName": "DateOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentNumber",
+              "displayName": "TraveldocumentNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Sex",
+              "displayName": "Sex",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Street",
+              "displayName": "Street",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Postcode",
+              "displayName": "Postcode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "City",
+              "displayName": "City",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Country",
+              "displayName": "Country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Telephone",
+              "displayName": "Telephone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "LastnameAtBirth",
+              "displayName": "LastnameAtBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "NationalityAtBirth",
+              "displayName": "NationalityAtBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "CountryOfBirth",
+              "displayName": "CountryOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "PlaceOfBirth",
+              "displayName": "PlaceOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "NationalityForApplication",
+              "displayName": "NationalityForApplication",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentDateOfIssue",
+              "displayName": "TraveldocumentDateOfIssue",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentValidUntil",
+              "displayName": "TraveldocumentValidUntil",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentIssuingAuthority",
+              "displayName": "TraveldocumentIssuingAuthority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "bookedSlot",
+              "displayName": "bookedSlot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "bookedAt",
+              "displayName": "bookedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "notifyTelegram",
+              "displayName": "notifyTelegram",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "d390b2e2-c5a6-47ff-bddf-3b9ea3220d04",
+      "name": "Mark Student COMPLETED",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.resultType }}",
+                    "rightValue": "SUCCESS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "cefa3776-6ef0-4340-83c3-8809ebe7eb95"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "SUCCESS"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.resultType }}",
+                    "rightValue": "CAPTCHA_FAIL",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "126e1cec-a361-4fe3-93d8-6d80bdf286f4"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "CAPTCHA_FAIL"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.resultType }}",
+                    "rightValue": "SLOT_TAKEN",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "1130ce19-28a9-44a8-8683-d5a371fcf922"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "SLOT_TAKEN"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "cc192284-731f-4077-b254-f1c4763cef5d",
+                    "leftValue": "={{ $json.resultType }}",
+                    "rightValue": "ALREADY_BOOKED",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ALREADY_BOOKED"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.resultType }}",
+                    "rightValue": "OTHER_FAIL",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "3abc0109-d3a2-4144-9aa4-2c3ebb1358de"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "OTHER_FAIL"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "f536555d-1d62-4442-9a88-f3cc88f53f75",
+      "name": "Result Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -224,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// After HTTP Request to POST /webhook/booker\nconst booker = $input.first().json;\nconst merge = $('Merge Student + Slot').first().json;\n\n// n8n may nest body on some versions — prefer top-level booker fields\nconst resultType = String(booker.resultType || booker.body?.resultType || 'OTHER_FAIL');\nconst message = String(booker.message || booker.body?.message || booker.detail || '');\nconst attempt = booker.attempt ?? booker.body?.attempt ?? null;\n\n// Only real captcha exhaustion should trigger n8n \"retry\" path (optional)\nconst shouldRetry = resultType === 'CAPTCHA_FAIL' && booker.ok === false;\n\nreturn [{\n  json: {\n    ...merge,\n    ok: booker.ok === true,\n    resultType,\n    errorText: message || resultType,\n    shouldRetry,\n    bookerAttempt: attempt,\n    captchaText: booker.captchaText || '',\n    finalUrl: booker.finalUrl || '',\n    timestamp: booker.timestamp || new Date().toISOString(),\n    webhookResponse: {\n      ok: booker.ok,\n      resultType,\n      attempt,\n      message,\n      artifacts: booker.artifacts || null,\n    },\n  },\n}];"
+      },
+      "id": "6a1d2787-e601-43b4-90c7-ba7295de74dc",
+      "name": "Check Booking Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -448,
+        288
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "applicants",
+          "mode": "name"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyValue": "={{ $json.assignedToStudentId }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "PENDING"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Lastname",
+              "displayName": "Lastname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Firstname",
+              "displayName": "Firstname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "DateOfBirth",
+              "displayName": "DateOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentNumber",
+              "displayName": "TraveldocumentNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Sex",
+              "displayName": "Sex",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Street",
+              "displayName": "Street",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Postcode",
+              "displayName": "Postcode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "City",
+              "displayName": "City",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Country",
+              "displayName": "Country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Telephone",
+              "displayName": "Telephone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "LastnameAtBirth",
+              "displayName": "LastnameAtBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "NationalityAtBirth",
+              "displayName": "NationalityAtBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "CountryOfBirth",
+              "displayName": "CountryOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "PlaceOfBirth",
+              "displayName": "PlaceOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "NationalityForApplication",
+              "displayName": "NationalityForApplication",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentDateOfIssue",
+              "displayName": "TraveldocumentDateOfIssue",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentValidUntil",
+              "displayName": "TraveldocumentValidUntil",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentIssuingAuthority",
+              "displayName": "TraveldocumentIssuingAuthority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "bookedSlot",
+              "displayName": "bookedSlot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "bookedAt",
+              "displayName": "bookedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "notifyTelegram",
+              "displayName": "notifyTelegram",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "ed1526f5-7848-4231-915a-f40b9beae712",
+      "name": "Update Student → IN_PROGRESS",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -896,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "Slots blacklist",
+          "mode": "name"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "slotValue",
+              "keyValue": "={{ $json.currentSlot }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "IN_PROGRESS",
+            "assignedToStudentId": "={{ $json.student.id }}",
+            "attemptedAt": "={{ new Date().toISOString() }}",
+            "slotValue": "={{ $json.currentSlot }}",
+            "weekLabel": "={{ $json.weekLabel }}",
+            "office": "={{ $json.Office }}",
+            "calendarId": "={{ $json.CalendarId }}",
+            "detectedAt": "={{ $json.detectedAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "slotValue",
+              "displayName": "slotValue",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "weekLabel",
+              "displayName": "weekLabel",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "office",
+              "displayName": "office",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "calendarId",
+              "displayName": "calendarId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "detectedAt",
+              "displayName": "detectedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "assignedToStudentId",
+              "displayName": "assignedToStudentId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "attemptedAt",
+              "displayName": "attemptedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "result",
+              "displayName": "result",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "fc4fd035-8f00-4132-84f2-f90833ebdc35",
+      "name": "Update Slot → IN_PROGRESS",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1120,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Merge student data with current slot + session data\nconst student = $('Get Next PENDING Student').first().json;\nconst slotData = $('One Slot at a Time').first().json;\n\nconsole.log(`Processing: Student ${student.Firstname} ${student.Lastname} | Slot: ${slotData.currentSlot}`);\n\nreturn [{\n  json: {\n    ...slotData,\n    student\n  }\n}];"
+      },
+      "id": "fe256475-c16b-49cf-b99c-6ce3e892f4c4",
+      "name": "Merge Student + Slot",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1344,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "cond-student",
+              "leftValue": "={{ $json.TraveldocumentNumber }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "1c3bbc3e-fc13-47f3-ba1c-acbbe7010228",
+      "name": "Student Found?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -1568,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "applicants",
+          "mode": "name"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "status",
+              "keyValue": "PENDING"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "id": "cb8b8e78-a740-44be-a240-3b01851525d4",
+      "name": "Get Next PENDING Student",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1792,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Split freshSlots into one item per slot for sequential processing\nconst data = $input.first().json;\nconst freshSlots = data.freshSlots || [];\n\nreturn freshSlots.map((slot, index) => ({\n  json: {\n    ...data,\n    currentSlot: slot,\n    slotIndex: index\n  }\n}));"
+      },
+      "id": "638c0690-e061-40fb-a22e-2a47d6989789",
+      "name": "Split Into Slots",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2240,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// The insert node returns DB rows, not our original data\n// So we reach back to Prepare Slots for Insert to get _payload\nconst allItems = $('Prepare Slots for Insert').all();\nif (!allItems.length) return [];\n\n// All items share the same _payload — grab from first\nconst payload = allItems[0].json._payload;\nif (!payload) throw new Error('_payload missing from Prepare Slots for Insert');\n\nconsole.log(`Rebuilt payload with ${payload.freshSlots ? payload.freshSlots.length : 0} fresh slots`);\nreturn [{ json: { ...payload } }];"
+      },
+      "id": "8fa26351-4a5a-40ec-ad08-a8392cf1c78e",
+      "name": "Rebuild Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2464,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "Slots blacklist",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "slotValue": "={{ $json.slotValue }}",
+            "weekLabel": "={{ $json.weekLabel }}",
+            "office": "={{ $json.office }}",
+            "calendarId": "={{ $json.calendarId }}",
+            "detectedAt": "={{ $json.detectedAt }}",
+            "status": "={{ $json.status }}",
+            "assignedToStudentId": "={{ $json.assignedToStudentId }}",
+            "attemptedAt": "={{ $json.attemptedAt || null }}",
+            "result": "={{ $json.result }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "slotValue",
+              "displayName": "slotValue",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "weekLabel",
+              "displayName": "weekLabel",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "office",
+              "displayName": "office",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "calendarId",
+              "displayName": "calendarId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "detectedAt",
+              "displayName": "detectedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "assignedToStudentId",
+              "displayName": "assignedToStudentId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "attemptedAt",
+              "displayName": "attemptedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "result",
+              "displayName": "result",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "9c86ced8-03d0-4a19-bc23-2ca304516b14",
+      "name": "Insert All Slots to Blacklist",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -2688,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Explode freshSlots into one item per slot for bulk insert\nconst data = $input.first().json;\nconst freshSlots = data.freshSlots || [];\nconst now = new Date().toISOString();\n\nreturn freshSlots.map(slot => ({\n  json: {\n    slotValue: slot,\n    weekLabel: data.weekLabel || '',\n    office: data.Office || 'KAIRO',\n    calendarId: String(data.CalendarId || '44281520'),\n    detectedAt: now,\n    status: 'PENDING',\n    assignedToStudentId: null,\n    attemptedAt: null,\n    result: '',\n    _payload: data\n  }\n}));"
+      },
+      "id": "149a1051-a3c7-4860-b7be-1fd3a90e2206",
+      "name": "Prepare Slots for Insert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2912,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "cond-fresh",
+              "leftValue": "={{ $json.freshSlots.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "e13e5d6c-c452-49d1-b5c1-bdf1dda38a76",
+      "name": "Any Fresh Slots?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -3136,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get webhook payload\nconst payload = $('Webhook1').first().json.body || $('Webhook1').first().json;\nconst retryCount = payload.retryCount || 0;\n\n// RETRY PATH: skip filtering, pass current slot directly\nif (retryCount > 0) {\n  console.log(`RETRY attempt #${retryCount} for slot: ${payload.currentSlot}`);\n  return [{\n    json: {\n      ...payload,\n      freshSlots: [payload.currentSlot],\n      isRetry: true,\n      retryCount\n    }\n  }];\n}\n\n// NORMAL PATH: filter slots against blacklist\nconst blacklistedSlots = $input.all().map(r => r.json.slotValue).filter(Boolean);\nconst foundSlots = payload.foundSlots || [];\nconst freshSlots = foundSlots.filter(s => !blacklistedSlots.includes(s));\n\nconsole.log(`Slots received: ${foundSlots.length} | Blacklisted: ${blacklistedSlots.length} | Fresh: ${freshSlots.length}`);\n\nreturn [{\n  json: {\n    ...payload,\n    freshSlots,\n    isRetry: false,\n    retryCount: 0\n  }\n}];"
+      },
+      "id": "86a354db-5257-43be-867c-7d53bf086bc9",
+      "name": "Filter Fresh Slots",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -3360,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "Slots blacklist",
+          "mode": "name"
+        },
+        "returnAll": true
+      },
+      "id": "dc5db915-3bd9-4609-8f3d-be44e302ab34",
+      "name": "Get All Blacklisted Slots",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -3584,
+        416
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://porthole-portfolio-napped.ngrok-free.dev/webhook/booker",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n(() => {\n  const m = $('Merge Student + Slot').item.json;\n  const s = m.student || {};\n  return {\n    runId: String($execution.id),\n    captureArtifacts: true,\n    useSchedulerPost: true,\n    submitMode: 'browser',\n    dsgvoAccepted: true,\n    maxCaptchaRetries: 10,\n    sessionCookie: m.sessionCookie,\n    Language: m.Language || 'en',\n    Office: m.Office,\n    CalendarId: String(m.CalendarId),\n    PersonCount: String(m.PersonCount || '1'),\n    currentMonday: m.currentMonday,\n    currentSlot: m.currentSlot || m.slotValue,\n    student: {\n      Lastname: s.Lastname,\n      Firstname: s.Firstname,\n      DateOfBirth: s.DateOfBirth,\n      TraveldocumentNumber: s.TraveldocumentNumber,\n      Sex: String(s.Sex),\n      Street: s.Street,\n      Postcode: String(s.Postcode),\n      City: s.City,\n      Country: String(s.Country),\n      Telephone: String(s.Telephone),\n      Email: s.Email,\n      LastnameAtBirth: s.LastnameAtBirth,\n      NationalityAtBirth: String(s.NationalityAtBirth),\n      CountryOfBirth: String(s.CountryOfBirth),\n      PlaceOfBirth: s.PlaceOfBirth,\n      NationalityForApplication: String(s.NationalityForApplication),\n      TraveldocumentDateOfIssue: s.TraveldocumentDateOfIssue,\n      TraveldocumentValidUntil: s.TraveldocumentValidUntil,\n      TraveldocumentIssuingAuthority: String(s.TraveldocumentIssuingAuthority),\n    },\n  };\n})()\n}}",
+        "options": {
+          "timeout": 300000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -672,
+        416
+      ],
+      "id": "6a153d2c-8bb6-4aa4-8e9c-59fc38a80a62",
+      "name": "HTTP Request",
+      "retryOnFail": true,
+      "alwaysOutputData": false,
+      "onError": "continueErrorOutput",
+      "maxTries": 2,
+      "waitBetweenTries": 60000
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "Slots blacklist",
+          "mode": "name"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "slotValue",
+              "keyValue": "={{ $('Merge Student + Slot').first().json.currentSlot }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "PENDING",
+            "assignedToStudentId": "={{ $('Merge Student + Slot').first().json.student.id }}",
+            "attemptedAt": "={{ new Date().toISOString() }}",
+            "slotValue": "={{ $('Merge Student + Slot').first().json.currentSlot }}",
+            "weekLabel": "={{ $('Merge Student + Slot').first().json.weekLabel }}",
+            "office": "={{ $('Merge Student + Slot').first().json.Office }}",
+            "calendarId": "={{ $('Merge Student + Slot').first().json.CalendarId }}",
+            "detectedAt": "={{ $('Merge Student + Slot').first().json.detectedAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "slotValue",
+              "displayName": "slotValue",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "weekLabel",
+              "displayName": "weekLabel",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "office",
+              "displayName": "office",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "calendarId",
+              "displayName": "calendarId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "detectedAt",
+              "displayName": "detectedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "assignedToStudentId",
+              "displayName": "assignedToStudentId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "attemptedAt",
+              "displayName": "attemptedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "result",
+              "displayName": "result",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "bfb83ad1-32be-498a-937c-42e6bd416095",
+      "name": "Update Slot → PENDING",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -448,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "applicants",
+          "mode": "name"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyValue": "={{ $('Merge Student + Slot').first().json.student.id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "PENDING"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Lastname",
+              "displayName": "Lastname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Firstname",
+              "displayName": "Firstname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "DateOfBirth",
+              "displayName": "DateOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentNumber",
+              "displayName": "TraveldocumentNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Sex",
+              "displayName": "Sex",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Street",
+              "displayName": "Street",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Postcode",
+              "displayName": "Postcode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "City",
+              "displayName": "City",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Country",
+              "displayName": "Country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Telephone",
+              "displayName": "Telephone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "LastnameAtBirth",
+              "displayName": "LastnameAtBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "NationalityAtBirth",
+              "displayName": "NationalityAtBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "CountryOfBirth",
+              "displayName": "CountryOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "PlaceOfBirth",
+              "displayName": "PlaceOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "NationalityForApplication",
+              "displayName": "NationalityForApplication",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentDateOfIssue",
+              "displayName": "TraveldocumentDateOfIssue",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentValidUntil",
+              "displayName": "TraveldocumentValidUntil",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentIssuingAuthority",
+              "displayName": "TraveldocumentIssuingAuthority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "bookedSlot",
+              "displayName": "bookedSlot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "bookedAt",
+              "displayName": "bookedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "notifyTelegram",
+              "displayName": "notifyTelegram",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "2b156352-d6e7-40dc-a2b3-a1e840d7a206",
+      "name": "Update Student → PENDING",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "applicants",
+          "mode": "name"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyValue": "={{ $('Merge Student + Slot').first().json.student.id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "notifyTelegram": "={{ $('Merge Student + Slot').first().json.student.notifyTelegram }}",
+            "status": "PENDING"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Lastname",
+              "displayName": "Lastname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Firstname",
+              "displayName": "Firstname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "DateOfBirth",
+              "displayName": "DateOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentNumber",
+              "displayName": "TraveldocumentNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Sex",
+              "displayName": "Sex",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Street",
+              "displayName": "Street",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Postcode",
+              "displayName": "Postcode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "City",
+              "displayName": "City",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Country",
+              "displayName": "Country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Telephone",
+              "displayName": "Telephone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "LastnameAtBirth",
+              "displayName": "LastnameAtBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "NationalityAtBirth",
+              "displayName": "NationalityAtBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "CountryOfBirth",
+              "displayName": "CountryOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "PlaceOfBirth",
+              "displayName": "PlaceOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "NationalityForApplication",
+              "displayName": "NationalityForApplication",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentDateOfIssue",
+              "displayName": "TraveldocumentDateOfIssue",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentValidUntil",
+              "displayName": "TraveldocumentValidUntil",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentIssuingAuthority",
+              "displayName": "TraveldocumentIssuingAuthority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "bookedSlot",
+              "displayName": "bookedSlot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "bookedAt",
+              "displayName": "bookedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "notifyTelegram",
+              "displayName": "notifyTelegram",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "4a9299de-5650-42a3-ab13-426c80538398",
+      "name": "Reset Student PENDING (taken)",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        0,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "Slots blacklist",
+          "mode": "name"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "slotValue",
+              "keyValue": "={{ $('Merge Student + Slot').first().json.currentSlot }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "SLOT_TAKEN",
+            "slotValue": "={{ $('Merge Student + Slot').first().json.currentSlot }}",
+            "attemptedAt": "={{ $('Merge Student + Slot').first().json.row.attemptedAt }}",
+            "result": "SLOT_TAKEN"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "slotValue",
+              "displayName": "slotValue",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "weekLabel",
+              "displayName": "weekLabel",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "office",
+              "displayName": "office",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "calendarId",
+              "displayName": "calendarId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "detectedAt",
+              "displayName": "detectedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "assignedToStudentId",
+              "displayName": "assignedToStudentId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "attemptedAt",
+              "displayName": "attemptedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "result",
+              "displayName": "result",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "32400dab-93ee-447e-99b3-4c3b71b4e9af",
+      "name": "Mark Slot SLOT_TAKEN",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        224,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "1377621332",
+        "text": "=⚠️ Slot already taken!\n\nStudent {{ $('Reset Student PENDING (taken)').first().json.Firstname }}{{ $('Reset Student PENDING (taken)').item.json.Lastname }} returned to PENDING\nSlot: {{ $('Merge Student + Slot').first().json.currentSlot }}\n\nWill retry with next available slot",
+        "additionalFields": {}
+      },
+      "id": "123dff6d-1fba-4d3f-a8f1-f11f897d1288",
+      "name": "Telegram: Slot Taken",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        384
+      ],
+      "webhookId": "0aa55013-057a-4d20-a9ed-3b2f0bcf22d5",
+      "credentials": {
+        "telegramApi": {
+          "id": "YqEjQvYeHBuiR4Cl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "applicants",
+          "mode": "name"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyValue": "={{ $('Merge Student + Slot').first().json.student.id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "notifyTelegram": "={{ $('Merge Student + Slot').first().json.student.notifyTelegram }}",
+            "status": "PENDING"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Lastname",
+              "displayName": "Lastname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Firstname",
+              "displayName": "Firstname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "DateOfBirth",
+              "displayName": "DateOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentNumber",
+              "displayName": "TraveldocumentNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Sex",
+              "displayName": "Sex",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Street",
+              "displayName": "Street",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Postcode",
+              "displayName": "Postcode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "City",
+              "displayName": "City",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Country",
+              "displayName": "Country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Telephone",
+              "displayName": "Telephone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "LastnameAtBirth",
+              "displayName": "LastnameAtBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "NationalityAtBirth",
+              "displayName": "NationalityAtBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "CountryOfBirth",
+              "displayName": "CountryOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "PlaceOfBirth",
+              "displayName": "PlaceOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "NationalityForApplication",
+              "displayName": "NationalityForApplication",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentDateOfIssue",
+              "displayName": "TraveldocumentDateOfIssue",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentValidUntil",
+              "displayName": "TraveldocumentValidUntil",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentIssuingAuthority",
+              "displayName": "TraveldocumentIssuingAuthority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "bookedSlot",
+              "displayName": "bookedSlot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "bookedAt",
+              "displayName": "bookedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "notifyTelegram",
+              "displayName": "notifyTelegram",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "3eb57ba7-4d83-4e95-83cf-87984d7c6c59",
+      "name": "Reset Student PENDING (captcha)",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        0,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "Slots blacklist",
+          "mode": "name"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "slotValue",
+              "keyValue": "={{ $('Merge Student + Slot').first().json.currentSlot }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "PENDING",
+            "slotValue": "={{ $('Merge Student + Slot').first().json.currentSlot }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "slotValue",
+              "displayName": "slotValue",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "weekLabel",
+              "displayName": "weekLabel",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "office",
+              "displayName": "office",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "calendarId",
+              "displayName": "calendarId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "detectedAt",
+              "displayName": "detectedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "assignedToStudentId",
+              "displayName": "assignedToStudentId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "attemptedAt",
+              "displayName": "attemptedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "result",
+              "displayName": "result",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "2c67e1c3-b875-486d-a1e7-8229187e77f4",
+      "name": "Mark Slot CAPTCHA_FAIL",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        224,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "1377621332",
+        "text": "=❌ CAPTCHA failed 3 times\n\nStudent: {{ $('Reset Student PENDING (captcha)').first().json.Firstname }}{{ $('Reset Student PENDING (captcha)').item.json.Lastname }}\nSlot: {{ $json.currentSlot }}\nStudent returned to PENDING queue\nTime: {{ new Date().toISOString() }}",
+        "additionalFields": {}
+      },
+      "id": "f47bc701-7889-43c4-b9f9-cd81265b3945",
+      "name": "Telegram: CAPTCHA Failed",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        192
+      ],
+      "webhookId": "0aa55013-057a-4d20-a9ed-3b2f0bcf22d5",
+      "credentials": {
+        "telegramApi": {
+          "id": "YqEjQvYeHBuiR4Cl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "applicants",
+          "mode": "name"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyValue": "={{ $('Merge Student + Slot').first().json.student.id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "notifyTelegram": "={{ $('Merge Student + Slot').first().json.student.notifyTelegram }}",
+            "status": "ALREADY_BOOKED"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Lastname",
+              "displayName": "Lastname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Firstname",
+              "displayName": "Firstname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "DateOfBirth",
+              "displayName": "DateOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentNumber",
+              "displayName": "TraveldocumentNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Sex",
+              "displayName": "Sex",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Street",
+              "displayName": "Street",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Postcode",
+              "displayName": "Postcode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "City",
+              "displayName": "City",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Country",
+              "displayName": "Country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Telephone",
+              "displayName": "Telephone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "LastnameAtBirth",
+              "displayName": "LastnameAtBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "NationalityAtBirth",
+              "displayName": "NationalityAtBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "CountryOfBirth",
+              "displayName": "CountryOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "PlaceOfBirth",
+              "displayName": "PlaceOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "NationalityForApplication",
+              "displayName": "NationalityForApplication",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentDateOfIssue",
+              "displayName": "TraveldocumentDateOfIssue",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentValidUntil",
+              "displayName": "TraveldocumentValidUntil",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "TraveldocumentIssuingAuthority",
+              "displayName": "TraveldocumentIssuingAuthority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "bookedSlot",
+              "displayName": "bookedSlot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "bookedAt",
+              "displayName": "bookedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "notifyTelegram",
+              "displayName": "notifyTelegram",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "2589506d-054c-431e-9140-b83a531f3f14",
+      "name": "Mark Student ALREADY_BOOKED",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        0,
+        576
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "Slots blacklist",
+          "mode": "name"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "slotValue",
+              "keyValue": "={{ $('Merge Student + Slot').first().json.currentSlot }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "PENDING",
+            "slotValue": "={{ $('Merge Student + Slot').first().json.currentSlot }}",
+            "attemptedAt": "={{ $('Merge Student + Slot').first().json.row.attemptedAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "slotValue",
+              "displayName": "slotValue",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "weekLabel",
+              "displayName": "weekLabel",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "office",
+              "displayName": "office",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "calendarId",
+              "displayName": "calendarId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "detectedAt",
+              "displayName": "detectedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "assignedToStudentId",
+              "displayName": "assignedToStudentId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "attemptedAt",
+              "displayName": "attemptedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "result",
+              "displayName": "result",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "cc46fcc1-eaa2-497a-b0f1-6823cbc16aab",
+      "name": "Mark Slot PENDING",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        224,
+        576
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "1377621332",
+        "text": "=⚠️ Student already has an appointment\n\n{{ $('Mark Student ALREADY_BOOKED').first().json.Firstname }}{{ $('Mark Student ALREADY_BOOKED').item.json.Lastname }}\nPassport: {{ $('Mark Student ALREADY_BOOKED').first().json.TraveldocumentNumber }}\nBMEIA: {{ $('Check Booking Response').first().json.errorText }}\n\n",
+        "additionalFields": {}
+      },
+      "id": "55b20a77-86db-4619-86d4-217c68a8f07a",
+      "name": "Telegram: already booked",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        576
+      ],
+      "webhookId": "0aa55013-057a-4d20-a9ed-3b2f0bcf22d5",
+      "credentials": {
+        "telegramApi": {
+          "id": "YqEjQvYeHBuiR4Cl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "de02b379-fae4-4a00-9115-f3dd033f0331",
+      "name": "One Slot at a Time",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -2016,
+        416
+      ]
+    }
+  ],
+  "pinData": {
+    "Webhook1": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.acmeai.crabdance.com",
+            "user-agent": "n8n",
+            "content-length": "2077",
+            "accept": "application/json,text/html,application/xhtml+xml,application/xml,text/*;q=0.9, image/*;q=0.8, */*;q=0.7",
+            "accept-encoding": "gzip, compress, deflate, br",
+            "content-type": "application/json",
+            "x-forwarded-for": "172.18.0.1",
+            "x-forwarded-host": "n8n.acmeai.crabdance.com",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "cc4a9ccc7edc",
+            "x-real-ip": "172.18.0.1"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "Office": "KOPENHAGEN",
+            "CalendarId": "9677702",
+            "PersonCount": "1",
+            "Language": "en",
+            "MaxWeeksToScan": 12,
+            "sessionCookie": "AspxAutoDetectCookieSupport=1; ASP.NET_SessionId=2tw0o13jykd10mq0odso51du",
+            "currentMonday": "6/8/2026 12:00:00 AM",
+            "weekIndex": 1,
+            "slotsFound": true,
+            "foundSlots": [
+              "6/10/2026 2:00:00 PM",
+              "6/11/2026 11:30:00 AM"
+            ],
+            "done": true,
+            "weekLabel": "6/8/2026 - 6/14/2026",
+            "hasNextWeek": true,
+            "hasError": false,
+            "token": "FCBF754B1DFC6AC4B43FACA220F36E1DBEFCB779BC30820CEA0092F4E472F50FC4C051F5A5243A06029BA89C9DC4E03C3E0F6CDE0ACAAFEB3DC2DC88D2697A78926C0D82ADEAC096369D13C83ED65D036CD6A43187189AFAC096CFF8BCC726CDFEE6372467E2B4E65DB8A0309559A8DE6AD80BC2905E44854613C922FA645DA41FAB9D7DEA1DCBF6284F1BE5C26B0D8E45EC0ED498708A6691B8020A8C7B1C53084E902519F6B762057C96348739976E0D0A10C2AED14CEE6CF1C0E53488CF985E5D51CB3DAC543A1F3DD1234C7AC0E08D820F289AE36B9D3BFA9332561B746E4C2F1A3ACDE81EE4E7E4906717C3F11D065105081ADBE4F80ED4261C3BD760436CF3E965204496D7F805EF36662B0AAD9E2B120DE61311BCD63B77FC89DC8208BA8D17FFDC7411E17C1C374D0F3DA31193913B4C",
+            "notificationMessage": "🇦🇹 APPOINTMENT SLOT AVAILABLE!\n\nOffice: KOPENHAGEN\nCalendar ID: 9677702\nWeek: 6/8/2026 - 6/14/2026\n\nAvailable slots (2):\n1. 6/10/2026 2:00:00 PM\n2. 6/11/2026 11:30:00 AM\n\nSession Cookie: AspxAutoDetectCookieSupport=1; ASP.NET_SessionId=2tw0o13jykd10mq0odso51du\nToken: N/A\n\nAct NOW — these slots disappear in seconds!\nTime detected: 2026-05-30T05:58:11.027Z",
+            "telegramMessage": "🇦🇹 SLOTS AVAILABLE NOW!\n2 slot(s) at 6/8/2026 - 6/14/2026\nFirst slot: 6/10/2026 2:00:00 PM",
+            "firstSlot": "6/10/2026 2:00:00 PM",
+            "detectedAt": "2026-05-30T05:58:11.027Z",
+            "startTime": "6/10/2026 2:00:00 PM",
+            "BDC_VCID_Captcha": "3dbdd260d6d34d2bbec968d828de0c21",
+            "BDC_Hs_Captcha": "cb0d08dedb8702c5baa3ffedf25a0c8ec2379c14",
+            "BDC_SP_Captcha": "1739544490",
+            "BDC_BackWorkaround_Captcha": "0",
+            "captchaImageUrl": "https://appointment.bmeia.gv.at/BotDetectCaptcha.ashx?get=image&c=Captcha&t=3dbdd260d6d34d2bbec968d828de0c21",
+            "bookingEndpoint": "https://appointment.bmeia.gv.at/HomeWeb/AppointmentPassport",
+            "bookingFormReady": true
+          },
+          "webhookUrl": "https://n8n.acmeai.crabdance.com/webhook/booker",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Rebuild_Payload": {
+      "main": [
+        [
+          {
+            "node": "One Slot at a Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter_slots": {
+      "main": [
+        [
+          {
+            "node": "Rebuild_Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get_All_Blacklisted_Slots": {
+      "main": [
+        [
+          {
+            "node": "Filter_slots",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Get All Blacklisted Slots",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Slot BOOKED": {
+      "main": [
+        [
+          {
+            "node": "Telegram: Booked!",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Student COMPLETED": {
+      "main": [
+        [
+          {
+            "node": "Mark Slot BOOKED",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Result Switch": {
+      "main": [
+        [
+          {
+            "node": "Mark Student COMPLETED",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reset Student PENDING (captcha)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reset Student PENDING (taken)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mark Student ALREADY_BOOKED",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Booking Response": {
+      "main": [
+        [
+          {
+            "node": "Result Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Student → IN_PROGRESS": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Slot → IN_PROGRESS": {
+      "main": [
+        [
+          {
+            "node": "Update Student → IN_PROGRESS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Student + Slot": {
+      "main": [
+        [
+          {
+            "node": "Update Slot → IN_PROGRESS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Student Found?": {
+      "main": [
+        [
+          {
+            "node": "Merge Student + Slot",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Telegram: No Students Left",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Next PENDING Student": {
+      "main": [
+        [
+          {
+            "node": "Student Found?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Into Slots": {
+      "main": [
+        [
+          {
+            "node": "One Slot at a Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rebuild Payload": {
+      "main": [
+        [
+          {
+            "node": "Split Into Slots",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert All Slots to Blacklist": {
+      "main": [
+        [
+          {
+            "node": "Rebuild Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Slots for Insert": {
+      "main": [
+        [
+          {
+            "node": "Insert All Slots to Blacklist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Any Fresh Slots?": {
+      "main": [
+        [
+          {
+            "node": "Prepare Slots for Insert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get_All_Blacklisted_Slots",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Fresh Slots": {
+      "main": [
+        [
+          {
+            "node": "Any Fresh Slots?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get All Blacklisted Slots": {
+      "main": [
+        [
+          {
+            "node": "Filter Fresh Slots",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Check Booking Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update Slot → PENDING",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Slot → PENDING": {
+      "main": [
+        [
+          {
+            "node": "Update Student → PENDING",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reset Student PENDING (taken)": {
+      "main": [
+        [
+          {
+            "node": "Mark Slot SLOT_TAKEN",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Slot SLOT_TAKEN": {
+      "main": [
+        [
+          {
+            "node": "Telegram: Slot Taken",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reset Student PENDING (captcha)": {
+      "main": [
+        [
+          {
+            "node": "Mark Slot CAPTCHA_FAIL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Slot CAPTCHA_FAIL": {
+      "main": [
+        [
+          {
+            "node": "Telegram: CAPTCHA Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Student ALREADY_BOOKED": {
+      "main": [
+        [
+          {
+            "node": "Mark Slot PENDING",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Slot PENDING": {
+      "main": [
+        [
+          {
+            "node": "Telegram: already booked",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "One Slot at a Time": {
+      "main": [
+        [
+          {
+            "node": "Telegram: All Done",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get Next PENDING Student",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "9456abb7-3f8b-45e4-816f-396b10444ce3",
+  "meta": {
+    "instanceId": "557e6b8bb0e911f7ae8ea43d8e301a926d3fd408266c42b134cffb60424264aa"
+  },
+  "id": "V2giHI6bqFpWq8ff",
+  "tags": []
+}

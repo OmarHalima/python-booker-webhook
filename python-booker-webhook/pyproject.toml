@@ -1,0 +1,13 @@
+[project]
+name = "python-booker-webhook"
+version = "2.0.0"
+description = "Austrian embassy appointment booker webhook (FastAPI + Playwright)"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = [
+    "integration: needs network or live services",
+    "e2e: needs Playwright and a live BMEIA session",
+]

@@ -1,5 +1,9 @@
 # n8n workflows
 
+Canonical exports live at **[`../../n8n/`](../../n8n/)** (`booker.json`, `watcher-v3.json`).
+
+This folder keeps a local copy of `booker.json` for convenience when working inside the Python project.
+
 ## booker.json
 
 Booking workflow: slot queue → merge student → `POST /webhook/booker` → result switch (SUCCESS / CAPTCHA_FAIL / SLOT_TAKEN / ALREADY_BOOKED).

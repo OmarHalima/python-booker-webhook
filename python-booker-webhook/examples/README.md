@@ -1,26 +1,17 @@
-# Example payloads
+# Example payloads (deprecated location)
 
-## Test (KOPENHAGEN stand-in for Kairo)
+Payloads moved to **[`../fixtures/payloads/`](../fixtures/payloads/)**.
 
-Use **`payload-booker.json`** for all local and n8n integration tests:
+| File | Use |
+|------|-----|
+| `payload-booker.json` | KOPENHAGEN test stand-in for Cairo |
+| `payload-kairo-production.json` | Production Cairo (KAIRO) template |
+| `kopenhagen-dummy-applicant.json` | Sandbox dummy applicant |
 
-- `"Office": "KOPENHAGEN"`, `"CalendarId": "9677702"`
-- Egyptian-style **student** data (Cairo applicant profile) on a Copenhagen test queue
-
-See [docs/TESTING_KOPENHAGEN.md](../docs/TESTING_KOPENHAGEN.md) for why and how to switch to production.
-
-```bash
-.venv\Scripts\python.exe scripts\run_turbo_payload.py examples\payload-booker.json
-```
-
-Replace `sessionCookie`, `currentMonday`, and `currentSlot` from:
+Historical dev payloads: [`../fixtures/payloads/archive/`](../fixtures/payloads/archive/).
 
 ```bash
-.venv\Scripts\python.exe scripts\scan_slots.py --office KOPENHAGEN --calendar-id 9677702
+.venv\Scripts\python.exe scripts\run_turbo_payload.py fixtures\payloads\payload-booker.json
 ```
 
-## Production (Cairo / KAIRO)
-
-Use **`payload-kairo-production.json`** when pointing n8n at the real Cairo mission (`Office: KAIRO`, mission `CalendarId`).
-
-Historical dev payloads: `docs/turbo-booker-archive/test-payloads/`.
+See [docs/TESTING_KOPENHAGEN.md](../docs/TESTING_KOPENHAGEN.md).

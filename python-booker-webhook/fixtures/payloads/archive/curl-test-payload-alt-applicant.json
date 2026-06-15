@@ -1,0 +1,31 @@
+{
+  "runId": "curl-test-alt-applicant-001",
+  "sessionCookie": "AspxAutoDetectCookieSupport=1; ASP.NET_SessionId=REPLACE_WITH_REAL_SESSION",
+  "Language": "en",
+  "Office": "KOPENHAGEN",
+  "CalendarId": "9677702",
+  "currentMonday": "5/11/2026 12:00:00 AM",
+  "currentSlot": "5/19/2026 11:00:00 AM",
+  "captureArtifacts": false,
+  "student": {
+    "Lastname": "MÜLLER",
+    "Firstname": "Sophie",
+    "DateOfBirth": "7/14/1988",
+    "TraveldocumentNumber": "XA7788123",
+    "Sex": "2",
+    "Street": "Østerbrogade 42",
+    "Postcode": "2100",
+    "City": "København Ø",
+    "Country": "49",
+    "Telephone": "4533445566",
+    "Email": "s.mueller.alt-test@example.com",
+    "LastnameAtBirth": "MÜLLER",
+    "NationalityAtBirth": "49",
+    "CountryOfBirth": "49",
+    "PlaceOfBirth": "Linz",
+    "NationalityForApplication": "49",
+    "TraveldocumentDateOfIssue": "6/3/2021",
+    "TraveldocumentValidUntil": "6/2/2031",
+    "TraveldocumentIssuingAuthority": "49"
+  }
+}

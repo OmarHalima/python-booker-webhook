@@ -1,0 +1,33 @@
+{
+  "runId": "turbo-fresh-610-3pm",
+  "sessionCookie": "AspxAutoDetectCookieSupport=1; ASP.NET_SessionId=zzbvalzgz4pnjpplikin0jgc",
+  "Language": "en",
+  "Office": "KOPENHAGEN",
+  "CalendarId": "9677702",
+  "PersonCount": "1",
+  "currentMonday": "6/8/2026 12:00:00 AM",
+  "currentSlot": "6/10/2026 3:00:00 PM",
+  "captureArtifacts": false,
+  "maxCaptchaRetries": 3,
+  "student": {
+    "Lastname": "ALI",
+    "Firstname": "OMAR",
+    "DateOfBirth": "7/20/1992",
+    "TraveldocumentNumber": "C7777777",
+    "Sex": "1",
+    "Street": "5 Test Road",
+    "Postcode": "2100",
+    "City": "Copenhagen",
+    "Country": "49",
+    "Telephone": "4522334455",
+    "Email": "omar.ali.test@example.com",
+    "LastnameAtBirth": "ALI",
+    "NationalityAtBirth": "49",
+    "CountryOfBirth": "49",
+    "PlaceOfBirth": "Cairo",
+    "NationalityForApplication": "49",
+    "TraveldocumentDateOfIssue": "1/1/2021",
+    "TraveldocumentValidUntil": "1/1/2031",
+    "TraveldocumentIssuingAuthority": "49"
+  }
+}

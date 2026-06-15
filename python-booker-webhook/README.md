@@ -6,7 +6,7 @@ Receives payloads from n8n via HTTP webhook, books Austrian embassy appointments
 
 **Captcha:** OCR first, Gemini fallback (`CAPTCHA_SOLVER=ocr_with_gemini_fallback`). DOM screenshot only — `CAPTCHA_PARALLEL_FETCH=false`. See [docs/CAPTCHA_INVESTIGATION.md](docs/CAPTCHA_INVESTIGATION.md).
 
-**n8n workflow:** import [workflows/booker.json](workflows/booker.json) (HTTP timeout 300s, `runId`, serial slot booking).
+**n8n workflow:** import [`../n8n/booker.json`](../n8n/booker.json) (or local copy [workflows/booker.json](workflows/booker.json); HTTP timeout 300s, `runId`, serial slot booking).
 
 **Legacy path:** full Playwright wizard (~26s) on `POST /webhook/booker-legacy`.
 
@@ -37,8 +37,17 @@ Set `CAPTCHA_OCR_BASE_URL` (your deployed `/predict` service, e.g. ngrok URL) an
 Test OCR before deploy:
 
 ```bash
-python test_ocr_captcha_api.py
-# optional: python test_ocr_captcha_api.py path\to\artifact_captcha.png
+python scripts/run_ocr_captcha_api.py
+# optional: python scripts/run_ocr_captcha_api.py path\to\artifact_captcha.png
+```
+
+### Unit tests
+
+```bash
+pip install -r requirements-dev.txt
+pytest tests/unit -q
+pytest tests/integration -q   # FastAPI smoke tests
+pytest tests/e2e -q           # Playwright + live session (manual)
 ```
 
 ## 2) Run server
@@ -79,7 +88,7 @@ Send the same fields you already use in workflow 2:
 - optional `manualReviewSeconds` (default: `0` — no post-run wait). Set e.g. `20` to pause for manual inspection on failure (see `manualReviewOnFail`)
 - optional `dsgvoAccepted` (default: check GDPR consent when `#DSGVOAccepted` exists); set `false` to skip
 
-Example body (see also [`examples/payload-booker.json`](examples/payload-booker.json) — **KOPENHAGEN test office**; production Cairo: [`examples/payload-kairo-production.json`](examples/payload-kairo-production.json)):
+Example body (see [`fixtures/payloads/payload-booker.json`](fixtures/payloads/payload-booker.json) — **KOPENHAGEN test office**; production Cairo: [`fixtures/payloads/payload-kairo-production.json`](fixtures/payloads/payload-kairo-production.json)):
 
 ```json
 {
