@@ -30,7 +30,7 @@ def main() -> int:
 
     py = sys.executable
     report = {
-        "version": "ocr-fix-v1",
+        "version": "v1.0.1",
         "startedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "steps": [],
     }

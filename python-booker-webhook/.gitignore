@@ -15,6 +15,9 @@ debug-ce612b.log
 artifacts/*
 !artifacts/.gitkeep
 
+# OCR training datasets (local PNGs + manifest — never commit)
+datasets/
+
 # Python
 __pycache__/
 *.py[cod]

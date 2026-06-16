@@ -44,7 +44,7 @@ pytestmark = pytest.mark.integration
 
 - **Not pytest**: manual OCR CLI → `scripts/run_ocr_captcha_api.py`
 - **Skip live deps**: `@pytest.mark.skipif` when env var or Playwright session required
-- Run tests after moving/refactoring modules — 44 tests is the current baseline
+- Run tests after moving/refactoring modules — **77 tests** is the current baseline (unit + integration)
 
 ## Do not commit
 

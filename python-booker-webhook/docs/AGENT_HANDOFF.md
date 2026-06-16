@@ -1,6 +1,6 @@
 # Agent Handoff — Python Booker Webhook
 
-**Last updated:** 2026-05-31  
+**Last updated:** 2026-06-16  
 **Purpose:** Onboard the next Cursor agent session with accurate project state, decisions, evidence, and open work. Read this before changing captcha, VPS, or n8n integration.
 
 ---
@@ -10,15 +10,19 @@
 | Area | Status |
 |------|--------|
 | Turbo booker (`POST /webhook/booker`) | **Working** — scheduler POST + Playwright submit |
-| Local dev (Windows) | SUCCESS with OCR or Gemini on easy captchas (~5–6s) |
-| VPS production (Docker) | **Working with `gemini_first`** — run `1411570` SUCCESS attempt 1 (~4.8s) |
+| Local dev (Windows) | **v1.0.1 pipeline merged** — 5/5 KOPENHAGEN SUCCESS on `:8000` (2026-06-16) |
+| Repo captcha pipeline | DOM-only capture, HS guard, Gemini on round ≥2, `DomCaptchaCaptureError` (no URL fallback) |
+| Unit/integration tests | **77 passed** (`test_v101_captcha_pipeline.py`, updated solver tests) |
+| VPS production (Docker) | **Not yet updated** — still on pre-merge code + `gemini_first` workaround |
 | n8n integration | Workflow in `workflows/booker.json`; HTTP 300s timeout, serial booking |
 | KOPENHAGEN test stand-in | Validated; KAIRO = same code, different payload constants |
-| OCR-first on VPS | **Unreliable** — wrong answers + suspected image/answer desync (see §5) |
+| OCR finetune (5k dataset) | **In progress** — see `docs/CAPTCHA_OCR_DATASET.md`; deploy weights before VPS OCR-first retest |
 
-**Operational recommendation for VPS today:** `CAPTCHA_SOLVER=gemini_first` (or `TURBO_CAPTCHA_SOLVER=gemini_first`), not `ocr_with_gemini_fallback`.
+**VPS deploy:** Deferred until OCR finetune completes. See [`V1_0_1_PROBLEMS_AND_MERGE_PLAN.md`](./V1_0_1_PROBLEMS_AND_MERGE_PLAN.md) — S7 canary pending.
 
-**Code default (repo):** `ocr_with_gemini_fallback` in `app.py` — intentional for cost/latency when OCR is accurate; VPS evidence overrides this until OCR pipeline is fixed.
+**Code default (repo):** `CAPTCHA_SOLVER=ocr_with_gemini_fallback`, `CAPTCHA_MAX_STYLE_RELOADS=0`. Parallel URL fetch **hard-disabled** in code.
+
+**VPS today (until deploy):** Keep `CAPTCHA_SOLVER=gemini_first` on `193.203.191.168:8000`.
 
 ---
 
@@ -185,11 +189,13 @@ User manually verified: **OCR text matches a different captcha PNG** than the ar
 
 ### Recommended code fixes (next agent)
 
-1. Log SHA256 of bytes at capture + OCR send + `vcidTail`  
-2. Unique OCR upload filename: `captcha_{runId}_{attempt}_{vcid}.png`  
+**Status (2026-06-16):** Items 1–2, 4–5 **merged to production root** from v1.0.1. Track remaining work in [`V1_0_1_PROBLEMS_AND_MERGE_PLAN.md`](./V1_0_1_PROBLEMS_AND_MERGE_PLAN.md).
+
+1. ~~Log SHA256 of bytes at capture + OCR send + `vcidTail`~~ — **done** (`solve_captcha_with_ocr`)
+2. ~~Unique OCR upload filename~~ — **done**
 3. Artifact subdirs per webhook entry (avoid overwrite on n8n retry)  
-4. **Gemini after first CAPTCHA_FAIL** or on `difficulty == hard`  
-5. Optional: on retry, re-screenshot current page instead of full scheduler re-POST  
+4. ~~Gemini after first CAPTCHA_FAIL~~ — **done** (Gemini-first on captcha round ≥ 2 / attempt ≥ 2)
+5. ~~Pre-OCR DOM re-capture~~ — **done** (turbo path)
 6. Optional: `asyncio.to_thread()` wrapper on webhook handlers (VPS hardening)
 
 ---
@@ -273,12 +279,32 @@ python -m py_compile app.py booker_legacy.py
 | **[../sandboxes/lock-integration-v1/README.md](../sandboxes/lock-integration-v1/README.md)** | Isolated sandbox: booker-lock + **KOPENHAGEN watcher** E2E, scripts, workflow IDs |
 | **This file** | Session handoff / current status |
 | [CAPTCHA_INVESTIGATION.md](CAPTCHA_INVESTIGATION.md) | Captcha root-cause history |
+| **[CAPTCHA_OCR_DATASET.md](CAPTCHA_OCR_DATASET.md)** | OCR finetune dataset pipeline (harvest → label → split) |
 | [TURBO_APP.md](TURBO_APP.md) | Turbo env vars and endpoints |
 | [n8n-booking-result-flow.md](n8n-booking-result-flow.md) | n8n result types + production checklist |
 | [PARALLEL_BOOKING.md](PARALLEL_BOOKING.md) | Workers, locks, 503 behavior |
 | [TESTING_KOPENHAGEN.md](TESTING_KOPENHAGEN.md) | Safe test office |
 | [XVFB_PLAYWRIGHT_DEPLOYMENT.md](XVFB_PLAYWRIGHT_DEPLOYMENT.md) | Headed Linux |
 | [workflows/README.md](../workflows/README.md) | Import booker.json |
+
+---
+
+## OCR finetune dataset (in progress)
+
+Parallel track to production captcha fixes: collect ~5k BMEIA BotDetect images to finetune `anuashok/ocr-captcha-v3` (TrOCR on `:8001`).
+
+| Component | Location |
+|-----------|----------|
+| Full pipeline doc | [CAPTCHA_OCR_DATASET.md](CAPTCHA_OCR_DATASET.md) |
+| HTTP harvest (recommended) | `scripts/harvest_captcha_images.py --method http` |
+| HTTP transport + VCID rotation | `scripts/captcha_harvest_http.py` |
+| Manifest / splits | `scripts/captcha_dataset_lib.py` |
+| Review UI | `scripts/review_captcha_labels.py` (:8765) |
+| Dataset dir (gitignored) | `datasets/bmeia-captcha-v1/` |
+
+**Status:** Harvest + label + split scripts implemented and tested (59 pytest). TrOCR training script not yet built.
+
+**Harvest method:** One Playwright session discover → cached `session_cache.json` → HTTP GET `BotDetectCaptcha.ashx?get=image&c=Captcha&t={vcid}` with VCID refresh every 4 images (~350 ms delay, avoids 429).
 
 ---
 

@@ -14,6 +14,8 @@ Receives payloads from n8n via HTTP webhook, books Austrian embassy appointments
 
 **Agent handoff (start here in a new session):** [docs/AGENT_HANDOFF.md](docs/AGENT_HANDOFF.md) — current VPS status, captcha decisions, open work.
 
+**v1.0.1 OCR pipeline:** Merged to production root (2026-06-16). Iteration sandbox: [sandboxes/v1.0.1/](sandboxes/v1.0.1/). Tracker: [docs/V1_0_1_PROBLEMS_AND_MERGE_PLAN.md](docs/V1_0_1_PROBLEMS_AND_MERGE_PLAN.md).
+
 See [docs/turbo-booker-archive/README.md](docs/turbo-booker-archive/README.md) for the full project history.
 
 ## 1) Setup
@@ -137,6 +139,19 @@ Example body (see [`fixtures/payloads/payload-booker.json`](fixtures/payloads/pa
 The booker sends captcha PNG bytes to `POST {CAPTCHA_OCR_BASE_URL}/predict` as multipart `file`. For ngrok free tier, the client sends `ngrok-skip-browser-warning: 1`. Response JSON: `{"result": "..."}`.
 
 `GEMINI_API_KEY` is still used when OCR fails and for optional `GEMINI_FILL_FORM`.
+
+### OCR training dataset (finetune pipeline)
+
+Separate from production booking: harvest ~5k BotDetect images, OCR pre-label, human review, train/val/test split. Full reference: [docs/CAPTCHA_OCR_DATASET.md](docs/CAPTCHA_OCR_DATASET.md).
+
+```powershell
+python scripts/harvest_captcha_images.py --count 5000 --method http
+python scripts/ocr_prelabel_manifest.py
+python scripts/review_captcha_labels.py
+python scripts/split_captcha_dataset.py
+```
+
+Dataset output lives in `datasets/bmeia-captcha-v1/` (gitignored).
 
 ## 5) Notes
 

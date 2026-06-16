@@ -41,6 +41,8 @@ MCP server: **`user-gitnexus`** — always pass `repo: "python-booker-webhook"`.
 |-----|------|
 | [`.cursor/skills/orchestrator/SKILL.md`](.cursor/skills/orchestrator/SKILL.md) | **Every session** — route skills/subagents/rules |
 | [`python-booker-webhook/docs/AGENT_HANDOFF.md`](python-booker-webhook/docs/AGENT_HANDOFF.md) | Captcha, VPS, production state |
+| [`python-booker-webhook/docs/CAPTCHA_OCR_DATASET.md`](python-booker-webhook/docs/CAPTCHA_OCR_DATASET.md) | OCR finetune dataset harvest/label/split |
+| [`python-booker-webhook/docs/V1_0_1_PROBLEMS_AND_MERGE_PLAN.md`](python-booker-webhook/docs/V1_0_1_PROBLEMS_AND_MERGE_PLAN.md) | v1.0.1 problems, checklist, test-first merge plan |
 | [`python-booker-webhook/README.md`](python-booker-webhook/README.md) | Setup, endpoints, env vars |
 | [`.cursor/rules/`](.cursor/rules/) | Architecture and conventions (auto-applied) |
 
@@ -59,7 +61,7 @@ n8n watcher → slots queue → n8n booker → POST /webhook/booker → app.py (
 | Unit/integration tests | `python-booker-webhook/tests/` |
 | Test payloads | `python-booker-webhook/fixtures/payloads/` |
 | Sandbox experiments | `python-booker-webhook/sandboxes/` |
-| OCR fix release | `sandboxes/v1.0.1/` (port 8011, from ocr-fix-v1) |
+| OCR fix / iteration sandbox | `sandboxes/v1.0.1/` (port 8011); predecessor archived under `archive/sandboxes/ocr-fix-v1/` |
 | Runtime debug output | `python-booker-webhook/artifacts/` (gitignored) |
 
 ## Commands

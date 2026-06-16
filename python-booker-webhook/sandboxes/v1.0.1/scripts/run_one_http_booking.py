@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""POST one turbo booking to local ocr-fix-v1 server (port 8011)."""
+"""POST one turbo booking to local v1.0.1 server (port 8011)."""
 from __future__ import annotations
 
 import json

@@ -24,7 +24,7 @@ files/
 │   ├── scripts/                  # Operational CLIs (scan, run payload, OCR check)
 │   ├── sandboxes/                # Lock/OCR experiments — workflows + scripts ONLY
 │   └── artifacts/                # Gitignored runtime output
-└── archive/                      # Retired docs/CSVs
+└── archive/                      # Retired docs, CSVs, archived sandboxes (e.g. ocr-fix-v1)
 ```
 
 ## Runtime flow

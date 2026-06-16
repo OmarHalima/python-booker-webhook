@@ -62,8 +62,8 @@ def _botdetect_settle_ms() -> int:
         return 150
 
 
-def _wait_botdetect_ready(page) -> None:
-    booker.wait_botdetect_ready(page, settle_ms=_botdetect_settle_ms())
+def _wait_botdetect_ready(page) -> bool:
+    return booker.wait_botdetect_ready(page, settle_ms=_botdetect_settle_ms())
 
 
 def _save_solved_captcha_for_training(
@@ -116,11 +116,13 @@ def _solve_turbo_captcha(
     *,
     run_id: str,
     attempt: int,
+    captcha_round: int,
     vcid: str,
     max_attempts: int,
 ) -> Tuple[str, str]:
     """Solve captcha per TURBO_CAPTCHA_SOLVER / CAPTCHA_SOLVER (default: ocr_with_gemini_fallback)."""
     mode = _turbo_captcha_solver_mode()
+    use_gemini_first = captcha_round >= 2 or attempt >= 2
 
     if mode == "ocr":
         text = booker.solve_captcha_with_ocr(
@@ -135,6 +137,20 @@ def _solve_turbo_captcha(
         return text, "gemini"
 
     if mode == "ocr_with_gemini_fallback":
+        if use_gemini_first:
+            try:
+                text = booker.solve_captcha_with_gemini(
+                    image_bytes, run_id=run_id, attempt=attempt, vcid=vcid
+                )
+                return text, "gemini"
+            except Exception as exc:
+                booker.dlog(
+                    run_id,
+                    "H_turbo",
+                    "app_turbo:_solve_turbo_captcha",
+                    "gemini_round_failed_fallback_ocr",
+                    {"attempt": attempt, "captchaRound": captcha_round, "error": str(exc)[:200]},
+                )
         try:
             text = booker.solve_captcha_with_ocr(
                 image_bytes, run_id=run_id, attempt=attempt, vcid=vcid
@@ -146,7 +162,7 @@ def _solve_turbo_captcha(
                 "H_turbo",
                 "app_turbo:_solve_turbo_captcha",
                 "ocr_failed_fallback_gemini",
-                {"attempt": attempt, "error": str(exc)[:200]},
+                {"attempt": attempt, "captchaRound": captcha_round, "error": str(exc)[:200]},
             )
         text = booker.solve_captcha_with_gemini(
             image_bytes, run_id=run_id, attempt=attempt, vcid=vcid
@@ -204,6 +220,7 @@ def run_turbo_browser_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
     last_captcha_bytes: bytes = b""
     last_captcha_vcid = ""
     parallel_used_any = False
+    captcha_round = 0
 
     with booker.open_booking_page(
         run_id=run_id,
@@ -251,23 +268,50 @@ def run_turbo_browser_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
             fresh = _fresh_fields_from_payload_override(fresh, payload)
             _verify_start_time(fresh, payload, run_id)
 
-            captcha_text = provided_captcha if (provided_captcha and attempt == 1) else ""
+            captcha_text = provided_captcha if (provided_captcha and attempt == 1 and captcha_round == 0) else ""
             if not captcha_text:
+                captcha_round += 1
                 t0 = time.perf_counter()
-                (
-                    last_captcha_bytes,
-                    _site_captcha_png,
-                    captcha_fetch_source,
-                    parallel_timings,
-                ) = booker.fetch_captcha_with_parallel_prefetch(
-                    page=page,
-                    context=context,
-                    fresh=fresh,
-                    session_cookie=str(payload.get("sessionCookie") or ""),
-                    settle_ms=_botdetect_settle_ms(),
-                    run_id=run_id,
-                    attempt=attempt,
-                )
+                try:
+                    (
+                        last_captcha_bytes,
+                        _site_captcha_png,
+                        captcha_fetch_source,
+                        parallel_timings,
+                    ) = booker.fetch_captcha_with_parallel_prefetch(
+                        page=page,
+                        context=context,
+                        fresh=fresh,
+                        session_cookie=str(payload.get("sessionCookie") or ""),
+                        settle_ms=_botdetect_settle_ms(),
+                        run_id=run_id,
+                        attempt=attempt,
+                    )
+                except booker.DomCaptchaCaptureError as exc:
+                    booker.dlog(
+                        run_id,
+                        "H_captcha_source",
+                        "app_turbo:run_turbo_browser_booking_flow",
+                        booker.DomCaptchaCaptureError.reason,
+                        {"attempt": attempt, "error": str(exc)[:200]},
+                    )
+                    if attempt < max_attempts:
+                        continue
+                    timings["totalMs"] = (time.perf_counter() - t_total) * 1000
+                    result = {
+                        "ok": False,
+                        "resultType": "CAPTCHA_FAIL",
+                        "attempt": attempt,
+                        "message": str(exc),
+                        "reason": booker.DomCaptchaCaptureError.reason,
+                        "mode": "turbo",
+                        "submitMode": "browser",
+                        "runId": run_id,
+                        "timingsMs": timings,
+                        "artifactsDir": str(run_dir),
+                        "timestamp": datetime.utcnow().isoformat() + "Z",
+                    }
+                    break
                 timings[f"captchaFetchMs_attempt{attempt}"] = (time.perf_counter() - t0) * 1000
                 timings[f"captchaParallelWaitMs_attempt{attempt}"] = parallel_timings.get(
                     "captchaParallelWaitMs", 0.0
@@ -280,7 +324,7 @@ def run_turbo_browser_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
                 )
 
                 # Style-gate: reload captcha until an acceptable difficulty is served.
-                _max_reloads = max(0, int(os.getenv("CAPTCHA_MAX_STYLE_RELOADS", "4")))
+                _max_reloads = max(0, int(os.getenv("CAPTCHA_MAX_STYLE_RELOADS", "0")))
                 _min_style = (os.getenv("CAPTCHA_MIN_STYLE", "easy") or "easy").strip().lower()
                 for _style_n in range(_max_reloads + 1):
                     _difficulty = booker._assess_captcha_difficulty(last_captcha_bytes)
@@ -311,12 +355,17 @@ def run_turbo_browser_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
                         last_captcha_bytes, binary=True,
                     )
                 last_captcha_vcid = fresh.bdc_vcid or ""
+                last_captcha_bytes = booker.capture_captcha_bytes_from_dom(page)
+                _save_turbo_artifacts(
+                    run_dir, f"attempt_{attempt:02d}_captcha_ocr.png", last_captcha_bytes, binary=True
+                )
 
                 t0 = time.perf_counter()
                 captcha_text, captcha_source = _solve_turbo_captcha(
                     last_captcha_bytes,
                     run_id=run_id,
                     attempt=attempt,
+                    captcha_round=captcha_round,
                     vcid=fresh.bdc_vcid,
                     max_attempts=max_attempts,
                 )
@@ -330,12 +379,44 @@ def run_turbo_browser_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
                         "attempt": attempt,
                         "source": captcha_source,
                         "fetchSource": captcha_fetch_source,
+                        "captchaRound": captcha_round,
                         "parallelUsed": captcha_fetch_source == "parallel_url_fetch",
                         "len": len(captcha_text),
                     },
                 )
 
-            booker._fill_captcha_text_like_user(page, captcha_text)
+            hs_ok = booker.fill_captcha_with_hs_guard(
+                page,
+                captcha_text,
+                run_id=run_id,
+                settle_ms=_botdetect_settle_ms(),
+            )
+            if not hs_ok:
+                booker.dlog(
+                    run_id,
+                    "H_captcha_hs",
+                    "app_turbo:run_turbo_browser_booking_flow",
+                    "hs_never_updated_after_fill",
+                    {"attempt": attempt, "captchaRound": captcha_round},
+                )
+                provided_captcha = ""
+                if attempt < max_attempts:
+                    continue
+                timings["totalMs"] = (time.perf_counter() - t_total) * 1000
+                result = {
+                    "ok": False,
+                    "resultType": "CAPTCHA_FAIL",
+                    "attempt": attempt,
+                    "captchaText": captcha_text,
+                    "message": "BDC_Hs_Captcha did not update after captcha fill.",
+                    "mode": "turbo",
+                    "submitMode": "browser",
+                    "runId": run_id,
+                    "timingsMs": timings,
+                    "artifactsDir": str(run_dir),
+                    "timestamp": datetime.utcnow().isoformat() + "Z",
+                }
+                break
 
             # Log DOM state immediately after fill to verify #CaptchaText value and
             # that BDC_Hs_Captcha was updated by BotDetect JS before we submit.

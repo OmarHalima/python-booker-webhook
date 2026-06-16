@@ -201,7 +201,7 @@ Use `dispatching-parallel-agents` or parallel Task calls. Merge results before f
 | n8n exports | `n8n/` |
 | Unit tests | `python-booker-webhook/tests/unit/` |
 | Sandbox lock work | `python-booker-webhook/sandboxes/lock-integration-v1/` |
-| OCR fix release v1.0.1 | `python-booker-webhook/sandboxes/v1.0.1/` (port 8011) |
+| OCR fix / iteration sandbox | `sandboxes/v1.0.1/` (port 8011); archived: `archive/sandboxes/ocr-fix-v1/` |
 | GitNexus code graph | [docs/GITNEXUS.md](../../docs/GITNEXUS.md) — MCP `user-gitnexus` |
 | VPS booker | port 8000, `uvicorn app:app` |
 | VPS OCR | port 8001, `/predict` |

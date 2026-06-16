@@ -3,7 +3,6 @@ import os
 import re
 import threading
 import uuid
-from concurrent.futures import Future, ThreadPoolExecutor, TimeoutError as FutureTimeoutError
 from contextlib import contextmanager
 
 try:
@@ -67,9 +66,6 @@ _PLAYWRIGHT_RUNTIME: Dict[str, Any] = {
     "started_at": 0.0,
     "runs": 0,
 }
-_CAPTCHA_FETCH_EXECUTOR: Optional[ThreadPoolExecutor] = None
-_CAPTCHA_FETCH_EXECUTOR_LOCK = threading.Lock()
-
 def _env_int(name: str, default: int, *, minimum: int = 0) -> int:
     try:
         return max(minimum, int(os.getenv(name, str(default))))
@@ -111,11 +107,8 @@ def playwright_slow_mo() -> int:
 
 
 def captcha_parallel_fetch_enabled() -> bool:
-    return _env_bool("CAPTCHA_PARALLEL_FETCH", False)
-
-
-def captcha_parallel_timeout_ms() -> int:
-    return _env_int("CAPTCHA_PARALLEL_TIMEOUT_MS", 1200, minimum=100)
+    """Parallel URL prefetch disabled in v1.0.1 — always DOM screenshot for OCR."""
+    return False
 
 
 def _is_browser_connected(browser: Optional[Browser]) -> bool:
@@ -268,14 +261,6 @@ def open_booking_page(
         except Exception:
             pass
         _release_ephemeral_runtime(runtime)
-
-
-def _get_captcha_fetch_executor() -> ThreadPoolExecutor:
-    global _CAPTCHA_FETCH_EXECUTOR
-    with _CAPTCHA_FETCH_EXECUTOR_LOCK:
-        if _CAPTCHA_FETCH_EXECUTOR is None:
-            _CAPTCHA_FETCH_EXECUTOR = ThreadPoolExecutor(max_workers=4, thread_name_prefix="captcha-fetch")
-        return _CAPTCHA_FETCH_EXECUTOR
 
 
 def playwright_headless() -> bool:
@@ -988,18 +973,10 @@ def fetch_captcha_with_parallel_prefetch(
 ) -> Tuple[bytes, bytes, str, Dict[str, float]]:
     """Wait for BotDetect, then capture captcha from DOM (always OCR what the browser shows).
 
-    Optional parallel URL fetch may warm HTTP caches but must NOT be used for OCR — the URL
-    can return a different render than #Captcha_CaptchaImage for the same VCID.
+    Parallel URL prefetch is disabled in v1.0.1 — BotDetect serves a new image on every GET.
     """
     timings: Dict[str, float] = {}
     site_captcha_png = b""
-    future: Optional[Future[bytes]] = None
-    if captcha_parallel_fetch_enabled():
-        t_fetch = time.perf_counter()
-        future = _get_captcha_fetch_executor().submit(
-            fetch_captcha_bytes, context, fresh.captcha_image_url, session_cookie
-        )
-        timings["captchaParallelFetchMsScheduled"] = (time.perf_counter() - t_fetch) * 1000
 
     t_wait = time.perf_counter()
     ready = False
@@ -1020,30 +997,6 @@ def fetch_captcha_with_parallel_prefetch(
             "botdetect_never_ready",
             {"attempt": attempt},
         )
-
-    if future is not None:
-        try:
-            t_join = time.perf_counter()
-            future.result(timeout=max(0.1, captcha_parallel_timeout_ms() / 1000.0))
-            timings["captchaParallelFetchMs"] = (time.perf_counter() - t_join) * 1000
-        except FutureTimeoutError:
-            if run_id:
-                dlog(
-                    run_id,
-                    "H_captcha_source",
-                    "booker_legacy:fetch_captcha_with_parallel_prefetch",
-                    "parallel_prefetch_timeout_ignored",
-                    {"attempt": attempt, "timeoutMs": captcha_parallel_timeout_ms()},
-                )
-        except Exception as exc:
-            if run_id:
-                dlog(
-                    run_id,
-                    "H_captcha_source",
-                    "booker_legacy:fetch_captcha_with_parallel_prefetch",
-                    "parallel_prefetch_error_ignored",
-                    {"attempt": attempt, "error": str(exc)[:180]},
-                )
 
     dom_exc: Exception | None = None
     for dom_try in range(3):
