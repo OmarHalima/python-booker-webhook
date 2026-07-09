@@ -244,7 +244,7 @@ def run_turbo_browser_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
             },
         )
         booker.set_context_cookies(context, str(payload.get("sessionCookie") or ""))
-        page.goto(f"{APPOINTMENT_ORIGIN}/HomeWeb/Scheduler", wait_until="domcontentloaded")
+        booker._goto_scheduler_page(page, run_id)
 
         t_nav = time.perf_counter()
         booker.navigate_to_capture_form_via_scheduler_post(

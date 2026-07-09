@@ -1391,6 +1391,57 @@ def inject_base_href(html: str) -> str:
     return f'<base href="{APPOINTMENT_ORIGIN}/">{html}'
 
 
+def _goto_scheduler_page(page: "Page", run_id: str) -> None:
+    """Navigate to the BMEIA scheduler page with retry and backoff.
+
+    Parallel Chromium sessions often get blank 'Loading…' pages that look
+    like timeouts.  Retry the goto a few times with the same timeout/env
+    knobs as _open_landing_page so the turbo path does not crash on the
+    first slow response.
+    """
+    url = f"{APPOINTMENT_ORIGIN}/HomeWeb/Scheduler"
+    max_attempts = landing_goto_max_attempts()
+    last_err: Optional[Exception] = None
+    for attempt in range(1, max_attempts + 1):
+        try:
+            page.goto(url, wait_until="domcontentloaded", timeout=landing_goto_timeout_ms())
+            if run_id:
+                dlog(
+                    run_id,
+                    "H_nav",
+                    "booker_legacy:_goto_scheduler_page",
+                    "scheduler_goto_ok",
+                    {"attempt": attempt, "url": page.url, "title": page.title()},
+                )
+            return
+        except Exception as exc:
+            last_err = exc
+            if run_id:
+                dlog(
+                    run_id,
+                    "H_nav",
+                    "booker_legacy:_goto_scheduler_page",
+                    "scheduler_goto_retry",
+                    {
+                        "attempt": attempt,
+                        "maxAttempts": max_attempts,
+                        "url": page.url,
+                        "title": page.title(),
+                        "error": str(exc)[:200],
+                    },
+                )
+            if attempt >= max_attempts:
+                break
+            try:
+                page.wait_for_timeout(min(3000 * attempt, 8000))
+            except Exception:
+                pass
+    raise ValueError(
+        "Scheduler page did not load.  BMEIA may be slow or unreachable.  "
+        f"url={page.url!r} title={page.title()!r}"
+    ) from last_err
+
+
 def load_capture_html_in_browser(page: "Page", html: str, run_id: str = "") -> None:
     """Load capture form HTML into browser on a real BMEIA URL (not about:blank).
 
@@ -1398,7 +1449,7 @@ def load_capture_html_in_browser(page: "Page", html: str, run_id: str = "") -> N
     origin, then injects the HTML via set_content.
     """
     if "about:blank" in (page.url or ""):
-        page.goto(f"{APPOINTMENT_ORIGIN}/HomeWeb/Scheduler", wait_until="domcontentloaded")
+        _goto_scheduler_page(page, run_id)
     page.set_content(inject_base_href(html), wait_until="domcontentloaded")
     _wait_postback_settle(page, run_id, "load_capture_html_in_browser")
 

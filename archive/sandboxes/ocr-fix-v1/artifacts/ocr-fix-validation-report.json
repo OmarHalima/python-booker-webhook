@@ -1,0 +1,27 @@
+{
+  "version": "ocr-fix-v1",
+  "validatedAt": "2026-06-14T09:20:00Z",
+  "port": 8011,
+  "passed": true,
+  "compareCaptchaFetch": {
+    "samples": 2,
+    "domEqualsUrlEarly": 0,
+    "domEqualsUrlLate": 0,
+    "verdict": "PASS — URL bytes never match DOM; parallel fetch must stay off"
+  },
+  "turboBookings": {
+    "rounds": 3,
+    "successCount": 3,
+    "mode": "http",
+    "playwrightReuseBrowser": true,
+    "captchaParallelFetch": false,
+    "timingsSec": [9.8, 11.6, 6.0],
+    "verdict": "PASS — 3/3 SUCCESS"
+  },
+  "fixes": [
+    "DOM-only OCR bytes",
+    "HS guard uses #CaptchaText match (not HS tail change)",
+    "Unique OCR upload filename + SHA256",
+    "PLAYWRIGHT_REUSE_BROWSER=true for speed"
+  ]
+}

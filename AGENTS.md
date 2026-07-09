@@ -1,87 +1,88 @@
 # Agent guide — Austrian appointment system
 
-Start here in a new session before changing code, tests, or n8n workflows.
+Start here. Read `.cursor/skills/orchestrator/SKILL.md` **every session** to route intent → skills → subagents → rules → MCP.
 
-## Orchestrator (read first)
-
-**`.cursor/skills/orchestrator/SKILL.md`** — Hermes-style router: classifies intent → picks Superpowers skills → delegates subagents → applies rules → verifies.
-
-Compact reference: `.cursor/skills/orchestrator/routing-table.md`
-
-Session hook injects the routing card automatically via `.cursor/hooks.json`.
-
-## Project skills & agents
-
-| Skill | Agent (delegate when deep) |
-|-------|----------------------------|
-| `captcha-pipeline` | `captcha-investigator` |
-| `vps-booker-ops` | `vps-booker-operator` |
-| `n8n-booker-workflows` | `n8n-booker-specialist` |
-| `booker-e2e-kopenhagen` | — |
-| `booker-pytest` | — |
-| `booker-package-extract` | `booker-domain-reviewer` |
-| `gitnexus-code-intelligence` | — (MCP `user-gitnexus`) |
-
-All under `.cursor/skills/` and `.cursor/agents/`. See [`.cursor/README.md`](.cursor/README.md).
-
-## Code intelligence (GitNexus)
-
-Self-hosted code graph on VPS, wired into the orchestrator for exploration and pre-merge impact analysis.
-
-| Doc | Purpose |
-|-----|---------|
-| [`docs/GITNEXUS.md`](docs/GITNEXUS.md) | Endpoints, VPS deploy, MCP setup, orchestrator mapping |
-| [`.cursor/skills/gitnexus-code-intelligence/SKILL.md`](.cursor/skills/gitnexus-code-intelligence/SKILL.md) | Agent playbook |
-
-MCP server: **`user-gitnexus`** — always pass `repo: "python-booker-webhook"`.
-
-## Read first
-
-| Doc | When |
-|-----|------|
-| [`.cursor/skills/orchestrator/SKILL.md`](.cursor/skills/orchestrator/SKILL.md) | **Every session** — route skills/subagents/rules |
-| [`python-booker-webhook/docs/AGENT_HANDOFF.md`](python-booker-webhook/docs/AGENT_HANDOFF.md) | Captcha, VPS, production state |
-| [`python-booker-webhook/docs/CAPTCHA_OCR_DATASET.md`](python-booker-webhook/docs/CAPTCHA_OCR_DATASET.md) | OCR finetune dataset harvest/label/split |
-| [`python-booker-webhook/docs/V1_0_1_PROBLEMS_AND_MERGE_PLAN.md`](python-booker-webhook/docs/V1_0_1_PROBLEMS_AND_MERGE_PLAN.md) | v1.0.1 problems, checklist, test-first merge plan |
-| [`python-booker-webhook/README.md`](python-booker-webhook/README.md) | Setup, endpoints, env vars |
-| [`.cursor/rules/`](.cursor/rules/) | Architecture and conventions (auto-applied) |
-
-## System overview
+## Architecture (what runs where)
 
 ```
 n8n watcher → slots queue → n8n booker → POST /webhook/booker → app.py (turbo)
-                                                      ↓
-                                            OCR (8001) + Gemini + Playwright → BMEIA
+                                                         ↓
+                                              OCR (8001) + Gemini + Playwright → BMEIA
 ```
 
-| Layer | Location |
-|-------|----------|
-| n8n workflows | [`n8n/`](n8n/) |
-| Python booker | [`python-booker-webhook/`](python-booker-webhook/) |
-| Unit/integration tests | `python-booker-webhook/tests/` |
-| Test payloads | `python-booker-webhook/fixtures/payloads/` |
-| Sandbox experiments | `python-booker-webhook/sandboxes/` |
-| OCR fix / iteration sandbox | `sandboxes/v1.0.1/` (port 8011); predecessor archived under `archive/sandboxes/ocr-fix-v1/` |
-| Runtime debug output | `python-booker-webhook/artifacts/` (gitignored) |
+| Layer | Path |
+|-------|------|
+| n8n workflows | `n8n/` |
+| Python booker | `python-booker-webhook/` |
+| Unit/integration tests | `tests/unit/`, `tests/integration/` |
+| Test payload JSON | `fixtures/payloads/` (not `docs/`, not root) |
+| Dev sandbox (OCR) | `sandboxes/v1.0.1/` (port 8011) |
+| Runtime debug output | `artifacts/<runId>/` (gitignored) |
+
+**Modules:** `app.py` (FastAPI routes), `booker_legacy.py` (Playwright core — don't grow), `captcha_ocr.py` (OCR client), `scheduler_html.py` (HTML parsing).
+
+## Debug workflow (evidence-first)
+
+For captcha/BotDetect/Playwright/flaky-form bugs, invoke `deep-web-debugger` subagent (`.cursor/agents/deep-web-debugger.md`). Also `captcha-investigator` agent for OCR/Gemini-specific diagnosis.
+
+**Standard approach:**
+1. **Intake** — freeze observed vs expected, env, artifacts, logs
+2. **Timeline** — order: navigation → DOM → network → response → new DOM
+3. **Console** — CSP, CORS, BotDetect JS errors, `net::ERR_*`
+4. **Network** — hidden field values at solve vs submit (captcha token/VCID must match), cookies, redirects
+5. **HTML** — validation blocks (`.validation-summary-errors`), form action/method, captcha hidden inputs
+6. **Web research** — search quoted error strings, known BotDetect/ASP.NET WebForms/Playwright issues
+7. **Ranked hypotheses** — likelihood + falsification test
+8. **Root cause** — one paragraph: what broke, why the UI message misleads, exact mechanism
+9. **Minimal fix** — concrete patch + verification + guardrails
+
+**Pre-read before captcha/VPS/n8n changes:** `python-booker-webhook/docs/AGENT_HANDOFF.md`
+
+## Captcha pipeline (solver order)
+
+`CAPTCHA_SOLVER=ocr_with_gemini_fallback` (default): OCR first → if fail, Gemini. Rounds ≥2 start with Gemini. Style-gate: `CAPTCHA_MAX_STYLE_RELOADS`, `CAPTCHA_MIN_STYLE`.
+
+DOM-only capture (`CAPTCHA_PARALLEL_FETCH=false`). VPS still on `gemini_first` — see AGENT_HANDOFF.
+
+**Result types from booker:** SUCCESS, CAPTCHA_FAIL, SLOT_TAKEN, ALREADY_BOOKED, OTHER_FAIL, BOOKING_SERVER_BUSY.
 
 ## Commands
 
-```bash
+```powershell
 cd python-booker-webhook
-pip install -r requirements-dev.txt
+
+# Tests (baseline: 77, unit + integration)
 pytest tests/unit tests/integration -q
+
+# Run server
 uvicorn app:app --host 0.0.0.0 --port 8000
+
+# OCR check (manual)
+python scripts/run_ocr_captcha_api.py
+
+# Turbo payload (dev — KOPENHAGEN)
+python scripts/run_turbo_payload.py fixtures/payloads/payload-booker.json
+
+# Captcha harvest for finetune dataset
+python scripts/harvest_captcha_images.py --count 5000 --method http
 ```
 
 ## Hard rules
 
-- **Do not** add tests at package root — use `tests/unit|integration|e2e/`.
-- **Do not** commit scan JSON, `local-fix-*.json`, or `artifacts/` output.
-- **Do not** duplicate production Python into `sandboxes/` — sandboxes hold workflow patches and scripts only.
-- **Do not** break `uvicorn app:app` — entry point stays at `python-booker-webhook/app.py`.
-- **Prefer** KOPENHAGEN payloads for dev; KAIRO constants for production only.
-- **Extract** new pure logic into testable modules; avoid growing `booker_legacy.py` further.
+- **Tests** only in `tests/unit|integration|e2e/` — never at package root
+- **No** ephemeral outputs committed (`*-scan.json`, `local-fix-*`, `artifacts/`)
+- **No** duplicate Python in `sandboxes/` — sandboxes = scripts + workflows only
+- `uvicorn app:app` entry stays — don't break
+- KOPENHAGEN for dev, KAIRO constants for production
+- Extract new pure logic into modules — don't grow `booker_legacy.py`
+- **Phase 4** (not done): extract `booker/` package from `booker_legacy.py`
 
-## Planned refactor
+## Debug artifacts
 
-Phase 4 (not done): extract `booker/` package from `booker_legacy.py` — move `captcha_ocr.py` and `scheduler_html.py` first, keep compatibility shims.
+When `captureArtifacts: true`, writes to `artifacts/<runId>-turbo/`:
+- `attempt_N_captcha.png` — captcha image fed to solver
+- `attempt_N_response.html` — server response HTML
+- `01_capture_form.html` — capture form before submit
+- `solved_captchas/` — successful solves for training dataset
+
+First stop for "why did it fail?": read `attempt_N_response.html` for validation messages or `classify_post_submit_html()` result.

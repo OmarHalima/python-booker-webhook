@@ -176,6 +176,14 @@ def test_review_list_and_unverify(sample_dataset):
     assert row1["label"] == ""
 
 
+def test_review_list_jump_returns_page_containing_id(sample_dataset):
+    state = ReviewState(sample_dataset, show_all=True)
+    page = state.list_items_page(offset=0, limit=1, status="all", jump="2")
+    assert page["jumpIndex"] == 0
+    assert len(page["items"]) == 1
+    assert page["items"][0]["id"] == "2"
+
+
 def test_review_http_server_serves_stats(sample_dataset):
     state = ReviewState(sample_dataset)
     handler = make_handler(state)
