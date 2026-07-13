@@ -122,7 +122,8 @@ def _solve_turbo_captcha(
 ) -> Tuple[str, str]:
     """Solve captcha per TURBO_CAPTCHA_SOLVER / CAPTCHA_SOLVER (default: ocr_with_gemini_fallback)."""
     mode = _turbo_captcha_solver_mode()
-    use_gemini_first = captcha_round >= 2 or attempt >= 2
+    gemini_first_after = int(os.getenv("CAPTCHA_GEMINI_FIRST_AFTER", "2"))
+    use_gemini_first = captcha_round >= gemini_first_after or attempt >= gemini_first_after
 
     if mode == "ocr":
         text = booker.solve_captcha_with_ocr(
@@ -187,6 +188,62 @@ def _solve_turbo_captcha(
     return text, "ocr_fallback"
 
 
+_SLOT_POST_RESULT_TYPES = {
+    "SLOT_TAKEN",
+    "ALREADY_BOOKED",
+    "CAPTCHA_FAIL",
+    "OTHER_FAIL",
+    "BOOKING_SERVER_BUSY",
+}
+
+
+def _scheduler_post_failure_result(
+    exc: Exception,
+    *,
+    run_id: str,
+    timings: Dict[str, float],
+    run_dir: Path,
+    submit_mode: str,
+) -> Dict[str, Any]:
+    """Convert a scheduler-POST ValueError into a structured booking response.
+
+    Triggered when BMEIA returns a known validation page (e.g. SLOT_TAKEN) or
+    a session-stale response during nominate_to_capture_form_via_scheduler_post,
+    or when the HTTP turbo path's scheduler POST fails. Without this, the
+    turbo flow propagates the ValueError to webhook_booker's 500 handler and
+    n8n emits the generic "HTTP request failed" telegram instead of routing
+    by resultType.
+
+    The error message is shaped like:
+      "Scheduler POST: SLOT_TAKEN — The appointment was unfortunately allocated ..."
+      "Scheduler POST returned StartTime ... but currentSlot is ..."
+      "POST /HomeWeb/Scheduler did not return the capture form ..."
+      "Scheduler POST failed: 503 Service Unavailable ..."
+    """
+    msg = str(exc)
+    result_type = "OTHER_FAIL"
+    upper = msg.upper()
+    for candidate in _SLOT_POST_RESULT_TYPES:
+        if candidate in upper:
+            result_type = candidate
+            break
+    timings["totalMs"] = timings.get("totalMs", 0.0)
+    return {
+        "ok": False,
+        "resultType": result_type,
+        "attempt": 1,
+        "captchaText": "",
+        "message": msg[:500],
+        "finalUrl": "",
+        "mode": "turbo",
+        "submitMode": submit_mode,
+        "runId": run_id,
+        "timingsMs": timings,
+        "artifactsDir": str(run_dir),
+        "timestamp": datetime.utcnow().isoformat() + "Z",
+    }
+
+
 def run_turbo_browser_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
     """Scheduler POST + OCR + in-browser Next click (~4–6s). Fixes HTTP CAPTCHA_FAIL."""
     run_id = booker.resolve_run_id(payload)
@@ -244,12 +301,30 @@ def run_turbo_browser_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
             },
         )
         booker.set_context_cookies(context, str(payload.get("sessionCookie") or ""))
-        booker._goto_scheduler_page(page, run_id)
 
         t_nav = time.perf_counter()
-        booker.navigate_to_capture_form_via_scheduler_post(
-            page, context, payload, run_id, run_dir=run_dir
-        )
+        try:
+            booker._goto_scheduler_page(page, run_id)
+            booker.navigate_to_capture_form_via_scheduler_post(
+                page, context, payload, run_id, run_dir=run_dir
+            )
+        except ValueError as exc:
+            timings["schedulerNavMs"] = (time.perf_counter() - t_nav) * 1000
+            booker.dlog(
+                run_id,
+                "H_turbo",
+                "app_turbo:run_turbo_browser_booking_flow",
+                "scheduler_post_failed_short_circuit",
+                {"error": str(exc)[:300]},
+            )
+            timings["totalMs"] = (time.perf_counter() - t_total) * 1000
+            return _scheduler_post_failure_result(
+                exc,
+                run_id=run_id,
+                timings=timings,
+                run_dir=run_dir,
+                submit_mode="browser",
+            )
         timings["schedulerNavMs"] = (time.perf_counter() - t_nav) * 1000
         _save_turbo_artifacts(run_dir, "01_capture_form.html", page.content())
 
@@ -258,15 +333,50 @@ def run_turbo_browser_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
         for attempt in range(1, max_attempts + 1):
             if attempt > 1:
                 t_nav = time.perf_counter()
-                booker.navigate_to_capture_form_via_scheduler_post(
-                    page, context, payload, run_id, run_dir=run_dir
-                )
+                try:
+                    booker.navigate_to_capture_form_via_scheduler_post(
+                        page, context, payload, run_id, run_dir=run_dir
+                    )
+                except ValueError as exc:
+                    timings[f"schedulerNavMs_attempt{attempt}"] = (time.perf_counter() - t_nav) * 1000
+                    booker.dlog(
+                        run_id,
+                        "H_turbo",
+                        "app_turbo:run_turbo_browser_booking_flow",
+                        "scheduler_post_failed_short_circuit_retry",
+                        {"attempt": attempt, "error": str(exc)[:300]},
+                    )
+                    timings["totalMs"] = (time.perf_counter() - t_total) * 1000
+                    return _scheduler_post_failure_result(
+                        exc,
+                        run_id=run_id,
+                        timings=timings,
+                        run_dir=run_dir,
+                        submit_mode="browser",
+                    )
                 timings[f"schedulerNavMs_attempt{attempt}"] = (time.perf_counter() - t_nav) * 1000
                 booker.fill_form_fields(page, payload)
 
-            fresh = booker.parse_fresh_fields(page.content())
-            fresh = _fresh_fields_from_payload_override(fresh, payload)
-            _verify_start_time(fresh, payload, run_id)
+            try:
+                fresh = booker.parse_fresh_fields(page.content())
+                fresh = _fresh_fields_from_payload_override(fresh, payload)
+                _verify_start_time(fresh, payload, run_id)
+            except ValueError as exc:
+                booker.dlog(
+                    run_id,
+                    "H_turbo",
+                    "app_turbo:run_turbo_browser_booking_flow",
+                    "fresh_fields_or_start_time_failed",
+                    {"attempt": attempt, "error": str(exc)[:300]},
+                )
+                timings["totalMs"] = (time.perf_counter() - t_total) * 1000
+                return _scheduler_post_failure_result(
+                    exc,
+                    run_id=run_id,
+                    timings=timings,
+                    run_dir=run_dir,
+                    submit_mode="browser",
+                )
 
             captcha_text = provided_captcha if (provided_captcha and attempt == 1 and captcha_round == 0) else ""
             if not captcha_text:
@@ -830,7 +940,24 @@ def run_turbo_http_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
     booker.dlog(run_id, "H_turbo", "app_turbo:run_turbo_booking_flow", "turbo_entry", {"maxAttempts": max_attempts})
 
     session = _session_from_payload(payload)
-    capture_html, sched_ms, html_source = _resolve_capture_html(payload, session)
+    try:
+        capture_html, sched_ms, html_source = _resolve_capture_html(payload, session)
+    except ValueError as exc:
+        booker.dlog(
+            run_id,
+            "H_turbo",
+            "app_turbo:run_turbo_http_booking_flow",
+            "scheduler_post_failed_short_circuit",
+            {"error": str(exc)[:300]},
+        )
+        timings["totalMs"] = (time.perf_counter() - t_total) * 1000
+        return _scheduler_post_failure_result(
+            exc,
+            run_id=run_id,
+            timings=timings,
+            run_dir=run_dir,
+            submit_mode="http",
+        )
     timings["schedulerPostMs"] = sched_ms
 
     _save_turbo_artifacts(run_dir, "01_capture_form.html", capture_html)
@@ -850,11 +977,48 @@ def run_turbo_http_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
         }
 
     if "BDC_VCID_Captcha" not in capture_html or 'id="Token"' not in capture_html:
-        raise ValueError("Capture form not found after scheduler POST (missing Token/captcha fields).")
+        # Scheduler POST returned 200 but the body is no longer the capture
+        # form (session stale, slot gone, validation page returned). Convert
+        # to a structured OTHER_FAIL response instead of crashing to 500 so
+        # n8n routes by resultType instead of emitting the bare
+        # "HTTP request failed" telegram.
+        msg = "Capture form not found after scheduler POST (missing Token/captcha fields)."
+        booker.dlog(
+            run_id,
+            "H_turbo",
+            "app_turbo:run_turbo_http_booking_flow",
+            "capture_form_missing_short_circuit",
+            {"htmlSource": html_source, "preview": capture_html[:200]},
+        )
+        timings["totalMs"] = (time.perf_counter() - t_total) * 1000
+        return _scheduler_post_failure_result(
+            ValueError(msg),
+            run_id=run_id,
+            timings=timings,
+            run_dir=run_dir,
+            submit_mode="http",
+        )
 
-    fresh = booker.parse_fresh_fields(capture_html)
-    fresh = _fresh_fields_from_payload_override(fresh, payload)
-    _verify_start_time(fresh, payload, run_id)
+    try:
+        fresh = booker.parse_fresh_fields(capture_html)
+        fresh = _fresh_fields_from_payload_override(fresh, payload)
+        _verify_start_time(fresh, payload, run_id)
+    except ValueError as exc:
+        booker.dlog(
+            run_id,
+            "H_turbo",
+            "app_turbo:run_turbo_http_booking_flow",
+            "fresh_fields_or_start_time_failed",
+            {"error": str(exc)[:300]},
+        )
+        timings["totalMs"] = (time.perf_counter() - t_total) * 1000
+        return _scheduler_post_failure_result(
+            exc,
+            run_id=run_id,
+            timings=timings,
+            run_dir=run_dir,
+            submit_mode="http",
+        )
 
     booker.dlog(
         run_id,
@@ -878,10 +1042,27 @@ def run_turbo_http_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
 
     for attempt in range(1, max_attempts + 1):
         if attempt > 1 and html_source == "scheduler_post":
-            capture_html, _, _ = _resolve_capture_html(payload, session)
-            fresh = booker.parse_fresh_fields(capture_html)
-            fresh = _fresh_fields_from_payload_override(fresh, payload)
-            _verify_start_time(fresh, payload, run_id)
+            try:
+                capture_html, _, _ = _resolve_capture_html(payload, session)
+                fresh = booker.parse_fresh_fields(capture_html)
+                fresh = _fresh_fields_from_payload_override(fresh, payload)
+                _verify_start_time(fresh, payload, run_id)
+            except ValueError as exc:
+                booker.dlog(
+                    run_id,
+                    "H_turbo",
+                    "app_turbo:run_turbo_http_booking_flow",
+                    "scheduler_post_failed_short_circuit_retry",
+                    {"attempt": attempt, "error": str(exc)[:300]},
+                )
+                timings["totalMs"] = (time.perf_counter() - t_total) * 1000
+                return _scheduler_post_failure_result(
+                    exc,
+                    run_id=run_id,
+                    timings=timings,
+                    run_dir=run_dir,
+                    submit_mode="http",
+                )
 
         captcha_text = provided_captcha if (provided_captcha and attempt == 1) else ""
         captcha_source = "payload" if captcha_text else ""
