@@ -1,0 +1,23 @@
+﻿{
+  "runId": "curl-manual-window-test",
+  "sessionCookie": "AspxAutoDetectCookieSupport=1; ASP.NET_SessionId=REPLACE_WITH_REAL_SESSION",
+  "Language": "en",
+  "Office": "KOPENHAGEN",
+  "CalendarId": "9677702",
+  "currentMonday": "5/11/2026 12:00:00 AM",
+  "currentSlot": "5/19/2026 11:00:00 AM",
+  "captureArtifacts": true,
+  "manualReviewSeconds": 3,
+  "manualReviewOnFail": true,
+  "student": {
+    "Lastname": "TEST",
+    "Firstname": "CURL",
+    "DateOfBirth": "1/1/1990",
+    "Sex": "1",
+    "Street": "Test St 1",
+    "Postcode": "1000",
+    "City": "Copenhagen",
+    "Telephone": "4512345678",
+    "Email": "curl-test@example.com"
+  }
+}

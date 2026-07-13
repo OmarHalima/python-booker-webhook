@@ -1,0 +1,160 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/artifacts/ocr-fix-turbo-1round-report.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 23,
+      "sections": [
+        {
+          "heading": "mode",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "booker",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "rounds",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "startedAt",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "results",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "successCount",
+          "level": 1,
+          "line": 21
+        },
+        {
+          "heading": "finishedAt",
+          "level": 1,
+          "line": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/artifacts/ocr-fix-turbo-3round-report.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 49,
+      "nonEmptyLines": 49,
+      "sections": [
+        {
+          "heading": "mode",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "booker",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "rounds",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "startedAt",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "results",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "successCount",
+          "level": 1,
+          "line": 47
+        },
+        {
+          "heading": "finishedAt",
+          "level": 1,
+          "line": 48
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/artifacts/ocr-fix-validation-report.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 27,
+      "nonEmptyLines": 27,
+      "sections": [
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "validatedAt",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "port",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "passed",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "compareCaptchaFetch",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "turboBookings",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "fixes",
+          "level": 1,
+          "line": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    }
+  ]
+}

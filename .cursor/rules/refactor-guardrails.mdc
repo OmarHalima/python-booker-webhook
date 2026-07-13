@@ -1,0 +1,40 @@
+---
+description: Guardrails — what not to do; keeps structure clean during refactors
+alwaysApply: true
+---
+
+# Guardrails
+
+## Never
+
+- Commit ephemeral outputs: `*-scan.json`, `local-fix-*.json`, `artifacts/`, `scripts/_*.py`
+- Add duplicate Python trees under `sandboxes/` — sandboxes = workflows + sandbox scripts only
+- Put test payloads in `docs/` or repo root
+- Create `test_*.py` at `python-booker-webhook/` root
+- Change production VPS entry without keeping `uvicorn app:app` working
+- Force-push or amend commits unless user explicitly asks
+
+## Prefer
+
+- Small focused diffs; match existing import/style in touched files
+- Unit tests before or alongside pure-logic extractions
+- `fixtures/payloads/` for new JSON test data
+- `scripts/debug/` for throwaway investigation (gitignored)
+
+## Refactor direction (Phase 4)
+
+Extract `booker/` package incrementally:
+
+1. Move `captcha_ocr.py`, `scheduler_html.py` → `booker/`
+2. Extract cookies + HTML classifiers from `booker_legacy.py`
+3. Keep root-level shims until VPS start scripts updated
+
+Do not big-bang rename or move to `src/` layout — breaks VPS Docker without migration plan.
+
+## Before claiming done
+
+```bash
+cd python-booker-webhook && pytest tests/unit tests/integration -q
+```
+
+Evidence before assertions.

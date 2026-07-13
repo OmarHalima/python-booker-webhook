@@ -1,0 +1,390 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/AGENT_PROJECT_DOCUMENTATION.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 218,
+      "nonEmptyLines": 151,
+      "sections": [
+        {
+          "heading": "Agent Project Documentation",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Project Identity",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Scope and Objective",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "In Scope",
+          "level": 3,
+          "line": 15
+        },
+        {
+          "heading": "Out of Scope",
+          "level": 3,
+          "line": 26
+        },
+        {
+          "heading": "Why This Was Built",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "What Was Implemented",
+          "level": 2,
+          "line": 44
+        },
+        {
+          "heading": "1) Webhook Service",
+          "level": 2,
+          "line": 46
+        },
+        {
+          "heading": "2) Browser Automation (Non-Headless)",
+          "level": 2,
+          "line": 52
+        },
+        {
+          "heading": "3) Slot-Selection Request Recreation",
+          "level": 2,
+          "line": 58
+        },
+        {
+          "heading": "4) Fresh State Extraction",
+          "level": 2,
+          "line": 65
+        },
+        {
+          "heading": "5) Captcha Handling",
+          "level": 2,
+          "line": 79
+        },
+        {
+          "heading": "6) Form Fill + Submit",
+          "level": 2,
+          "line": 89
+        },
+        {
+          "heading": "7) Result Classification + Retry",
+          "level": 2,
+          "line": 96
+        },
+        {
+          "heading": "Architecture and Data Flow",
+          "level": 2,
+          "line": 107
+        },
+        {
+          "heading": "File-Level Responsibilities",
+          "level": 2,
+          "line": 122
+        },
+        {
+          "heading": "Environment and Configuration Notes",
+          "level": 2,
+          "line": 133
+        },
+        {
+          "heading": "Required",
+          "level": 2,
+          "line": 135
+        },
+        {
+          "heading": ".env Loading Behavior",
+          "level": 2,
+          "line": 140
+        },
+        {
+          "heading": "Known Pitfalls and Resolutions",
+          "level": 2,
+          "line": 148
+        },
+        {
+          "heading": "1) `.env` not loaded",
+          "level": 2,
+          "line": 150
+        },
+        {
+          "heading": "2) Gemini key invalid",
+          "level": 2,
+          "line": 155
+        },
+        {
+          "heading": "3) DNS/public forwarding issues",
+          "level": 2,
+          "line": 161
+        },
+        {
+          "heading": "Integration Contract for n8n",
+          "level": 2,
+          "line": 166
+        },
+        {
+          "heading": "Validation Performed",
+          "level": 2,
+          "line": 179
+        },
+        {
+          "heading": "Design Decisions and Rationale",
+          "level": 2,
+          "line": 185
+        },
+        {
+          "heading": "Next Recommended Improvements",
+          "level": 2,
+          "line": 192
+        },
+        {
+          "heading": "Operational Commands",
+          "level": 2,
+          "line": 199
+        },
+        {
+          "heading": "Agent Handoff Summary",
+          "level": 2,
+          "line": 210
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 29
+      }
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/MIGRATION.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 69,
+      "nonEmptyLines": 47,
+      "sections": [
+        {
+          "heading": "Migration: v1 Playwright → v2 Turbo (2026-05-30)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "What changed",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "n8n — minimal change",
+          "level": 2,
+          "line": 12
+        },
+        {
+          "heading": "n8n — if you used port 8001 turbo server",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "Rollback",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "Verify",
+          "level": 2,
+          "line": 38
+        },
+        {
+          "heading": "Clean repo layout (post-migration)",
+          "level": 2,
+          "line": 47
+        },
+        {
+          "heading": "Test office vs production (Kairo)",
+          "level": 2,
+          "line": 65
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 271,
+      "nonEmptyLines": 196,
+      "sections": [
+        {
+          "heading": "Turbo Booker Project Archive",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Testing: KOPENHAGEN stand-in for Kairo",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Repo cleanup (migration-ready layout)",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "Timeline",
+          "level": 2,
+          "line": 30
+        },
+        {
+          "heading": "Architecture (after promotion)",
+          "level": 2,
+          "line": 43
+        },
+        {
+          "heading": "Module layout",
+          "level": 3,
+          "line": 62
+        },
+        {
+          "heading": "Slot mismatch — root cause",
+          "level": 2,
+          "line": 73
+        },
+        {
+          "heading": "Turbo vs Playwright vs HTTP",
+          "level": 2,
+          "line": 87
+        },
+        {
+          "heading": "Gemini late captcha (turbo)",
+          "level": 3,
+          "line": 99
+        },
+        {
+          "heading": "Timing benchmarks (live, 2026-05-30)",
+          "level": 2,
+          "line": 103
+        },
+        {
+          "heading": "Single slot",
+          "level": 3,
+          "line": 105
+        },
+        {
+          "heading": "3-slot batch (`turbo-3slot-batch`)",
+          "level": 3,
+          "line": 113
+        },
+        {
+          "heading": "3-slot clean v2 (`turbo-clean-333-v2`, maxCaptchaRetries=5)",
+          "level": 3,
+          "line": 123
+        },
+        {
+          "heading": "n8n integration",
+          "level": 2,
+          "line": 133
+        },
+        {
+          "heading": "Required payload fields",
+          "level": 3,
+          "line": 135
+        },
+        {
+          "heading": "Recommended additions",
+          "level": 3,
+          "line": 145
+        },
+        {
+          "heading": "Field mapping",
+          "level": 3,
+          "line": 155
+        },
+        {
+          "heading": "Webhook URLs (breaking change note)",
+          "level": 3,
+          "line": 164
+        },
+        {
+          "heading": "Scripts",
+          "level": 2,
+          "line": 174
+        },
+        {
+          "heading": "Tampermonkey injector",
+          "level": 2,
+          "line": 187
+        },
+        {
+          "heading": "Environment variables",
+          "level": 2,
+          "line": 193
+        },
+        {
+          "heading": "How to run",
+          "level": 2,
+          "line": 206
+        },
+        {
+          "heading": "Main app (turbo)",
+          "level": 3,
+          "line": 208
+        },
+        {
+          "heading": "Legacy Playwright only",
+          "level": 3,
+          "line": 215
+        },
+        {
+          "heading": "Scan slots",
+          "level": 3,
+          "line": 221
+        },
+        {
+          "heading": "Inline turbo (no server)",
+          "level": 3,
+          "line": 227
+        },
+        {
+          "heading": "Artifacts",
+          "level": 2,
+          "line": 233
+        },
+        {
+          "heading": "Migration checklist",
+          "level": 2,
+          "line": 243
+        },
+        {
+          "heading": "File index (this archive)",
+          "level": 2,
+          "line": 253
+        },
+        {
+          "heading": "Related docs",
+          "level": 2,
+          "line": 264
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 30
+      }
+    }
+  ]
+}

@@ -1,0 +1,465 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "python-booker-webhook/.env.example",
+      "language": "config",
+      "fileCategory": "config",
+      "totalLines": 100,
+      "nonEmptyLines": 92,
+      "definitions": [
+        {
+          "name": "CAPTCHA_OCR_BASE_URL",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 8,
+          "endLine": 8
+        },
+        {
+          "name": "CAPTCHA_OCR_TIMEOUT",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 9,
+          "endLine": 9
+        },
+        {
+          "name": "CAPTCHA_SOLVER",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 11,
+          "endLine": 11
+        },
+        {
+          "name": "CAPTCHA_OCR_ENHANCE",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 15,
+          "endLine": 15
+        },
+        {
+          "name": "CAPTCHA_KEYSTROKE_DELAY_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 17,
+          "endLine": 17
+        },
+        {
+          "name": "BOTDETECT_SETTLE_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 19,
+          "endLine": 19
+        },
+        {
+          "name": "CAPTCHA_MAX_STYLE_RELOADS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 22,
+          "endLine": 22
+        },
+        {
+          "name": "CAPTCHA_MIN_STYLE",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 23,
+          "endLine": 23
+        },
+        {
+          "name": "GEMINI_API_KEY",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 26,
+          "endLine": 26
+        },
+        {
+          "name": "GEMINI_MODEL",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 27,
+          "endLine": 27
+        },
+        {
+          "name": "GEMINI_FALLBACK_MODEL",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 28,
+          "endLine": 28
+        },
+        {
+          "name": "GEMINI_FILL_FORM",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 30,
+          "endLine": 30
+        },
+        {
+          "name": "GEMINI_FILL_FORM_FORCE",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 32,
+          "endLine": 32
+        },
+        {
+          "name": "RUN_ID_MODE",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 36,
+          "endLine": 36
+        },
+        {
+          "name": "RUN_ID_SEQ_WIDTH",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 37,
+          "endLine": 37
+        },
+        {
+          "name": "TURBO_SUBMIT_MODE",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 41,
+          "endLine": 41
+        },
+        {
+          "name": "MAX_CONCURRENT_BOOKINGS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 45,
+          "endLine": 45
+        },
+        {
+          "name": "BOOKING_USE_GLOBAL_LOCK",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 47,
+          "endLine": 47
+        },
+        {
+          "name": "BOOKING_SLOT_WAIT_SEC",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 49,
+          "endLine": 49
+        },
+        {
+          "name": "BOOKING_BUSY_RETRY_AFTER_SEC",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 50,
+          "endLine": 50
+        },
+        {
+          "name": "BOOKING_ALLOW_SLOT_FALLBACK",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 52,
+          "endLine": 52
+        },
+        {
+          "name": "BOOKING_DEFAULT_SCHEDULER_POST",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 54,
+          "endLine": 54
+        },
+        {
+          "name": "PLAYWRIGHT_HEADLESS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 58,
+          "endLine": 58
+        },
+        {
+          "name": "PLAYWRIGHT_SLOW_MO",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 60,
+          "endLine": 60
+        },
+        {
+          "name": "PLAYWRIGHT_REUSE_BROWSER",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 62,
+          "endLine": 62
+        },
+        {
+          "name": "PLAYWRIGHT_REUSE_MAX_AGE_SEC",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 64,
+          "endLine": 64
+        },
+        {
+          "name": "PLAYWRIGHT_REUSE_MAX_RUNS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 66,
+          "endLine": 66
+        },
+        {
+          "name": "PLAYWRIGHT_WAIT_NETWORK_IDLE",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 68,
+          "endLine": 68
+        },
+        {
+          "name": "CAPTCHA_PARALLEL_FETCH",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 74,
+          "endLine": 74
+        },
+        {
+          "name": "CALENDAR_OPTIONS_WAIT_SEC",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 78,
+          "endLine": 78
+        },
+        {
+          "name": "CALENDAR_OPTIONS_POLL_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 79,
+          "endLine": 79
+        },
+        {
+          "name": "FORM_LOAD_TIMEOUT_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 81,
+          "endLine": 81
+        },
+        {
+          "name": "POSTBACK_SETTLE_TIMEOUT_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 83,
+          "endLine": 83
+        },
+        {
+          "name": "POSTBACK_STUCK_RELOAD_MAX",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 84,
+          "endLine": 84
+        },
+        {
+          "name": "NAV_DOM_CONTENT_LOADED_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 86,
+          "endLine": 86
+        },
+        {
+          "name": "NAV_NETWORK_IDLE_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 87,
+          "endLine": 87
+        },
+        {
+          "name": "NAV_SETTLE_DOM_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 88,
+          "endLine": 88
+        },
+        {
+          "name": "SELECT_OPTION_TIMEOUT_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 89,
+          "endLine": 89
+        },
+        {
+          "name": "PERSON_COUNT_WAIT_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 90,
+          "endLine": 90
+        },
+        {
+          "name": "INFORMATION_PAGE_WAIT_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 91,
+          "endLine": 91
+        },
+        {
+          "name": "CHOOSE_APPOINTMENT_WAIT_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 92,
+          "endLine": 92
+        },
+        {
+          "name": "START_RADIOS_WAIT_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 93,
+          "endLine": 93
+        },
+        {
+          "name": "SUBMIT_NEXT_CLICK_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 94,
+          "endLine": 94
+        },
+        {
+          "name": "SUBMIT_NEXT_NAVIGATION_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 95,
+          "endLine": 95
+        },
+        {
+          "name": "CAPTCHA_FIELD_CLICK_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 96,
+          "endLine": 96
+        },
+        {
+          "name": "LANDING_GOTO_TIMEOUT_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 98,
+          "endLine": 98
+        },
+        {
+          "name": "LANDING_READY_TIMEOUT_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 99,
+          "endLine": 99
+        },
+        {
+          "name": "LANDING_GOTO_MAX_ATTEMPTS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 100,
+          "endLine": 100
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 48
+      }
+    },
+    {
+      "path": "python-booker-webhook/.env.n8n.local.example",
+      "language": "config",
+      "fileCategory": "config",
+      "totalLines": 12,
+      "nonEmptyLines": 9,
+      "metrics": {}
+    },
+    {
+      "path": "python-booker-webhook/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 161,
+      "nonEmptyLines": 122,
+      "sections": [
+        {
+          "heading": "Python Booker Webhook",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1) Setup",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "Unit tests",
+          "level": 3,
+          "line": 46
+        },
+        {
+          "heading": "2) Run server",
+          "level": 2,
+          "line": 55
+        },
+        {
+          "heading": "3) n8n payload shape",
+          "level": 2,
+          "line": 73
+        },
+        {
+          "heading": "4) Captcha OCR environment",
+          "level": 2,
+          "line": 131
+        },
+        {
+          "heading": "OCR training dataset (finetune pipeline)",
+          "level": 3,
+          "line": 143
+        },
+        {
+          "heading": "5) Notes",
+          "level": 2,
+          "line": 156
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "python-booker-webhook/pyproject.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 13,
+      "nonEmptyLines": 12,
+      "sections": [
+        {
+          "heading": "project",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "tool.pytest.ini_options",
+          "level": 3,
+          "line": 7
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "python-booker-webhook/requirements-dev.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "metrics": {}
+    },
+    {
+      "path": "python-booker-webhook/requirements.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 7,
+      "nonEmptyLines": 7,
+      "metrics": {}
+    }
+  ]
+}

@@ -51,6 +51,12 @@ class FreshFields:
     html: str
 
 
+class DomCaptchaCaptureError(Exception):
+    """DOM screenshot failed after retries; URL fetch must not be used for solving."""
+
+    reason = "dom_capture_exhausted"
+
+
 ARTIFACTS_DIR = Path(__file__).with_name("artifacts")
 RUN_ID_COUNTER_FILE = ARTIFACTS_DIR / ".sequential_run_id"
 _RUN_ID_ALLOC_LOCK = threading.Lock()
@@ -111,7 +117,8 @@ def playwright_slow_mo() -> int:
 
 
 def captcha_parallel_fetch_enabled() -> bool:
-    return _env_bool("CAPTCHA_PARALLEL_FETCH", False)
+    """Parallel URL prefetch disabled — always DOM screenshot for OCR (v1.0.1 merge)."""
+    return False
 
 
 def captcha_parallel_timeout_ms() -> int:
@@ -865,14 +872,9 @@ def _reload_botdetect_captcha(page: Page, run_id: str, old_vcid: str) -> bool:
         return False
 
 
-def wait_botdetect_ready(page: Page, settle_ms: int = 150) -> None:
+def wait_botdetect_ready(page: Page, settle_ms: int = 150, run_id: str = "") -> bool:
     try:
         page.wait_for_selector("#Captcha_CaptchaImage", timeout=15000)
-        # Wait for the image to be visible with non-zero size AND fully loaded
-        # (img.complete == true).  BotDetect's script-include attaches an onload
-        # listener and removes the disabled attribute from #CaptchaText only after
-        # the image fires its load event.  Checking offsetWidth > 0 alone is not
-        # enough — the element can be visible before the pixel data has arrived.
         page.wait_for_function(
             """() => {
               const img = document.querySelector('#Captcha_CaptchaImage');
@@ -881,22 +883,100 @@ def wait_botdetect_ready(page: Page, settle_ms: int = 150) -> None:
               if (!img.complete || img.naturalWidth === 0) return false;
               const ct = document.querySelector('#CaptchaText');
               if (!ct || ct.disabled) return false;
-              // BotDetect's script-include attaches .Captcha to the input element
-              // only after its oninput/onkeyup Hs listener is fully registered.
-              // Without this check, attempt 1 types before the listener is wired
-              // and BDC_Hs_Captcha stays at the empty-string initial value.
               if (typeof ct.Captcha === 'undefined') return false;
               return true;
             }""",
             timeout=20000,
         )
-    except Exception:
-        pass
+    except Exception as exc:
+        if run_id:
+            dlog(
+                run_id,
+                "H_captcha_ready",
+                "booker_legacy:wait_botdetect_ready",
+                "wait_failed",
+                {"error": str(exc)[:200]},
+            )
+        return False
     if settle_ms > 0:
         try:
             page.wait_for_timeout(settle_ms)
         except Exception:
             pass
+    return True
+
+
+def _read_bdc_hs(page: Page) -> str:
+    if page.locator("#BDC_Hs_Captcha").count():
+        return page.locator("#BDC_Hs_Captcha").first.input_value() or ""
+    return ""
+
+
+def captcha_hs_stale_after_fill(
+    hs_before: str,
+    hs_after: str,
+    captcha_text: str,
+    dom_captcha: str = "",
+) -> bool:
+    """True when captcha fill likely failed (submit would reject)."""
+    typed = (captcha_text or "").strip().upper()
+    if not typed:
+        return True
+    dom = (dom_captcha or "").strip().upper()
+    if dom and dom == typed and hs_after:
+        return False
+    if not hs_after:
+        return True
+    if hs_before and hs_after == hs_before:
+        return True
+    return False
+
+
+def fill_captcha_with_hs_guard(
+    page: Page,
+    captcha_text: str,
+    *,
+    run_id: str = "",
+    settle_ms: int = 150,
+) -> bool:
+    """Type captcha and verify BDC_Hs_Captcha updated (retry fill if still stale)."""
+    hs_before = _read_bdc_hs(page)
+    for fill_try in range(3):
+        if not wait_botdetect_ready(page, settle_ms=settle_ms, run_id=run_id):
+            if run_id:
+                dlog(
+                    run_id,
+                    "H_captcha_ready",
+                    "booker_legacy:fill_captcha_with_hs_guard",
+                    "not_ready_before_fill",
+                    {"fillTry": fill_try + 1},
+                )
+        _fill_captcha_text_like_user(page, captcha_text)
+        if settle_ms > 0:
+            try:
+                page.wait_for_timeout(settle_ms)
+            except Exception:
+                pass
+        hs_after = _read_bdc_hs(page)
+        dom_captcha = ""
+        if page.locator("#CaptchaText").count():
+            dom_captcha = page.locator("#CaptchaText").first.input_value() or ""
+        if not captcha_hs_stale_after_fill(hs_before, hs_after, captcha_text, dom_captcha):
+            return True
+        if run_id:
+            dlog(
+                run_id,
+                "H_captcha_hs",
+                "booker_legacy:fill_captcha_with_hs_guard",
+                "hs_stale_retry_fill",
+                {
+                    "fillTry": fill_try + 1,
+                    "hsTailBefore": hs_before[-8:] if hs_before else "",
+                    "hsTailAfter": hs_after[-8:] if hs_after else "",
+                },
+            )
+        hs_before = hs_after
+    return False
 
 
 def fetch_captcha_with_parallel_prefetch(
@@ -909,67 +989,63 @@ def fetch_captcha_with_parallel_prefetch(
     run_id: str = "",
     attempt: int = 0,
 ) -> Tuple[bytes, bytes, str, Dict[str, float]]:
-    """Fetch captcha with optional parallel URL prefetch while waiting BotDetect readiness."""
+    """Wait for BotDetect, then capture captcha from DOM (always OCR what the browser shows)."""
     timings: Dict[str, float] = {}
     site_captcha_png = b""
-    future: Optional[Future[bytes]] = None
-    if captcha_parallel_fetch_enabled():
-        t_fetch = time.perf_counter()
-        future = _get_captcha_fetch_executor().submit(
-            fetch_captcha_bytes, context, fresh.captcha_image_url, session_cookie
-        )
-        timings["captchaParallelFetchMsScheduled"] = (time.perf_counter() - t_fetch) * 1000
 
     t_wait = time.perf_counter()
-    wait_botdetect_ready(page, settle_ms=settle_ms)
-    timings["captchaParallelWaitMs"] = (time.perf_counter() - t_wait) * 1000
-
-    if future is not None:
+    ready = False
+    for _ready_try in range(3):
+        if wait_botdetect_ready(page, settle_ms=settle_ms, run_id=run_id):
+            ready = True
+            break
         try:
-            t_join = time.perf_counter()
-            fetched = future.result(timeout=max(0.1, captcha_parallel_timeout_ms() / 1000.0))
-            timings["captchaParallelFetchMs"] = (time.perf_counter() - t_join) * 1000
+            page.wait_for_timeout(400)
+        except Exception:
+            pass
+    timings["captchaParallelWaitMs"] = (time.perf_counter() - t_wait) * 1000
+    if not ready and run_id:
+        dlog(
+            run_id,
+            "H_captcha_ready",
+            "booker_legacy:fetch_captcha_with_parallel_prefetch",
+            "botdetect_never_ready",
+            {"attempt": attempt},
+        )
+
+    dom_exc: Exception | None = None
+    for dom_try in range(3):
+        try:
             if page.locator("#Captcha_CaptchaImage").count():
                 site_captcha_png = page.locator("#Captcha_CaptchaImage").first.screenshot(type="png")
-            return fetched, site_captcha_png, "parallel_url_fetch", timings
-        except FutureTimeoutError:
-            if run_id:
-                dlog(
-                    run_id,
-                    "H_captcha_source",
-                    "app.py:fetch_captcha_with_parallel_prefetch",
-                    "parallel_fetch_timeout_fallback_dom",
-                    {"attempt": attempt, "timeoutMs": captcha_parallel_timeout_ms()},
-                )
+            return capture_captcha_bytes_from_dom(page), site_captcha_png, "dom_screenshot", timings
         except Exception as exc:
+            dom_exc = exc
             if run_id:
                 dlog(
                     run_id,
                     "H_captcha_source",
-                    "app.py:fetch_captcha_with_parallel_prefetch",
-                    "parallel_fetch_failed_fallback_dom",
-                    {"attempt": attempt, "error": str(exc)[:180]},
+                    "booker_legacy:fetch_captcha_with_parallel_prefetch",
+                    "dom_capture_retry",
+                    {"attempt": attempt, "domTry": dom_try + 1, "error": str(exc)[:180]},
                 )
-
-    try:
-        if page.locator("#Captcha_CaptchaImage").count():
-            site_captcha_png = page.locator("#Captcha_CaptchaImage").first.screenshot(type="png")
-        return capture_captcha_bytes_from_dom(page), site_captcha_png, "dom_screenshot", timings
-    except Exception as dom_exc:
-        if run_id:
-            dlog(
-                run_id,
-                "H_captcha_source",
-                "app.py:fetch_captcha_with_parallel_prefetch",
-                "dom_capture_failed_fallback_url",
-                {"attempt": attempt, "error": str(dom_exc)[:180]},
-            )
-        return (
-            fetch_captcha_bytes(context, fresh.captcha_image_url, session_cookie),
-            site_captcha_png,
-            "url_fetch_fallback",
-            timings,
+            if dom_try < 2:
+                wait_botdetect_ready(page, settle_ms=settle_ms, run_id=run_id)
+                try:
+                    page.wait_for_timeout(400)
+                except Exception:
+                    pass
+    if dom_exc and run_id:
+        dlog(
+            run_id,
+            "H_captcha_source",
+            "booker_legacy:fetch_captcha_with_parallel_prefetch",
+            "dom_capture_exhausted",
+            {"attempt": attempt, "error": str(dom_exc)[:180]},
         )
+    raise DomCaptchaCaptureError(
+        f"DOM captcha capture failed after 3 retries: {dom_exc}"
+    ) from dom_exc
 
 
 def _call_gemini_generate(model: str, api_key: str, payload: Dict[str, Any], timeout: int = 45) -> requests.Response:
@@ -995,28 +1071,35 @@ def _captcha_solver_mode() -> str:
 def solve_captcha_with_ocr(
     image_bytes: bytes, run_id: str = "", attempt: int = 0, vcid: str = ""
 ) -> str:
+    import hashlib
+
     base = captcha_ocr_base_url()
     if not base:
         raise ValueError("CAPTCHA_OCR_BASE_URL is missing.")
 
     timeout = captcha_ocr_timeout()
+    img_sha = hashlib.sha256(image_bytes).hexdigest()[:16]
+    safe_vcid = re.sub(r"[^A-Za-z0-9_-]", "_", (vcid or "unknown"))[:32]
+    ocr_filename = f"captcha_{run_id or 'run'}_{attempt:02d}_{safe_vcid}_{img_sha}.png"
     if run_id:
         dlog(
             run_id,
             "H_ocr_req",
-            "app.py:solve_captcha_with_ocr",
+            "booker_legacy:solve_captcha_with_ocr",
             "ocr_request_start",
             {
                 "attempt": attempt,
                 "baseUrl": base,
                 "imageBytes": len(image_bytes),
+                "imageSha256": img_sha,
+                "ocrFilename": ocr_filename,
                 "timeout": timeout,
                 "vcidTail": vcid[-8:] if vcid else "",
             },
         )
 
     try:
-        data = ocr_predict_file(base, image_bytes, timeout=timeout)
+        data = ocr_predict_file(base, image_bytes, filename=ocr_filename, timeout=timeout)
     except requests.RequestException as exc:
         if run_id:
             dlog(
@@ -1308,6 +1391,57 @@ def inject_base_href(html: str) -> str:
     return f'<base href="{APPOINTMENT_ORIGIN}/">{html}'
 
 
+def _goto_scheduler_page(page: "Page", run_id: str) -> None:
+    """Navigate to the BMEIA scheduler page with retry and backoff.
+
+    Parallel Chromium sessions often get blank 'Loading…' pages that look
+    like timeouts.  Retry the goto a few times with the same timeout/env
+    knobs as _open_landing_page so the turbo path does not crash on the
+    first slow response.
+    """
+    url = f"{APPOINTMENT_ORIGIN}/HomeWeb/Scheduler"
+    max_attempts = landing_goto_max_attempts()
+    last_err: Optional[Exception] = None
+    for attempt in range(1, max_attempts + 1):
+        try:
+            page.goto(url, wait_until="domcontentloaded", timeout=landing_goto_timeout_ms())
+            if run_id:
+                dlog(
+                    run_id,
+                    "H_nav",
+                    "booker_legacy:_goto_scheduler_page",
+                    "scheduler_goto_ok",
+                    {"attempt": attempt, "url": page.url, "title": page.title()},
+                )
+            return
+        except Exception as exc:
+            last_err = exc
+            if run_id:
+                dlog(
+                    run_id,
+                    "H_nav",
+                    "booker_legacy:_goto_scheduler_page",
+                    "scheduler_goto_retry",
+                    {
+                        "attempt": attempt,
+                        "maxAttempts": max_attempts,
+                        "url": page.url,
+                        "title": page.title(),
+                        "error": str(exc)[:200],
+                    },
+                )
+            if attempt >= max_attempts:
+                break
+            try:
+                page.wait_for_timeout(min(3000 * attempt, 8000))
+            except Exception:
+                pass
+    raise ValueError(
+        "Scheduler page did not load.  BMEIA may be slow or unreachable.  "
+        f"url={page.url!r} title={page.title()!r}"
+    ) from last_err
+
+
 def load_capture_html_in_browser(page: "Page", html: str, run_id: str = "") -> None:
     """Load capture form HTML into browser on a real BMEIA URL (not about:blank).
 
@@ -1315,7 +1449,7 @@ def load_capture_html_in_browser(page: "Page", html: str, run_id: str = "") -> N
     origin, then injects the HTML via set_content.
     """
     if "about:blank" in (page.url or ""):
-        page.goto(f"{APPOINTMENT_ORIGIN}/HomeWeb/Scheduler", wait_until="domcontentloaded")
+        _goto_scheduler_page(page, run_id)
     page.set_content(inject_base_href(html), wait_until="domcontentloaded")
     _wait_postback_settle(page, run_id, "load_capture_html_in_browser")
 
@@ -3592,15 +3726,37 @@ def run_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
                     },
                 )
 
-                captcha_bytes, site_captcha_png, captcha_source, parallel_timings = fetch_captcha_with_parallel_prefetch(
-                    page=page,
-                    context=context,
-                    fresh=fresh,
-                    session_cookie=payload["sessionCookie"],
-                    settle_ms=_env_int("BOTDETECT_SETTLE_MS", 150, minimum=0),
-                    run_id=run_id,
-                    attempt=attempt,
-                )
+                try:
+                    captcha_bytes, site_captcha_png, captcha_source, parallel_timings = fetch_captcha_with_parallel_prefetch(
+                        page=page,
+                        context=context,
+                        fresh=fresh,
+                        session_cookie=payload["sessionCookie"],
+                        settle_ms=_env_int("BOTDETECT_SETTLE_MS", 150, minimum=0),
+                        run_id=run_id,
+                        attempt=attempt,
+                    )
+                except DomCaptchaCaptureError as exc:
+                    dlog(
+                        run_id,
+                        "H_captcha_source",
+                        "app.py:run_booking_flow",
+                        DomCaptchaCaptureError.reason,
+                        {"attempt": attempt, "error": str(exc)[:200]},
+                    )
+                    if attempt < max_attempts:
+                        fresh = extract_fresh_from_dom(page)
+                        continue
+                    result = {
+                        "ok": False,
+                        "resultType": "CAPTCHA_FAIL",
+                        "attempt": attempt,
+                        "message": str(exc),
+                        "reason": DomCaptchaCaptureError.reason,
+                        "finalUrl": page.url,
+                        "timestamp": datetime.utcnow().isoformat() + "Z",
+                    }
+                    break
                 timings_ms[f"captchaParallelWaitMs_attempt{attempt}"] = parallel_timings.get(
                     "captchaParallelWaitMs", 0.0
                 )
@@ -3628,7 +3784,33 @@ def run_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
                     captcha_bytes, run_id=run_id, attempt=attempt, vcid=fresh.bdc_vcid
                 )
 
-                _fill_captcha_text_like_user(page, captcha_text)
+                hs_ok = fill_captcha_with_hs_guard(
+                    page,
+                    captcha_text,
+                    run_id=run_id,
+                    settle_ms=_env_int("BOTDETECT_SETTLE_MS", 150, minimum=0),
+                )
+                if not hs_ok:
+                    dlog(
+                        run_id,
+                        "H_captcha_hs",
+                        "app.py:run_booking_flow",
+                        "hs_never_updated_after_fill",
+                        {"attempt": attempt},
+                    )
+                    if attempt < max_attempts:
+                        fresh = extract_fresh_from_dom(page)
+                        continue
+                    result = {
+                        "ok": False,
+                        "resultType": "CAPTCHA_FAIL",
+                        "attempt": attempt,
+                        "captchaText": captcha_text,
+                        "message": "BDC_Hs_Captcha did not update after captcha fill.",
+                        "finalUrl": page.url,
+                        "timestamp": datetime.utcnow().isoformat() + "Z",
+                    }
+                    break
                 # #region agent log
                 dom_captcha_after_fill = page.locator("#CaptchaText").first.input_value() if page.locator("#CaptchaText").count() else ""
                 dom_hs_after_fill = page.locator("#BDC_Hs_Captcha").first.input_value() if page.locator("#BDC_Hs_Captcha").count() else ""

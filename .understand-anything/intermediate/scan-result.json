@@ -1,0 +1,1793 @@
+{
+  "name": "python-booker-webhook",
+  "description": "Austrian embassy appointment booker webhook (FastAPI + Playwright). An n8n + Python pipeline that watches appointment slots, solves BotDetect captchas via OCR/Gemini, and books appointments on the BMEIA portal. Note: this project has over 100 source files; consider scoping analysis to a subdirectory for faster results.",
+  "languages": [
+    "config",
+    "csv",
+    "javascript",
+    "json",
+    "markdown",
+    "mdc",
+    "powershell",
+    "python",
+    "toml",
+    "txt",
+    "unknown",
+    "yaml"
+  ],
+  "frameworks": [
+    "FastAPI",
+    "Uvicorn",
+    "Playwright",
+    "pytest",
+    "n8n",
+    "Gemini"
+  ],
+  "files": [
+    {
+      "path": ".cursor/agents/booker-domain-reviewer.md",
+      "language": "markdown",
+      "sizeLines": 52,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".cursor/agents/captcha-investigator.md",
+      "language": "markdown",
+      "sizeLines": 55,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".cursor/agents/deep-web-debugger.md",
+      "language": "markdown",
+      "sizeLines": 109,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".cursor/agents/n8n-booker-specialist.md",
+      "language": "markdown",
+      "sizeLines": 55,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".cursor/agents/orchestrator.md",
+      "language": "markdown",
+      "sizeLines": 7,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".cursor/agents/vps-booker-operator.md",
+      "language": "markdown",
+      "sizeLines": 54,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".cursor/hooks.json",
+      "language": "json",
+      "sizeLines": 16,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".cursor/hooks/session-orchestrate.ps1",
+      "language": "powershell",
+      "sizeLines": 37,
+      "fileCategory": "script"
+    },
+    {
+      "path": ".cursor/hooks/subagent-verify-nudge.ps1",
+      "language": "powershell",
+      "sizeLines": 30,
+      "fileCategory": "script"
+    },
+    {
+      "path": ".cursor/plans/selenium_node_replacement_5bae0644.plan.md",
+      "language": "markdown",
+      "sizeLines": 86,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".cursor/README.md",
+      "language": "markdown",
+      "sizeLines": 45,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".cursor/rules/n8n-workflows.mdc",
+      "language": "mdc",
+      "sizeLines": 38,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".cursor/rules/orchestrator.mdc",
+      "language": "mdc",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".cursor/rules/project-architecture.mdc",
+      "language": "mdc",
+      "sizeLines": 59,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".cursor/rules/python-booker.mdc",
+      "language": "mdc",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".cursor/rules/refactor-guardrails.mdc",
+      "language": "mdc",
+      "sizeLines": 40,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".cursor/rules/testing.mdc",
+      "language": "mdc",
+      "sizeLines": 51,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".cursor/skills/booker-e2e-kopenhagen/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 73,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".cursor/skills/booker-package-extract/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 71,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".cursor/skills/booker-pytest/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 81,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".cursor/skills/captcha-pipeline/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 56,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".cursor/skills/gitnexus-code-intelligence/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 43,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".cursor/skills/n8n-booker-workflows/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 59,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".cursor/skills/orchestrator/routing-table.md",
+      "language": "markdown",
+      "sizeLines": 225,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".cursor/skills/orchestrator/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 113,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".cursor/skills/vps-booker-ops/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 62,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".opencode/commands/speckit.analyze.md",
+      "language": "markdown",
+      "sizeLines": 251,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".opencode/commands/speckit.checklist.md",
+      "language": "markdown",
+      "sizeLines": 365,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".opencode/commands/speckit.clarify.md",
+      "language": "markdown",
+      "sizeLines": 281,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".opencode/commands/speckit.constitution.md",
+      "language": "markdown",
+      "sizeLines": 152,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".opencode/commands/speckit.converge.md",
+      "language": "markdown",
+      "sizeLines": 269,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".opencode/commands/speckit.implement.md",
+      "language": "markdown",
+      "sizeLines": 215,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".opencode/commands/speckit.plan.md",
+      "language": "markdown",
+      "sizeLines": 167,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".opencode/commands/speckit.specify.md",
+      "language": "markdown",
+      "sizeLines": 345,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".opencode/commands/speckit.tasks.md",
+      "language": "markdown",
+      "sizeLines": 215,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".opencode/commands/speckit.taskstoissues.md",
+      "language": "markdown",
+      "sizeLines": 102,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".specify/init-options.json",
+      "language": "json",
+      "sizeLines": 7,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".specify/integration.json",
+      "language": "json",
+      "sizeLines": 15,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".specify/integrations/opencode.manifest.json",
+      "language": "json",
+      "sizeLines": 17,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".specify/integrations/speckit.manifest.json",
+      "language": "json",
+      "sizeLines": 17,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".specify/memory/constitution.md",
+      "language": "markdown",
+      "sizeLines": 50,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".specify/scripts/powershell/check-prerequisites.ps1",
+      "language": "powershell",
+      "sizeLines": 153,
+      "fileCategory": "script"
+    },
+    {
+      "path": ".specify/scripts/powershell/common.ps1",
+      "language": "powershell",
+      "sizeLines": 585,
+      "fileCategory": "script"
+    },
+    {
+      "path": ".specify/scripts/powershell/create-new-feature.ps1",
+      "language": "powershell",
+      "sizeLines": 248,
+      "fileCategory": "script"
+    },
+    {
+      "path": ".specify/scripts/powershell/setup-plan.ps1",
+      "language": "powershell",
+      "sizeLines": 78,
+      "fileCategory": "script"
+    },
+    {
+      "path": ".specify/scripts/powershell/setup-tasks.ps1",
+      "language": "powershell",
+      "sizeLines": 69,
+      "fileCategory": "script"
+    },
+    {
+      "path": ".specify/templates/checklist-template.md",
+      "language": "markdown",
+      "sizeLines": 40,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".specify/templates/constitution-template.md",
+      "language": "markdown",
+      "sizeLines": 50,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".specify/templates/plan-template.md",
+      "language": "markdown",
+      "sizeLines": 113,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".specify/templates/spec-template.md",
+      "language": "markdown",
+      "sizeLines": 131,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".specify/templates/tasks-template.md",
+      "language": "markdown",
+      "sizeLines": 252,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".specify/workflows/speckit/workflow.yml",
+      "language": "yaml",
+      "sizeLines": 77,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".specify/workflows/workflow-registry.json",
+      "language": "json",
+      "sizeLines": 12,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".understand-anything/.understandignore",
+      "language": "unknown",
+      "sizeLines": 42,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".understand-anything/intermediate/scan-result.json",
+      "language": "json",
+      "sizeLines": 1447,
+      "fileCategory": "config"
+    },
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "sizeLines": 88,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "archive/applicants (1).csv",
+      "language": "csv",
+      "sizeLines": 5,
+      "fileCategory": "data"
+    },
+    {
+      "path": "archive/austria_appointment_bot_documentation.md",
+      "language": "markdown",
+      "sizeLines": 565,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/ARCHIVED.md",
+      "language": "markdown",
+      "sizeLines": 8,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/artifacts/.gitkeep",
+      "language": "unknown",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/artifacts/ocr-fix-turbo-1round-report.json",
+      "language": "json",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/artifacts/ocr-fix-turbo-3round-report.json",
+      "language": "json",
+      "sizeLines": 48,
+      "fileCategory": "config"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/artifacts/ocr-fix-validation-report.json",
+      "language": "json",
+      "sizeLines": 27,
+      "fileCategory": "config"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/docs/CHANGELOG.md",
+      "language": "markdown",
+      "sizeLines": 28,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/fixtures/kopenhagen-dummy-applicant.json",
+      "language": "json",
+      "sizeLines": 25,
+      "fileCategory": "config"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/python/app_turbo.py",
+      "language": "python",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/python/app.py",
+      "language": "python",
+      "sizeLines": 1091,
+      "fileCategory": "code"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/python/booker_legacy.py",
+      "language": "python",
+      "sizeLines": 4013,
+      "fileCategory": "code"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/python/captcha_ocr.py",
+      "language": "python",
+      "sizeLines": 143,
+      "fileCategory": "code"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/python/requirements.txt",
+      "language": "txt",
+      "sizeLines": 7,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/python/scheduler_html.py",
+      "language": "python",
+      "sizeLines": 73,
+      "fileCategory": "code"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/README.md",
+      "language": "markdown",
+      "sizeLines": 62,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/scripts/compare_captcha_fetch.py",
+      "language": "python",
+      "sizeLines": 232,
+      "fileCategory": "code"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/scripts/run_ocr_validation.py",
+      "language": "python",
+      "sizeLines": 66,
+      "fileCategory": "code"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/scripts/run_one_http_booking.py",
+      "language": "python",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/scripts/run_three_turbo_bookings.py",
+      "language": "python",
+      "sizeLines": 106,
+      "fileCategory": "code"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/scripts/scan_slots.py",
+      "language": "python",
+      "sizeLines": 177,
+      "fileCategory": "code"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/scripts/start_booker.py",
+      "language": "python",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/scripts/turbo_payload.py",
+      "language": "python",
+      "sizeLines": 68,
+      "fileCategory": "code"
+    },
+    {
+      "path": "archive/sandboxes/README.md",
+      "language": "markdown",
+      "sizeLines": 9,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "archive/Slots blacklist.csv",
+      "language": "csv",
+      "sizeLines": 3,
+      "fileCategory": "data"
+    },
+    {
+      "path": "archive/workflow2_documentation (1).md",
+      "language": "markdown",
+      "sizeLines": 514,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/GITNEXUS.md",
+      "language": "markdown",
+      "sizeLines": 173,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "n8n/booker.json",
+      "language": "json",
+      "sizeLines": 3574,
+      "fileCategory": "config"
+    },
+    {
+      "path": "n8n/README.md",
+      "language": "markdown",
+      "sizeLines": 24,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/.env.example",
+      "language": "config",
+      "sizeLines": 100,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/.env.n8n.local.example",
+      "language": "config",
+      "sizeLines": 12,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/app_turbo.py",
+      "language": "python",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/app.py",
+      "language": "python",
+      "sizeLines": 1108,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/booker_legacy.py",
+      "language": "python",
+      "sizeLines": 4072,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/captcha_ocr.py",
+      "language": "python",
+      "sizeLines": 143,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/docs/AGENT_HANDOFF.md",
+      "language": "markdown",
+      "sizeLines": 320,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/docs/CAPTCHA_INVESTIGATION.md",
+      "language": "markdown",
+      "sizeLines": 361,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/docs/CAPTCHA_OCR_DATASET.md",
+      "language": "markdown",
+      "sizeLines": 363,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/docs/N8N_BOOKER_LOCK_IMPLEMENTATION_PLAN.md",
+      "language": "markdown",
+      "sizeLines": 353,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/docs/n8n-booking-result-flow.md",
+      "language": "markdown",
+      "sizeLines": 206,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/docs/n8n-scheduler-workflow.md",
+      "language": "markdown",
+      "sizeLines": 111,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/docs/PARALLEL_BOOKING.md",
+      "language": "markdown",
+      "sizeLines": 115,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/docs/SLOT_MISMATCH_INVESTIGATION.md",
+      "language": "markdown",
+      "sizeLines": 103,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/docs/tampermonkey-turbo-injector.user.js",
+      "language": "javascript",
+      "sizeLines": 193,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/docs/TESTING_KOPENHAGEN.md",
+      "language": "markdown",
+      "sizeLines": 85,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/docs/TURBO_APP.md",
+      "language": "markdown",
+      "sizeLines": 102,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/docs/TURBO_INJECTOR.md",
+      "language": "markdown",
+      "sizeLines": 89,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/AGENT_PROJECT_DOCUMENTATION.md",
+      "language": "markdown",
+      "sizeLines": 218,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/app_turbo_v0.2.py",
+      "language": "python",
+      "sizeLines": 818,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/app_v1.py",
+      "language": "python",
+      "sizeLines": 3574,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/MIGRATION.md",
+      "language": "markdown",
+      "sizeLines": 69,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/README.md",
+      "language": "markdown",
+      "sizeLines": 271,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/test-payloads/curl-manual-window-test.json",
+      "language": "json",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/test-payloads/curl-test-payload-alt-applicant.json",
+      "language": "json",
+      "sizeLines": 31,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/test-payloads/curl-test-payload-kairo.json",
+      "language": "json",
+      "sizeLines": 32,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/test-payloads/curl-test-payload.json",
+      "language": "json",
+      "sizeLines": 30,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/test-payloads/live-slot-test-payload-2.json",
+      "language": "json",
+      "sizeLines": 33,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/test-payloads/live-slot-test-payload-student2.json",
+      "language": "json",
+      "sizeLines": 33,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/test-payloads/live-slot-test-payload.json",
+      "language": "json",
+      "sizeLines": 33,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/test-payloads/payload-mahmoud-ahmed.json",
+      "language": "json",
+      "sizeLines": 36,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/test-payloads/playwright-fresh-610-payload.json",
+      "language": "json",
+      "sizeLines": 34,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/test-payloads/turbo-fixed-611-payload.json",
+      "language": "json",
+      "sizeLines": 34,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/test-payloads/turbo-fresh-610-payload.json",
+      "language": "json",
+      "sizeLines": 33,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/test-payloads/turbo-fresh-test-template.json",
+      "language": "json",
+      "sizeLines": 41,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/test-payloads/turbo-inject-608-payload.json",
+      "language": "json",
+      "sizeLines": 32,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/test-payloads/turbo-inject-609-payload.json",
+      "language": "json",
+      "sizeLines": 32,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/docs/V1_0_1_PROBLEMS_AND_MERGE_PLAN.md",
+      "language": "markdown",
+      "sizeLines": 434,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/docs/XVFB_PLAYWRIGHT_DEPLOYMENT.md",
+      "language": "markdown",
+      "sizeLines": 203,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/examples/payload-booker.json",
+      "language": "json",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/examples/payload-kairo-production.json",
+      "language": "json",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/examples/README.md",
+      "language": "markdown",
+      "sizeLines": 17,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/curl-manual-window-test.json",
+      "language": "json",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/curl-test-payload-alt-applicant.json",
+      "language": "json",
+      "sizeLines": 31,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/curl-test-payload-kairo.json",
+      "language": "json",
+      "sizeLines": 32,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/curl-test-payload.json",
+      "language": "json",
+      "sizeLines": 30,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/live-slot-test-payload-2.json",
+      "language": "json",
+      "sizeLines": 33,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/live-slot-test-payload-student2.json",
+      "language": "json",
+      "sizeLines": 33,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/live-slot-test-payload.json",
+      "language": "json",
+      "sizeLines": 33,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/payload-mahmoud-ahmed.json",
+      "language": "json",
+      "sizeLines": 36,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/playwright-fresh-610-payload.json",
+      "language": "json",
+      "sizeLines": 34,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/turbo-fixed-611-payload.json",
+      "language": "json",
+      "sizeLines": 34,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/turbo-fresh-610-payload.json",
+      "language": "json",
+      "sizeLines": 33,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/turbo-fresh-test-template.json",
+      "language": "json",
+      "sizeLines": 41,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/turbo-inject-608-payload.json",
+      "language": "json",
+      "sizeLines": 32,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/turbo-inject-609-payload.json",
+      "language": "json",
+      "sizeLines": 32,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/kopenhagen-dummy-applicant.json",
+      "language": "json",
+      "sizeLines": 25,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/payload-booker.json",
+      "language": "json",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/payload-kairo-production.json",
+      "language": "json",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/fixtures/README.md",
+      "language": "markdown",
+      "sizeLines": 23,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/pyproject.toml",
+      "language": "toml",
+      "sizeLines": 13,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/README.md",
+      "language": "markdown",
+      "sizeLines": 161,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/requirements-dev.txt",
+      "language": "txt",
+      "sizeLines": 3,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/requirements.txt",
+      "language": "txt",
+      "sizeLines": 7,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/artifacts/.gitkeep",
+      "language": "unknown",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/docs/CHANGELOG.md",
+      "language": "markdown",
+      "sizeLines": 39,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/docs/n8n-workflow-ids.json",
+      "language": "json",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/fixtures/kopenhagen-dummy-applicant.json",
+      "language": "json",
+      "sizeLines": 25,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/README.md",
+      "language": "markdown",
+      "sizeLines": 175,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/book_clean_attempt.py",
+      "language": "python",
+      "sizeLines": 127,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/fix_sandbox_applicants.py",
+      "language": "python",
+      "sizeLines": 118,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/inspect_pending_state.py",
+      "language": "python",
+      "sizeLines": 165,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/load_workflow_ids.py",
+      "language": "python",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/loop_kopenhagen_full_test.py",
+      "language": "python",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/n8n_push_booker_lock.py",
+      "language": "python",
+      "sizeLines": 137,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/n8n_push_watcher_sandbox.py",
+      "language": "python",
+      "sizeLines": 95,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/patch_booker_lock.py",
+      "language": "python",
+      "sizeLines": 357,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/patch_watcher_kopenhagen.py",
+      "language": "python",
+      "sizeLines": 57,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_five_bookings.py",
+      "language": "python",
+      "sizeLines": 139,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_five_watcher_bookings.py",
+      "language": "python",
+      "sizeLines": 236,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_full_watcher_booker_test.py",
+      "language": "python",
+      "sizeLines": 203,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_kopenhagen_e2e_test.py",
+      "language": "python",
+      "sizeLines": 299,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_lock_integration_tests.py",
+      "language": "python",
+      "sizeLines": 157,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_parallel_4_requests.py",
+      "language": "python",
+      "sizeLines": 150,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_turbo_payload.py",
+      "language": "python",
+      "sizeLines": 38,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_until_booked.py",
+      "language": "python",
+      "sizeLines": 167,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/scan_slots.py",
+      "language": "python",
+      "sizeLines": 177,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/start_ngrok_sandbox.py",
+      "language": "python",
+      "sizeLines": 104,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/verify_no_slots_unlock.py",
+      "language": "python",
+      "sizeLines": 48,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/watcher_30s_lock_test.py",
+      "language": "python",
+      "sizeLines": 273,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/workflows/booker-lock-v1.json",
+      "language": "json",
+      "sizeLines": 3935,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/workflows/booker.json",
+      "language": "json",
+      "sizeLines": 3574,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/workflows/watcher-kopenhagen-sandbox-v1.json",
+      "language": "json",
+      "sizeLines": 853,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/workflows/watcher-v3.json",
+      "language": "json",
+      "sizeLines": 899,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/README.md",
+      "language": "markdown",
+      "sizeLines": 14,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/artifacts/.gitkeep",
+      "language": "unknown",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/docs/CHANGELOG.md",
+      "language": "markdown",
+      "sizeLines": 56,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/fixtures/kopenhagen-dummy-applicant.json",
+      "language": "json",
+      "sizeLines": 25,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/python/.env.example",
+      "language": "config",
+      "sizeLines": 16,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/python/app_turbo.py",
+      "language": "python",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/python/app.py",
+      "language": "python",
+      "sizeLines": 1091,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/python/booker_legacy.py",
+      "language": "python",
+      "sizeLines": 3966,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/python/captcha_ocr.py",
+      "language": "python",
+      "sizeLines": 143,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/python/requirements.txt",
+      "language": "txt",
+      "sizeLines": 7,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/python/scheduler_html.py",
+      "language": "python",
+      "sizeLines": 73,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/README.md",
+      "language": "markdown",
+      "sizeLines": 64,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/scripts/compare_captcha_fetch.py",
+      "language": "python",
+      "sizeLines": 232,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/scripts/run_ocr_validation.py",
+      "language": "python",
+      "sizeLines": 66,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/scripts/run_one_http_booking.py",
+      "language": "python",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/scripts/run_three_turbo_bookings.py",
+      "language": "python",
+      "sizeLines": 106,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/scripts/scan_slots.py",
+      "language": "python",
+      "sizeLines": 177,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/scripts/start_booker.py",
+      "language": "python",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/scripts/turbo_payload.py",
+      "language": "python",
+      "sizeLines": 68,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scheduler_html.py",
+      "language": "python",
+      "sizeLines": 73,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scripts/benchmark_captcha_harvest.py",
+      "language": "python",
+      "sizeLines": 191,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scripts/captcha_dataset_lib.py",
+      "language": "python",
+      "sizeLines": 181,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scripts/captcha_harvest_http.py",
+      "language": "python",
+      "sizeLines": 384,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scripts/compare_captcha_fetch.py",
+      "language": "python",
+      "sizeLines": 211,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scripts/fix_test_payload.json",
+      "language": "json",
+      "sizeLines": 37,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/scripts/harvest_captcha_images.py",
+      "language": "python",
+      "sizeLines": 438,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scripts/ocr_prelabel_manifest.py",
+      "language": "python",
+      "sizeLines": 137,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scripts/rebuild_manifest_from_raw.py",
+      "language": "python",
+      "sizeLines": 128,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scripts/review_captcha_labels.py",
+      "language": "python",
+      "sizeLines": 760,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scripts/run_ocr_captcha_api.py",
+      "language": "python",
+      "sizeLines": 106,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scripts/run_parallel_4_requests.py",
+      "language": "python",
+      "sizeLines": 150,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scripts/run_post_nav_checklist.py",
+      "language": "python",
+      "sizeLines": 350,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scripts/run_turbo_3slot_batch.py",
+      "language": "python",
+      "sizeLines": 171,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scripts/run_turbo_clean_333.py",
+      "language": "python",
+      "sizeLines": 191,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scripts/run_turbo_inject_test.py",
+      "language": "python",
+      "sizeLines": 326,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scripts/run_turbo_payload.py",
+      "language": "python",
+      "sizeLines": 38,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scripts/scan_slots.py",
+      "language": "python",
+      "sizeLines": 176,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scripts/smoke_prod_defaults_payload.json",
+      "language": "json",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/scripts/split_captcha_dataset.py",
+      "language": "python",
+      "sizeLines": 68,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/scripts/train/train_bmeia_crnn.py",
+      "language": "python",
+      "sizeLines": 268,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/tests/conftest.py",
+      "language": "python",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/tests/e2e/test_capture_navigation.py",
+      "language": "python",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/tests/integration/test_booking_concurrency.py",
+      "language": "python",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/tests/integration/test_captcha_dataset_pipeline.py",
+      "language": "python",
+      "sizeLines": 243,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/tests/integration/test_webhook_smoke.py",
+      "language": "python",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/tests/README.md",
+      "language": "markdown",
+      "sizeLines": 18,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "python-booker-webhook/tests/unit/test_calendar_wait.py",
+      "language": "python",
+      "sizeLines": 36,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/tests/unit/test_captcha_dataset_lib.py",
+      "language": "python",
+      "sizeLines": 51,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/tests/unit/test_captcha_harvest_http.py",
+      "language": "python",
+      "sizeLines": 66,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/tests/unit/test_ocr_captcha_unit.py",
+      "language": "python",
+      "sizeLines": 82,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/tests/unit/test_run_id.py",
+      "language": "python",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/tests/unit/test_scheduler_parse.py",
+      "language": "python",
+      "sizeLines": 66,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/tests/unit/test_slot_selection.py",
+      "language": "python",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/tests/unit/test_submit_errors.py",
+      "language": "python",
+      "sizeLines": 38,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/tests/unit/test_success_html.py",
+      "language": "python",
+      "sizeLines": 40,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/tests/unit/test_turbo_captcha_solver.py",
+      "language": "python",
+      "sizeLines": 150,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/tests/unit/test_v101_captcha_pipeline.py",
+      "language": "python",
+      "sizeLines": 173,
+      "fileCategory": "code"
+    },
+    {
+      "path": "python-booker-webhook/workflows/booker.json",
+      "language": "json",
+      "sizeLines": 3574,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python-booker-webhook/workflows/README.md",
+      "language": "markdown",
+      "sizeLines": 21,
+      "fileCategory": "docs"
+    }
+  ],
+  "totalFiles": 238,
+  "filteredByIgnore": 0,
+  "estimatedComplexity": "large",
+  "importMap": {
+    ".cursor/agents/booker-domain-reviewer.md": [],
+    ".cursor/agents/captcha-investigator.md": [],
+    ".cursor/agents/deep-web-debugger.md": [],
+    ".cursor/agents/n8n-booker-specialist.md": [],
+    ".cursor/agents/orchestrator.md": [],
+    ".cursor/agents/vps-booker-operator.md": [],
+    ".cursor/hooks.json": [],
+    ".cursor/hooks/session-orchestrate.ps1": [],
+    ".cursor/hooks/subagent-verify-nudge.ps1": [],
+    ".cursor/plans/selenium_node_replacement_5bae0644.plan.md": [],
+    ".cursor/README.md": [],
+    ".cursor/rules/n8n-workflows.mdc": [],
+    ".cursor/rules/orchestrator.mdc": [],
+    ".cursor/rules/project-architecture.mdc": [],
+    ".cursor/rules/python-booker.mdc": [],
+    ".cursor/rules/refactor-guardrails.mdc": [],
+    ".cursor/rules/testing.mdc": [],
+    ".cursor/skills/booker-e2e-kopenhagen/SKILL.md": [],
+    ".cursor/skills/booker-package-extract/SKILL.md": [],
+    ".cursor/skills/booker-pytest/SKILL.md": [],
+    ".cursor/skills/captcha-pipeline/SKILL.md": [],
+    ".cursor/skills/gitnexus-code-intelligence/SKILL.md": [],
+    ".cursor/skills/n8n-booker-workflows/SKILL.md": [],
+    ".cursor/skills/orchestrator/routing-table.md": [],
+    ".cursor/skills/orchestrator/SKILL.md": [],
+    ".cursor/skills/vps-booker-ops/SKILL.md": [],
+    ".opencode/commands/speckit.analyze.md": [],
+    ".opencode/commands/speckit.checklist.md": [],
+    ".opencode/commands/speckit.clarify.md": [],
+    ".opencode/commands/speckit.constitution.md": [],
+    ".opencode/commands/speckit.converge.md": [],
+    ".opencode/commands/speckit.implement.md": [],
+    ".opencode/commands/speckit.plan.md": [],
+    ".opencode/commands/speckit.specify.md": [],
+    ".opencode/commands/speckit.tasks.md": [],
+    ".opencode/commands/speckit.taskstoissues.md": [],
+    ".specify/init-options.json": [],
+    ".specify/integration.json": [],
+    ".specify/integrations/opencode.manifest.json": [],
+    ".specify/integrations/speckit.manifest.json": [],
+    ".specify/memory/constitution.md": [],
+    ".specify/scripts/powershell/check-prerequisites.ps1": [],
+    ".specify/scripts/powershell/common.ps1": [],
+    ".specify/scripts/powershell/create-new-feature.ps1": [],
+    ".specify/scripts/powershell/setup-plan.ps1": [],
+    ".specify/scripts/powershell/setup-tasks.ps1": [],
+    ".specify/templates/checklist-template.md": [],
+    ".specify/templates/constitution-template.md": [],
+    ".specify/templates/plan-template.md": [],
+    ".specify/templates/spec-template.md": [],
+    ".specify/templates/tasks-template.md": [],
+    ".specify/workflows/speckit/workflow.yml": [],
+    ".specify/workflows/workflow-registry.json": [],
+    ".understand-anything/.understandignore": [],
+    ".understand-anything/intermediate/scan-result.json": [],
+    "AGENTS.md": [],
+    "archive/applicants (1).csv": [],
+    "archive/austria_appointment_bot_documentation.md": [],
+    "archive/sandboxes/ocr-fix-v1/ARCHIVED.md": [],
+    "archive/sandboxes/ocr-fix-v1/artifacts/.gitkeep": [],
+    "archive/sandboxes/ocr-fix-v1/artifacts/ocr-fix-turbo-1round-report.json": [],
+    "archive/sandboxes/ocr-fix-v1/artifacts/ocr-fix-turbo-3round-report.json": [],
+    "archive/sandboxes/ocr-fix-v1/artifacts/ocr-fix-validation-report.json": [],
+    "archive/sandboxes/ocr-fix-v1/docs/CHANGELOG.md": [],
+    "archive/sandboxes/ocr-fix-v1/fixtures/kopenhagen-dummy-applicant.json": [],
+    "archive/sandboxes/ocr-fix-v1/python/app_turbo.py": [
+      "archive/sandboxes/ocr-fix-v1/python/app.py"
+    ],
+    "archive/sandboxes/ocr-fix-v1/python/app.py": [
+      "archive/sandboxes/ocr-fix-v1/python/booker_legacy.py"
+    ],
+    "archive/sandboxes/ocr-fix-v1/python/booker_legacy.py": [
+      "archive/sandboxes/ocr-fix-v1/python/captcha_ocr.py"
+    ],
+    "archive/sandboxes/ocr-fix-v1/python/captcha_ocr.py": [],
+    "archive/sandboxes/ocr-fix-v1/python/requirements.txt": [],
+    "archive/sandboxes/ocr-fix-v1/python/scheduler_html.py": [],
+    "archive/sandboxes/ocr-fix-v1/README.md": [],
+    "archive/sandboxes/ocr-fix-v1/scripts/compare_captcha_fetch.py": [],
+    "archive/sandboxes/ocr-fix-v1/scripts/run_ocr_validation.py": [],
+    "archive/sandboxes/ocr-fix-v1/scripts/run_one_http_booking.py": [
+      "archive/sandboxes/ocr-fix-v1/scripts/scan_slots.py",
+      "archive/sandboxes/ocr-fix-v1/scripts/turbo_payload.py"
+    ],
+    "archive/sandboxes/ocr-fix-v1/scripts/run_three_turbo_bookings.py": [
+      "archive/sandboxes/ocr-fix-v1/scripts/scan_slots.py",
+      "archive/sandboxes/ocr-fix-v1/scripts/turbo_payload.py"
+    ],
+    "archive/sandboxes/ocr-fix-v1/scripts/scan_slots.py": [],
+    "archive/sandboxes/ocr-fix-v1/scripts/start_booker.py": [],
+    "archive/sandboxes/ocr-fix-v1/scripts/turbo_payload.py": [],
+    "archive/sandboxes/README.md": [],
+    "archive/Slots blacklist.csv": [],
+    "archive/workflow2_documentation (1).md": [],
+    "docs/GITNEXUS.md": [],
+    "n8n/booker.json": [],
+    "n8n/README.md": [],
+    "python-booker-webhook/.env.example": [],
+    "python-booker-webhook/.env.n8n.local.example": [],
+    "python-booker-webhook/app_turbo.py": [
+      "python-booker-webhook/app.py"
+    ],
+    "python-booker-webhook/app.py": [
+      "python-booker-webhook/booker_legacy.py"
+    ],
+    "python-booker-webhook/booker_legacy.py": [
+      "python-booker-webhook/captcha_ocr.py"
+    ],
+    "python-booker-webhook/captcha_ocr.py": [],
+    "python-booker-webhook/docs/AGENT_HANDOFF.md": [],
+    "python-booker-webhook/docs/CAPTCHA_INVESTIGATION.md": [],
+    "python-booker-webhook/docs/CAPTCHA_OCR_DATASET.md": [],
+    "python-booker-webhook/docs/N8N_BOOKER_LOCK_IMPLEMENTATION_PLAN.md": [],
+    "python-booker-webhook/docs/n8n-booking-result-flow.md": [],
+    "python-booker-webhook/docs/n8n-scheduler-workflow.md": [],
+    "python-booker-webhook/docs/PARALLEL_BOOKING.md": [],
+    "python-booker-webhook/docs/SLOT_MISMATCH_INVESTIGATION.md": [],
+    "python-booker-webhook/docs/tampermonkey-turbo-injector.user.js": [],
+    "python-booker-webhook/docs/TESTING_KOPENHAGEN.md": [],
+    "python-booker-webhook/docs/TURBO_APP.md": [],
+    "python-booker-webhook/docs/TURBO_INJECTOR.md": [],
+    "python-booker-webhook/docs/turbo-booker-archive/AGENT_PROJECT_DOCUMENTATION.md": [],
+    "python-booker-webhook/docs/turbo-booker-archive/app_turbo_v0.2.py": [
+      "python-booker-webhook/app.py"
+    ],
+    "python-booker-webhook/docs/turbo-booker-archive/app_v1.py": [
+      "python-booker-webhook/captcha_ocr.py"
+    ],
+    "python-booker-webhook/docs/turbo-booker-archive/MIGRATION.md": [],
+    "python-booker-webhook/docs/turbo-booker-archive/README.md": [],
+    "python-booker-webhook/docs/turbo-booker-archive/test-payloads/curl-manual-window-test.json": [],
+    "python-booker-webhook/docs/turbo-booker-archive/test-payloads/curl-test-payload-alt-applicant.json": [],
+    "python-booker-webhook/docs/turbo-booker-archive/test-payloads/curl-test-payload-kairo.json": [],
+    "python-booker-webhook/docs/turbo-booker-archive/test-payloads/curl-test-payload.json": [],
+    "python-booker-webhook/docs/turbo-booker-archive/test-payloads/live-slot-test-payload-2.json": [],
+    "python-booker-webhook/docs/turbo-booker-archive/test-payloads/live-slot-test-payload-student2.json": [],
+    "python-booker-webhook/docs/turbo-booker-archive/test-payloads/live-slot-test-payload.json": [],
+    "python-booker-webhook/docs/turbo-booker-archive/test-payloads/payload-mahmoud-ahmed.json": [],
+    "python-booker-webhook/docs/turbo-booker-archive/test-payloads/playwright-fresh-610-payload.json": [],
+    "python-booker-webhook/docs/turbo-booker-archive/test-payloads/turbo-fixed-611-payload.json": [],
+    "python-booker-webhook/docs/turbo-booker-archive/test-payloads/turbo-fresh-610-payload.json": [],
+    "python-booker-webhook/docs/turbo-booker-archive/test-payloads/turbo-fresh-test-template.json": [],
+    "python-booker-webhook/docs/turbo-booker-archive/test-payloads/turbo-inject-608-payload.json": [],
+    "python-booker-webhook/docs/turbo-booker-archive/test-payloads/turbo-inject-609-payload.json": [],
+    "python-booker-webhook/docs/V1_0_1_PROBLEMS_AND_MERGE_PLAN.md": [],
+    "python-booker-webhook/docs/XVFB_PLAYWRIGHT_DEPLOYMENT.md": [],
+    "python-booker-webhook/examples/payload-booker.json": [],
+    "python-booker-webhook/examples/payload-kairo-production.json": [],
+    "python-booker-webhook/examples/README.md": [],
+    "python-booker-webhook/fixtures/payloads/archive/curl-manual-window-test.json": [],
+    "python-booker-webhook/fixtures/payloads/archive/curl-test-payload-alt-applicant.json": [],
+    "python-booker-webhook/fixtures/payloads/archive/curl-test-payload-kairo.json": [],
+    "python-booker-webhook/fixtures/payloads/archive/curl-test-payload.json": [],
+    "python-booker-webhook/fixtures/payloads/archive/live-slot-test-payload-2.json": [],
+    "python-booker-webhook/fixtures/payloads/archive/live-slot-test-payload-student2.json": [],
+    "python-booker-webhook/fixtures/payloads/archive/live-slot-test-payload.json": [],
+    "python-booker-webhook/fixtures/payloads/archive/payload-mahmoud-ahmed.json": [],
+    "python-booker-webhook/fixtures/payloads/archive/playwright-fresh-610-payload.json": [],
+    "python-booker-webhook/fixtures/payloads/archive/turbo-fixed-611-payload.json": [],
+    "python-booker-webhook/fixtures/payloads/archive/turbo-fresh-610-payload.json": [],
+    "python-booker-webhook/fixtures/payloads/archive/turbo-fresh-test-template.json": [],
+    "python-booker-webhook/fixtures/payloads/archive/turbo-inject-608-payload.json": [],
+    "python-booker-webhook/fixtures/payloads/archive/turbo-inject-609-payload.json": [],
+    "python-booker-webhook/fixtures/payloads/kopenhagen-dummy-applicant.json": [],
+    "python-booker-webhook/fixtures/payloads/payload-booker.json": [],
+    "python-booker-webhook/fixtures/payloads/payload-kairo-production.json": [],
+    "python-booker-webhook/fixtures/README.md": [],
+    "python-booker-webhook/pyproject.toml": [],
+    "python-booker-webhook/README.md": [],
+    "python-booker-webhook/requirements-dev.txt": [],
+    "python-booker-webhook/requirements.txt": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/artifacts/.gitkeep": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/docs/CHANGELOG.md": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/docs/n8n-workflow-ids.json": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/fixtures/kopenhagen-dummy-applicant.json": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/README.md": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/book_clean_attempt.py": [
+      "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_kopenhagen_e2e_test.py",
+      "python-booker-webhook/sandboxes/lock-integration-v1/scripts/watcher_30s_lock_test.py"
+    ],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/fix_sandbox_applicants.py": [
+      "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_kopenhagen_e2e_test.py"
+    ],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/inspect_pending_state.py": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/load_workflow_ids.py": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/loop_kopenhagen_full_test.py": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/n8n_push_booker_lock.py": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/n8n_push_watcher_sandbox.py": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/patch_booker_lock.py": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/patch_watcher_kopenhagen.py": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_five_bookings.py": [
+      "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_kopenhagen_e2e_test.py",
+      "python-booker-webhook/sandboxes/lock-integration-v1/scripts/scan_slots.py"
+    ],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_five_watcher_bookings.py": [
+      "python-booker-webhook/sandboxes/lock-integration-v1/scripts/load_workflow_ids.py",
+      "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_kopenhagen_e2e_test.py",
+      "python-booker-webhook/sandboxes/lock-integration-v1/scripts/watcher_30s_lock_test.py"
+    ],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_full_watcher_booker_test.py": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_kopenhagen_e2e_test.py": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_lock_integration_tests.py": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_parallel_4_requests.py": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_turbo_payload.py": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_until_booked.py": [
+      "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_kopenhagen_e2e_test.py"
+    ],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/scan_slots.py": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/start_ngrok_sandbox.py": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/verify_no_slots_unlock.py": [
+      "python-booker-webhook/sandboxes/lock-integration-v1/scripts/load_workflow_ids.py",
+      "python-booker-webhook/sandboxes/lock-integration-v1/scripts/watcher_30s_lock_test.py"
+    ],
+    "python-booker-webhook/sandboxes/lock-integration-v1/scripts/watcher_30s_lock_test.py": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/workflows/booker-lock-v1.json": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/workflows/booker.json": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/workflows/watcher-kopenhagen-sandbox-v1.json": [],
+    "python-booker-webhook/sandboxes/lock-integration-v1/workflows/watcher-v3.json": [],
+    "python-booker-webhook/sandboxes/README.md": [],
+    "python-booker-webhook/sandboxes/v1.0.1/artifacts/.gitkeep": [],
+    "python-booker-webhook/sandboxes/v1.0.1/docs/CHANGELOG.md": [],
+    "python-booker-webhook/sandboxes/v1.0.1/fixtures/kopenhagen-dummy-applicant.json": [],
+    "python-booker-webhook/sandboxes/v1.0.1/python/.env.example": [],
+    "python-booker-webhook/sandboxes/v1.0.1/python/app_turbo.py": [
+      "python-booker-webhook/sandboxes/v1.0.1/python/app.py"
+    ],
+    "python-booker-webhook/sandboxes/v1.0.1/python/app.py": [
+      "python-booker-webhook/sandboxes/v1.0.1/python/booker_legacy.py"
+    ],
+    "python-booker-webhook/sandboxes/v1.0.1/python/booker_legacy.py": [
+      "python-booker-webhook/sandboxes/v1.0.1/python/captcha_ocr.py"
+    ],
+    "python-booker-webhook/sandboxes/v1.0.1/python/captcha_ocr.py": [],
+    "python-booker-webhook/sandboxes/v1.0.1/python/requirements.txt": [],
+    "python-booker-webhook/sandboxes/v1.0.1/python/scheduler_html.py": [],
+    "python-booker-webhook/sandboxes/v1.0.1/README.md": [],
+    "python-booker-webhook/sandboxes/v1.0.1/scripts/compare_captcha_fetch.py": [],
+    "python-booker-webhook/sandboxes/v1.0.1/scripts/run_ocr_validation.py": [],
+    "python-booker-webhook/sandboxes/v1.0.1/scripts/run_one_http_booking.py": [
+      "python-booker-webhook/sandboxes/v1.0.1/scripts/scan_slots.py",
+      "python-booker-webhook/sandboxes/v1.0.1/scripts/turbo_payload.py"
+    ],
+    "python-booker-webhook/sandboxes/v1.0.1/scripts/run_three_turbo_bookings.py": [
+      "python-booker-webhook/sandboxes/v1.0.1/scripts/scan_slots.py",
+      "python-booker-webhook/sandboxes/v1.0.1/scripts/turbo_payload.py"
+    ],
+    "python-booker-webhook/sandboxes/v1.0.1/scripts/scan_slots.py": [],
+    "python-booker-webhook/sandboxes/v1.0.1/scripts/start_booker.py": [],
+    "python-booker-webhook/sandboxes/v1.0.1/scripts/turbo_payload.py": [],
+    "python-booker-webhook/scheduler_html.py": [],
+    "python-booker-webhook/scripts/benchmark_captcha_harvest.py": [],
+    "python-booker-webhook/scripts/captcha_dataset_lib.py": [],
+    "python-booker-webhook/scripts/captcha_harvest_http.py": [],
+    "python-booker-webhook/scripts/compare_captcha_fetch.py": [],
+    "python-booker-webhook/scripts/fix_test_payload.json": [],
+    "python-booker-webhook/scripts/harvest_captcha_images.py": [
+      "python-booker-webhook/scripts/captcha_dataset_lib.py"
+    ],
+    "python-booker-webhook/scripts/ocr_prelabel_manifest.py": [
+      "python-booker-webhook/captcha_ocr.py",
+      "python-booker-webhook/scripts/captcha_dataset_lib.py"
+    ],
+    "python-booker-webhook/scripts/rebuild_manifest_from_raw.py": [
+      "python-booker-webhook/scripts/captcha_dataset_lib.py"
+    ],
+    "python-booker-webhook/scripts/review_captcha_labels.py": [
+      "python-booker-webhook/scripts/captcha_dataset_lib.py"
+    ],
+    "python-booker-webhook/scripts/run_ocr_captcha_api.py": [
+      "python-booker-webhook/captcha_ocr.py"
+    ],
+    "python-booker-webhook/scripts/run_parallel_4_requests.py": [],
+    "python-booker-webhook/scripts/run_post_nav_checklist.py": [
+      "python-booker-webhook/booker_legacy.py"
+    ],
+    "python-booker-webhook/scripts/run_turbo_3slot_batch.py": [],
+    "python-booker-webhook/scripts/run_turbo_clean_333.py": [],
+    "python-booker-webhook/scripts/run_turbo_inject_test.py": [],
+    "python-booker-webhook/scripts/run_turbo_payload.py": [],
+    "python-booker-webhook/scripts/scan_slots.py": [],
+    "python-booker-webhook/scripts/smoke_prod_defaults_payload.json": [],
+    "python-booker-webhook/scripts/split_captcha_dataset.py": [
+      "python-booker-webhook/scripts/captcha_dataset_lib.py"
+    ],
+    "python-booker-webhook/scripts/train/train_bmeia_crnn.py": [
+      "python-booker-webhook/scripts/captcha_dataset_lib.py"
+    ],
+    "python-booker-webhook/tests/conftest.py": [],
+    "python-booker-webhook/tests/e2e/test_capture_navigation.py": [
+      "python-booker-webhook/booker_legacy.py"
+    ],
+    "python-booker-webhook/tests/integration/test_booking_concurrency.py": [
+      "python-booker-webhook/app.py",
+      "python-booker-webhook/booker_legacy.py"
+    ],
+    "python-booker-webhook/tests/integration/test_captcha_dataset_pipeline.py": [],
+    "python-booker-webhook/tests/integration/test_webhook_smoke.py": [
+      "python-booker-webhook/app.py"
+    ],
+    "python-booker-webhook/tests/README.md": [],
+    "python-booker-webhook/tests/unit/test_calendar_wait.py": [
+      "python-booker-webhook/booker_legacy.py"
+    ],
+    "python-booker-webhook/tests/unit/test_captcha_dataset_lib.py": [],
+    "python-booker-webhook/tests/unit/test_captcha_harvest_http.py": [],
+    "python-booker-webhook/tests/unit/test_ocr_captcha_unit.py": [
+      "python-booker-webhook/captcha_ocr.py"
+    ],
+    "python-booker-webhook/tests/unit/test_run_id.py": [
+      "python-booker-webhook/booker_legacy.py"
+    ],
+    "python-booker-webhook/tests/unit/test_scheduler_parse.py": [
+      "python-booker-webhook/booker_legacy.py",
+      "python-booker-webhook/scheduler_html.py"
+    ],
+    "python-booker-webhook/tests/unit/test_slot_selection.py": [
+      "python-booker-webhook/booker_legacy.py"
+    ],
+    "python-booker-webhook/tests/unit/test_submit_errors.py": [
+      "python-booker-webhook/booker_legacy.py"
+    ],
+    "python-booker-webhook/tests/unit/test_success_html.py": [
+      "python-booker-webhook/booker_legacy.py"
+    ],
+    "python-booker-webhook/tests/unit/test_turbo_captcha_solver.py": [
+      "python-booker-webhook/app.py"
+    ],
+    "python-booker-webhook/tests/unit/test_v101_captcha_pipeline.py": [
+      "python-booker-webhook/booker_legacy.py"
+    ],
+    "python-booker-webhook/workflows/booker.json": [],
+    "python-booker-webhook/workflows/README.md": []
+  }
+}

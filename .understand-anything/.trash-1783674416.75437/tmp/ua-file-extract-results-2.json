@@ -1,0 +1,4561 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 10,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/book_clean_attempt.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 127,
+      "nonEmptyLines": 106,
+      "functions": [
+        {
+          "name": "update_rows",
+          "startLine": 31,
+          "endLine": 47,
+          "params": [
+            "base",
+            "h",
+            "table_id",
+            "column",
+            "value",
+            "data"
+          ]
+        },
+        {
+          "name": "get_status",
+          "startLine": 50,
+          "endLine": 61,
+          "params": [
+            "base",
+            "h",
+            "passport"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 64,
+          "endLine": 123,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "update_rows",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "get_status",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 64,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "update_rows",
+          "callee": "requests.patch",
+          "lineNumber": 40
+        },
+        {
+          "caller": "update_rows",
+          "callee": "RuntimeError",
+          "lineNumber": 47
+        },
+        {
+          "caller": "get_status",
+          "callee": "requests.get",
+          "lineNumber": 51
+        },
+        {
+          "caller": "get_status",
+          "callee": "r.raise_for_status",
+          "lineNumber": 57
+        },
+        {
+          "caller": "get_status",
+          "callee": "r.json().get",
+          "lineNumber": 58
+        },
+        {
+          "caller": "get_status",
+          "callee": "r.json",
+          "lineNumber": 58
+        },
+        {
+          "caller": "get_status",
+          "callee": "row.get",
+          "lineNumber": 59
+        },
+        {
+          "caller": "get_status",
+          "callee": "row.get",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "load_env",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "env[\"N8N_API_BASE_URL\"].rstrip",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "api_headers",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "update_rows",
+          "lineNumber": 70
+        },
+        {
+          "caller": "main",
+          "callee": "update_rows",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "update_rows",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 82
+        },
+        {
+          "caller": "main",
+          "callee": "scan_kopenhagen",
+          "lineNumber": 83
+        },
+        {
+          "caller": "main",
+          "callee": "scan.get",
+          "lineNumber": 84
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "clear_lock",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "time.sleep",
+          "lineNumber": 90
+        },
+        {
+          "caller": "main",
+          "callee": "build_watcher_payload",
+          "lineNumber": 92
+        },
+        {
+          "caller": "main",
+          "callee": "time.time",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "requests.post",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "time.time",
+          "lineNumber": 95
+        },
+        {
+          "caller": "main",
+          "callee": "r.json",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "r.headers.get(\"content-type\", \"\").startswith",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "r.headers.get",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "get_status",
+          "lineNumber": 98
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "scan.get",
+          "lineNumber": 105
+        },
+        {
+          "caller": "main",
+          "callee": "out.write_text",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 109
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 109
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get",
+          "lineNumber": 116
+        },
+        {
+          "caller": "main",
+          "callee": "r2.json().get",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "r2.json",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "x.get",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "str(x.get(\"TraveldocumentNumber\", \"\")).startswith",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "x.get",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 119
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 122
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/fix_sandbox_applicants.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 118,
+      "nonEmptyLines": 97,
+      "functions": [
+        {
+          "name": "get_rows",
+          "startLine": 28,
+          "endLine": 36,
+          "params": [
+            "base",
+            "h"
+          ]
+        },
+        {
+          "name": "update_passport",
+          "startLine": 39,
+          "endLine": 63,
+          "params": [
+            "base",
+            "h",
+            "passport",
+            "data"
+          ]
+        },
+        {
+          "name": "needs_country_fix",
+          "startLine": 66,
+          "endLine": 71,
+          "params": [
+            "row"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 74,
+          "endLine": 114,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "get_rows",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "update_passport",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "needs_country_fix",
+          "line": 66,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 74,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "get_rows",
+          "callee": "requests.get",
+          "lineNumber": 29
+        },
+        {
+          "caller": "get_rows",
+          "callee": "r.raise_for_status",
+          "lineNumber": 35
+        },
+        {
+          "caller": "get_rows",
+          "callee": "r.json().get",
+          "lineNumber": 36
+        },
+        {
+          "caller": "get_rows",
+          "callee": "r.json",
+          "lineNumber": 36
+        },
+        {
+          "caller": "update_passport",
+          "callee": "requests.patch",
+          "lineNumber": 50
+        },
+        {
+          "caller": "update_passport",
+          "callee": "RuntimeError",
+          "lineNumber": 57
+        },
+        {
+          "caller": "update_passport",
+          "callee": "r.json",
+          "lineNumber": 58
+        },
+        {
+          "caller": "update_passport",
+          "callee": "isinstance",
+          "lineNumber": 59
+        },
+        {
+          "caller": "update_passport",
+          "callee": "out.get",
+          "lineNumber": 62
+        },
+        {
+          "caller": "update_passport",
+          "callee": "out.get",
+          "lineNumber": 62
+        },
+        {
+          "caller": "needs_country_fix",
+          "callee": "row.get",
+          "lineNumber": 68
+        },
+        {
+          "caller": "needs_country_fix",
+          "callee": "str",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "load_env",
+          "lineNumber": 75
+        },
+        {
+          "caller": "main",
+          "callee": "env[\"N8N_API_BASE_URL\"].rstrip",
+          "lineNumber": 76
+        },
+        {
+          "caller": "main",
+          "callee": "api_headers",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "get_rows",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "str(r.get(\"TraveldocumentNumber\", \"\")).startswith",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "r.get",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "row.get",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "needs_country_fix",
+          "lineNumber": 88
+        },
+        {
+          "caller": "main",
+          "callee": "report[\"skipped\"].append",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "dict",
+          "lineNumber": 92
+        },
+        {
+          "caller": "main",
+          "callee": "row.get",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "update_passport",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "report[\"updated\"].append",
+          "lineNumber": 101
+        },
+        {
+          "caller": "main",
+          "callee": "updated.get",
+          "lineNumber": 104
+        },
+        {
+          "caller": "main",
+          "callee": "updated.get",
+          "lineNumber": 105
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "updated.get",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "updated.get",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "out_path.write_text",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 113
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/load_workflow_ids.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "load_workflow_ids",
+          "startLine": 12,
+          "endLine": 15,
+          "params": []
+        },
+        {
+          "name": "booker_id",
+          "startLine": 18,
+          "endLine": 19,
+          "params": [
+            "default"
+          ]
+        },
+        {
+          "name": "watcher_kopenhagen_id",
+          "startLine": 22,
+          "endLine": 23,
+          "params": [
+            "default"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "load_workflow_ids",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "booker_id",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "watcher_kopenhagen_id",
+          "line": 22,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "load_workflow_ids",
+          "callee": "META_PATH.exists",
+          "lineNumber": 13
+        },
+        {
+          "caller": "load_workflow_ids",
+          "callee": "json.loads",
+          "lineNumber": 15
+        },
+        {
+          "caller": "load_workflow_ids",
+          "callee": "META_PATH.read_text",
+          "lineNumber": 15
+        },
+        {
+          "caller": "booker_id",
+          "callee": "(load_workflow_ids().get(\"booker_lock_sandbox\") or {}).get",
+          "lineNumber": 19
+        },
+        {
+          "caller": "booker_id",
+          "callee": "load_workflow_ids().get",
+          "lineNumber": 19
+        },
+        {
+          "caller": "booker_id",
+          "callee": "load_workflow_ids",
+          "lineNumber": 19
+        },
+        {
+          "caller": "watcher_kopenhagen_id",
+          "callee": "(load_workflow_ids().get(\"watcher_kopenhagen_sandbox\") or {}).get",
+          "lineNumber": 23
+        },
+        {
+          "caller": "watcher_kopenhagen_id",
+          "callee": "load_workflow_ids().get",
+          "lineNumber": 23
+        },
+        {
+          "caller": "watcher_kopenhagen_id",
+          "callee": "load_workflow_ids",
+          "lineNumber": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_five_bookings.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 139,
+      "nonEmptyLines": 116,
+      "functions": [
+        {
+          "name": "get_status",
+          "startLine": 30,
+          "endLine": 41,
+          "params": [
+            "base",
+            "h",
+            "passport"
+          ]
+        },
+        {
+          "name": "mark_completed",
+          "startLine": 44,
+          "endLine": 63,
+          "params": [
+            "base",
+            "h",
+            "passport",
+            "slot"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 66,
+          "endLine": 135,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "get_status",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "mark_completed",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 66,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "get_status",
+          "callee": "requests.get",
+          "lineNumber": 31
+        },
+        {
+          "caller": "get_status",
+          "callee": "r.raise_for_status",
+          "lineNumber": 37
+        },
+        {
+          "caller": "get_status",
+          "callee": "r.json().get",
+          "lineNumber": 38
+        },
+        {
+          "caller": "get_status",
+          "callee": "r.json",
+          "lineNumber": 38
+        },
+        {
+          "caller": "get_status",
+          "callee": "row.get",
+          "lineNumber": 39
+        },
+        {
+          "caller": "mark_completed",
+          "callee": "requests.patch(\n        f\"{base}/api/v1/data-tables/{APPLICANTS_TABLE}/rows/update\",\n        headers=h,\n        json={\n            \"filter\": {\n                \"type\": \"and\",\n                \"filters\": [\n                    {\"columnName\": \"TraveldocumentNumber\", \"condition\": \"eq\", \"value\": passport}\n                ],\n            },\n            \"data\": {\n                \"status\": \"COMPLETED\",\n                \"bookedSlot\": slot,\n                \"bookedAt\": datetime.now(timezone.utc).isoformat().replace(\"+00:00\", \"Z\"),\n            },\n            \"returnData\": True,\n        },\n        timeout=60,\n    ).raise_for_status",
+          "lineNumber": 45
+        },
+        {
+          "caller": "mark_completed",
+          "callee": "requests.patch",
+          "lineNumber": 45
+        },
+        {
+          "caller": "mark_completed",
+          "callee": "datetime.now(timezone.utc).isoformat().replace",
+          "lineNumber": 58
+        },
+        {
+          "caller": "mark_completed",
+          "callee": "datetime.now(timezone.utc).isoformat",
+          "lineNumber": 58
+        },
+        {
+          "caller": "mark_completed",
+          "callee": "datetime.now",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "load_env",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "env[\"N8N_API_BASE_URL\"].rstrip",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "env.get",
+          "lineNumber": 70
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get(f\"{BOOKER_LOCAL}/health\", timeout=10).raise_for_status",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "range",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 78
+        },
+        {
+          "caller": "main",
+          "callee": "scan_slots",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "uuid.uuid4",
+          "lineNumber": 83
+        },
+        {
+          "caller": "main",
+          "callee": "scan.get",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 86
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 86
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 86
+        },
+        {
+          "caller": "main",
+          "callee": "report[\"rounds\"].append",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 90
+        },
+        {
+          "caller": "main",
+          "callee": "uuid.uuid4().hex[:6].upper",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "uuid.uuid4",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "seed_dummy_applicant",
+          "lineNumber": 95
+        },
+        {
+          "caller": "main",
+          "callee": "build_turbo_payload",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "suffix.lower",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "time.time",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "post_sandbox_turbo",
+          "lineNumber": 103
+        },
+        {
+          "caller": "main",
+          "callee": "time.time",
+          "lineNumber": 104
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "body.get",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "body.get",
+          "lineNumber": 113
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 113
+        },
+        {
+          "caller": "main",
+          "callee": "body.get",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "body.get",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 118
+        },
+        {
+          "caller": "main",
+          "callee": "body.get",
+          "lineNumber": 118
+        },
+        {
+          "caller": "main",
+          "callee": "mark_completed",
+          "lineNumber": 119
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "body.get",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "body.get",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "get_status",
+          "lineNumber": 124
+        },
+        {
+          "caller": "main",
+          "callee": "st.get",
+          "lineNumber": 125
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 126
+        },
+        {
+          "caller": "main",
+          "callee": "row.get",
+          "lineNumber": 126
+        },
+        {
+          "caller": "main",
+          "callee": "report[\"rounds\"].append",
+          "lineNumber": 128
+        },
+        {
+          "caller": "main",
+          "callee": "time.sleep",
+          "lineNumber": 130
+        },
+        {
+          "caller": "main",
+          "callee": "out.write_text",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 134
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_five_watcher_bookings.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 236,
+      "nonEmptyLines": 203,
+      "functions": [
+        {
+          "name": "api_headers",
+          "startLine": 28,
+          "endLine": 29,
+          "params": [
+            "env"
+          ]
+        },
+        {
+          "name": "set_active",
+          "startLine": 32,
+          "endLine": 34,
+          "params": [
+            "base",
+            "h",
+            "wf_id",
+            "active"
+          ]
+        },
+        {
+          "name": "list_rows",
+          "startLine": 37,
+          "endLine": 45,
+          "params": [
+            "base",
+            "h"
+          ]
+        },
+        {
+          "name": "count_completed",
+          "startLine": 48,
+          "endLine": 60,
+          "params": [
+            "base",
+            "h",
+            "passports"
+          ]
+        },
+        {
+          "name": "recent_execs",
+          "startLine": 63,
+          "endLine": 71,
+          "params": [
+            "base",
+            "h",
+            "wf_id",
+            "since_iso",
+            "limit"
+          ]
+        },
+        {
+          "name": "exec_summary",
+          "startLine": 74,
+          "endLine": 118,
+          "params": [
+            "base",
+            "h",
+            "eid"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 121,
+          "endLine": 232,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "api_headers",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "set_active",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "list_rows",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "count_completed",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "recent_execs",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "exec_summary",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 121,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "set_active",
+          "callee": "requests.post(f\"{base}/api/v1/workflows/{wf_id}/{ep}\", headers=h, timeout=60).raise_for_status",
+          "lineNumber": 34
+        },
+        {
+          "caller": "set_active",
+          "callee": "requests.post",
+          "lineNumber": 34
+        },
+        {
+          "caller": "list_rows",
+          "callee": "requests.get",
+          "lineNumber": 38
+        },
+        {
+          "caller": "list_rows",
+          "callee": "r.raise_for_status",
+          "lineNumber": 44
+        },
+        {
+          "caller": "list_rows",
+          "callee": "r.json().get",
+          "lineNumber": 45
+        },
+        {
+          "caller": "list_rows",
+          "callee": "r.json",
+          "lineNumber": 45
+        },
+        {
+          "caller": "count_completed",
+          "callee": "list_rows",
+          "lineNumber": 50
+        },
+        {
+          "caller": "count_completed",
+          "callee": "row.get",
+          "lineNumber": 51
+        },
+        {
+          "caller": "count_completed",
+          "callee": "row.get",
+          "lineNumber": 52
+        },
+        {
+          "caller": "count_completed",
+          "callee": "done.append",
+          "lineNumber": 53
+        },
+        {
+          "caller": "count_completed",
+          "callee": "row.get",
+          "lineNumber": 56
+        },
+        {
+          "caller": "count_completed",
+          "callee": "row.get",
+          "lineNumber": 57
+        },
+        {
+          "caller": "recent_execs",
+          "callee": "requests.get",
+          "lineNumber": 64
+        },
+        {
+          "caller": "recent_execs",
+          "callee": "r.raise_for_status",
+          "lineNumber": 70
+        },
+        {
+          "caller": "recent_execs",
+          "callee": "r.json().get",
+          "lineNumber": 71
+        },
+        {
+          "caller": "recent_execs",
+          "callee": "r.json",
+          "lineNumber": 71
+        },
+        {
+          "caller": "recent_execs",
+          "callee": "e.get",
+          "lineNumber": 71
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "requests.get",
+          "lineNumber": 75
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "r.raise_for_status",
+          "lineNumber": 81
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "r.json",
+          "lineNumber": 82
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "ej.get(\"data\", {}).get",
+          "lineNumber": 83
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "ej.get",
+          "lineNumber": 83
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "rd.get",
+          "lineNumber": 84
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "ej.get",
+          "lineNumber": 87
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "ej.get",
+          "lineNumber": 88
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "rd.get",
+          "lineNumber": 89
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "isinstance",
+          "lineNumber": 93
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "items[0].get",
+          "lineNumber": 94
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "j.get",
+          "lineNumber": 95
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "j.get",
+          "lineNumber": 96
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "isinstance",
+          "lineNumber": 99
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "item.get",
+          "lineNumber": 102
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "(item.get(\"json\") or {}).get",
+          "lineNumber": 103
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "item.get",
+          "lineNumber": 103
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "isinstance",
+          "lineNumber": 107
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "isinstance",
+          "lineNumber": 110
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "(sub.get(\"json\") or {}).get",
+          "lineNumber": 110
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "sub.get",
+          "lineNumber": 110
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "sub[\"json\"].get",
+          "lineNumber": 111
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "sub[\"json\"].get",
+          "lineNumber": 112
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "isinstance",
+          "lineNumber": 116
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "(items[0].get(\"json\") or {}).get",
+          "lineNumber": 117
+        },
+        {
+          "caller": "exec_summary",
+          "callee": "items[0].get",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 123
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 129
+        },
+        {
+          "caller": "main",
+          "callee": "max",
+          "lineNumber": 130
+        },
+        {
+          "caller": "main",
+          "callee": "load_env",
+          "lineNumber": 132
+        },
+        {
+          "caller": "main",
+          "callee": "env[\"N8N_API_BASE_URL\"].rstrip",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "api_headers",
+          "lineNumber": 134
+        },
+        {
+          "caller": "main",
+          "callee": "booker_id",
+          "lineNumber": 135
+        },
+        {
+          "caller": "main",
+          "callee": "watcher_kopenhagen_id",
+          "lineNumber": 136
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get(\"http://127.0.0.1:8010/health\", timeout=10).raise_for_status",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "env.get",
+          "lineNumber": 139
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get(f\"{ngrok.rstrip('/')}/health\", timeout=15, headers={\"ngrok-skip-browser-warning\": \"1\"}).raise_for_status",
+          "lineNumber": 142
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get",
+          "lineNumber": 142
+        },
+        {
+          "caller": "main",
+          "callee": "ngrok.rstrip",
+          "lineNumber": 142
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 143
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 145
+        },
+        {
+          "caller": "main",
+          "callee": "range",
+          "lineNumber": 148
+        },
+        {
+          "caller": "main",
+          "callee": "uuid.uuid4().hex[:6].upper",
+          "lineNumber": 149
+        },
+        {
+          "caller": "main",
+          "callee": "uuid.uuid4",
+          "lineNumber": 149
+        },
+        {
+          "caller": "main",
+          "callee": "seed_dummy_applicant",
+          "lineNumber": 150
+        },
+        {
+          "caller": "main",
+          "callee": "passports.append",
+          "lineNumber": 152
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 153
+        },
+        {
+          "caller": "main",
+          "callee": "clear_lock",
+          "lineNumber": 155
+        },
+        {
+          "caller": "main",
+          "callee": "time.sleep",
+          "lineNumber": 156
+        },
+        {
+          "caller": "main",
+          "callee": "set_active",
+          "lineNumber": 157
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).strftime",
+          "lineNumber": 158
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now",
+          "lineNumber": 158
+        },
+        {
+          "caller": "main",
+          "callee": "time.time",
+          "lineNumber": 159
+        },
+        {
+          "caller": "main",
+          "callee": "set_active",
+          "lineNumber": 160
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 161
+        },
+        {
+          "caller": "main",
+          "callee": "set",
+          "lineNumber": 172
+        },
+        {
+          "caller": "main",
+          "callee": "set",
+          "lineNumber": 173
+        },
+        {
+          "caller": "main",
+          "callee": "time.time",
+          "lineNumber": 176
+        },
+        {
+          "caller": "main",
+          "callee": "count_completed",
+          "lineNumber": 177
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 179
+        },
+        {
+          "caller": "main",
+          "callee": "time.time",
+          "lineNumber": 179
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 180
+        },
+        {
+          "caller": "main",
+          "callee": "recent_execs",
+          "lineNumber": 184
+        },
+        {
+          "caller": "main",
+          "callee": "e.get",
+          "lineNumber": 186
+        },
+        {
+          "caller": "main",
+          "callee": "seen_watcher.add",
+          "lineNumber": 187
+        },
+        {
+          "caller": "main",
+          "callee": "exec_summary",
+          "lineNumber": 189
+        },
+        {
+          "caller": "main",
+          "callee": "e.get",
+          "lineNumber": 191
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 191
+        },
+        {
+          "caller": "main",
+          "callee": "poll.setdefault(\"watcherEvents\", []).append",
+          "lineNumber": 192
+        },
+        {
+          "caller": "main",
+          "callee": "poll.setdefault",
+          "lineNumber": 192
+        },
+        {
+          "caller": "main",
+          "callee": "s.get",
+          "lineNumber": 193
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 194
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 195
+        },
+        {
+          "caller": "main",
+          "callee": "s.get",
+          "lineNumber": 196
+        },
+        {
+          "caller": "main",
+          "callee": "recent_execs",
+          "lineNumber": 199
+        },
+        {
+          "caller": "main",
+          "callee": "e.get",
+          "lineNumber": 201
+        },
+        {
+          "caller": "main",
+          "callee": "seen_booker.add",
+          "lineNumber": 202
+        },
+        {
+          "caller": "main",
+          "callee": "exec_summary",
+          "lineNumber": 204
+        },
+        {
+          "caller": "main",
+          "callee": "e.get",
+          "lineNumber": 206
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 206
+        },
+        {
+          "caller": "main",
+          "callee": "poll.setdefault(\"bookerEvents\", []).append",
+          "lineNumber": 207
+        },
+        {
+          "caller": "main",
+          "callee": "poll.setdefault",
+          "lineNumber": 207
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 208
+        },
+        {
+          "caller": "main",
+          "callee": "s.get",
+          "lineNumber": 209
+        },
+        {
+          "caller": "main",
+          "callee": "s.get",
+          "lineNumber": 210
+        },
+        {
+          "caller": "main",
+          "callee": "report[\"polls\"].append",
+          "lineNumber": 213
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 216
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 217
+        },
+        {
+          "caller": "main",
+          "callee": "time.sleep",
+          "lineNumber": 220
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 222
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 222
+        },
+        {
+          "caller": "main",
+          "callee": "set_active",
+          "lineNumber": 224
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 225
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 227
+        },
+        {
+          "caller": "main",
+          "callee": "time.time",
+          "lineNumber": 227
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 228
+        },
+        {
+          "caller": "main",
+          "callee": "out_path.write_text",
+          "lineNumber": 230
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 230
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 231
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 7,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_kopenhagen_e2e_test.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 299,
+      "nonEmptyLines": 260,
+      "functions": [
+        {
+          "name": "load_env",
+          "startLine": 25,
+          "endLine": 33,
+          "params": []
+        },
+        {
+          "name": "api_headers",
+          "startLine": 36,
+          "endLine": 37,
+          "params": [
+            "env"
+          ]
+        },
+        {
+          "name": "clear_lock",
+          "startLine": 40,
+          "endLine": 47,
+          "params": [
+            "base",
+            "env"
+          ]
+        },
+        {
+          "name": "scan_kopenhagen",
+          "startLine": 50,
+          "endLine": 68,
+          "params": []
+        },
+        {
+          "name": "seed_dummy_applicant",
+          "startLine": 71,
+          "endLine": 93,
+          "params": [
+            "env",
+            "passport_suffix"
+          ]
+        },
+        {
+          "name": "build_watcher_payload",
+          "startLine": 96,
+          "endLine": 124,
+          "params": [
+            "scan"
+          ]
+        },
+        {
+          "name": "build_turbo_payload",
+          "startLine": 127,
+          "endLine": 163,
+          "params": [
+            "scan",
+            "student"
+          ]
+        },
+        {
+          "name": "post_sandbox_webhook",
+          "startLine": 166,
+          "endLine": 173,
+          "params": [
+            "base",
+            "payload"
+          ]
+        },
+        {
+          "name": "post_sandbox_turbo",
+          "startLine": 176,
+          "endLine": 183,
+          "params": [
+            "booker_url",
+            "payload"
+          ]
+        },
+        {
+          "name": "latest_execution",
+          "startLine": 186,
+          "endLine": 196,
+          "params": [
+            "base",
+            "env"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 199,
+          "endLine": 295,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "load_env",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "api_headers",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "clear_lock",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "scan_kopenhagen",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "seed_dummy_applicant",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "build_watcher_payload",
+          "line": 96,
+          "isDefault": false
+        },
+        {
+          "name": "build_turbo_payload",
+          "line": 127,
+          "isDefault": false
+        },
+        {
+          "name": "post_sandbox_webhook",
+          "line": 166,
+          "isDefault": false
+        },
+        {
+          "name": "post_sandbox_turbo",
+          "line": 176,
+          "isDefault": false
+        },
+        {
+          "name": "latest_execution",
+          "line": 186,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 199,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "load_env",
+          "callee": "(ROOT / \".env.n8n.local\").read_text(encoding=\"utf-8\").splitlines",
+          "lineNumber": 27
+        },
+        {
+          "caller": "load_env",
+          "callee": "(ROOT / \".env.n8n.local\").read_text",
+          "lineNumber": 27
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.strip",
+          "lineNumber": 28
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.startswith",
+          "lineNumber": 29
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.split",
+          "lineNumber": 31
+        },
+        {
+          "caller": "load_env",
+          "callee": "k.strip",
+          "lineNumber": 32
+        },
+        {
+          "caller": "load_env",
+          "callee": "v.strip",
+          "lineNumber": 32
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "api_headers",
+          "lineNumber": 41
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "requests.get(f\"{base}/api/v1/workflows/{SANDBOX_WORKFLOW_ID}\", headers=h, timeout=60).json",
+          "lineNumber": 42
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "requests.get",
+          "lineNumber": 42
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "requests.post",
+          "lineNumber": 45
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "requests.put",
+          "lineNumber": 46
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "requests.post",
+          "lineNumber": 47
+        },
+        {
+          "caller": "scan_kopenhagen",
+          "callee": "sys.path.insert",
+          "lineNumber": 51
+        },
+        {
+          "caller": "scan_kopenhagen",
+          "callee": "str",
+          "lineNumber": 51
+        },
+        {
+          "caller": "scan_kopenhagen",
+          "callee": "sys.path.insert",
+          "lineNumber": 52
+        },
+        {
+          "caller": "scan_kopenhagen",
+          "callee": "str",
+          "lineNumber": 52
+        },
+        {
+          "caller": "scan_kopenhagen",
+          "callee": "datetime.now(timezone.utc).strftime",
+          "lineNumber": 55
+        },
+        {
+          "caller": "scan_kopenhagen",
+          "callee": "datetime.now",
+          "lineNumber": 55
+        },
+        {
+          "caller": "scan_kopenhagen",
+          "callee": "scan_slots",
+          "lineNumber": 56
+        },
+        {
+          "caller": "scan_kopenhagen",
+          "callee": "out_path.parent.mkdir",
+          "lineNumber": 65
+        },
+        {
+          "caller": "scan_kopenhagen",
+          "callee": "out_path.write_text",
+          "lineNumber": 66
+        },
+        {
+          "caller": "scan_kopenhagen",
+          "callee": "json.dumps",
+          "lineNumber": 66
+        },
+        {
+          "caller": "scan_kopenhagen",
+          "callee": "print",
+          "lineNumber": 67
+        },
+        {
+          "caller": "seed_dummy_applicant",
+          "callee": "json.loads",
+          "lineNumber": 72
+        },
+        {
+          "caller": "seed_dummy_applicant",
+          "callee": "(FIXTURES / \"kopenhagen-dummy-applicant.json\").read_text",
+          "lineNumber": 72
+        },
+        {
+          "caller": "seed_dummy_applicant",
+          "callee": "uuid.uuid4().hex[:6].upper",
+          "lineNumber": 73
+        },
+        {
+          "caller": "seed_dummy_applicant",
+          "callee": "uuid.uuid4",
+          "lineNumber": 73
+        },
+        {
+          "caller": "seed_dummy_applicant",
+          "callee": "int",
+          "lineNumber": 75
+        },
+        {
+          "caller": "seed_dummy_applicant",
+          "callee": "sum",
+          "lineNumber": 77
+        },
+        {
+          "caller": "seed_dummy_applicant",
+          "callee": "ord",
+          "lineNumber": 77
+        },
+        {
+          "caller": "seed_dummy_applicant",
+          "callee": "suffix.lower",
+          "lineNumber": 79
+        },
+        {
+          "caller": "seed_dummy_applicant",
+          "callee": "suffix[:5].ljust",
+          "lineNumber": 80
+        },
+        {
+          "caller": "seed_dummy_applicant",
+          "callee": "env[\"N8N_API_BASE_URL\"].rstrip",
+          "lineNumber": 87
+        },
+        {
+          "caller": "seed_dummy_applicant",
+          "callee": "api_headers",
+          "lineNumber": 88
+        },
+        {
+          "caller": "seed_dummy_applicant",
+          "callee": "requests.post",
+          "lineNumber": 90
+        },
+        {
+          "caller": "seed_dummy_applicant",
+          "callee": "r.raise_for_status",
+          "lineNumber": 91
+        },
+        {
+          "caller": "seed_dummy_applicant",
+          "callee": "print",
+          "lineNumber": 92
+        },
+        {
+          "caller": "build_watcher_payload",
+          "callee": "scan.get",
+          "lineNumber": 97
+        },
+        {
+          "caller": "build_watcher_payload",
+          "callee": "RuntimeError",
+          "lineNumber": 99
+        },
+        {
+          "caller": "build_watcher_payload",
+          "callee": "scan.get",
+          "lineNumber": 100
+        },
+        {
+          "caller": "build_watcher_payload",
+          "callee": "datetime.now(timezone.utc).isoformat().replace",
+          "lineNumber": 101
+        },
+        {
+          "caller": "build_watcher_payload",
+          "callee": "datetime.now(timezone.utc).isoformat",
+          "lineNumber": 101
+        },
+        {
+          "caller": "build_watcher_payload",
+          "callee": "datetime.now",
+          "lineNumber": 101
+        },
+        {
+          "caller": "build_watcher_payload",
+          "callee": "scan.get",
+          "lineNumber": 108
+        },
+        {
+          "caller": "build_watcher_payload",
+          "callee": "len",
+          "lineNumber": 121
+        },
+        {
+          "caller": "build_watcher_payload",
+          "callee": "len",
+          "lineNumber": 122
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "scan.get",
+          "lineNumber": 128
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "uuid.uuid4",
+          "lineNumber": 130
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "scan.get",
+          "lineNumber": 135
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "scan.get",
+          "lineNumber": 140
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "str",
+          "lineNumber": 147
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "str",
+          "lineNumber": 149
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "str",
+          "lineNumber": 151
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "str",
+          "lineNumber": 152
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "str",
+          "lineNumber": 155
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "str",
+          "lineNumber": 156
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "str",
+          "lineNumber": 158
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "str",
+          "lineNumber": 161
+        },
+        {
+          "caller": "post_sandbox_webhook",
+          "callee": "requests.post",
+          "lineNumber": 168
+        },
+        {
+          "caller": "post_sandbox_webhook",
+          "callee": "r.json",
+          "lineNumber": 170
+        },
+        {
+          "caller": "post_sandbox_turbo",
+          "callee": "booker_url.rstrip",
+          "lineNumber": 177
+        },
+        {
+          "caller": "post_sandbox_turbo",
+          "callee": "requests.post",
+          "lineNumber": 178
+        },
+        {
+          "caller": "post_sandbox_turbo",
+          "callee": "r.json",
+          "lineNumber": 180
+        },
+        {
+          "caller": "latest_execution",
+          "callee": "api_headers",
+          "lineNumber": 187
+        },
+        {
+          "caller": "latest_execution",
+          "callee": "requests.get",
+          "lineNumber": 188
+        },
+        {
+          "caller": "latest_execution",
+          "callee": "r.raise_for_status",
+          "lineNumber": 194
+        },
+        {
+          "caller": "latest_execution",
+          "callee": "r.json().get",
+          "lineNumber": 195
+        },
+        {
+          "caller": "latest_execution",
+          "callee": "r.json",
+          "lineNumber": 195
+        },
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 202
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 203
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 208
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 213
+        },
+        {
+          "caller": "main",
+          "callee": "load_env",
+          "lineNumber": 215
+        },
+        {
+          "caller": "main",
+          "callee": "env[\"N8N_API_BASE_URL\"].rstrip",
+          "lineNumber": 216
+        },
+        {
+          "caller": "main",
+          "callee": "env.get",
+          "lineNumber": 217
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get",
+          "lineNumber": 219
+        },
+        {
+          "caller": "main",
+          "callee": "health.raise_for_status",
+          "lineNumber": 220
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 221
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 223
+        },
+        {
+          "caller": "main",
+          "callee": "scan_kopenhagen",
+          "lineNumber": 224
+        },
+        {
+          "caller": "main",
+          "callee": "scan.get",
+          "lineNumber": 225
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 226
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 226
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 227
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 229
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 231
+        },
+        {
+          "caller": "main",
+          "callee": "seed_dummy_applicant",
+          "lineNumber": 233
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 235
+        },
+        {
+          "caller": "main",
+          "callee": "json.loads",
+          "lineNumber": 236
+        },
+        {
+          "caller": "main",
+          "callee": "(FIXTURES / \"kopenhagen-dummy-applicant.json\").read_text",
+          "lineNumber": 236
+        },
+        {
+          "caller": "main",
+          "callee": "uuid.uuid4().hex[:6].upper",
+          "lineNumber": 237
+        },
+        {
+          "caller": "main",
+          "callee": "uuid.uuid4",
+          "lineNumber": 237
+        },
+        {
+          "caller": "main",
+          "callee": "scan.get",
+          "lineNumber": 239
+        },
+        {
+          "caller": "main",
+          "callee": "RuntimeError",
+          "lineNumber": 241
+        },
+        {
+          "caller": "main",
+          "callee": "build_watcher_payload",
+          "lineNumber": 242
+        },
+        {
+          "caller": "main",
+          "callee": "build_turbo_payload",
+          "lineNumber": 243
+        },
+        {
+          "caller": "main",
+          "callee": "payload_path.write_text",
+          "lineNumber": 246
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 246
+        },
+        {
+          "caller": "main",
+          "callee": "turbo_path.write_text",
+          "lineNumber": 247
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 247
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 248
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 249
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 254
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 256
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 257
+        },
+        {
+          "caller": "main",
+          "callee": "post_sandbox_turbo",
+          "lineNumber": 258
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 259
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 260
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 260
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 260
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 261
+        },
+        {
+          "caller": "main",
+          "callee": "body.get",
+          "lineNumber": 261
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 265
+        },
+        {
+          "caller": "main",
+          "callee": "clear_lock",
+          "lineNumber": 266
+        },
+        {
+          "caller": "main",
+          "callee": "time.sleep",
+          "lineNumber": 267
+        },
+        {
+          "caller": "main",
+          "callee": "post_sandbox_webhook",
+          "lineNumber": 268
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 269
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 270
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 270
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 270
+        },
+        {
+          "caller": "main",
+          "callee": "latest_execution",
+          "lineNumber": 271
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 273
+        },
+        {
+          "caller": "main",
+          "callee": "ex.get",
+          "lineNumber": 273
+        },
+        {
+          "caller": "main",
+          "callee": "ex.get",
+          "lineNumber": 273
+        },
+        {
+          "caller": "main",
+          "callee": "scan.get",
+          "lineNumber": 277
+        },
+        {
+          "caller": "main",
+          "callee": "student.get",
+          "lineNumber": 278
+        },
+        {
+          "caller": "main",
+          "callee": "body.get",
+          "lineNumber": 279
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 279
+        },
+        {
+          "caller": "main",
+          "callee": "ex.get",
+          "lineNumber": 281
+        },
+        {
+          "caller": "main",
+          "callee": "summary_path.write_text",
+          "lineNumber": 284
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 284
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 285
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 288
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 291
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 11,
+        "functionCount": 11,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_until_booked.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 167,
+      "nonEmptyLines": 137,
+      "functions": [
+        {
+          "name": "sanitize_settings",
+          "startLine": 33,
+          "endLine": 41,
+          "params": [
+            "settings"
+          ]
+        },
+        {
+          "name": "clear_lock_safe",
+          "startLine": 44,
+          "endLine": 56,
+          "params": [
+            "base",
+            "env"
+          ]
+        },
+        {
+          "name": "get_applicant_status",
+          "startLine": 59,
+          "endLine": 71,
+          "params": [
+            "base",
+            "env",
+            "passport"
+          ]
+        },
+        {
+          "name": "latest_booker_exec",
+          "startLine": 74,
+          "endLine": 84,
+          "params": [
+            "base",
+            "env"
+          ]
+        },
+        {
+          "name": "exec_last_node",
+          "startLine": 87,
+          "endLine": 96,
+          "params": [
+            "base",
+            "env",
+            "eid"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 99,
+          "endLine": 163,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "sanitize_settings",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "clear_lock_safe",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "get_applicant_status",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "latest_booker_exec",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "exec_last_node",
+          "line": 87,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 99,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "sanitize_settings",
+          "callee": "settings.items",
+          "lineNumber": 41
+        },
+        {
+          "caller": "clear_lock_safe",
+          "callee": "api_headers",
+          "lineNumber": 45
+        },
+        {
+          "caller": "clear_lock_safe",
+          "callee": "requests.get(f\"{base}/api/v1/workflows/{SANDBOX_WORKFLOW_ID}\", headers=h, timeout=60).json",
+          "lineNumber": 46
+        },
+        {
+          "caller": "clear_lock_safe",
+          "callee": "requests.get",
+          "lineNumber": 46
+        },
+        {
+          "caller": "clear_lock_safe",
+          "callee": "sanitize_settings",
+          "lineNumber": 50
+        },
+        {
+          "caller": "clear_lock_safe",
+          "callee": "body.get",
+          "lineNumber": 50
+        },
+        {
+          "caller": "clear_lock_safe",
+          "callee": "wf.get",
+          "lineNumber": 51
+        },
+        {
+          "caller": "clear_lock_safe",
+          "callee": "requests.post",
+          "lineNumber": 53
+        },
+        {
+          "caller": "clear_lock_safe",
+          "callee": "requests.put(f\"{base}/api/v1/workflows/{SANDBOX_WORKFLOW_ID}\", headers=h, json=body, timeout=120).raise_for_status",
+          "lineNumber": 54
+        },
+        {
+          "caller": "clear_lock_safe",
+          "callee": "requests.put",
+          "lineNumber": 54
+        },
+        {
+          "caller": "clear_lock_safe",
+          "callee": "requests.post",
+          "lineNumber": 56
+        },
+        {
+          "caller": "get_applicant_status",
+          "callee": "api_headers",
+          "lineNumber": 60
+        },
+        {
+          "caller": "get_applicant_status",
+          "callee": "requests.get",
+          "lineNumber": 61
+        },
+        {
+          "caller": "get_applicant_status",
+          "callee": "r.raise_for_status",
+          "lineNumber": 67
+        },
+        {
+          "caller": "get_applicant_status",
+          "callee": "r.json().get",
+          "lineNumber": 68
+        },
+        {
+          "caller": "get_applicant_status",
+          "callee": "r.json",
+          "lineNumber": 68
+        },
+        {
+          "caller": "get_applicant_status",
+          "callee": "row.get",
+          "lineNumber": 69
+        },
+        {
+          "caller": "get_applicant_status",
+          "callee": "row.get",
+          "lineNumber": 70
+        },
+        {
+          "caller": "latest_booker_exec",
+          "callee": "api_headers",
+          "lineNumber": 75
+        },
+        {
+          "caller": "latest_booker_exec",
+          "callee": "requests.get",
+          "lineNumber": 76
+        },
+        {
+          "caller": "latest_booker_exec",
+          "callee": "r.raise_for_status",
+          "lineNumber": 82
+        },
+        {
+          "caller": "latest_booker_exec",
+          "callee": "r.json().get",
+          "lineNumber": 83
+        },
+        {
+          "caller": "latest_booker_exec",
+          "callee": "r.json",
+          "lineNumber": 83
+        },
+        {
+          "caller": "exec_last_node",
+          "callee": "api_headers",
+          "lineNumber": 88
+        },
+        {
+          "caller": "exec_last_node",
+          "callee": "requests.get",
+          "lineNumber": 89
+        },
+        {
+          "caller": "exec_last_node",
+          "callee": "r.raise_for_status",
+          "lineNumber": 95
+        },
+        {
+          "caller": "exec_last_node",
+          "callee": "r.json().get(\"data\", {}).get(\"resultData\", {}).get",
+          "lineNumber": 96
+        },
+        {
+          "caller": "exec_last_node",
+          "callee": "r.json().get(\"data\", {}).get",
+          "lineNumber": 96
+        },
+        {
+          "caller": "exec_last_node",
+          "callee": "r.json().get",
+          "lineNumber": 96
+        },
+        {
+          "caller": "exec_last_node",
+          "callee": "r.json",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "load_env",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "env[\"N8N_API_BASE_URL\"].rstrip",
+          "lineNumber": 101
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get",
+          "lineNumber": 103
+        },
+        {
+          "caller": "main",
+          "callee": "health.raise_for_status",
+          "lineNumber": 104
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 105
+        },
+        {
+          "caller": "main",
+          "callee": "uuid.uuid4().hex[:6].upper",
+          "lineNumber": 107
+        },
+        {
+          "caller": "main",
+          "callee": "uuid.uuid4",
+          "lineNumber": 107
+        },
+        {
+          "caller": "main",
+          "callee": "seed_dummy_applicant",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "passport.split",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 110
+        },
+        {
+          "caller": "main",
+          "callee": "range",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "scan_kopenhagen",
+          "lineNumber": 116
+        },
+        {
+          "caller": "main",
+          "callee": "scan.get",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "scan.get",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 118
+        },
+        {
+          "caller": "main",
+          "callee": "report[\"rounds\"].append",
+          "lineNumber": 119
+        },
+        {
+          "caller": "main",
+          "callee": "time.sleep",
+          "lineNumber": 120
+        },
+        {
+          "caller": "main",
+          "callee": "build_watcher_payload",
+          "lineNumber": 123
+        },
+        {
+          "caller": "main",
+          "callee": "clear_lock_safe",
+          "lineNumber": 124
+        },
+        {
+          "caller": "main",
+          "callee": "time.sleep",
+          "lineNumber": 125
+        },
+        {
+          "caller": "main",
+          "callee": "time.time",
+          "lineNumber": 127
+        },
+        {
+          "caller": "main",
+          "callee": "requests.post",
+          "lineNumber": 128
+        },
+        {
+          "caller": "main",
+          "callee": "time.time",
+          "lineNumber": 129
+        },
+        {
+          "caller": "main",
+          "callee": "r.json",
+          "lineNumber": 131
+        },
+        {
+          "caller": "main",
+          "callee": "get_applicant_status",
+          "lineNumber": 135
+        },
+        {
+          "caller": "main",
+          "callee": "latest_booker_exec",
+          "lineNumber": 136
+        },
+        {
+          "caller": "main",
+          "callee": "exec_last_node",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 142
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 143
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 143
+        },
+        {
+          "caller": "main",
+          "callee": "ex.get",
+          "lineNumber": 145
+        },
+        {
+          "caller": "main",
+          "callee": "scan.get",
+          "lineNumber": 147
+        },
+        {
+          "caller": "main",
+          "callee": "report[\"rounds\"].append",
+          "lineNumber": 149
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 150
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 150
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 153
+        },
+        {
+          "caller": "main",
+          "callee": "out.write_text",
+          "lineNumber": 155
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 155
+        },
+        {
+          "caller": "main",
+          "callee": "time.sleep",
+          "lineNumber": 158
+        },
+        {
+          "caller": "main",
+          "callee": "out.write_text",
+          "lineNumber": 161
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 161
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 162
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 6,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/scan_slots.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 177,
+      "nonEmptyLines": 153,
+      "functions": [
+        {
+          "name": "_context_session_cookie",
+          "startLine": 18,
+          "endLine": 24,
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "name": "scan_slots",
+          "startLine": 27,
+          "endLine": 149,
+          "params": [
+            "office",
+            "calendar_id",
+            "language",
+            "person_count",
+            "max_weeks",
+            "run_id"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 152,
+          "endLine": 173,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_context_session_cookie",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "scan_slots",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 152,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_context_session_cookie",
+          "callee": "context.cookies",
+          "lineNumber": 20
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "c.get",
+          "lineNumber": 21
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "parts.append",
+          "lineNumber": 23
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "\"; \".join",
+          "lineNumber": 24
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "time.perf_counter",
+          "lineNumber": 52
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "sync_playwright",
+          "lineNumber": 54
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "pw.chromium.launch",
+          "lineNumber": 55
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker.playwright_headless",
+          "lineNumber": 55
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "browser.new_context",
+          "lineNumber": 56
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "context.new_page",
+          "lineNumber": 60
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "run_dir.mkdir",
+          "lineNumber": 62
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._open_landing_page",
+          "lineNumber": 64
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "landing_sets.items",
+          "lineNumber": 71
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._set_scheduler_value",
+          "lineNumber": 72
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 73
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._apply_reservation_calendar_select",
+          "lineNumber": 75
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._repair_calendar_id_dom_if_needed",
+          "lineNumber": 76
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 77
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.wait_for_selector",
+          "lineNumber": 79
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker.person_count_wait_ms",
+          "lineNumber": 79
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._set_scheduler_value",
+          "lineNumber": 80
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 81
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.wait_for_function",
+          "lineNumber": 83
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker.information_page_wait_ms",
+          "lineNumber": 90
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 92
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._wait_for_start_radios",
+          "lineNumber": 93
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "range",
+          "lineNumber": 95
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._list_start_radio_values",
+          "lineNumber": 96
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator(\"#Monday\").count",
+          "lineNumber": 97
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator",
+          "lineNumber": 97
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "(page.locator(\"#Monday\").first.get_attribute(\"value\") or \"\").strip",
+          "lineNumber": 98
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator(\"#Monday\").first.get_attribute",
+          "lineNumber": 98
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator",
+          "lineNumber": 98
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator(\"input[name='Monday']\").count",
+          "lineNumber": 99
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator",
+          "lineNumber": 99
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "(\n                    page.locator(\"input[name='Monday']\").first.get_attribute(\"value\") or \"\"\n                ).strip",
+          "lineNumber": 100
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator(\"input[name='Monday']\").first.get_attribute",
+          "lineNumber": 101
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator",
+          "lineNumber": 101
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "all_slots.append",
+          "lineNumber": 106
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.screenshot",
+          "lineNumber": 109
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "str",
+          "lineNumber": 109
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "(run_dir / f\"week_{week_idx + 1}.html\").write_text",
+          "lineNumber": 110
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.content",
+          "lineNumber": 110
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator",
+          "lineNumber": 113
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator",
+          "lineNumber": 116
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "loc.count",
+          "lineNumber": 117
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 119
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._wait_for_start_radios",
+          "lineNumber": 120
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "_context_session_cookie",
+          "lineNumber": 128
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "browser.close",
+          "lineNumber": 129
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "round",
+          "lineNumber": 131
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "time.perf_counter",
+          "lineNumber": 131
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "len",
+          "lineNumber": 133
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "len",
+          "lineNumber": 139
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 142
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "datetime.utcnow",
+          "lineNumber": 142
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "(booker.ARTIFACTS_DIR / run_id / \"scan_result.json\").write_text",
+          "lineNumber": 146
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "json.dumps",
+          "lineNumber": 147
+        },
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 153
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 154
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 155
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 156
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 157
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 158
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 159
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 160
+        },
+        {
+          "caller": "main",
+          "callee": "scan_slots",
+          "lineNumber": 162
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 169
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 170
+        },
+        {
+          "caller": "main",
+          "callee": "args.output.write_text",
+          "lineNumber": 172
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 173
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/verify_no_slots_unlock.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 48,
+      "nonEmptyLines": 38,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 18,
+          "endLine": 44,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 18,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "load_env",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "env[\"N8N_API_BASE_URL\"].rstrip",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "base.split",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "booker_id",
+          "lineNumber": 22
+        },
+        {
+          "caller": "main",
+          "callee": "clear_lock",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "get_static_lock",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "requests.post",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "time.sleep",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "get_static_lock",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "after.get",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 43
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/watcher_30s_lock_test.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 273,
+      "nonEmptyLines": 235,
+      "functions": [
+        {
+          "name": "load_env",
+          "startLine": 19,
+          "endLine": 27,
+          "params": []
+        },
+        {
+          "name": "h",
+          "startLine": 30,
+          "endLine": 31,
+          "params": [
+            "env"
+          ]
+        },
+        {
+          "name": "get_static_lock",
+          "startLine": 34,
+          "endLine": 36,
+          "params": [
+            "base",
+            "env"
+          ]
+        },
+        {
+          "name": "sanitize_settings",
+          "startLine": 39,
+          "endLine": 47,
+          "params": [
+            "settings"
+          ]
+        },
+        {
+          "name": "clear_lock",
+          "startLine": 50,
+          "endLine": 67,
+          "params": [
+            "base",
+            "env"
+          ]
+        },
+        {
+          "name": "set_workflow_active",
+          "startLine": 70,
+          "endLine": 72,
+          "params": [
+            "base",
+            "env",
+            "wf_id",
+            "active"
+          ]
+        },
+        {
+          "name": "list_execs",
+          "startLine": 75,
+          "endLine": 83,
+          "params": [
+            "base",
+            "env",
+            "wf_id",
+            "limit"
+          ]
+        },
+        {
+          "name": "summarize_booker",
+          "startLine": 86,
+          "endLine": 139,
+          "params": [
+            "base",
+            "env",
+            "eid"
+          ]
+        },
+        {
+          "name": "summarize_watcher",
+          "startLine": 142,
+          "endLine": 175,
+          "params": [
+            "base",
+            "env",
+            "eid"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 178,
+          "endLine": 269,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "load_env",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "h",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "get_static_lock",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "sanitize_settings",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "clear_lock",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "set_workflow_active",
+          "line": 70,
+          "isDefault": false
+        },
+        {
+          "name": "list_execs",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "summarize_booker",
+          "line": 86,
+          "isDefault": false
+        },
+        {
+          "name": "summarize_watcher",
+          "line": 142,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 178,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "load_env",
+          "callee": "(ROOT / \".env.n8n.local\").read_text(encoding=\"utf-8\").splitlines",
+          "lineNumber": 21
+        },
+        {
+          "caller": "load_env",
+          "callee": "(ROOT / \".env.n8n.local\").read_text",
+          "lineNumber": 21
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.strip",
+          "lineNumber": 22
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.startswith",
+          "lineNumber": 23
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.split",
+          "lineNumber": 25
+        },
+        {
+          "caller": "load_env",
+          "callee": "k.strip",
+          "lineNumber": 26
+        },
+        {
+          "caller": "load_env",
+          "callee": "v.strip",
+          "lineNumber": 26
+        },
+        {
+          "caller": "get_static_lock",
+          "callee": "requests.get(f\"{base}/api/v1/workflows/{BOOKER_ID}\", headers=h(env), timeout=60).json",
+          "lineNumber": 35
+        },
+        {
+          "caller": "get_static_lock",
+          "callee": "requests.get",
+          "lineNumber": 35
+        },
+        {
+          "caller": "get_static_lock",
+          "callee": "h",
+          "lineNumber": 35
+        },
+        {
+          "caller": "get_static_lock",
+          "callee": "(wf.get(\"staticData\") or {}).get",
+          "lineNumber": 36
+        },
+        {
+          "caller": "get_static_lock",
+          "callee": "wf.get",
+          "lineNumber": 36
+        },
+        {
+          "caller": "sanitize_settings",
+          "callee": "settings.items",
+          "lineNumber": 47
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "h",
+          "lineNumber": 51
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "requests.get(f\"{base}/api/v1/workflows/{BOOKER_ID}\", headers=hdrs, timeout=60).json",
+          "lineNumber": 52
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "requests.get",
+          "lineNumber": 52
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "(wf.get(\"staticData\") or {}).get",
+          "lineNumber": 53
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "wf.get",
+          "lineNumber": 53
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "sanitize_settings",
+          "lineNumber": 57
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "body.get",
+          "lineNumber": 57
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "wf.get",
+          "lineNumber": 58
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "requests.post",
+          "lineNumber": 60
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "requests.put",
+          "lineNumber": 61
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "RuntimeError",
+          "lineNumber": 63
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "requests.post",
+          "lineNumber": 65
+        },
+        {
+          "caller": "clear_lock",
+          "callee": "get_static_lock",
+          "lineNumber": 66
+        },
+        {
+          "caller": "set_workflow_active",
+          "callee": "requests.post(f\"{base}/api/v1/workflows/{wf_id}/{ep}\", headers=h(env), timeout=60).raise_for_status",
+          "lineNumber": 72
+        },
+        {
+          "caller": "set_workflow_active",
+          "callee": "requests.post",
+          "lineNumber": 72
+        },
+        {
+          "caller": "set_workflow_active",
+          "callee": "h",
+          "lineNumber": 72
+        },
+        {
+          "caller": "list_execs",
+          "callee": "requests.get",
+          "lineNumber": 76
+        },
+        {
+          "caller": "list_execs",
+          "callee": "h",
+          "lineNumber": 78
+        },
+        {
+          "caller": "list_execs",
+          "callee": "r.raise_for_status",
+          "lineNumber": 82
+        },
+        {
+          "caller": "list_execs",
+          "callee": "r.json().get",
+          "lineNumber": 83
+        },
+        {
+          "caller": "list_execs",
+          "callee": "r.json",
+          "lineNumber": 83
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "requests.get",
+          "lineNumber": 87
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "h",
+          "lineNumber": 89
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "r.raise_for_status",
+          "lineNumber": 93
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "r.json",
+          "lineNumber": 94
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "ej.get(\"data\", {}).get",
+          "lineNumber": 95
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "ej.get",
+          "lineNumber": 95
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "rd.get",
+          "lineNumber": 96
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "ej.get",
+          "lineNumber": 99
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "ej.get",
+          "lineNumber": 100
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "ej.get",
+          "lineNumber": 101
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "rd.get",
+          "lineNumber": 102
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "(rd.get(\"error\") or {}).get",
+          "lineNumber": 103
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "rd.get",
+          "lineNumber": 103
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "isinstance",
+          "lineNumber": 116
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "item.get",
+          "lineNumber": 119
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "j.get",
+          "lineNumber": 122
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "j.get",
+          "lineNumber": 123
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "j.get",
+          "lineNumber": 124
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "j.get",
+          "lineNumber": 125
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "item.get",
+          "lineNumber": 133
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "j.get",
+          "lineNumber": 134
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "j.get",
+          "lineNumber": 135
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "j.get",
+          "lineNumber": 138
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "j.get",
+          "lineNumber": 138
+        },
+        {
+          "caller": "summarize_booker",
+          "callee": "j.get",
+          "lineNumber": 138
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "requests.get",
+          "lineNumber": 143
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "h",
+          "lineNumber": 145
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "r.raise_for_status",
+          "lineNumber": 149
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "r.json",
+          "lineNumber": 150
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "ej.get(\"data\", {}).get",
+          "lineNumber": 151
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "ej.get",
+          "lineNumber": 151
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "rd.get",
+          "lineNumber": 152
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "ej.get",
+          "lineNumber": 155
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "ej.get",
+          "lineNumber": 156
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "rd.get",
+          "lineNumber": 157
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "isinstance",
+          "lineNumber": 161
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "items[0].get",
+          "lineNumber": 162
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "j.get",
+          "lineNumber": 163
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "j.get",
+          "lineNumber": 164
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "j.get",
+          "lineNumber": 165
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "isinstance",
+          "lineNumber": 168
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "item.get",
+          "lineNumber": 171
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "item.get(\"json\", {}).get",
+          "lineNumber": 172
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "item.get",
+          "lineNumber": 172
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "str",
+          "lineNumber": 173
+        },
+        {
+          "caller": "summarize_watcher",
+          "callee": "item.get",
+          "lineNumber": 173
+        },
+        {
+          "caller": "main",
+          "callee": "load_env",
+          "lineNumber": 179
+        },
+        {
+          "caller": "main",
+          "callee": "env[\"N8N_API_BASE_URL\"].rstrip",
+          "lineNumber": 180
+        },
+        {
+          "caller": "main",
+          "callee": "h",
+          "lineNumber": 181
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).strftime",
+          "lineNumber": 182
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now",
+          "lineNumber": 182
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 184
+        },
+        {
+          "caller": "main",
+          "callee": "get_static_lock",
+          "lineNumber": 185
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 186
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 186
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 188
+        },
+        {
+          "caller": "main",
+          "callee": "clear_lock",
+          "lineNumber": 189
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 190
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 190
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 191
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 191
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 193
+        },
+        {
+          "caller": "main",
+          "callee": "set_workflow_active",
+          "lineNumber": 194
+        },
+        {
+          "caller": "main",
+          "callee": "set_workflow_active",
+          "lineNumber": 195
+        },
+        {
+          "caller": "main",
+          "callee": "time.time",
+          "lineNumber": 196
+        },
+        {
+          "caller": "main",
+          "callee": "time.time",
+          "lineNumber": 197
+        },
+        {
+          "caller": "main",
+          "callee": "time.sleep",
+          "lineNumber": 198
+        },
+        {
+          "caller": "main",
+          "callee": "get_static_lock",
+          "lineNumber": 199
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 200
+        },
+        {
+          "caller": "main",
+          "callee": "int",
+          "lineNumber": 200
+        },
+        {
+          "caller": "main",
+          "callee": "time.time",
+          "lineNumber": 200
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 200
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 202
+        },
+        {
+          "caller": "main",
+          "callee": "set_workflow_active",
+          "lineNumber": 203
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 204
+        },
+        {
+          "caller": "main",
+          "callee": "time.sleep",
+          "lineNumber": 206
+        },
+        {
+          "caller": "main",
+          "callee": "get_static_lock",
+          "lineNumber": 207
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 208
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 209
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 209
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 211
+        },
+        {
+          "caller": "main",
+          "callee": "list_execs",
+          "lineNumber": 212
+        },
+        {
+          "caller": "main",
+          "callee": "e.get",
+          "lineNumber": 212
+        },
+        {
+          "caller": "main",
+          "callee": "list_execs",
+          "lineNumber": 213
+        },
+        {
+          "caller": "main",
+          "callee": "e.get",
+          "lineNumber": 213
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 214
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 214
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 215
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 215
+        },
+        {
+          "caller": "main",
+          "callee": "summarize_watcher",
+          "lineNumber": 217
+        },
+        {
+          "caller": "main",
+          "callee": "summarize_booker",
+          "lineNumber": 218
+        },
+        {
+          "caller": "main",
+          "callee": "sum",
+          "lineNumber": 220
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 220
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 220
+        },
+        {
+          "caller": "main",
+          "callee": "b.get(\"acquire\", {}).get",
+          "lineNumber": 220
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 220
+        },
+        {
+          "caller": "main",
+          "callee": "b.get(\"acquire\", {}).get",
+          "lineNumber": 221
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 221
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 222
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 224
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 224
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 224
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 224
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 224
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 227
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 228
+        },
+        {
+          "caller": "main",
+          "callee": "ac.get",
+          "lineNumber": 228
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 229
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 231
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 233
+        },
+        {
+          "caller": "main",
+          "callee": "ac.get",
+          "lineNumber": 234
+        },
+        {
+          "caller": "main",
+          "callee": "ac.get",
+          "lineNumber": 234
+        },
+        {
+          "caller": "main",
+          "callee": "b.get(\"check\", {}).get",
+          "lineNumber": 235
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 235
+        },
+        {
+          "caller": "main",
+          "callee": "b.get(\"http\", {}).get",
+          "lineNumber": 235
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 235
+        },
+        {
+          "caller": "main",
+          "callee": "sorted",
+          "lineNumber": 240
+        },
+        {
+          "caller": "main",
+          "callee": "x.get",
+          "lineNumber": 240
+        },
+        {
+          "caller": "main",
+          "callee": "b.get(\"acquire\", {}).get",
+          "lineNumber": 241
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 241
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 241
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 241
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 246
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat",
+          "lineNumber": 251
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now",
+          "lineNumber": 251
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 255
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 256
+        },
+        {
+          "caller": "main",
+          "callee": "out_path.write_text",
+          "lineNumber": 262
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 262
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 263
+        },
+        {
+          "caller": "main",
+          "callee": "after_lock.get",
+          "lineNumber": 265
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 266
+        },
+        {
+          "caller": "main",
+          "callee": "after_lock.get",
+          "lineNumber": 266
+        },
+        {
+          "caller": "main",
+          "callee": "after_lock.get",
+          "lineNumber": 266
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 268
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    }
+  ]
+}

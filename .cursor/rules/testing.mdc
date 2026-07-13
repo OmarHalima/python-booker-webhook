@@ -1,0 +1,51 @@
+---
+description: Test layout, pytest commands, and fixture conventions
+globs: python-booker-webhook/tests/**,python-booker-webhook/**/test_*.py
+alwaysApply: false
+---
+
+# Testing conventions
+
+## Layout
+
+| Directory | Scope | Marker |
+|-----------|-------|--------|
+| `tests/unit/` | Pure functions, mocks, no network | (default) |
+| `tests/integration/` | FastAPI TestClient, semaphores | `@pytest.mark.integration` |
+| `tests/e2e/` | Playwright + live BMEIA | `@pytest.mark.e2e` |
+
+## Commands
+
+```bash
+pip install -r requirements-dev.txt
+pytest tests/unit -q
+pytest tests/integration -q
+pytest tests/unit tests/integration -q   # CI baseline
+```
+
+Config: `pyproject.toml` (`testpaths = ["tests"]`, `pythonpath = ["."]`).
+
+## Fixtures
+
+- Payload JSON → `fixtures/payloads/` (not `examples/`, not repo root, not `docs/`)
+- Shared pytest fixtures → `tests/conftest.py`
+- HTML samples → inline in test or `fixtures/html/` when reused
+
+## Writing tests
+
+```python
+# ✅ Unit test — import from root modules (pythonpath handles discovery)
+from captcha_ocr import normalize_captcha_text
+from scheduler_html import parse_scheduler_choose_appointment_html
+
+# ✅ Integration — mark and use TestClient
+pytestmark = pytest.mark.integration
+```
+
+- **Not pytest**: manual OCR CLI → `scripts/run_ocr_captcha_api.py`
+- **Skip live deps**: `@pytest.mark.skipif` when env var or Playwright session required
+- Run tests after moving/refactoring modules — **77 tests** is the current baseline (unit + integration)
+
+## Do not commit
+
+`*-scan.json`, `local-fix-*.json`, `parallel-4-*.json`, `full-test-*.json`, `artifacts/`

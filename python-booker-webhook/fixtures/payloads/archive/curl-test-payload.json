@@ -1,0 +1,30 @@
+{
+  "runId": "curl-test-001",
+  "sessionCookie": "AspxAutoDetectCookieSupport=1; ASP.NET_SessionId=REPLACE_WITH_REAL_SESSION",
+  "Language": "en",
+  "Office": "KOPENHAGEN",
+  "CalendarId": "9677702",
+  "currentMonday": "5/11/2026 12:00:00 AM",
+  "currentSlot": "5/19/2026 11:00:00 AM",
+  "student": {
+    "Lastname": "TEST",
+    "Firstname": "CURL",
+    "DateOfBirth": "1/1/1990",
+    "TraveldocumentNumber": "A9999999",
+    "Sex": "1",
+    "Street": "Test St 1",
+    "Postcode": "1000",
+    "City": "Copenhagen",
+    "Country": "49",
+    "Telephone": "4512345678",
+    "Email": "curl-test@example.com",
+    "LastnameAtBirth": "TEST",
+    "NationalityAtBirth": "49",
+    "CountryOfBirth": "49",
+    "PlaceOfBirth": "Copenhagen",
+    "NationalityForApplication": "49",
+    "TraveldocumentDateOfIssue": "1/1/2020",
+    "TraveldocumentValidUntil": "1/1/2030",
+    "TraveldocumentIssuingAuthority": "49"
+  }
+}

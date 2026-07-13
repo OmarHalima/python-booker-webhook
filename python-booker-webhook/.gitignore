@@ -1,10 +1,10 @@
 # Environment
 .env
 .env.n8n.local
-versions/**/.env.n8n.local
-versions/**/python/.env
-versions/**/artifacts/*
-!versions/**/artifacts/.gitkeep
+sandboxes/**/.env.n8n.local
+sandboxes/**/python/.env
+sandboxes/**/artifacts/*
+!sandboxes/**/artifacts/.gitkeep
 .venv/
 
 # Runtime / debug
@@ -14,6 +14,9 @@ debug-ce612b.log
 # Test artifacts (regenerated per run)
 artifacts/*
 !artifacts/.gitkeep
+
+# OCR training datasets (local PNGs + manifest — never commit)
+datasets/
 
 # Python
 __pycache__/
@@ -28,3 +31,22 @@ Thumbs.db
 
 # Local test outputs at repo root
 *-result.json
+*-scan.json
+*-scan-*.json
+local-fix-*.json
+parallel-4-*.json
+full-test-*.json
+full-test-result.txt
+scan_result.json
+local_test_payload.json
+
+# Ad-hoc agent / VPS one-off scripts
+scripts/_*.py
+
+# Debug scripts (kept locally, not tracked)
+scripts/debug/
+
+# Sandbox runtime artifacts
+sandboxes/**/artifacts/*
+!sandboxes/**/artifacts/.gitkeep
+sandboxes/**/python/artifacts/**

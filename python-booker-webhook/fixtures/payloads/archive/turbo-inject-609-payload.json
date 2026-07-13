@@ -1,0 +1,32 @@
+{
+  "runId": "turbo-inject-609-1030",
+  "useSchedulerPost": true,
+  "sessionCookie": "AspxAutoDetectCookieSupport=1; ASP.NET_SessionId=twbqdyaogpdukegbef0cpdqd",
+  "Language": "en",
+  "Office": "KOPENHAGEN",
+  "CalendarId": "9677702",
+  "PersonCount": "1",
+  "currentMonday": "6/8/2026 12:00:00 AM",
+  "currentSlot": "6/9/2026 10:30:00 AM",
+  "student": {
+    "Lastname": "HANSEN",
+    "Firstname": "ANNA",
+    "DateOfBirth": "9/3/1991",
+    "TraveldocumentNumber": "E2222222",
+    "Sex": "2",
+    "Street": "3 Turbo Lane",
+    "Postcode": "2100",
+    "City": "Copenhagen",
+    "Country": "49",
+    "Telephone": "4533445566",
+    "Email": "anna.hansen.test@example.com",
+    "LastnameAtBirth": "HANSEN",
+    "NationalityAtBirth": "49",
+    "CountryOfBirth": "49",
+    "PlaceOfBirth": "Odense",
+    "NationalityForApplication": "49",
+    "TraveldocumentDateOfIssue": "3/1/2019",
+    "TraveldocumentValidUntil": "3/1/2029",
+    "TraveldocumentIssuingAuthority": "49"
+  }
+}

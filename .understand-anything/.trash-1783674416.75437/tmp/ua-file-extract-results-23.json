@@ -1,0 +1,266 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/workflows/booker-lock-v1.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 3936,
+      "nonEmptyLines": 3936,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "nodes",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "pinData",
+          "level": 1,
+          "line": 3309
+        },
+        {
+          "heading": "connections",
+          "level": 1,
+          "line": 3367
+        },
+        {
+          "heading": "active",
+          "level": 1,
+          "line": 3927
+        },
+        {
+          "heading": "settings",
+          "level": 1,
+          "line": 3928
+        },
+        {
+          "heading": "meta",
+          "level": 1,
+          "line": 3931
+        },
+        {
+          "heading": "nodeGroups",
+          "level": 1,
+          "line": 3934
+        },
+        {
+          "heading": "tags",
+          "level": 1,
+          "line": 3935
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/workflows/booker.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 3575,
+      "nonEmptyLines": 3575,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "nodes",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "pinData",
+          "level": 1,
+          "line": 3135
+        },
+        {
+          "heading": "connections",
+          "level": 1,
+          "line": 3193
+        },
+        {
+          "heading": "active",
+          "level": 1,
+          "line": 3563
+        },
+        {
+          "heading": "settings",
+          "level": 1,
+          "line": 3564
+        },
+        {
+          "heading": "versionId",
+          "level": 1,
+          "line": 3568
+        },
+        {
+          "heading": "meta",
+          "level": 1,
+          "line": 3569
+        },
+        {
+          "heading": "nodeGroups",
+          "level": 1,
+          "line": 3572
+        },
+        {
+          "heading": "id",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "tags",
+          "level": 1,
+          "line": 3574
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/workflows/watcher-kopenhagen-sandbox-v1.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 854,
+      "nonEmptyLines": 854,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "nodes",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "connections",
+          "level": 1,
+          "line": 620
+        },
+        {
+          "heading": "active",
+          "level": 1,
+          "line": 840
+        },
+        {
+          "heading": "settings",
+          "level": 1,
+          "line": 841
+        },
+        {
+          "heading": "meta",
+          "level": 1,
+          "line": 848
+        },
+        {
+          "heading": "nodeGroups",
+          "level": 1,
+          "line": 852
+        },
+        {
+          "heading": "tags",
+          "level": 1,
+          "line": 853
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/workflows/watcher-v3.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 900,
+      "nonEmptyLines": 900,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "nodes",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "pinData",
+          "level": 1,
+          "line": 620
+        },
+        {
+          "heading": "connections",
+          "level": 1,
+          "line": 663
+        },
+        {
+          "heading": "active",
+          "level": 1,
+          "line": 883
+        },
+        {
+          "heading": "settings",
+          "level": 1,
+          "line": 884
+        },
+        {
+          "heading": "versionId",
+          "level": 1,
+          "line": 892
+        },
+        {
+          "heading": "meta",
+          "level": 1,
+          "line": 893
+        },
+        {
+          "heading": "nodeGroups",
+          "level": 1,
+          "line": 897
+        },
+        {
+          "heading": "id",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "tags",
+          "level": 1,
+          "line": 899
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    }
+  ]
+}

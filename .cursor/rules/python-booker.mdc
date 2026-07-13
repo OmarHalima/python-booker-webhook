@@ -1,0 +1,47 @@
+---
+description: Python booker — modules, entry points, and coding conventions
+globs: python-booker-webhook/**
+alwaysApply: false
+---
+
+# Python booker conventions
+
+## Entry points (do not break)
+
+```bash
+uvicorn app:app --host 0.0.0.0 --port 8000   # production
+```
+
+| Endpoint | Module | Notes |
+|----------|--------|-------|
+| `POST /webhook/booker` | `app.py` | Turbo — default path |
+| `POST /webhook/booker-legacy` | `app.py` → `booker_legacy.py` | Full wizard |
+| `app_turbo.py` | shim | Re-export only; keep for VPS compat |
+
+## Module roles
+
+- **`app.py`** — FastAPI routes, turbo orchestration, captcha solver wiring
+- **`booker_legacy.py`** — Playwright flows, HTML classifiers, cookies, concurrency (3k+ lines — extract, don't expand)
+- **`captcha_ocr.py`** — VPS OCR HTTP client; pure functions are unit-tested
+- **`scheduler_html.py`** — Parse scheduler HTML; no Playwright imports
+
+## When adding code
+
+1. **Pure logic** (parse, normalize, classify) → new module or existing small module + `tests/unit/`
+2. **HTTP/Playwright** → `booker_legacy.py` or `app.py` until `booker/` package exists
+3. **CLI/script** → `scripts/` with `ROOT = Path(__file__).resolve().parents[1]` pattern (see `run_turbo_payload.py`)
+4. **Never** add `test_*.py` at package root
+
+## Environment
+
+- Secrets in `.env` only (gitignored)
+- Key vars: `CAPTCHA_OCR_BASE_URL`, `GEMINI_API_KEY`, `CAPTCHA_SOLVER`, `CAPTCHA_PARALLEL_FETCH=false`
+- VPS production may override solver to `gemini_first` — see AGENT_HANDOFF.md
+
+## Test office
+
+Dev/benchmarks use **`Office: KOPENHAGEN`** as Cairo stand-in. Production payloads: `fixtures/payloads/payload-kairo-production.json`.
+
+## Artifacts
+
+When `captureArtifacts: true`, writes to `artifacts/<runId>/`. Never commit artifact contents.

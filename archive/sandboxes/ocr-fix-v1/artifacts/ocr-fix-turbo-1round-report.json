@@ -1,0 +1,23 @@
+{
+  "mode": "direct_turbo_http",
+  "booker": "http://127.0.0.1:8011",
+  "rounds": 1,
+  "startedAt": "2026-06-15T05:55:09.938377Z",
+  "results": [
+    {
+      "round": 1,
+      "runId": "ocr-fix-1-4f2a16",
+      "passport": "SBX-OCR-4F2A16",
+      "slot": "8/10/2026 11:00:00 AM",
+      "http": 200,
+      "elapsedSec": 7.1,
+      "resultType": "SUCCESS",
+      "attempt": 1,
+      "captchaText": "9DY36T",
+      "captchaParallelUsed": false,
+      "message": null
+    }
+  ],
+  "successCount": 1,
+  "finishedAt": "2026-06-15T05:55:17.064694Z"
+}

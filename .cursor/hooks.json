@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .cursor/hooks/session-orchestrate.ps1"
+      }
+    ],
+    "subagentStop": [
+      {
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .cursor/hooks/subagent-verify-nudge.ps1",
+        "matcher": "code-reviewer|deep-web-debugger|security-review|explore|captcha-investigator|booker-domain-reviewer|vps-booker-operator|n8n-booker-specialist"
+      }
+    ]
+  }
+}

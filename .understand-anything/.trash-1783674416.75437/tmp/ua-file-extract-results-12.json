@@ -1,0 +1,47 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".specify/scripts/powershell/check-prerequisites.ps1",
+      "language": "powershell",
+      "fileCategory": "script",
+      "totalLines": 153,
+      "nonEmptyLines": 129,
+      "metrics": {}
+    },
+    {
+      "path": ".specify/scripts/powershell/common.ps1",
+      "language": "powershell",
+      "fileCategory": "script",
+      "totalLines": 585,
+      "nonEmptyLines": 528,
+      "metrics": {}
+    },
+    {
+      "path": ".specify/scripts/powershell/create-new-feature.ps1",
+      "language": "powershell",
+      "fileCategory": "script",
+      "totalLines": 248,
+      "nonEmptyLines": 216,
+      "metrics": {}
+    },
+    {
+      "path": ".specify/scripts/powershell/setup-plan.ps1",
+      "language": "powershell",
+      "fileCategory": "script",
+      "totalLines": 78,
+      "nonEmptyLines": 70,
+      "metrics": {}
+    },
+    {
+      "path": ".specify/scripts/powershell/setup-tasks.ps1",
+      "language": "powershell",
+      "fileCategory": "script",
+      "totalLines": 69,
+      "nonEmptyLines": 59,
+      "metrics": {}
+    }
+  ]
+}

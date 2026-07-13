@@ -1,0 +1,59 @@
+---
+description: Austrian appointment system — architecture and folder layout
+alwaysApply: true
+---
+
+# Project architecture
+
+## What this repo is
+
+Automated Austrian embassy appointment booking: n8n watches slots, Python booker submits via Playwright.
+
+## Repo layout (source of truth)
+
+```
+files/
+├── n8n/                          # Canonical workflow exports (booker, watcher)
+├── python-booker-webhook/        # FastAPI + Playwright booker service
+│   ├── app.py                    # Production entry: uvicorn app:app
+│   ├── booker_legacy.py          # Shared core + legacy wizard (monolith — shrink, don't grow)
+│   ├── captcha_ocr.py            # OCR client (candidate for booker/ package)
+│   ├── scheduler_html.py         # Pure HTML parsing (candidate for booker/ package)
+│   ├── tests/unit|integration|e2e/
+│   ├── fixtures/payloads/        # Canonical test JSON (not docs/, not repo root)
+│   ├── scripts/                  # Operational CLIs (scan, run payload, OCR check)
+│   ├── sandboxes/                # Lock/OCR experiments — workflows + scripts ONLY
+│   └── artifacts/                # Gitignored runtime output
+└── archive/                      # Retired docs, CSVs, archived sandboxes (e.g. ocr-fix-v1)
+```
+
+## Runtime flow
+
+1. **Watcher** (n8n) scans BMEIA scheduler → writes pending slots
+2. **Booker** (n8n) merges student + slot → `POST /webhook/booker`
+3. **Turbo path** (`app.py`): scheduler POST → captcha (OCR/Gemini) → Playwright submit (~6–12s)
+4. **Legacy path** (`/webhook/booker-legacy`): full Playwright wizard (~26s)
+
+## VPS services
+
+| Port | Service |
+|------|---------|
+| 8000 | `uvicorn app:app` — booker webhook |
+| 8001 | OCR `/predict` (separate captcha_recognition service) |
+
+## Where things belong
+
+| Add this | Put it here |
+|----------|-------------|
+| Unit test | `tests/unit/test_*.py` |
+| FastAPI smoke test | `tests/integration/` |
+| Playwright live test | `tests/e2e/` |
+| Test payload JSON | `fixtures/payloads/` |
+| n8n workflow export | `n8n/` (+ optional copy in `workflows/`) |
+| One-off VPS debug | `scripts/debug/` (gitignored) |
+| Architecture doc | `docs/` |
+| Ephemeral scan output | Nowhere in git — `artifacts/` or delete |
+
+## Onboarding doc
+
+Read `python-booker-webhook/docs/AGENT_HANDOFF.md` before changing captcha, VPS, or n8n.

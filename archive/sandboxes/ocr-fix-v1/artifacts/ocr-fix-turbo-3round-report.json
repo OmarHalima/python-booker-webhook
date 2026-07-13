@@ -1,0 +1,49 @@
+{
+  "mode": "direct_turbo_http",
+  "booker": "http://127.0.0.1:8011",
+  "rounds": 3,
+  "startedAt": "2026-06-15T05:55:29.106158Z",
+  "results": [
+    {
+      "round": 1,
+      "runId": "ocr-fix-1-c79fa1",
+      "passport": "SBX-OCR-C79FA1",
+      "slot": "8/11/2026 10:30:00 AM",
+      "http": 200,
+      "elapsedSec": 25.4,
+      "resultType": "SUCCESS",
+      "attempt": 4,
+      "captchaText": "J8N3",
+      "captchaParallelUsed": false,
+      "message": null
+    },
+    {
+      "round": 2,
+      "runId": "ocr-fix-2-315dd8",
+      "passport": "SBX-OCR-315DD8",
+      "slot": "8/11/2026 11:00:00 AM",
+      "http": 200,
+      "elapsedSec": 5.8,
+      "resultType": "SUCCESS",
+      "attempt": 1,
+      "captchaText": "ABUKU",
+      "captchaParallelUsed": false,
+      "message": null
+    },
+    {
+      "round": 3,
+      "runId": "ocr-fix-3-a4613c",
+      "passport": "SBX-OCR-A4613C",
+      "slot": "8/11/2026 11:30:00 AM",
+      "http": 200,
+      "elapsedSec": 6.1,
+      "resultType": "SUCCESS",
+      "attempt": 1,
+      "captchaText": "YN6SX",
+      "captchaParallelUsed": false,
+      "message": null
+    }
+  ],
+  "successCount": 3,
+  "finishedAt": "2026-06-15T05:56:07.383670Z"
+}

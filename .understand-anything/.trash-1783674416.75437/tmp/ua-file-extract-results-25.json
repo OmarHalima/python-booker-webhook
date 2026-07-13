@@ -1,0 +1,2212 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".specify/workflows/speckit/workflow.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 77,
+      "nonEmptyLines": 69,
+      "sections": [
+        {
+          "heading": "schema_version",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "workflow",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "requires",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "inputs",
+          "level": 1,
+          "line": 28
+        },
+        {
+          "heading": "steps",
+          "level": 1,
+          "line": 42
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": ".specify/workflows/workflow-registry.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 13,
+      "nonEmptyLines": 13,
+      "sections": [
+        {
+          "heading": "schema_version",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "workflows",
+          "level": 1,
+          "line": 3
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": ".understand-anything/.understandignore",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 42,
+      "nonEmptyLines": 38,
+      "metrics": {}
+    },
+    {
+      "path": ".understand-anything/intermediate/scan-result.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 1793,
+      "nonEmptyLines": 1793,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "languages",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "frameworks",
+          "level": 1,
+          "line": 18
+        },
+        {
+          "heading": "files",
+          "level": 1,
+          "line": 26
+        },
+        {
+          "heading": "totalFiles",
+          "level": 1,
+          "line": 1456
+        },
+        {
+          "heading": "filteredByIgnore",
+          "level": 1,
+          "line": 1457
+        },
+        {
+          "heading": "estimatedComplexity",
+          "level": 1,
+          "line": 1458
+        },
+        {
+          "heading": "importMap",
+          "level": 1,
+          "line": 1459
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 88,
+      "nonEmptyLines": 63,
+      "sections": [
+        {
+          "heading": "Agent guide — Austrian appointment system",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Architecture (what runs where)",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Debug workflow (evidence-first)",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "Captcha pipeline (solver order)",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "Commands",
+          "level": 2,
+          "line": 49
+        },
+        {
+          "heading": "Hard rules",
+          "level": 2,
+          "line": 70
+        },
+        {
+          "heading": "Debug artifacts",
+          "level": 2,
+          "line": 80
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/ARCHIVED.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 8,
+      "nonEmptyLines": 5,
+      "sections": [
+        {
+          "heading": "ARCHIVED — do not use",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/artifacts/.gitkeep",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {}
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/docs/CHANGELOG.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 28,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "Changelog — ocr-fix-v1 sandbox",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "2026-06-14",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Created from production + lock-integration OCR patches",
+          "level": 3,
+          "line": 5
+        },
+        {
+          "heading": "`booker_legacy.py`",
+          "level": 3,
+          "line": 9
+        },
+        {
+          "heading": "`app.py`",
+          "level": 3,
+          "line": 17
+        },
+        {
+          "heading": "Validation scripts",
+          "level": 3,
+          "line": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/fixtures/kopenhagen-dummy-applicant.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 25,
+      "nonEmptyLines": 25,
+      "sections": [
+        {
+          "heading": "Lastname",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "Firstname",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "DateOfBirth",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "TraveldocumentNumber",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "Sex",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "Street",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "Postcode",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "City",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "Country",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "Telephone",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "Email",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "LastnameAtBirth",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "NationalityAtBirth",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "CountryOfBirth",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "PlaceOfBirth",
+          "level": 1,
+          "line": 16
+        },
+        {
+          "heading": "NationalityForApplication",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "TraveldocumentDateOfIssue",
+          "level": 1,
+          "line": 18
+        },
+        {
+          "heading": "TraveldocumentValidUntil",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "TraveldocumentIssuingAuthority",
+          "level": 1,
+          "line": 20
+        },
+        {
+          "heading": "status",
+          "level": 1,
+          "line": 21
+        },
+        {
+          "heading": "notifyTelegram",
+          "level": 1,
+          "line": 22
+        },
+        {
+          "heading": "bookedSlot",
+          "level": 1,
+          "line": 23
+        },
+        {
+          "heading": "bookedAt",
+          "level": 1,
+          "line": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 23
+      }
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/python/requirements.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 7,
+      "nonEmptyLines": 7,
+      "metrics": {}
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/python/scheduler_html.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 64,
+      "functions": [
+        {
+          "name": "parse_scheduler_choose_appointment_html",
+          "startLine": 13,
+          "endLine": 73,
+          "params": [
+            "html"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "parse_scheduler_choose_appointment_html",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "re.search",
+          "lineNumber": 25
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "re.search",
+          "lineNumber": 31
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "m.group",
+          "lineNumber": 37
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "re.finditer",
+          "lineNumber": 40
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "starts.append",
+          "lineNumber": 45
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "part.group",
+          "lineNumber": 45
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "re.finditer",
+          "lineNumber": 47
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "starts.append",
+          "lineNumber": 52
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "part.group",
+          "lineNumber": 52
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "re.search",
+          "lineNumber": 54
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "cal_m.group",
+          "lineNumber": 59
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "re.search",
+          "lineNumber": 61
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "pc_m.group",
+          "lineNumber": 66
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 62,
+      "nonEmptyLines": 47,
+      "sections": [
+        {
+          "heading": "Sandbox ocr-fix-v1",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "vs production",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Layout",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "Quick start",
+          "level": 2,
+          "line": 28
+        },
+        {
+          "heading": "OCR fixes (detail)",
+          "level": 2,
+          "line": 50
+        },
+        {
+          "heading": "Related",
+          "level": 2,
+          "line": 58
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/scripts/compare_captcha_fetch.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 232,
+      "nonEmptyLines": 198,
+      "functions": [
+        {
+          "name": "_sha256",
+          "startLine": 27,
+          "endLine": 28,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "_pixel_diff_pct",
+          "startLine": 31,
+          "endLine": 45,
+          "params": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "name": "_context_session_cookie",
+          "startLine": 48,
+          "endLine": 54,
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "name": "compare_samples",
+          "startLine": 57,
+          "endLine": 203,
+          "params": [
+            "office",
+            "calendar_id",
+            "samples",
+            "run_id"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 206,
+          "endLine": 228,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_sha256",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "_pixel_diff_pct",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "_context_session_cookie",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "compare_samples",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 206,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_sha256",
+          "callee": "hashlib.sha256(data).hexdigest",
+          "lineNumber": 28
+        },
+        {
+          "caller": "_sha256",
+          "callee": "hashlib.sha256",
+          "lineNumber": 28
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "np.array",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "Image.open(io.BytesIO(a)).convert",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "Image.open",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "io.BytesIO",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "np.array",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "Image.open(io.BytesIO(b)).convert",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "Image.open",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "io.BytesIO",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "min",
+          "lineNumber": 39
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "min",
+          "lineNumber": 39
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "np.abs",
+          "lineNumber": 42
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "float",
+          "lineNumber": 43
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "diff.mean",
+          "lineNumber": 43
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "context.cookies",
+          "lineNumber": 50
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "c.get",
+          "lineNumber": 51
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "parts.append",
+          "lineNumber": 53
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "\"; \".join",
+          "lineNumber": 54
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "out_dir.mkdir",
+          "lineNumber": 68
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "time.perf_counter",
+          "lineNumber": 83
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "sync_playwright",
+          "lineNumber": 85
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "pw.chromium.launch",
+          "lineNumber": 86
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.playwright_headless",
+          "lineNumber": 86
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "browser.new_context",
+          "lineNumber": 87
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "context.new_page",
+          "lineNumber": 91
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._open_landing_page",
+          "lineNumber": 93
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "{\r\n            \"#Office\": office,\r\n            \"select[name='Office']\": office,\r\n            \"#Language\": \"en\",\r\n        }.items",
+          "lineNumber": 94
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._set_scheduler_value",
+          "lineNumber": 99
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 100
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._apply_reservation_calendar_select",
+          "lineNumber": 101
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 102
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.wait_for_selector",
+          "lineNumber": 103
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.person_count_wait_ms",
+          "lineNumber": 103
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._set_scheduler_value",
+          "lineNumber": 104
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 105
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "range",
+          "lineNumber": 107
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.locator(\"input[name='Start']\").count",
+          "lineNumber": 108
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.locator",
+          "lineNumber": 108
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.locator",
+          "lineNumber": 109
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.locator(\"#Monday\").input_value",
+          "lineNumber": 110
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.locator",
+          "lineNumber": 110
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "radios.first.get_attribute",
+          "lineNumber": 111
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 113
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "RuntimeError",
+          "lineNumber": 115
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_context_session_cookie",
+          "lineNumber": 117
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.post_select_slot",
+          "lineNumber": 120
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.set_content",
+          "lineNumber": 121
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.inject_base_href",
+          "lineNumber": 121
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "range",
+          "lineNumber": 123
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.parse_fresh_fields",
+          "lineNumber": 125
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.content",
+          "lineNumber": 125
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._reload_botdetect_captcha",
+          "lineNumber": 126
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.evaluate",
+          "lineNumber": 127
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.wait_for_timeout",
+          "lineNumber": 133
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.wait_botdetect_ready",
+          "lineNumber": 134
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.parse_fresh_fields",
+          "lineNumber": 136
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.content",
+          "lineNumber": 136
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "url.startswith",
+          "lineNumber": 138
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.fetch_captcha_bytes",
+          "lineNumber": 143
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "str",
+          "lineNumber": 145
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.dlog",
+          "lineNumber": 148
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "str",
+          "lineNumber": 153
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.wait_botdetect_ready",
+          "lineNumber": 157
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.capture_captcha_bytes_from_dom",
+          "lineNumber": 158
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.fetch_captcha_bytes",
+          "lineNumber": 160
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "str",
+          "lineNumber": 162
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "(out_dir / f\"{prefix}_dom.png\").write_bytes",
+          "lineNumber": 168
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "(out_dir / f\"{prefix}_url_early.png\").write_bytes",
+          "lineNumber": 169
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "(out_dir / f\"{prefix}_url_late.png\").write_bytes",
+          "lineNumber": 170
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_sha256",
+          "lineNumber": 172
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_sha256",
+          "lineNumber": 172
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_sha256",
+          "lineNumber": 173
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_sha256",
+          "lineNumber": 173
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_sha256",
+          "lineNumber": 174
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_sha256",
+          "lineNumber": 174
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "results.append",
+          "lineNumber": 176
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "round",
+          "lineNumber": 183
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_pixel_diff_pct",
+          "lineNumber": 183
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "round",
+          "lineNumber": 184
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_pixel_diff_pct",
+          "lineNumber": 184
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "browser.close",
+          "lineNumber": 188
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "sum",
+          "lineNumber": 195
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "sum",
+          "lineNumber": 196
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "sum",
+          "lineNumber": 197
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "str",
+          "lineNumber": 199
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "round",
+          "lineNumber": 200
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "time.perf_counter",
+          "lineNumber": 200
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "(out_dir / \"compare_result.json\").write_text",
+          "lineNumber": 202
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "json.dumps",
+          "lineNumber": 202
+        },
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 207
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 208
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 209
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 210
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 211
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 212
+        },
+        {
+          "caller": "main",
+          "callee": "compare_samples",
+          "lineNumber": 214
+        },
+        {
+          "caller": "main",
+          "callee": "max",
+          "lineNumber": 217
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 220
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 220
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 223
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/scripts/run_ocr_validation.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 66,
+      "nonEmptyLines": 54,
+      "functions": [
+        {
+          "name": "run_step",
+          "startLine": 16,
+          "endLine": 21,
+          "params": [
+            "cmd",
+            "label"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 24,
+          "endLine": 62,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "run_step",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 24,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run_step",
+          "callee": "print",
+          "lineNumber": 17
+        },
+        {
+          "caller": "run_step",
+          "callee": "subprocess.run",
+          "lineNumber": 18
+        },
+        {
+          "caller": "run_step",
+          "callee": "str",
+          "lineNumber": 18
+        },
+        {
+          "caller": "run_step",
+          "callee": "print",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat().replace",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "run_step",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "report[\"steps\"].append",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "run_step",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "report[\"steps\"].append",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat().replace",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "out_path.write_text",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 61
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/scripts/start_booker.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 17,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 13,
+          "endLine": 19,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 15
+        },
+        {
+          "caller": "main",
+          "callee": "subprocess.call",
+          "lineNumber": 16
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "archive/sandboxes/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 9,
+      "nonEmptyLines": 6,
+      "sections": [
+        {
+          "heading": "Archived sandboxes",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "docs/GITNEXUS.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 173,
+      "nonEmptyLines": 119,
+      "sections": [
+        {
+          "heading": "GitNexus — code intelligence (self-hosted)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Quick links",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Endpoints (live)",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "What is deployed on VPS (do not redo unless broken)",
+          "level": 2,
+          "line": 28
+        },
+        {
+          "heading": "EasyPanel services",
+          "level": 3,
+          "line": 30
+        },
+        {
+          "heading": "Web UI LLM",
+          "level": 3,
+          "line": 37
+        },
+        {
+          "heading": "Private GitHub clones",
+          "level": 3,
+          "line": 41
+        },
+        {
+          "heading": "Auto-reindex on push (n8n)",
+          "level": 3,
+          "line": 51
+        },
+        {
+          "heading": "Local Cursor MCP",
+          "level": 2,
+          "line": 71
+        },
+        {
+          "heading": "Verify from agent",
+          "level": 3,
+          "line": 85
+        },
+        {
+          "heading": "Indexed repository",
+          "level": 2,
+          "line": 91
+        },
+        {
+          "heading": "Orchestrator integration",
+          "level": 2,
+          "line": 104
+        },
+        {
+          "heading": "Agent playbook",
+          "level": 3,
+          "line": 116
+        },
+        {
+          "heading": "Route example",
+          "level": 3,
+          "line": 124
+        },
+        {
+          "heading": "MCP tools reference",
+          "level": 2,
+          "line": 130
+        },
+        {
+          "heading": "Staleness",
+          "level": 2,
+          "line": 144
+        },
+        {
+          "heading": "Related docs",
+          "level": 2,
+          "line": 154
+        },
+        {
+          "heading": "Troubleshooting",
+          "level": 2,
+          "line": 165
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 18
+      }
+    },
+    {
+      "path": "n8n/booker.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 3574,
+      "nonEmptyLines": 3574,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "nodes",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "pinData",
+          "level": 1,
+          "line": 3135
+        },
+        {
+          "heading": "connections",
+          "level": 1,
+          "line": 3193
+        },
+        {
+          "heading": "active",
+          "level": 1,
+          "line": 3563
+        },
+        {
+          "heading": "settings",
+          "level": 1,
+          "line": 3564
+        },
+        {
+          "heading": "versionId",
+          "level": 1,
+          "line": 3568
+        },
+        {
+          "heading": "meta",
+          "level": 1,
+          "line": 3569
+        },
+        {
+          "heading": "id",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "tags",
+          "level": 1,
+          "line": 3573
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": "n8n/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 24,
+      "nonEmptyLines": 15,
+      "sections": [
+        {
+          "heading": "n8n Workflows",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Import",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "Python booker",
+          "level": 2,
+          "line": 16
+        },
+        {
+          "heading": "Workflow IDs",
+          "level": 2,
+          "line": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "python-booker-webhook/docs/tampermonkey-turbo-injector.user.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 193,
+      "nonEmptyLines": 182,
+      "callGraph": [
+        {
+          "caller": "simulateHumanCaptchaInput",
+          "callee": "el.focus",
+          "lineNumber": 29
+        },
+        {
+          "caller": "simulateHumanCaptchaInput",
+          "callee": "String",
+          "lineNumber": 31
+        },
+        {
+          "caller": "simulateHumanCaptchaInput",
+          "callee": "el.dispatchEvent",
+          "lineNumber": 33
+        },
+        {
+          "caller": "simulateHumanCaptchaInput",
+          "callee": "el.dispatchEvent",
+          "lineNumber": 42
+        },
+        {
+          "caller": "simulateHumanCaptchaInput",
+          "callee": "el.blur",
+          "lineNumber": 44
+        },
+        {
+          "caller": "readFreshFormState",
+          "callee": "document.querySelector",
+          "lineNumber": 49
+        },
+        {
+          "caller": "val",
+          "callee": "document.querySelector",
+          "lineNumber": 51
+        },
+        {
+          "caller": "readFreshFormState",
+          "callee": "form.getAttribute",
+          "lineNumber": 52
+        },
+        {
+          "caller": "readFreshFormState",
+          "callee": "action.startsWith",
+          "lineNumber": 53
+        },
+        {
+          "caller": "readFreshFormState",
+          "callee": "val",
+          "lineNumber": 56
+        },
+        {
+          "caller": "readFreshFormState",
+          "callee": "val",
+          "lineNumber": 57
+        },
+        {
+          "caller": "readFreshFormState",
+          "callee": "val",
+          "lineNumber": 58
+        },
+        {
+          "caller": "readFreshFormState",
+          "callee": "val",
+          "lineNumber": 59
+        },
+        {
+          "caller": "readFreshFormState",
+          "callee": "val",
+          "lineNumber": 60
+        },
+        {
+          "caller": "readFreshFormState",
+          "callee": "val",
+          "lineNumber": 61
+        },
+        {
+          "caller": "buildFormBody",
+          "callee": "document.querySelector",
+          "lineNumber": 67
+        },
+        {
+          "caller": "buildFormBody",
+          "callee": "fd.set",
+          "lineNumber": 70
+        },
+        {
+          "caller": "buildFormBody",
+          "callee": "String(captchaText).toUpperCase",
+          "lineNumber": 70
+        },
+        {
+          "caller": "buildFormBody",
+          "callee": "String",
+          "lineNumber": 70
+        },
+        {
+          "caller": "buildFormBody",
+          "callee": "fd.set",
+          "lineNumber": 71
+        },
+        {
+          "caller": "buildFormBody",
+          "callee": "Object.entries",
+          "lineNumber": 72
+        },
+        {
+          "caller": "buildFormBody",
+          "callee": "fd.set",
+          "lineNumber": 73
+        },
+        {
+          "caller": "buildFormBody",
+          "callee": "String",
+          "lineNumber": 73
+        },
+        {
+          "caller": "buildFormBody",
+          "callee": "new URLSearchParams(fd).toString",
+          "lineNumber": 75
+        },
+        {
+          "caller": "submitTurbo",
+          "callee": "document.querySelector",
+          "lineNumber": 83
+        },
+        {
+          "caller": "submitTurbo",
+          "callee": "simulateHumanCaptchaInput",
+          "lineNumber": 84
+        },
+        {
+          "caller": "submitTurbo",
+          "callee": "readFreshFormState",
+          "lineNumber": 85
+        },
+        {
+          "caller": "submitTurbo",
+          "callee": "console.info",
+          "lineNumber": 86
+        },
+        {
+          "caller": "submitTurbo",
+          "callee": "buildFormBody",
+          "lineNumber": 87
+        },
+        {
+          "caller": "submitTurbo",
+          "callee": "performance.now",
+          "lineNumber": 88
+        },
+        {
+          "caller": "submitTurbo",
+          "callee": "fetch",
+          "lineNumber": 89
+        },
+        {
+          "caller": "submitTurbo",
+          "callee": "res.text",
+          "lineNumber": 98
+        },
+        {
+          "caller": "submitTurbo",
+          "callee": "Math.round",
+          "lineNumber": 99
+        },
+        {
+          "caller": "submitTurbo",
+          "callee": "performance.now",
+          "lineNumber": 99
+        },
+        {
+          "caller": "submitTurbo",
+          "callee": "/Confirmation of reservation/i.test",
+          "lineNumber": 100
+        },
+        {
+          "caller": "submitTurbo",
+          "callee": "/allocated otherwise in the meantime/i.test",
+          "lineNumber": 101
+        },
+        {
+          "caller": "submitTurbo",
+          "callee": "/already reserved an appointment/i.test",
+          "lineNumber": 102
+        },
+        {
+          "caller": "submitTurbo",
+          "callee": "/text from the picture does not match/i.test",
+          "lineNumber": 103
+        },
+        {
+          "caller": "submitTurbo",
+          "callee": "html.slice",
+          "lineNumber": 117
+        },
+        {
+          "caller": "submitTurboForm",
+          "callee": "document.querySelector",
+          "lineNumber": 128
+        },
+        {
+          "caller": "submitTurboForm",
+          "callee": "simulateHumanCaptchaInput",
+          "lineNumber": 129
+        },
+        {
+          "caller": "submitTurboForm",
+          "callee": "document.querySelector",
+          "lineNumber": 130
+        },
+        {
+          "caller": "submitTurboForm",
+          "callee": "document.querySelector",
+          "lineNumber": 131
+        },
+        {
+          "caller": "submitTurboForm",
+          "callee": "form.querySelector",
+          "lineNumber": 133
+        },
+        {
+          "caller": "submitTurboForm",
+          "callee": "document.createElement",
+          "lineNumber": 135
+        },
+        {
+          "caller": "submitTurboForm",
+          "callee": "form.appendChild",
+          "lineNumber": 138
+        },
+        {
+          "caller": "submitTurboForm",
+          "callee": "console.info",
+          "lineNumber": 141
+        },
+        {
+          "caller": "submitTurboForm",
+          "callee": "readFreshFormState",
+          "lineNumber": 141
+        },
+        {
+          "caller": "submitTurboForm",
+          "callee": "form.requestSubmit",
+          "lineNumber": 142
+        },
+        {
+          "caller": "submitTurboForm",
+          "callee": "readFreshFormState",
+          "lineNumber": 143
+        },
+        {
+          "caller": "classifyPageResult",
+          "callee": "/Confirmation of reservation/i.test",
+          "lineNumber": 149
+        },
+        {
+          "caller": "classifyPageResult",
+          "callee": "/already reserved an appointment/i.test",
+          "lineNumber": 150
+        },
+        {
+          "caller": "classifyPageResult",
+          "callee": "/allocated otherwise in the meantime/i.test",
+          "lineNumber": 151
+        },
+        {
+          "caller": "classifyPageResult",
+          "callee": "/text from the picture does not match/i.test",
+          "lineNumber": 152
+        },
+        {
+          "caller": "set",
+          "callee": "document.getElementById",
+          "lineNumber": 158
+        },
+        {
+          "caller": "set",
+          "callee": "String",
+          "lineNumber": 160
+        },
+        {
+          "caller": "set",
+          "callee": "el.dispatchEvent",
+          "lineNumber": 161
+        },
+        {
+          "caller": "set",
+          "callee": "el.dispatchEvent",
+          "lineNumber": 162
+        },
+        {
+          "caller": "fillApplicant",
+          "callee": "set",
+          "lineNumber": 165
+        },
+        {
+          "caller": "fillApplicant",
+          "callee": "set",
+          "lineNumber": 166
+        },
+        {
+          "caller": "fillApplicant",
+          "callee": "set",
+          "lineNumber": 167
+        },
+        {
+          "caller": "fillApplicant",
+          "callee": "set",
+          "lineNumber": 168
+        },
+        {
+          "caller": "fillApplicant",
+          "callee": "set",
+          "lineNumber": 169
+        },
+        {
+          "caller": "fillApplicant",
+          "callee": "set",
+          "lineNumber": 170
+        },
+        {
+          "caller": "fillApplicant",
+          "callee": "set",
+          "lineNumber": 171
+        },
+        {
+          "caller": "fillApplicant",
+          "callee": "set",
+          "lineNumber": 172
+        },
+        {
+          "caller": "fillApplicant",
+          "callee": "set",
+          "lineNumber": 173
+        },
+        {
+          "caller": "fillApplicant",
+          "callee": "set",
+          "lineNumber": 174
+        },
+        {
+          "caller": "fillApplicant",
+          "callee": "set",
+          "lineNumber": 175
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/fixtures/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 23,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "Test fixtures",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Payloads (`payloads/`)",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Usage",
+          "level": 2,
+          "line": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/artifacts/.gitkeep",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {}
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/docs/CHANGELOG.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 39,
+      "nonEmptyLines": 28,
+      "sections": [
+        {
+          "heading": "Changelog — lock-integration-v1 sandbox",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "2026-06-14",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "n8n booker lock workflow",
+          "level": 3,
+          "line": 5
+        },
+        {
+          "heading": "Python turbo / captcha",
+          "level": 3,
+          "line": 19
+        },
+        {
+          "heading": "Test scripts",
+          "level": 3,
+          "line": 28
+        },
+        {
+          "heading": "Verified E2E (KOPENHAGEN)",
+          "level": 3,
+          "line": 35
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/docs/n8n-workflow-ids.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 23,
+      "sections": [
+        {
+          "heading": "booker_lock_sandbox",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "watcher_kopenhagen_sandbox",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "live_booker",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "live_watcher",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/fixtures/kopenhagen-dummy-applicant.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 25,
+      "nonEmptyLines": 25,
+      "sections": [
+        {
+          "heading": "Lastname",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "Firstname",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "DateOfBirth",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "TraveldocumentNumber",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "Sex",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "Street",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "Postcode",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "City",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "Country",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "Telephone",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "Email",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "LastnameAtBirth",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "NationalityAtBirth",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "CountryOfBirth",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "PlaceOfBirth",
+          "level": 1,
+          "line": 16
+        },
+        {
+          "heading": "NationalityForApplication",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "TraveldocumentDateOfIssue",
+          "level": 1,
+          "line": 18
+        },
+        {
+          "heading": "TraveldocumentValidUntil",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "TraveldocumentIssuingAuthority",
+          "level": 1,
+          "line": 20
+        },
+        {
+          "heading": "status",
+          "level": 1,
+          "line": 21
+        },
+        {
+          "heading": "notifyTelegram",
+          "level": 1,
+          "line": 22
+        },
+        {
+          "heading": "bookedSlot",
+          "level": 1,
+          "line": 23
+        },
+        {
+          "heading": "bookedAt",
+          "level": 1,
+          "line": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 23
+      }
+    }
+  ]
+}

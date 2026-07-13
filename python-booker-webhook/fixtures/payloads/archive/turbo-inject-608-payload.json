@@ -1,0 +1,32 @@
+{
+  "runId": "turbo-inject-608-1130",
+  "useSchedulerPost": true,
+  "sessionCookie": "AspxAutoDetectCookieSupport=1; ASP.NET_SessionId=twbqdyaogpdukegbef0cpdqd",
+  "Language": "en",
+  "Office": "KOPENHAGEN",
+  "CalendarId": "9677702",
+  "PersonCount": "1",
+  "currentMonday": "6/8/2026 12:00:00 AM",
+  "currentSlot": "6/8/2026 11:30:00 AM",
+  "student": {
+    "Lastname": "NIELSEN",
+    "Firstname": "LARS",
+    "DateOfBirth": "4/12/1990",
+    "TraveldocumentNumber": "D1111111",
+    "Sex": "1",
+    "Street": "8 Slot St",
+    "Postcode": "2100",
+    "City": "Copenhagen",
+    "Country": "49",
+    "Telephone": "4511223344",
+    "Email": "lars.nielsen.test@example.com",
+    "LastnameAtBirth": "NIELSEN",
+    "NationalityAtBirth": "49",
+    "CountryOfBirth": "49",
+    "PlaceOfBirth": "Aarhus",
+    "NationalityForApplication": "49",
+    "TraveldocumentDateOfIssue": "2/1/2020",
+    "TraveldocumentValidUntil": "2/1/2030",
+    "TraveldocumentIssuingAuthority": "49"
+  }
+}

@@ -1,0 +1,16 @@
+---
+description: Session entry — load orchestrator skill before any action
+alwaysApply: true
+---
+
+# Orchestrator entry
+
+At session start or ambiguous tasks, read and follow:
+
+**`.cursor/skills/orchestrator/SKILL.md`**
+
+Quick flow: **classify intent → process skills first → subagent if mapped → apply rules → verify**.
+
+Full routing: `.cursor/skills/orchestrator/routing-table.md`
+
+Do not skip skill invocation when the routing table matches — even for "simple" questions.

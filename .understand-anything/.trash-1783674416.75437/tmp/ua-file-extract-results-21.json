@@ -1,0 +1,969 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 14,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/curl-manual-window-test.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 23,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/curl-test-payload-alt-applicant.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 31,
+      "nonEmptyLines": 31,
+      "sections": [
+        {
+          "heading": "runId",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "sessionCookie",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "Language",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "Office",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "CalendarId",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "currentMonday",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "currentSlot",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "captureArtifacts",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "student",
+          "level": 1,
+          "line": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/curl-test-payload-kairo.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 32,
+      "nonEmptyLines": 32,
+      "sections": [
+        {
+          "heading": "runId",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "sessionCookie",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "Language",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "Office",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "CalendarId",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "PersonCount",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "currentMonday",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "currentSlot",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "captureArtifacts",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "student",
+          "level": 1,
+          "line": 11
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/curl-test-payload.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 30,
+      "nonEmptyLines": 30,
+      "sections": [
+        {
+          "heading": "runId",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "sessionCookie",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "Language",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "Office",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "CalendarId",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "currentMonday",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "currentSlot",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "student",
+          "level": 1,
+          "line": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/live-slot-test-payload-2.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 33,
+      "nonEmptyLines": 33,
+      "sections": [
+        {
+          "heading": "runId",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "sessionCookie",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "Language",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "Office",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "CalendarId",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "PersonCount",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "currentMonday",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "currentSlot",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "captureArtifacts",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "maxCaptchaRetries",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "student",
+          "level": 1,
+          "line": 12
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/live-slot-test-payload-student2.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 33,
+      "nonEmptyLines": 33,
+      "sections": [
+        {
+          "heading": "runId",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "sessionCookie",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "Language",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "Office",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "CalendarId",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "PersonCount",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "currentMonday",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "currentSlot",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "captureArtifacts",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "maxCaptchaRetries",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "student",
+          "level": 1,
+          "line": 12
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/live-slot-test-payload.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 33,
+      "nonEmptyLines": 33,
+      "sections": [
+        {
+          "heading": "runId",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "sessionCookie",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "Language",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "Office",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "CalendarId",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "PersonCount",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "currentMonday",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "currentSlot",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "captureArtifacts",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "maxCaptchaRetries",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "student",
+          "level": 1,
+          "line": 12
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/payload-mahmoud-ahmed.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 36,
+      "nonEmptyLines": 36,
+      "sections": [
+        {
+          "heading": "runId",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "sessionCookie",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "Language",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "Office",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "CalendarId",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "injectMissingCalendarId",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "injectCalendarIdLabel",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "PersonCount",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "MaxWeeksToScan",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "currentMonday",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "currentSlot",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "dsgvoAccepted",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "captureArtifacts",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "student",
+          "level": 1,
+          "line": 15
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 14
+      }
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/playwright-fresh-610-payload.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 34,
+      "nonEmptyLines": 34,
+      "sections": [
+        {
+          "heading": "runId",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "useSchedulerPost",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "sessionCookie",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "Language",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "Office",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "CalendarId",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "PersonCount",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "currentMonday",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "currentSlot",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "captureArtifacts",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "maxCaptchaRetries",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "student",
+          "level": 1,
+          "line": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/turbo-fixed-611-payload.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 34,
+      "nonEmptyLines": 34,
+      "sections": [
+        {
+          "heading": "runId",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "useSchedulerPost",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "submitMode",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "sessionCookie",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "Language",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "Office",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "CalendarId",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "PersonCount",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "currentMonday",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "currentSlot",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "maxCaptchaRetries",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "student",
+          "level": 1,
+          "line": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/turbo-fresh-610-payload.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 33,
+      "nonEmptyLines": 33,
+      "sections": [
+        {
+          "heading": "runId",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "sessionCookie",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "Language",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "Office",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "CalendarId",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "PersonCount",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "currentMonday",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "currentSlot",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "captureArtifacts",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "maxCaptchaRetries",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "student",
+          "level": 1,
+          "line": 12
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/turbo-fresh-test-template.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 41,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "runId",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "skipSchedulerPost",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "captureFormHtml",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "sessionCookie",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "Language",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "Office",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "CalendarId",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "PersonCount",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "currentMonday",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "currentSlot",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "captchaText",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "Token",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "StartTime",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "BDC_VCID_Captcha",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "BDC_Hs_Captcha",
+          "level": 1,
+          "line": 16
+        },
+        {
+          "heading": "BDC_SP_Captcha",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "BDC_BackWorkaround_Captcha",
+          "level": 1,
+          "line": 18
+        },
+        {
+          "heading": "bookingEndpoint",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "student",
+          "level": 1,
+          "line": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 19
+      }
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/turbo-inject-608-payload.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 32,
+      "nonEmptyLines": 32,
+      "sections": [
+        {
+          "heading": "runId",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "useSchedulerPost",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "sessionCookie",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "Language",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "Office",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "CalendarId",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "PersonCount",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "currentMonday",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "currentSlot",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "student",
+          "level": 1,
+          "line": 11
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/archive/turbo-inject-609-payload.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 32,
+      "nonEmptyLines": 32,
+      "sections": [
+        {
+          "heading": "runId",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "useSchedulerPost",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "sessionCookie",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "Language",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "Office",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "CalendarId",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "PersonCount",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "currentMonday",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "currentSlot",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "student",
+          "level": 1,
+          "line": 11
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    }
+  ]
+}

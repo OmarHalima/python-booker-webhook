@@ -1,0 +1,38 @@
+---
+description: n8n workflow exports and integration with the Python booker
+globs: n8n/**,python-booker-webhook/workflows/**,**/*booker*.json,**/*watcher*.json
+alwaysApply: false
+---
+
+# n8n workflows
+
+## Canonical location
+
+All workflow exports live in **`n8n/`** at repo root:
+
+| File | Role |
+|------|------|
+| `n8n/booker.json` | Slot → merge student → POST booker webhook |
+| `n8n/watcher-v3.json` | Cairo/Kairo slot scanner |
+
+`python-booker-webhook/workflows/booker.json` is a convenience copy — update both or document why they differ.
+
+## Booker HTTP node requirements
+
+- URL: `POST …/webhook/booker` (turbo)
+- Timeout: **300000 ms**
+- Body must include: `runId`, `sessionCookie`, `Office`, `CalendarId`, `currentMonday`, `currentSlot`, `student`
+- Retry: 2 attempts, 60s wait (handles 503 `BOOKING_SERVER_BUSY`)
+
+## Result handling
+
+Booker returns structured JSON — handle in n8n switch: SUCCESS, CAPTCHA_FAIL, SLOT_TAKEN, ALREADY_BOOKED. See `docs/n8n-booking-result-flow.md`.
+
+## Sandboxes
+
+Lock-integration experiments: `sandboxes/lock-integration-v1/workflows/` + `docs/n8n-workflow-ids.json`. Do not merge sandbox workflows into production without explicit review.
+
+## Naming
+
+- No spaces in filenames (`watcher-v3.json`, not `Austria Kairo … .json`)
+- No duplicate `current`/`latest` copies at repo root — one canonical name in `n8n/`
