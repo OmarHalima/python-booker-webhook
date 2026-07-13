@@ -1,0 +1,26 @@
+terminal 1
+
+cd /config/workspace/dir/python-booker-webhook
+source .venv/bin/activate
+xvfb-run -a python -m uvicorn app:app --host 0.0.0.0 --port 8000
+
+
+
+terminal 2
+cd /config/workspace/dir/python-booker-webhook
+source .venv/bin/activate
+sudo su 
+ngrok http 8000
+
+terminal 3
+sudo su
+cd captcha_solver/captcha_recognition
+source env/bin/activate
+
+bash start_captcha.sh
+
+
+
+ngrok start --config /config/workspace/dir/captcha_solver/captcha_recognition/ngrok.yml --all
+
+ngrok start --config /config/workspace/python-booker-webhook/python-booker-webhook/ngrok.yml --all
