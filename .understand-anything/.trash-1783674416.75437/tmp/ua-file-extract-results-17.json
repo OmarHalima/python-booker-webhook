@@ -1,0 +1,1290 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 13,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "python-booker-webhook/docs/AGENT_HANDOFF.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 320,
+      "nonEmptyLines": 222,
+      "sections": [
+        {
+          "heading": "Agent Handoff — Python Booker Webhook",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Executive summary",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "Architecture (unchanged)",
+          "level": 2,
+          "line": 29
+        },
+        {
+          "heading": "What was completed (production plan session)",
+          "level": 2,
+          "line": 53
+        },
+        {
+          "heading": "Code & config",
+          "level": 3,
+          "line": 55
+        },
+        {
+          "heading": "n8n",
+          "level": 3,
+          "line": 64
+        },
+        {
+          "heading": "Documentation synced",
+          "level": 3,
+          "line": 73
+        },
+        {
+          "heading": "Validation",
+          "level": 3,
+          "line": 77
+        },
+        {
+          "heading": "VPS deployment (validated configuration)",
+          "level": 2,
+          "line": 84
+        },
+        {
+          "heading": "Start command",
+          "level": 3,
+          "line": 86
+        },
+        {
+          "heading": "Recommended `.env` on VPS",
+          "level": 3,
+          "line": 94
+        },
+        {
+          "heading": "Deploy files (minimum)",
+          "level": 3,
+          "line": 121
+        },
+        {
+          "heading": "Captcha: confirmed root causes",
+          "level": 2,
+          "line": 129
+        },
+        {
+          "heading": "VPS incident log (2026-05-31)",
+          "level": 2,
+          "line": 146
+        },
+        {
+          "heading": "1. Playwright asyncio 500",
+          "level": 3,
+          "line": 148
+        },
+        {
+          "heading": "2. OCR-first CAPTCHA_FAIL loop (run `1411526`, `1411458`)",
+          "level": 3,
+          "line": 154
+        },
+        {
+          "heading": "3. ETIMEDOUT 500 (Nour / run `1411458`)",
+          "level": 3,
+          "line": 160
+        },
+        {
+          "heading": "4. Gemini-first SUCCESS (run `1411570`)",
+          "level": 3,
+          "line": 166
+        },
+        {
+          "heading": "OCR image / answer desync (open investigation)",
+          "level": 2,
+          "line": 173
+        },
+        {
+          "heading": "Likely causes (not yet proven in code)",
+          "level": 3,
+          "line": 177
+        },
+        {
+          "heading": "Code facts (single attempt, sync path)",
+          "level": 3,
+          "line": 184
+        },
+        {
+          "heading": "Recommended code fixes (next agent)",
+          "level": 3,
+          "line": 190
+        },
+        {
+          "heading": "Solver modes (`app.py`)",
+          "level": 2,
+          "line": 203
+        },
+        {
+          "heading": "Key test runs (reference)",
+          "level": 2,
+          "line": 215
+        },
+        {
+          "heading": "n8n operational notes",
+          "level": 2,
+          "line": 232
+        },
+        {
+          "heading": "Out of scope (defer)",
+          "level": 2,
+          "line": 243
+        },
+        {
+          "heading": "Quick commands",
+          "level": 2,
+          "line": 253
+        },
+        {
+          "heading": "Doc map",
+          "level": 2,
+          "line": 274
+        },
+        {
+          "heading": "OCR finetune dataset (in progress)",
+          "level": 2,
+          "line": 292
+        },
+        {
+          "heading": "First actions for next agent",
+          "level": 2,
+          "line": 311
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 30
+      }
+    },
+    {
+      "path": "python-booker-webhook/docs/CAPTCHA_INVESTIGATION.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 361,
+      "nonEmptyLines": 270,
+      "sections": [
+        {
+          "heading": "BotDetect CAPTCHA Investigation — Deep-Search Findings",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Background",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "Investigation Round 1 — Initial Deep Search",
+          "level": 2,
+          "line": 20
+        },
+        {
+          "heading": "Hypotheses going in",
+          "level": 3,
+          "line": 22
+        },
+        {
+          "heading": "Root causes found",
+          "level": 3,
+          "line": 31
+        },
+        {
+          "heading": "Changes shipped (Round 1)",
+          "level": 3,
+          "line": 64
+        },
+        {
+          "heading": "Test result after Round 1",
+          "level": 3,
+          "line": 75
+        },
+        {
+          "heading": "Solver Strategy Change: Gemini-First",
+          "level": 2,
+          "line": 85
+        },
+        {
+          "heading": "Investigation Round 2 — Why OCR Fails Despite Correct-Looking Answers",
+          "level": 2,
+          "line": 101
+        },
+        {
+          "heading": "Evidence collected",
+          "level": 3,
+          "line": 107
+        },
+        {
+          "heading": "Root causes found (Round 2)",
+          "level": 3,
+          "line": 137
+        },
+        {
+          "heading": "Changes shipped (Round 2)",
+          "level": 3,
+          "line": 197
+        },
+        {
+          "heading": "Investigation Round 3 — Parallel URL Fetch Session Mismatch",
+          "level": 2,
+          "line": 210
+        },
+        {
+          "heading": "Root cause: HTTP URL fetch returns a *different* captcha than the DOM session",
+          "level": 3,
+          "line": 216
+        },
+        {
+          "heading": "Style-gate reload: implemented but not reliable yet",
+          "level": 3,
+          "line": 242
+        },
+        {
+          "heading": "Test result after Round 3 (production config)",
+          "level": 3,
+          "line": 254
+        },
+        {
+          "heading": "How the Style-Gate Works",
+          "level": 2,
+          "line": 267
+        },
+        {
+          "heading": "Confirmed Hypotheses Summary",
+          "level": 2,
+          "line": 289
+        },
+        {
+          "heading": "Test Results Timeline",
+          "level": 2,
+          "line": 307
+        },
+        {
+          "heading": "Current State (production config)",
+          "level": 2,
+          "line": 322
+        },
+        {
+          "heading": "Empirical parallel-fetch proof (`scripts/compare_captcha_fetch.py`)",
+          "level": 3,
+          "line": 339
+        },
+        {
+          "heading": "Remaining Open Items",
+          "level": 2,
+          "line": 352
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 22
+      }
+    },
+    {
+      "path": "python-booker-webhook/docs/CAPTCHA_OCR_DATASET.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 363,
+      "nonEmptyLines": 264,
+      "sections": [
+        {
+          "heading": "BMEIA Captcha OCR Dataset Pipeline",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Executive summary",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "Why this exists (separate from production booking)",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "Architecture",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "Directory layout",
+          "level": 2,
+          "line": 85
+        },
+        {
+          "heading": "Manifest schema",
+          "level": 2,
+          "line": 109
+        },
+        {
+          "heading": "HTTP harvest (recommended)",
+          "level": 2,
+          "line": 133
+        },
+        {
+          "heading": "BotDetect URL",
+          "level": 3,
+          "line": 135
+        },
+        {
+          "heading": "VCID rotation",
+          "level": 3,
+          "line": 145
+        },
+        {
+          "heading": "Session flow",
+          "level": 3,
+          "line": 156
+        },
+        {
+          "heading": "CLI",
+          "level": 3,
+          "line": 165
+        },
+        {
+          "heading": "Playwright harvest (slow, reference)",
+          "level": 3,
+          "line": 189
+        },
+        {
+          "heading": "Module reference",
+          "level": 2,
+          "line": 199
+        },
+        {
+          "heading": "`scripts/captcha_dataset_lib.py`",
+          "level": 3,
+          "line": 201
+        },
+        {
+          "heading": "`scripts/captcha_harvest_http.py`",
+          "level": 3,
+          "line": 216
+        },
+        {
+          "heading": "`scripts/harvest_captcha_images.py`",
+          "level": 3,
+          "line": 232
+        },
+        {
+          "heading": "`scripts/ocr_prelabel_manifest.py`",
+          "level": 3,
+          "line": 236
+        },
+        {
+          "heading": "`scripts/review_captcha_labels.py`",
+          "level": 3,
+          "line": 249
+        },
+        {
+          "heading": "`scripts/split_captcha_dataset.py`",
+          "level": 3,
+          "line": 264
+        },
+        {
+          "heading": "`scripts/benchmark_captcha_harvest.py`",
+          "level": 3,
+          "line": 275
+        },
+        {
+          "heading": "End-to-end workflow (5k target)",
+          "level": 2,
+          "line": 288
+        },
+        {
+          "heading": "Tests",
+          "level": 2,
+          "line": 312
+        },
+        {
+          "heading": "Troubleshooting",
+          "level": 2,
+          "line": 328
+        },
+        {
+          "heading": "Design decisions",
+          "level": 2,
+          "line": 343
+        },
+        {
+          "heading": "Open work",
+          "level": 2,
+          "line": 356
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 25
+      }
+    },
+    {
+      "path": "python-booker-webhook/docs/N8N_BOOKER_LOCK_IMPLEMENTATION_PLAN.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 353,
+      "nonEmptyLines": 265,
+      "sections": [
+        {
+          "heading": "n8n Booker Lock + Integration — Documentation Plan & Checklist",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Security — credentials",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Documentation plan (phases)",
+          "level": 2,
+          "line": 29
+        },
+        {
+          "heading": "Phase 0 — Baseline (done in dev session)",
+          "level": 3,
+          "line": 33
+        },
+        {
+          "heading": "Phase 1 — Documentation & design (this file)",
+          "level": 3,
+          "line": 43
+        },
+        {
+          "heading": "Phase 2 — Local dev tunnel (ngrok)",
+          "level": 3,
+          "line": 50
+        },
+        {
+          "heading": "Phase 3 — n8n API sync",
+          "level": 3,
+          "line": 58
+        },
+        {
+          "heading": "Phase 4 — Booker lock implementation",
+          "level": 3,
+          "line": 66
+        },
+        {
+          "heading": "Phase 5 — Watcher alignment (turbo-only, session deferred)",
+          "level": 3,
+          "line": 78
+        },
+        {
+          "heading": "Phase 6 — Test matrix execution",
+          "level": 3,
+          "line": 89
+        },
+        {
+          "heading": "Phase 7 — Production hardening (later)",
+          "level": 3,
+          "line": 93
+        },
+        {
+          "heading": "Target architecture (agreed direction)",
+          "level": 2,
+          "line": 103
+        },
+        {
+          "heading": "Lock table schema",
+          "level": 2,
+          "line": 142
+        },
+        {
+          "heading": "Known gaps (from research & live tests)",
+          "level": 2,
+          "line": 162
+        },
+        {
+          "heading": "Test checklist",
+          "level": 2,
+          "line": 177
+        },
+        {
+          "heading": "Automated (local)",
+          "level": 3,
+          "line": 181
+        },
+        {
+          "heading": "Integration (manual / scripted)",
+          "level": 3,
+          "line": 189
+        },
+        {
+          "heading": "Logging requirements (each integration test)",
+          "level": 3,
+          "line": 208
+        },
+        {
+          "heading": "Environment registry",
+          "level": 2,
+          "line": 218
+        },
+        {
+          "heading": "n8n API operations checklist (Phase 3+)",
+          "level": 2,
+          "line": 239
+        },
+        {
+          "heading": "Booker workflow change checklist (Phase 4)",
+          "level": 2,
+          "line": 253
+        },
+        {
+          "heading": "New nodes",
+          "level": 3,
+          "line": 255
+        },
+        {
+          "heading": "Wiring fixes (existing)",
+          "level": 3,
+          "line": 264
+        },
+        {
+          "heading": "HTTP Request node (Python)",
+          "level": 3,
+          "line": 270
+        },
+        {
+          "heading": "Watcher workflow change checklist (Phase 5 — optional)",
+          "level": 2,
+          "line": 279
+        },
+        {
+          "heading": "Findings log",
+          "level": 2,
+          "line": 290
+        },
+        {
+          "heading": "2026-06-14 — KOPENHAGEN watcher + full E2E",
+          "level": 3,
+          "line": 294
+        },
+        {
+          "heading": "2026-06-14 — Sandbox lock-integration-v1",
+          "level": 3,
+          "line": 305
+        },
+        {
+          "heading": "2026-06-14 — Planning session",
+          "level": 3,
+          "line": 318
+        },
+        {
+          "heading": "Iteration notes (for next agent session)",
+          "level": 2,
+          "line": 335
+        },
+        {
+          "heading": "Doc map (keep in sync)",
+          "level": 2,
+          "line": 345
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 31
+      }
+    },
+    {
+      "path": "python-booker-webhook/docs/PARALLEL_BOOKING.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 115,
+      "nonEmptyLines": 71,
+      "sections": [
+        {
+          "heading": "Parallel bookings (`--workers` + n8n)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Capacity formula",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Blank “Loading…” page (`fail-navigate-uncaught`)",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "Why only 1 of 4 “worked” (common causes)",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "1. Same `sessionCookie` on all 4 branches (most common)",
+          "level": 3,
+          "line": 29
+        },
+        {
+          "heading": "2. Same slot / same student",
+          "level": 3,
+          "line": 35
+        },
+        {
+          "heading": "3. n8n HTTP timeout vs server wait",
+          "level": 3,
+          "line": 41
+        },
+        {
+          "heading": "4. Too many Chromium processes",
+          "level": 3,
+          "line": 51
+        },
+        {
+          "heading": "“Frozen” parallel calls (important)",
+          "level": 2,
+          "line": 57
+        },
+        {
+          "heading": "Recommended setups",
+          "level": 2,
+          "line": 66
+        },
+        {
+          "heading": "A — Safe default (one booking at a time)",
+          "level": 3,
+          "line": 68
+        },
+        {
+          "heading": "B — Controlled parallelism (3 at once)",
+          "level": 3,
+          "line": 82
+        },
+        {
+          "heading": "Debug on VPS",
+          "level": 2,
+          "line": 100
+        },
+        {
+          "heading": "n8n HTTP node",
+          "level": 2,
+          "line": 112
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 14
+      }
+    },
+    {
+      "path": "python-booker-webhook/docs/SLOT_MISMATCH_INVESTIGATION.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 103,
+      "nonEmptyLines": 73,
+      "sections": [
+        {
+          "heading": "Slot time mismatch — investigation report",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Summary",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "live-slot-test-001",
+          "level": 3,
+          "line": 12
+        },
+        {
+          "heading": "live-slot-test-003",
+          "level": 3,
+          "line": 21
+        },
+        {
+          "heading": "Root cause",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "Fixes (app.py)",
+          "level": 2,
+          "line": 49
+        },
+        {
+          "heading": "1. No silent slot fallback (default)",
+          "level": 3,
+          "line": 51
+        },
+        {
+          "heading": "2. Scheduler POST fast path (recommended for n8n)",
+          "level": 3,
+          "line": 55
+        },
+        {
+          "heading": "3. StartTime verification",
+          "level": 3,
+          "line": 73
+        },
+        {
+          "heading": "Turbo injector vs Playwright",
+          "level": 2,
+          "line": 77
+        },
+        {
+          "heading": "n8n recommendation",
+          "level": 2,
+          "line": 87
+        },
+        {
+          "heading": "Manual turbo test (F12)",
+          "level": 2,
+          "line": 94
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": "python-booker-webhook/docs/TESTING_KOPENHAGEN.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 85,
+      "nonEmptyLines": 63,
+      "sections": [
+        {
+          "heading": "Testing with KOPENHAGEN (stand-in for Kairo)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Test vs production",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Why KOPENHAGEN for Kairo testing",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "Cairo (KAIRO) calendar IDs (production reference)",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "Switching test → production in n8n",
+          "level": 2,
+          "line": 45
+        },
+        {
+          "heading": "What we validated on KOPENHAGEN (2026-05-30 → 2026-05-31)",
+          "level": 2,
+          "line": 55
+        },
+        {
+          "heading": "Commands (test office)",
+          "level": 2,
+          "line": 75
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "python-booker-webhook/docs/TURBO_APP.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 102,
+      "nonEmptyLines": 72,
+      "sections": [
+        {
+          "heading": "Turbo booker (primary — `app.py` v2)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Run server (port 8000)",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Endpoints",
+          "level": 2,
+          "line": 26
+        },
+        {
+          "heading": "Captcha configuration (recommended)",
+          "level": 2,
+          "line": 45
+        },
+        {
+          "heading": "Scan for fresh slots",
+          "level": 2,
+          "line": 69
+        },
+        {
+          "heading": "CLI (no server)",
+          "level": 2,
+          "line": 79
+        },
+        {
+          "heading": "Submit modes",
+          "level": 2,
+          "line": 85
+        },
+        {
+          "heading": "vs Legacy Playwright (`/webhook/booker-legacy`)",
+          "level": 2,
+          "line": 94
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "python-booker-webhook/docs/TURBO_INJECTOR.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 89,
+      "nonEmptyLines": 66,
+      "sections": [
+        {
+          "heading": "Turbo fetch injector (Tampermonkey) — experimental",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Install",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "Manual test (F12 console)",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "Copy-as-fetch workflow",
+          "level": 2,
+          "line": 52
+        },
+        {
+          "heading": "Limits",
+          "level": 2,
+          "line": 61
+        },
+        {
+          "heading": "Live test results (2026-05-30, session `twbqdyaogpdukegbef0cpdqd`)",
+          "level": 2,
+          "line": 71
+        },
+        {
+          "heading": "Recommendation",
+          "level": 2,
+          "line": 85
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "python-booker-webhook/docs/V1_0_1_PROBLEMS_AND_MERGE_PLAN.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 434,
+      "nonEmptyLines": 307,
+      "sections": [
+        {
+          "heading": "v1.0.1 — Problems, Checklist & Merge Plan",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Executive summary",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "Validation evidence (current)",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "Problem register",
+          "level": 2,
+          "line": 46
+        },
+        {
+          "heading": "P0 — Fixes not merged to production",
+          "level": 3,
+          "line": 50
+        },
+        {
+          "heading": "P1 — Pipeline gaps (partial fix)",
+          "level": 3,
+          "line": 58
+        },
+        {
+          "heading": "P2 — Engineering debt",
+          "level": 3,
+          "line": 66
+        },
+        {
+          "heading": "P3 — Ops, validation depth, hygiene",
+          "level": 3,
+          "line": 76
+        },
+        {
+          "heading": "Master checklist",
+          "level": 2,
+          "line": 88
+        },
+        {
+          "heading": "Problem acknowledgment",
+          "level": 3,
+          "line": 92
+        },
+        {
+          "heading": "Merge readiness (production root)",
+          "level": 3,
+          "line": 111
+        },
+        {
+          "heading": "Post-merge cleanup",
+          "level": 3,
+          "line": 126
+        },
+        {
+          "heading": "Draft solutions (requires testing first)",
+          "level": 2,
+          "line": 135
+        },
+        {
+          "heading": "S1 — Targeted merge to production (addresses P0-1, P0-2, P2-1)",
+          "level": 3,
+          "line": 141
+        },
+        {
+          "heading": "S2 — Unit tests for v1.0.1 behavior (addresses P2-2, P2-3)",
+          "level": 3,
+          "line": 176
+        },
+        {
+          "heading": "S3 — Remove or hard-fail `url_fetch_fallback` (addresses P1-2)",
+          "level": 3,
+          "line": 201
+        },
+        {
+          "heading": "S4 — Legacy wizard HS guard parity (addresses P1-3)",
+          "level": 3,
+          "line": 227
+        },
+        {
+          "heading": "S5 — `CAPTCHA_MAX_STYLE_RELOADS` default (addresses P2-5)",
+          "level": 3,
+          "line": 251
+        },
+        {
+          "heading": "S6 — Scale live validation (addresses P1-1, P3-2)",
+          "level": 3,
+          "line": 270
+        },
+        {
+          "heading": "S7 — VPS canary deploy (addresses P3-1, P0-3)",
+          "level": 3,
+          "line": 294
+        },
+        {
+          "heading": "S8 — Dataset / OCR accuracy benchmark (addresses P1-1, P3-3)",
+          "level": 3,
+          "line": 323
+        },
+        {
+          "heading": "S9 — Consolidate sandboxes (addresses P2-1)",
+          "level": 3,
+          "line": 350
+        },
+        {
+          "heading": "S10 — Documentation & hygiene (addresses P2-4, P3-4, P3-5)",
+          "level": 3,
+          "line": 364
+        },
+        {
+          "heading": "Recommended execution phases",
+          "level": 2,
+          "line": 379
+        },
+        {
+          "heading": "Test gates (hard stop before production cutover)",
+          "level": 2,
+          "line": 403
+        },
+        {
+          "heading": "Open questions (decide during Phase 3)",
+          "level": 2,
+          "line": 416
+        },
+        {
+          "heading": "Changelog (this document)",
+          "level": 2,
+          "line": 428
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 27
+      }
+    },
+    {
+      "path": "python-booker-webhook/docs/XVFB_PLAYWRIGHT_DEPLOYMENT.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 203,
+      "nonEmptyLines": 141,
+      "sections": [
+        {
+          "heading": "Xvfb + Playwright Chromium (server deployment)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "What you need",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "Concept",
+          "level": 2,
+          "line": 25
+        },
+        {
+          "heading": "Option A: One-shot with `xvfb-run` (simplest)",
+          "level": 2,
+          "line": 35
+        },
+        {
+          "heading": "Option B: Long-lived Xvfb + uvicorn (systemd-friendly)",
+          "level": 2,
+          "line": 70
+        },
+        {
+          "heading": "1) Start Xvfb on a fixed display",
+          "level": 3,
+          "line": 72
+        },
+        {
+          "heading": "2) Start the app on the same machine/session",
+          "level": 3,
+          "line": 79
+        },
+        {
+          "heading": "Docker / Easy Panel (same idea)",
+          "level": 2,
+          "line": 138
+        },
+        {
+          "heading": "Environment variables (reminder)",
+          "level": 2,
+          "line": 159
+        },
+        {
+          "heading": "Troubleshooting",
+          "level": 2,
+          "line": 174
+        },
+        {
+          "heading": "Security",
+          "level": 2,
+          "line": 186
+        },
+        {
+          "heading": "Headless alternative (no Xvfb)",
+          "level": 2,
+          "line": 193
+        },
+        {
+          "heading": "Related files in this repo",
+          "level": 2,
+          "line": 199
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 13
+      }
+    },
+    {
+      "path": "python-booker-webhook/docs/n8n-booking-result-flow.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 206,
+      "nonEmptyLines": 151,
+      "sections": [
+        {
+          "heading": "n8n: Booking result handling (booker webhook)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Webhook response shape",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "1. Replace **Check Booking Response** (Code node)",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "2. Update **Result Switch**",
+          "level": 2,
+          "line": 76
+        },
+        {
+          "heading": "3. New branch: **ALREADY_BOOKED**",
+          "level": 2,
+          "line": 102
+        },
+        {
+          "heading": "4. **HTTP Request** body (unchanged fields + note)",
+          "level": 2,
+          "line": 123
+        },
+        {
+          "heading": "7. Production checklist (n8n + VPS)",
+          "level": 2,
+          "line": 143
+        },
+        {
+          "heading": "VPS (python booker)",
+          "level": 3,
+          "line": 145
+        },
+        {
+          "heading": "n8n workflow",
+          "level": 3,
+          "line": 159
+        },
+        {
+          "heading": "Kairo vs Kopenhagen",
+          "level": 3,
+          "line": 170
+        },
+        {
+          "heading": "5. Before / after (why Telegram showed CAPTCHA)",
+          "level": 2,
+          "line": 176
+        },
+        {
+          "heading": "6. Switch wiring checklist",
+          "level": 2,
+          "line": 186
+        },
+        {
+          "heading": "Related",
+          "level": 2,
+          "line": 203
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 13
+      }
+    },
+    {
+      "path": "python-booker-webhook/docs/n8n-scheduler-workflow.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 111,
+      "nonEmptyLines": 87,
+      "sections": [
+        {
+          "heading": "n8n: Scheduler HTML → booker payload + session cookie chain",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. Parse HTML after Scheduler POST (Code node)",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "2. Merge `Set-Cookie: ASP.NET_SessionId` into `sessionCookie`",
+          "level": 2,
+          "line": 66
+        },
+        {
+          "heading": "3. POST body alignment",
+          "level": 2,
+          "line": 99
+        },
+        {
+          "heading": "4. Booker / Playwright behavior (reference)",
+          "level": 2,
+          "line": 104
+        },
+        {
+          "heading": "5. Booking results after `/webhook/booker`",
+          "level": 2,
+          "line": 109
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    }
+  ]
+}

@@ -1,0 +1,1013 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".cursor/hooks.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 16,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "hooks",
+          "level": 1,
+          "line": 3
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": ".cursor/hooks/session-orchestrate.ps1",
+      "language": "powershell",
+      "fileCategory": "script",
+      "totalLines": 37,
+      "nonEmptyLines": 30,
+      "metrics": {}
+    },
+    {
+      "path": ".cursor/hooks/subagent-verify-nudge.ps1",
+      "language": "powershell",
+      "fileCategory": "script",
+      "totalLines": 30,
+      "nonEmptyLines": 25,
+      "metrics": {}
+    },
+    {
+      "path": ".cursor/plans/selenium_node_replacement_5bae0644.plan.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 87,
+      "nonEmptyLines": 78,
+      "sections": [
+        {
+          "heading": "Replace Booking Nodes With VPS Selenium Script",
+          "level": 1,
+          "line": 23
+        },
+        {
+          "heading": "Scope",
+          "level": 2,
+          "line": 25
+        },
+        {
+          "heading": "Implementation Approach",
+          "level": 2,
+          "line": 37
+        },
+        {
+          "heading": "Data Contract (Compatibility)",
+          "level": 2,
+          "line": 51
+        },
+        {
+          "heading": "Execution Flow",
+          "level": 2,
+          "line": 63
+        },
+        {
+          "heading": "Validation Plan",
+          "level": 2,
+          "line": 75
+        },
+        {
+          "heading": "Deliverables",
+          "level": 2,
+          "line": 83
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": ".cursor/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 45,
+      "nonEmptyLines": 34,
+      "sections": [
+        {
+          "heading": "Cursor project config",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Orchestrator (Hermes-style routing)",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Project skills",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Project agents",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "Hooks & rules",
+          "level": 2,
+          "line": 38
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": ".cursor/rules/n8n-workflows.mdc",
+      "language": "mdc",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 25,
+      "metrics": {}
+    },
+    {
+      "path": ".cursor/rules/orchestrator.mdc",
+      "language": "mdc",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 10,
+      "metrics": {}
+    },
+    {
+      "path": ".cursor/rules/project-architecture.mdc",
+      "language": "mdc",
+      "fileCategory": "code",
+      "totalLines": 59,
+      "nonEmptyLines": 46,
+      "metrics": {}
+    },
+    {
+      "path": ".cursor/rules/python-booker.mdc",
+      "language": "mdc",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 33,
+      "metrics": {}
+    },
+    {
+      "path": ".cursor/rules/refactor-guardrails.mdc",
+      "language": "mdc",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 28,
+      "metrics": {}
+    },
+    {
+      "path": ".cursor/rules/testing.mdc",
+      "language": "mdc",
+      "fileCategory": "code",
+      "totalLines": 51,
+      "nonEmptyLines": 37,
+      "metrics": {}
+    },
+    {
+      "path": ".cursor/skills/booker-e2e-kopenhagen/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 73,
+      "nonEmptyLines": 47,
+      "sections": [
+        {
+          "heading": "E2E testing (KOPENHAGEN stand-in)",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "When to use",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "Rule",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "Workflow",
+          "level": 2,
+          "line": 26
+        },
+        {
+          "heading": "1. Scan slots",
+          "level": 3,
+          "line": 28
+        },
+        {
+          "heading": "2. Update payload",
+          "level": 3,
+          "line": 37
+        },
+        {
+          "heading": "3. Run turbo (inline, no server)",
+          "level": 3,
+          "line": 41
+        },
+        {
+          "heading": "4. Or POST to running server",
+          "level": 3,
+          "line": 47
+        },
+        {
+          "heading": "E2E pytest (Playwright + live session)",
+          "level": 2,
+          "line": 56
+        },
+        {
+          "heading": "Artifacts",
+          "level": 2,
+          "line": 62
+        },
+        {
+          "heading": "Production switch",
+          "level": 2,
+          "line": 66
+        },
+        {
+          "heading": "Delegate",
+          "level": 2,
+          "line": 70
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": ".cursor/skills/booker-package-extract/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 71,
+      "nonEmptyLines": 53,
+      "sections": [
+        {
+          "heading": "Booker package extraction (Phase 4)",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "When to use",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "Constraints",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "Target structure",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "Extraction order",
+          "level": 2,
+          "line": 37
+        },
+        {
+          "heading": "Shim pattern",
+          "level": 2,
+          "line": 46
+        },
+        {
+          "heading": "Per-step checklist",
+          "level": 2,
+          "line": 53
+        },
+        {
+          "heading": "Review",
+          "level": 2,
+          "line": 61
+        },
+        {
+          "heading": "Do not",
+          "level": 2,
+          "line": 67
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": ".cursor/skills/booker-pytest/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 81,
+      "nonEmptyLines": 56,
+      "sections": [
+        {
+          "heading": "Booker pytest conventions",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "When to use",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "Layout (mandatory)",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "Setup",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "Writing unit tests",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "Integration tests",
+          "level": 2,
+          "line": 48
+        },
+        {
+          "heading": "Fixtures",
+          "level": 2,
+          "line": 59
+        },
+        {
+          "heading": "TDD flow (Superpowers)",
+          "level": 2,
+          "line": 65
+        },
+        {
+          "heading": "Before claiming done",
+          "level": 2,
+          "line": 71
+        },
+        {
+          "heading": "Delegate",
+          "level": 2,
+          "line": 79
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": ".cursor/skills/captcha-pipeline/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 56,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "Captcha pipeline",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "When to use",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "Read first",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "Key modules",
+          "level": 2,
+          "line": 20
+        },
+        {
+          "heading": "Solver modes",
+          "level": 2,
+          "line": 28
+        },
+        {
+          "heading": "Debug commands",
+          "level": 2,
+          "line": 36
+        },
+        {
+          "heading": "Fix patterns (minimal)",
+          "level": 2,
+          "line": 46
+        },
+        {
+          "heading": "Delegate",
+          "level": 2,
+          "line": 53
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": ".cursor/skills/gitnexus-code-intelligence/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 43,
+      "nonEmptyLines": 31,
+      "sections": [
+        {
+          "heading": "GitNexus code intelligence",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "When to use",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "MCP",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "Steps",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "Orchestrator mapping",
+          "level": 2,
+          "line": 30
+        },
+        {
+          "heading": "Do not",
+          "level": 2,
+          "line": 39
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": ".cursor/skills/n8n-booker-workflows/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 59,
+      "nonEmptyLines": 42,
+      "sections": [
+        {
+          "heading": "n8n booker workflows",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "When to use",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "Canonical paths",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "n8n MCP workflow (strict order)",
+          "level": 2,
+          "line": 25
+        },
+        {
+          "heading": "Booker HTTP node checklist",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "Test vs prod payloads",
+          "level": 2,
+          "line": 42
+        },
+        {
+          "heading": "After edit",
+          "level": 2,
+          "line": 51
+        },
+        {
+          "heading": "Delegate",
+          "level": 2,
+          "line": 57
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": ".cursor/skills/orchestrator/routing-table.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 225,
+      "nonEmptyLines": 172,
+      "sections": [
+        {
+          "heading": "Orchestrator routing table",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Available subagents (Cursor Task tool)",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "Project agents (`.cursor/agents/`)",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "Project skills (`.cursor/skills/`)",
+          "level": 2,
+          "line": 36
+        },
+        {
+          "heading": "Superpowers skills (plugin)",
+          "level": 2,
+          "line": 51
+        },
+        {
+          "heading": "Process — invoke before acting",
+          "level": 3,
+          "line": 53
+        },
+        {
+          "heading": "Project rules (`.cursor/rules/`)",
+          "level": 2,
+          "line": 73
+        },
+        {
+          "heading": "MCP servers",
+          "level": 2,
+          "line": 86
+        },
+        {
+          "heading": "Intent → full playbook",
+          "level": 2,
+          "line": 104
+        },
+        {
+          "heading": "new-feature",
+          "level": 3,
+          "line": 106
+        },
+        {
+          "heading": "bug-debug (booking/captcha/slots)",
+          "level": 3,
+          "line": 119
+        },
+        {
+          "heading": "e2e-test",
+          "level": 3,
+          "line": 131
+        },
+        {
+          "heading": "refactor-structure",
+          "level": 3,
+          "line": 140
+        },
+        {
+          "heading": "code-intelligence / explore-only",
+          "level": 3,
+          "line": 151
+        },
+        {
+          "heading": "n8n-workflow",
+          "level": 3,
+          "line": 161
+        },
+        {
+          "heading": "vps-ops",
+          "level": 3,
+          "line": 170
+        },
+        {
+          "heading": "Parallel lanes (Hermes fan-out)",
+          "level": 2,
+          "line": 181
+        },
+        {
+          "heading": "Domain quick reference",
+          "level": 2,
+          "line": 195
+        },
+        {
+          "heading": "Commands cheat sheet",
+          "level": 2,
+          "line": 211
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 19
+      }
+    },
+    {
+      "path": ".cursor/skills/orchestrator/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 113,
+      "nonEmptyLines": 84,
+      "sections": [
+        {
+          "heading": "Orchestrator — Skill & Subagent Router",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "Step 0 — Classify (every turn)",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "Step 1 — Load process skills first",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "Step 2 — Route by intent",
+          "level": 2,
+          "line": 44
+        },
+        {
+          "heading": "Step 3 — Apply project rules",
+          "level": 2,
+          "line": 66
+        },
+        {
+          "heading": "Step 4 — Delegate vs do",
+          "level": 2,
+          "line": 77
+        },
+        {
+          "heading": "Step 5 — Verify before done",
+          "level": 2,
+          "line": 90
+        },
+        {
+          "heading": "Step 6 — Report route (when orchestrating)",
+          "level": 2,
+          "line": 100
+        },
+        {
+          "heading": "Onboarding reads",
+          "level": 2,
+          "line": 106
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": ".cursor/skills/vps-booker-ops/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 62,
+      "nonEmptyLines": 43,
+      "sections": [
+        {
+          "heading": "VPS booker operations",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "When to use",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "Connection",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "Production layout",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "Pre-flight",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "Typical commands (via SSH MCP)",
+          "level": 2,
+          "line": 38
+        },
+        {
+          "heading": "Post-deploy verify",
+          "level": 2,
+          "line": 48
+        },
+        {
+          "heading": "Delegate",
+          "level": 2,
+          "line": 54
+        },
+        {
+          "heading": "Never",
+          "level": 2,
+          "line": 59
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": ".specify/init-options.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 8,
+      "nonEmptyLines": 8,
+      "sections": [
+        {
+          "heading": "ai",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "feature_numbering",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "here",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "integration",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "script",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "speckit_version",
+          "level": 1,
+          "line": 7
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": ".specify/integration.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 15,
+      "nonEmptyLines": 15,
+      "sections": [
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "integration_state_schema",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "installed_integrations",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "integration_settings",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "integration",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "default_integration",
+          "level": 1,
+          "line": 14
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": ".specify/integrations/opencode.manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 17,
+      "nonEmptyLines": 17,
+      "sections": [
+        {
+          "heading": "integration",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "installed_at",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "files",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": ".specify/integrations/speckit.manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 17,
+      "nonEmptyLines": 17,
+      "sections": [
+        {
+          "heading": "integration",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "installed_at",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "files",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": ".specify/memory/constitution.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 50,
+      "nonEmptyLines": 37,
+      "sections": [
+        {
+          "heading": "[PROJECT_NAME] Constitution",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Core Principles",
+          "level": 2,
+          "line": 4
+        },
+        {
+          "heading": "[PRINCIPLE_1_NAME]",
+          "level": 3,
+          "line": 6
+        },
+        {
+          "heading": "[PRINCIPLE_2_NAME]",
+          "level": 3,
+          "line": 11
+        },
+        {
+          "heading": "[PRINCIPLE_3_NAME]",
+          "level": 3,
+          "line": 16
+        },
+        {
+          "heading": "[PRINCIPLE_4_NAME]",
+          "level": 3,
+          "line": 21
+        },
+        {
+          "heading": "[PRINCIPLE_5_NAME]",
+          "level": 3,
+          "line": 26
+        },
+        {
+          "heading": "[SECTION_2_NAME]",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "[SECTION_3_NAME]",
+          "level": 2,
+          "line": 37
+        },
+        {
+          "heading": "Governance",
+          "level": 2,
+          "line": 43
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    }
+  ]
+}

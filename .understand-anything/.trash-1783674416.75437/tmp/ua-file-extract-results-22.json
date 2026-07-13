@@ -1,0 +1,300 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "python-booker-webhook/fixtures/payloads/kopenhagen-dummy-applicant.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 25,
+      "nonEmptyLines": 25,
+      "sections": [
+        {
+          "heading": "Lastname",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "Firstname",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "DateOfBirth",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "TraveldocumentNumber",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "Sex",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "Street",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "Postcode",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "City",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "Country",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "Telephone",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "Email",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "LastnameAtBirth",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "NationalityAtBirth",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "CountryOfBirth",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "PlaceOfBirth",
+          "level": 1,
+          "line": 16
+        },
+        {
+          "heading": "NationalityForApplication",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "TraveldocumentDateOfIssue",
+          "level": 1,
+          "line": 18
+        },
+        {
+          "heading": "TraveldocumentValidUntil",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "TraveldocumentIssuingAuthority",
+          "level": 1,
+          "line": 20
+        },
+        {
+          "heading": "status",
+          "level": 1,
+          "line": 21
+        },
+        {
+          "heading": "notifyTelegram",
+          "level": 1,
+          "line": 22
+        },
+        {
+          "heading": "bookedSlot",
+          "level": 1,
+          "line": 23
+        },
+        {
+          "heading": "bookedAt",
+          "level": 1,
+          "line": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 23
+      }
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/payload-booker.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 35,
+      "nonEmptyLines": 35,
+      "sections": [
+        {
+          "heading": "_note",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "useSchedulerPost",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "submitMode",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "maxCaptchaRetries",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "captureArtifacts",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "sessionCookie",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "Language",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "Office",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "CalendarId",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "PersonCount",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "currentMonday",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "currentSlot",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "student",
+          "level": 1,
+          "line": 14
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 13
+      }
+    },
+    {
+      "path": "python-booker-webhook/fixtures/payloads/payload-kairo-production.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 35,
+      "nonEmptyLines": 35,
+      "sections": [
+        {
+          "heading": "_note",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "useSchedulerPost",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "submitMode",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "maxCaptchaRetries",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "captureArtifacts",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "sessionCookie",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "Language",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "Office",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "CalendarId",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "PersonCount",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "currentMonday",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "currentSlot",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "student",
+          "level": 1,
+          "line": 14
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 13
+      }
+    }
+  ]
+}

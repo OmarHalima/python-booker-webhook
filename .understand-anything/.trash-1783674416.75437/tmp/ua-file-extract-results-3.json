@@ -1,0 +1,4938 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "python-booker-webhook/app.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1108,
+      "nonEmptyLines": 980,
+      "functions": [
+        {
+          "name": "_turbo_submit_mode",
+          "startLine": 50,
+          "endLine": 55,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "_botdetect_settle_ms",
+          "startLine": 58,
+          "endLine": 62,
+          "params": []
+        },
+        {
+          "name": "_wait_botdetect_ready",
+          "startLine": 65,
+          "endLine": 66,
+          "params": [
+            "page"
+          ]
+        },
+        {
+          "name": "_save_solved_captcha_for_training",
+          "startLine": 69,
+          "endLine": 86,
+          "params": [
+            "run_dir",
+            "captcha_bytes",
+            "vcid",
+            "captcha_text"
+          ]
+        },
+        {
+          "name": "_capture_captcha_bytes",
+          "startLine": 89,
+          "endLine": 93,
+          "params": [
+            "page",
+            "context",
+            "fresh",
+            "session_cookie"
+          ]
+        },
+        {
+          "name": "_browser_submit_capture",
+          "startLine": 96,
+          "endLine": 104,
+          "params": [
+            "page",
+            "run_id",
+            "attempt"
+          ]
+        },
+        {
+          "name": "_turbo_captcha_solver_mode",
+          "startLine": 107,
+          "endLine": 111,
+          "params": []
+        },
+        {
+          "name": "_solve_turbo_captcha",
+          "startLine": 114,
+          "endLine": 187,
+          "params": [
+            "image_bytes",
+            "run_id",
+            "attempt",
+            "captcha_round",
+            "vcid",
+            "max_attempts"
+          ]
+        },
+        {
+          "name": "run_turbo_browser_booking_flow",
+          "startLine": 190,
+          "endLine": 560,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "_default_headers",
+          "startLine": 563,
+          "endLine": 570,
+          "params": [
+            "payload",
+            "referer"
+          ]
+        },
+        {
+          "name": "_session_from_payload",
+          "startLine": 573,
+          "endLine": 577,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "_merge_set_cookie",
+          "startLine": 580,
+          "endLine": 592,
+          "params": [
+            "session",
+            "response"
+          ]
+        },
+        {
+          "name": "turbo_post_select_slot",
+          "startLine": 595,
+          "endLine": 618,
+          "params": [
+            "session",
+            "payload"
+          ]
+        },
+        {
+          "name": "turbo_fetch_captcha",
+          "startLine": 621,
+          "endLine": 629,
+          "params": [
+            "session",
+            "url",
+            "payload"
+          ]
+        },
+        {
+          "name": "_normalize_sex",
+          "startLine": 632,
+          "endLine": 644,
+          "params": [
+            "student"
+          ]
+        },
+        {
+          "name": "build_turbo_submit_form",
+          "startLine": 647,
+          "endLine": 697,
+          "params": [
+            "fresh",
+            "payload",
+            "captcha_text"
+          ]
+        },
+        {
+          "name": "turbo_submit_capture_form",
+          "startLine": 700,
+          "endLine": 721,
+          "params": [
+            "session",
+            "fresh",
+            "payload",
+            "captcha_text"
+          ]
+        },
+        {
+          "name": "_verify_start_time",
+          "startLine": 724,
+          "endLine": 741,
+          "params": [
+            "fresh",
+            "payload",
+            "run_id"
+          ]
+        },
+        {
+          "name": "_payload_nested",
+          "startLine": 744,
+          "endLine": 746,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "_pick_payload_field",
+          "startLine": 749,
+          "endLine": 756,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "_fresh_fields_from_payload_override",
+          "startLine": 759,
+          "endLine": 785,
+          "params": [
+            "fresh",
+            "payload"
+          ]
+        },
+        {
+          "name": "_resolve_capture_html",
+          "startLine": 788,
+          "endLine": 800,
+          "params": [
+            "payload",
+            "session"
+          ]
+        },
+        {
+          "name": "_save_turbo_artifacts",
+          "startLine": 803,
+          "endLine": 810,
+          "params": [
+            "run_dir",
+            "name",
+            "content",
+            "binary"
+          ]
+        },
+        {
+          "name": "run_turbo_http_booking_flow",
+          "startLine": 813,
+          "endLine": 1010,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "run_turbo_booking_flow",
+          "startLine": 1013,
+          "endLine": 1024,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "health",
+          "startLine": 1028,
+          "endLine": 1029,
+          "params": []
+        },
+        {
+          "name": "_validate_booker_payload",
+          "startLine": 1043,
+          "endLine": 1046,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "_webhook_run_id",
+          "startLine": 1049,
+          "endLine": 1050,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "_with_booking_slot",
+          "startLine": 1053,
+          "endLine": 1056,
+          "params": [
+            "payload",
+            "flow"
+          ]
+        },
+        {
+          "name": "webhook_booker",
+          "startLine": 1061,
+          "endLine": 1080,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "webhook_booker_legacy",
+          "startLine": 1084,
+          "endLine": 1102,
+          "params": [
+            "payload"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "_turbo_submit_mode",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "_botdetect_settle_ms",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "_wait_botdetect_ready",
+          "line": 65,
+          "isDefault": false
+        },
+        {
+          "name": "_save_solved_captcha_for_training",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "_capture_captcha_bytes",
+          "line": 89,
+          "isDefault": false
+        },
+        {
+          "name": "_browser_submit_capture",
+          "line": 96,
+          "isDefault": false
+        },
+        {
+          "name": "_turbo_captcha_solver_mode",
+          "line": 107,
+          "isDefault": false
+        },
+        {
+          "name": "_solve_turbo_captcha",
+          "line": 114,
+          "isDefault": false
+        },
+        {
+          "name": "run_turbo_browser_booking_flow",
+          "line": 190,
+          "isDefault": false
+        },
+        {
+          "name": "_default_headers",
+          "line": 563,
+          "isDefault": false
+        },
+        {
+          "name": "_session_from_payload",
+          "line": 573,
+          "isDefault": false
+        },
+        {
+          "name": "_merge_set_cookie",
+          "line": 580,
+          "isDefault": false
+        },
+        {
+          "name": "turbo_post_select_slot",
+          "line": 595,
+          "isDefault": false
+        },
+        {
+          "name": "turbo_fetch_captcha",
+          "line": 621,
+          "isDefault": false
+        },
+        {
+          "name": "_normalize_sex",
+          "line": 632,
+          "isDefault": false
+        },
+        {
+          "name": "build_turbo_submit_form",
+          "line": 647,
+          "isDefault": false
+        },
+        {
+          "name": "turbo_submit_capture_form",
+          "line": 700,
+          "isDefault": false
+        },
+        {
+          "name": "_verify_start_time",
+          "line": 724,
+          "isDefault": false
+        },
+        {
+          "name": "_payload_nested",
+          "line": 744,
+          "isDefault": false
+        },
+        {
+          "name": "_pick_payload_field",
+          "line": 749,
+          "isDefault": false
+        },
+        {
+          "name": "_fresh_fields_from_payload_override",
+          "line": 759,
+          "isDefault": false
+        },
+        {
+          "name": "_resolve_capture_html",
+          "line": 788,
+          "isDefault": false
+        },
+        {
+          "name": "_save_turbo_artifacts",
+          "line": 803,
+          "isDefault": false
+        },
+        {
+          "name": "run_turbo_http_booking_flow",
+          "line": 813,
+          "isDefault": false
+        },
+        {
+          "name": "run_turbo_booking_flow",
+          "line": 1013,
+          "isDefault": false
+        },
+        {
+          "name": "health",
+          "line": 1027,
+          "isDefault": false
+        },
+        {
+          "name": "_validate_booker_payload",
+          "line": 1043,
+          "isDefault": false
+        },
+        {
+          "name": "_webhook_run_id",
+          "line": 1049,
+          "isDefault": false
+        },
+        {
+          "name": "_with_booking_slot",
+          "line": 1053,
+          "isDefault": false
+        },
+        {
+          "name": "webhook_booker",
+          "line": 1059,
+          "isDefault": false
+        },
+        {
+          "name": "webhook_booker_legacy",
+          "line": 1083,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_turbo_submit_mode",
+          "callee": "str(payload.get(\"submitMode\") or os.getenv(\"TURBO_SUBMIT_MODE\", \"browser\")).strip().lower",
+          "lineNumber": 52
+        },
+        {
+          "caller": "_turbo_submit_mode",
+          "callee": "str(payload.get(\"submitMode\") or os.getenv(\"TURBO_SUBMIT_MODE\", \"browser\")).strip",
+          "lineNumber": 52
+        },
+        {
+          "caller": "_turbo_submit_mode",
+          "callee": "str",
+          "lineNumber": 52
+        },
+        {
+          "caller": "_turbo_submit_mode",
+          "callee": "payload.get",
+          "lineNumber": 52
+        },
+        {
+          "caller": "_turbo_submit_mode",
+          "callee": "os.getenv",
+          "lineNumber": 52
+        },
+        {
+          "caller": "_botdetect_settle_ms",
+          "callee": "max",
+          "lineNumber": 60
+        },
+        {
+          "caller": "_botdetect_settle_ms",
+          "callee": "int",
+          "lineNumber": 60
+        },
+        {
+          "caller": "_botdetect_settle_ms",
+          "callee": "os.getenv",
+          "lineNumber": 60
+        },
+        {
+          "caller": "_wait_botdetect_ready",
+          "callee": "booker.wait_botdetect_ready",
+          "lineNumber": 66
+        },
+        {
+          "caller": "_wait_botdetect_ready",
+          "callee": "_botdetect_settle_ms",
+          "lineNumber": 66
+        },
+        {
+          "caller": "_save_solved_captcha_for_training",
+          "callee": "re.sub",
+          "lineNumber": 79
+        },
+        {
+          "caller": "_save_solved_captcha_for_training",
+          "callee": "re.sub",
+          "lineNumber": 80
+        },
+        {
+          "caller": "_save_solved_captcha_for_training",
+          "callee": "captcha_text.upper",
+          "lineNumber": 80
+        },
+        {
+          "caller": "_save_solved_captcha_for_training",
+          "callee": "out_dir.mkdir",
+          "lineNumber": 84
+        },
+        {
+          "caller": "_save_solved_captcha_for_training",
+          "callee": "_save_turbo_artifacts",
+          "lineNumber": 86
+        },
+        {
+          "caller": "_capture_captcha_bytes",
+          "callee": "booker.capture_captcha_bytes_from_dom",
+          "lineNumber": 91
+        },
+        {
+          "caller": "_capture_captcha_bytes",
+          "callee": "booker.fetch_captcha_bytes",
+          "lineNumber": 93
+        },
+        {
+          "caller": "_browser_submit_capture",
+          "callee": "booker._inject_agent_command_next_for_captcha",
+          "lineNumber": 97
+        },
+        {
+          "caller": "_browser_submit_capture",
+          "callee": "booker._submit_captcha_passport_form",
+          "lineNumber": 98
+        },
+        {
+          "caller": "_browser_submit_capture",
+          "callee": "page.wait_for_load_state",
+          "lineNumber": 100
+        },
+        {
+          "caller": "_browser_submit_capture",
+          "callee": "booker.nav_dom_content_loaded_ms",
+          "lineNumber": 100
+        },
+        {
+          "caller": "_browser_submit_capture",
+          "callee": "booker._wait_load_settle",
+          "lineNumber": 103
+        },
+        {
+          "caller": "_turbo_captcha_solver_mode",
+          "callee": "(\r\n        os.getenv(\"TURBO_CAPTCHA_SOLVER\") or os.getenv(\"CAPTCHA_SOLVER\") or \"ocr_with_gemini_fallback\"\r\n    ).strip().lower",
+          "lineNumber": 109
+        },
+        {
+          "caller": "_turbo_captcha_solver_mode",
+          "callee": "(\r\n        os.getenv(\"TURBO_CAPTCHA_SOLVER\") or os.getenv(\"CAPTCHA_SOLVER\") or \"ocr_with_gemini_fallback\"\r\n    ).strip",
+          "lineNumber": 109
+        },
+        {
+          "caller": "_turbo_captcha_solver_mode",
+          "callee": "os.getenv",
+          "lineNumber": 110
+        },
+        {
+          "caller": "_turbo_captcha_solver_mode",
+          "callee": "os.getenv",
+          "lineNumber": 110
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "_turbo_captcha_solver_mode",
+          "lineNumber": 124
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "booker.solve_captcha_with_ocr",
+          "lineNumber": 128
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "booker.solve_captcha_with_gemini",
+          "lineNumber": 134
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "booker.solve_captcha_with_gemini",
+          "lineNumber": 142
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "booker.dlog",
+          "lineNumber": 147
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "str",
+          "lineNumber": 152
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "booker.solve_captcha_with_ocr",
+          "lineNumber": 155
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "booker.dlog",
+          "lineNumber": 160
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "str",
+          "lineNumber": 165
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "booker.solve_captcha_with_gemini",
+          "lineNumber": 167
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "booker.solve_captcha_with_gemini",
+          "lineNumber": 174
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "booker.dlog",
+          "lineNumber": 179
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "str",
+          "lineNumber": 184
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "booker.solve_captcha",
+          "lineNumber": 186
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.resolve_run_id",
+          "lineNumber": 192
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "payload.get",
+          "lineNumber": 196
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "payload.get",
+          "lineNumber": 196
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "max",
+          "lineNumber": 198
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "min",
+          "lineNumber": 198
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "int",
+          "lineNumber": 198
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "run_dir.mkdir",
+          "lineNumber": 203
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 205
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str(payload.get(\"captchaText\") or \"\").strip",
+          "lineNumber": 206
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str",
+          "lineNumber": 206
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "payload.get",
+          "lineNumber": 206
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 210
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.open_booking_page",
+          "lineNumber": 225
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 233
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "runtime_meta.get",
+          "lineNumber": 239
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "runtime_meta.get",
+          "lineNumber": 240
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "runtime_meta.get",
+          "lineNumber": 241
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "runtime_meta.get",
+          "lineNumber": 242
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "runtime_meta.get",
+          "lineNumber": 243
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.set_context_cookies",
+          "lineNumber": 246
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str",
+          "lineNumber": 246
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "payload.get",
+          "lineNumber": 246
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker._goto_scheduler_page",
+          "lineNumber": 247
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 249
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.navigate_to_capture_form_via_scheduler_post",
+          "lineNumber": 250
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 253
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_save_turbo_artifacts",
+          "lineNumber": 254
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.content",
+          "lineNumber": 254
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.fill_form_fields",
+          "lineNumber": 256
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "range",
+          "lineNumber": 258
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 260
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.navigate_to_capture_form_via_scheduler_post",
+          "lineNumber": 261
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 264
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.fill_form_fields",
+          "lineNumber": 265
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.parse_fresh_fields",
+          "lineNumber": 267
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.content",
+          "lineNumber": 267
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_fresh_fields_from_payload_override",
+          "lineNumber": 268
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_verify_start_time",
+          "lineNumber": 269
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 274
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.fetch_captcha_with_parallel_prefetch",
+          "lineNumber": 281
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str",
+          "lineNumber": 285
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "payload.get",
+          "lineNumber": 285
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_botdetect_settle_ms",
+          "lineNumber": 286
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 291
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str",
+          "lineNumber": 296
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 300
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str",
+          "lineNumber": 305
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str",
+          "lineNumber": 311
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 312
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow",
+          "lineNumber": 312
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 315
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "parallel_timings.get",
+          "lineNumber": 316
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_save_turbo_artifacts",
+          "lineNumber": 322
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "max",
+          "lineNumber": 327
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "int",
+          "lineNumber": 327
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "os.getenv",
+          "lineNumber": 327
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "(os.getenv(\"CAPTCHA_MIN_STYLE\", \"easy\") or \"easy\").strip().lower",
+          "lineNumber": 328
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "(os.getenv(\"CAPTCHA_MIN_STYLE\", \"easy\") or \"easy\").strip",
+          "lineNumber": 328
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "os.getenv",
+          "lineNumber": 328
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "range",
+          "lineNumber": 329
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker._assess_captcha_difficulty",
+          "lineNumber": 330
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 331
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker._reload_botdetect_captcha",
+          "lineNumber": 345
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 346
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.parse_fresh_fields",
+          "lineNumber": 350
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.content",
+          "lineNumber": 350
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.capture_captcha_bytes_from_dom",
+          "lineNumber": 351
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_save_turbo_artifacts",
+          "lineNumber": 352
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.capture_captcha_bytes_from_dom",
+          "lineNumber": 358
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_save_turbo_artifacts",
+          "lineNumber": 359
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 363
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_solve_turbo_captcha",
+          "lineNumber": 364
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 372
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 373
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "len",
+          "lineNumber": 384
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.fill_captcha_with_hs_guard",
+          "lineNumber": 388
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_botdetect_settle_ms",
+          "lineNumber": 392
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 395
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 405
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str",
+          "lineNumber": 416
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 417
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow",
+          "lineNumber": 417
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.locator(\"#CaptchaText\").first.input_value",
+          "lineNumber": 424
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.locator",
+          "lineNumber": 424
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.locator(\"#CaptchaText\").count",
+          "lineNumber": 424
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.locator",
+          "lineNumber": 424
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.locator(\"#BDC_Hs_Captcha\").first.input_value",
+          "lineNumber": 425
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.locator",
+          "lineNumber": 425
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.locator(\"#BDC_Hs_Captcha\").count",
+          "lineNumber": 425
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.locator",
+          "lineNumber": 425
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.locator(\"#BDC_VCID_Captcha\").first.input_value",
+          "lineNumber": 426
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.locator",
+          "lineNumber": 426
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.locator(\"#BDC_VCID_Captcha\").count",
+          "lineNumber": 426
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.locator",
+          "lineNumber": 426
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 427
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "len",
+          "lineNumber": 435
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_dom_ct.upper",
+          "lineNumber": 439
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "captcha_text.upper",
+          "lineNumber": 439
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 445
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_browser_submit_capture",
+          "lineNumber": 446
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 447
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.content",
+          "lineNumber": 449
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_save_turbo_artifacts",
+          "lineNumber": 450
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 452
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "round",
+          "lineNumber": 460
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.is_success_html",
+          "lineNumber": 465
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 466
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_save_solved_captcha_for_training",
+          "lineNumber": 467
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str",
+          "lineNumber": 483
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 484
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow",
+          "lineNumber": 484
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.classify_post_submit_html",
+          "lineNumber": 488
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 494
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str",
+          "lineNumber": 506
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 507
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow",
+          "lineNumber": 507
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 515
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str",
+          "lineNumber": 527
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 528
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow",
+          "lineNumber": 528
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 533
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str",
+          "lineNumber": 543
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 544
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow",
+          "lineNumber": 544
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 547
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "result.get",
+          "lineNumber": 553
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "result.get",
+          "lineNumber": 554
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "timings.get",
+          "lineNumber": 555
+        },
+        {
+          "caller": "_default_headers",
+          "callee": "str",
+          "lineNumber": 565
+        },
+        {
+          "caller": "_default_headers",
+          "callee": "payload.get",
+          "lineNumber": 565
+        },
+        {
+          "caller": "_session_from_payload",
+          "callee": "requests.Session",
+          "lineNumber": 574
+        },
+        {
+          "caller": "_session_from_payload",
+          "callee": "booker.parse_cookie_header(str(payload.get(\"sessionCookie\") or \"\")).items",
+          "lineNumber": 575
+        },
+        {
+          "caller": "_session_from_payload",
+          "callee": "booker.parse_cookie_header",
+          "lineNumber": 575
+        },
+        {
+          "caller": "_session_from_payload",
+          "callee": "str",
+          "lineNumber": 575
+        },
+        {
+          "caller": "_session_from_payload",
+          "callee": "payload.get",
+          "lineNumber": 575
+        },
+        {
+          "caller": "_session_from_payload",
+          "callee": "sess.cookies.set",
+          "lineNumber": 576
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "response.headers.get",
+          "lineNumber": 581
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "booker.merge_session_cookie_from_set_cookie",
+          "lineNumber": 584
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "\"; \".join",
+          "lineNumber": 585
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "session.cookies.get_dict().items",
+          "lineNumber": 585
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "session.cookies.get_dict",
+          "lineNumber": 585
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "merged.split",
+          "lineNumber": 588
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "part.strip",
+          "lineNumber": 589
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "part.split",
+          "lineNumber": 591
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "session.cookies.set",
+          "lineNumber": 592
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "k.strip",
+          "lineNumber": 592
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "v.strip",
+          "lineNumber": 592
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "str",
+          "lineNumber": 597
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "payload.get",
+          "lineNumber": 597
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "str",
+          "lineNumber": 601
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "str",
+          "lineNumber": 602
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "payload.get",
+          "lineNumber": 602
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "time.perf_counter",
+          "lineNumber": 607
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "session.post",
+          "lineNumber": 608
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "_default_headers",
+          "lineNumber": 611
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "time.perf_counter",
+          "lineNumber": 614
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "_merge_set_cookie",
+          "lineNumber": 615
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "ValueError",
+          "lineNumber": 617
+        },
+        {
+          "caller": "turbo_fetch_captcha",
+          "callee": "session.get",
+          "lineNumber": 622
+        },
+        {
+          "caller": "turbo_fetch_captcha",
+          "callee": "_default_headers",
+          "lineNumber": 624
+        },
+        {
+          "caller": "turbo_fetch_captcha",
+          "callee": "booker.captcha_ocr_timeout",
+          "lineNumber": 625
+        },
+        {
+          "caller": "turbo_fetch_captcha",
+          "callee": "ValueError",
+          "lineNumber": 628
+        },
+        {
+          "caller": "_normalize_sex",
+          "callee": "str(student.get(\"Sex\", \"\")).strip",
+          "lineNumber": 633
+        },
+        {
+          "caller": "_normalize_sex",
+          "callee": "str",
+          "lineNumber": 633
+        },
+        {
+          "caller": "_normalize_sex",
+          "callee": "student.get",
+          "lineNumber": 633
+        },
+        {
+          "caller": "_normalize_sex",
+          "callee": "sex_map.get",
+          "lineNumber": 643
+        },
+        {
+          "caller": "_normalize_sex",
+          "callee": "sex_value.lower",
+          "lineNumber": 643
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "payload.get",
+          "lineNumber": 653
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "booker.normalize_captcha_text",
+          "lineNumber": 654
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "payload.get",
+          "lineNumber": 656
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "payload.get",
+          "lineNumber": 656
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "isinstance",
+          "lineNumber": 657
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "dsgvo_raw.strip().lower",
+          "lineNumber": 658
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "dsgvo_raw.strip",
+          "lineNumber": 658
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "bool",
+          "lineNumber": 660
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 663
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "payload.get",
+          "lineNumber": 663
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 664
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "payload.get",
+          "lineNumber": 664
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 665
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "payload.get",
+          "lineNumber": 665
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 666
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "payload.get",
+          "lineNumber": 666
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 675
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 675
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 676
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 676
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 677
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 677
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 678
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 678
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 679
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 679
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 680
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 680
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 681
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 681
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 682
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 682
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 683
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 683
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 684
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 684
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 685
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 685
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 686
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 686
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 687
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 687
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "_normalize_sex",
+          "lineNumber": 688
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 689
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 689
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 690
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 690
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 691
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 691
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 692
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 692
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 693
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 693
+        },
+        {
+          "caller": "turbo_submit_capture_form",
+          "callee": "build_turbo_submit_form",
+          "lineNumber": 707
+        },
+        {
+          "caller": "turbo_submit_capture_form",
+          "callee": "fresh.booking_endpoint.startswith",
+          "lineNumber": 708
+        },
+        {
+          "caller": "turbo_submit_capture_form",
+          "callee": "time.perf_counter",
+          "lineNumber": 709
+        },
+        {
+          "caller": "turbo_submit_capture_form",
+          "callee": "session.post",
+          "lineNumber": 710
+        },
+        {
+          "caller": "turbo_submit_capture_form",
+          "callee": "_default_headers",
+          "lineNumber": 714
+        },
+        {
+          "caller": "turbo_submit_capture_form",
+          "callee": "time.perf_counter",
+          "lineNumber": 719
+        },
+        {
+          "caller": "turbo_submit_capture_form",
+          "callee": "_merge_set_cookie",
+          "lineNumber": 720
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "str(payload.get(\"currentSlot\") or \"\").strip",
+          "lineNumber": 725
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "str",
+          "lineNumber": 725
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "payload.get",
+          "lineNumber": 725
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "str(fresh.start_time or \"\").strip",
+          "lineNumber": 726
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "str",
+          "lineNumber": 726
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "booker._normalize_slot_for_compare",
+          "lineNumber": 729
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "booker._normalize_slot_for_compare",
+          "lineNumber": 729
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "booker.dlog",
+          "lineNumber": 730
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "booker.booking_allow_slot_fallback",
+          "lineNumber": 737
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "ValueError",
+          "lineNumber": 738
+        },
+        {
+          "caller": "_payload_nested",
+          "callee": "payload.get",
+          "lineNumber": 745
+        },
+        {
+          "caller": "_payload_nested",
+          "callee": "isinstance",
+          "lineNumber": 746
+        },
+        {
+          "caller": "_pick_payload_field",
+          "callee": "payload.get",
+          "lineNumber": 751
+        },
+        {
+          "caller": "_pick_payload_field",
+          "callee": "str",
+          "lineNumber": 752
+        },
+        {
+          "caller": "_pick_payload_field",
+          "callee": "_payload_nested",
+          "lineNumber": 753
+        },
+        {
+          "caller": "_pick_payload_field",
+          "callee": "nested.get",
+          "lineNumber": 754
+        },
+        {
+          "caller": "_pick_payload_field",
+          "callee": "str",
+          "lineNumber": 755
+        },
+        {
+          "caller": "_fresh_fields_from_payload_override",
+          "callee": "_pick_payload_field",
+          "lineNumber": 763
+        },
+        {
+          "caller": "_fresh_fields_from_payload_override",
+          "callee": "_pick_payload_field",
+          "lineNumber": 764
+        },
+        {
+          "caller": "_fresh_fields_from_payload_override",
+          "callee": "_pick_payload_field",
+          "lineNumber": 765
+        },
+        {
+          "caller": "_fresh_fields_from_payload_override",
+          "callee": "_pick_payload_field",
+          "lineNumber": 766
+        },
+        {
+          "caller": "_fresh_fields_from_payload_override",
+          "callee": "_pick_payload_field",
+          "lineNumber": 767
+        },
+        {
+          "caller": "_fresh_fields_from_payload_override",
+          "callee": "_pick_payload_field",
+          "lineNumber": 768
+        },
+        {
+          "caller": "_fresh_fields_from_payload_override",
+          "callee": "_pick_payload_field",
+          "lineNumber": 769
+        },
+        {
+          "caller": "_fresh_fields_from_payload_override",
+          "callee": "_pick_payload_field",
+          "lineNumber": 772
+        },
+        {
+          "caller": "_fresh_fields_from_payload_override",
+          "callee": "booker.FreshFields",
+          "lineNumber": 775
+        },
+        {
+          "caller": "_resolve_capture_html",
+          "callee": "str(payload.get(\"captureFormHtml\") or payload.get(\"captureHtml\") or \"\").strip",
+          "lineNumber": 790
+        },
+        {
+          "caller": "_resolve_capture_html",
+          "callee": "str",
+          "lineNumber": 790
+        },
+        {
+          "caller": "_resolve_capture_html",
+          "callee": "payload.get",
+          "lineNumber": 790
+        },
+        {
+          "caller": "_resolve_capture_html",
+          "callee": "payload.get",
+          "lineNumber": 790
+        },
+        {
+          "caller": "_resolve_capture_html",
+          "callee": "payload.get",
+          "lineNumber": 791
+        },
+        {
+          "caller": "_resolve_capture_html",
+          "callee": "payload.get",
+          "lineNumber": 791
+        },
+        {
+          "caller": "_resolve_capture_html",
+          "callee": "ValueError",
+          "lineNumber": 795
+        },
+        {
+          "caller": "_resolve_capture_html",
+          "callee": "turbo_post_select_slot",
+          "lineNumber": 799
+        },
+        {
+          "caller": "_save_turbo_artifacts",
+          "callee": "run_dir.mkdir",
+          "lineNumber": 804
+        },
+        {
+          "caller": "_save_turbo_artifacts",
+          "callee": "path.write_bytes",
+          "lineNumber": 807
+        },
+        {
+          "caller": "_save_turbo_artifacts",
+          "callee": "path.write_text",
+          "lineNumber": 809
+        },
+        {
+          "caller": "_save_turbo_artifacts",
+          "callee": "str",
+          "lineNumber": 810
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.resolve_run_id",
+          "lineNumber": 814
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "payload.get",
+          "lineNumber": 818
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "payload.get",
+          "lineNumber": 818
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "max",
+          "lineNumber": 820
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "min",
+          "lineNumber": 820
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "int",
+          "lineNumber": 820
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "run_dir.mkdir",
+          "lineNumber": 825
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 828
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 830
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_session_from_payload",
+          "lineNumber": 832
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_resolve_capture_html",
+          "lineNumber": 833
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_save_turbo_artifacts",
+          "lineNumber": 836
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.classify_post_submit_html",
+          "lineNumber": 838
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "ValueError",
+          "lineNumber": 853
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.parse_fresh_fields",
+          "lineNumber": 855
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_fresh_fields_from_payload_override",
+          "lineNumber": 856
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_verify_start_time",
+          "lineNumber": 857
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 859
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "bool",
+          "lineNumber": 870
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_pick_payload_field",
+          "lineNumber": 870
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "str(payload.get(\"captchaText\") or \"\").strip",
+          "lineNumber": 874
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "str",
+          "lineNumber": 874
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "payload.get",
+          "lineNumber": 874
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "range",
+          "lineNumber": 879
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_resolve_capture_html",
+          "lineNumber": 881
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.parse_fresh_fields",
+          "lineNumber": 882
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_fresh_fields_from_payload_override",
+          "lineNumber": 883
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_verify_start_time",
+          "lineNumber": 884
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 890
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "turbo_fetch_captcha",
+          "lineNumber": 891
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 892
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_save_turbo_artifacts",
+          "lineNumber": 893
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 899
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.solve_captcha",
+          "lineNumber": 900
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 903
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "turbo_submit_capture_form",
+          "lineNumber": 906
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_save_turbo_artifacts",
+          "lineNumber": 910
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 912
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "round",
+          "lineNumber": 919
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "len",
+          "lineNumber": 921
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.is_success_html",
+          "lineNumber": 926
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 927
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "str",
+          "lineNumber": 938
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 940
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "datetime.utcnow",
+          "lineNumber": 940
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.classify_post_submit_html",
+          "lineNumber": 944
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 947
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "str",
+          "lineNumber": 958
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 959
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "datetime.utcnow",
+          "lineNumber": 959
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 967
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "str",
+          "lineNumber": 979
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 980
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "datetime.utcnow",
+          "lineNumber": 980
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 985
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "str",
+          "lineNumber": 995
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 996
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "datetime.utcnow",
+          "lineNumber": 996
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 999
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "result.get",
+          "lineNumber": 1005
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "result.get",
+          "lineNumber": 1006
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "timings.get",
+          "lineNumber": 1007
+        },
+        {
+          "caller": "run_turbo_booking_flow",
+          "callee": "_turbo_submit_mode",
+          "lineNumber": 1014
+        },
+        {
+          "caller": "run_turbo_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 1015
+        },
+        {
+          "caller": "run_turbo_booking_flow",
+          "callee": "str",
+          "lineNumber": 1016
+        },
+        {
+          "caller": "run_turbo_booking_flow",
+          "callee": "payload.get",
+          "lineNumber": 1016
+        },
+        {
+          "caller": "run_turbo_booking_flow",
+          "callee": "run_turbo_http_booking_flow",
+          "lineNumber": 1023
+        },
+        {
+          "caller": "run_turbo_booking_flow",
+          "callee": "run_turbo_browser_booking_flow",
+          "lineNumber": 1024
+        },
+        {
+          "caller": "_validate_booker_payload",
+          "callee": "payload.get",
+          "lineNumber": 1044
+        },
+        {
+          "caller": "_validate_booker_payload",
+          "callee": "HTTPException",
+          "lineNumber": 1046
+        },
+        {
+          "caller": "_validate_booker_payload",
+          "callee": "', '.join",
+          "lineNumber": 1046
+        },
+        {
+          "caller": "_webhook_run_id",
+          "callee": "str",
+          "lineNumber": 1050
+        },
+        {
+          "caller": "_webhook_run_id",
+          "callee": "payload.get",
+          "lineNumber": 1050
+        },
+        {
+          "caller": "_webhook_run_id",
+          "callee": "payload.get",
+          "lineNumber": 1050
+        },
+        {
+          "caller": "_with_booking_slot",
+          "callee": "_webhook_run_id",
+          "lineNumber": 1054
+        },
+        {
+          "caller": "_with_booking_slot",
+          "callee": "booker._booking_execution_slot",
+          "lineNumber": 1055
+        },
+        {
+          "caller": "_with_booking_slot",
+          "callee": "str",
+          "lineNumber": 1055
+        },
+        {
+          "caller": "_with_booking_slot",
+          "callee": "payload.get",
+          "lineNumber": 1055
+        },
+        {
+          "caller": "_with_booking_slot",
+          "callee": "flow",
+          "lineNumber": 1056
+        },
+        {
+          "caller": "webhook_booker",
+          "callee": "booker.dlog",
+          "lineNumber": 1062
+        },
+        {
+          "caller": "webhook_booker",
+          "callee": "_webhook_run_id",
+          "lineNumber": 1063
+        },
+        {
+          "caller": "webhook_booker",
+          "callee": "bool",
+          "lineNumber": 1068
+        },
+        {
+          "caller": "webhook_booker",
+          "callee": "payload.get",
+          "lineNumber": 1068
+        },
+        {
+          "caller": "webhook_booker",
+          "callee": "bool",
+          "lineNumber": 1069
+        },
+        {
+          "caller": "webhook_booker",
+          "callee": "payload.get",
+          "lineNumber": 1069
+        },
+        {
+          "caller": "webhook_booker",
+          "callee": "bool",
+          "lineNumber": 1070
+        },
+        {
+          "caller": "webhook_booker",
+          "callee": "payload.get",
+          "lineNumber": 1070
+        },
+        {
+          "caller": "webhook_booker",
+          "callee": "_turbo_submit_mode",
+          "lineNumber": 1071
+        },
+        {
+          "caller": "webhook_booker",
+          "callee": "_validate_booker_payload",
+          "lineNumber": 1074
+        },
+        {
+          "caller": "webhook_booker",
+          "callee": "_with_booking_slot",
+          "lineNumber": 1076
+        },
+        {
+          "caller": "webhook_booker",
+          "callee": "HTTPException",
+          "lineNumber": 1080
+        },
+        {
+          "caller": "webhook_booker",
+          "callee": "str",
+          "lineNumber": 1080
+        },
+        {
+          "caller": "webhook_booker_legacy",
+          "callee": "booker.dlog",
+          "lineNumber": 1085
+        },
+        {
+          "caller": "webhook_booker_legacy",
+          "callee": "_webhook_run_id",
+          "lineNumber": 1086
+        },
+        {
+          "caller": "webhook_booker_legacy",
+          "callee": "bool",
+          "lineNumber": 1091
+        },
+        {
+          "caller": "webhook_booker_legacy",
+          "callee": "payload.get",
+          "lineNumber": 1091
+        },
+        {
+          "caller": "webhook_booker_legacy",
+          "callee": "bool",
+          "lineNumber": 1092
+        },
+        {
+          "caller": "webhook_booker_legacy",
+          "callee": "payload.get",
+          "lineNumber": 1092
+        },
+        {
+          "caller": "webhook_booker_legacy",
+          "callee": "bool",
+          "lineNumber": 1093
+        },
+        {
+          "caller": "webhook_booker_legacy",
+          "callee": "payload.get",
+          "lineNumber": 1093
+        },
+        {
+          "caller": "webhook_booker_legacy",
+          "callee": "_validate_booker_payload",
+          "lineNumber": 1096
+        },
+        {
+          "caller": "webhook_booker_legacy",
+          "callee": "_with_booking_slot",
+          "lineNumber": 1098
+        },
+        {
+          "caller": "webhook_booker_legacy",
+          "callee": "HTTPException",
+          "lineNumber": 1102
+        },
+        {
+          "caller": "webhook_booker_legacy",
+          "callee": "str",
+          "lineNumber": 1102
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 31,
+        "functionCount": 31,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/app_turbo.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 17,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/docs/turbo-booker-archive/app_turbo_v0.2.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 818,
+      "nonEmptyLines": 712,
+      "functions": [
+        {
+          "name": "_turbo_submit_mode",
+          "startLine": 48,
+          "endLine": 53,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "_wait_botdetect_ready",
+          "startLine": 56,
+          "endLine": 69,
+          "params": [
+            "page"
+          ]
+        },
+        {
+          "name": "_capture_captcha_bytes",
+          "startLine": 72,
+          "endLine": 76,
+          "params": [
+            "page",
+            "context",
+            "fresh",
+            "session_cookie"
+          ]
+        },
+        {
+          "name": "_browser_submit_capture",
+          "startLine": 79,
+          "endLine": 87,
+          "params": [
+            "page",
+            "run_id",
+            "attempt"
+          ]
+        },
+        {
+          "name": "_solve_turbo_captcha",
+          "startLine": 90,
+          "endLine": 115,
+          "params": [
+            "image_bytes",
+            "run_id",
+            "attempt",
+            "vcid",
+            "max_attempts"
+          ]
+        },
+        {
+          "name": "run_turbo_browser_booking_flow",
+          "startLine": 118,
+          "endLine": 318,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "_default_headers",
+          "startLine": 321,
+          "endLine": 328,
+          "params": [
+            "payload",
+            "referer"
+          ]
+        },
+        {
+          "name": "_session_from_payload",
+          "startLine": 331,
+          "endLine": 335,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "_merge_set_cookie",
+          "startLine": 338,
+          "endLine": 350,
+          "params": [
+            "session",
+            "response"
+          ]
+        },
+        {
+          "name": "turbo_post_select_slot",
+          "startLine": 353,
+          "endLine": 376,
+          "params": [
+            "session",
+            "payload"
+          ]
+        },
+        {
+          "name": "turbo_fetch_captcha",
+          "startLine": 379,
+          "endLine": 387,
+          "params": [
+            "session",
+            "url",
+            "payload"
+          ]
+        },
+        {
+          "name": "_normalize_sex",
+          "startLine": 390,
+          "endLine": 402,
+          "params": [
+            "student"
+          ]
+        },
+        {
+          "name": "build_turbo_submit_form",
+          "startLine": 405,
+          "endLine": 455,
+          "params": [
+            "fresh",
+            "payload",
+            "captcha_text"
+          ]
+        },
+        {
+          "name": "turbo_submit_capture_form",
+          "startLine": 458,
+          "endLine": 479,
+          "params": [
+            "session",
+            "fresh",
+            "payload",
+            "captcha_text"
+          ]
+        },
+        {
+          "name": "_verify_start_time",
+          "startLine": 482,
+          "endLine": 499,
+          "params": [
+            "fresh",
+            "payload",
+            "run_id"
+          ]
+        },
+        {
+          "name": "_payload_nested",
+          "startLine": 502,
+          "endLine": 504,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "_pick_payload_field",
+          "startLine": 507,
+          "endLine": 514,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "_fresh_fields_from_payload_override",
+          "startLine": 517,
+          "endLine": 543,
+          "params": [
+            "fresh",
+            "payload"
+          ]
+        },
+        {
+          "name": "_resolve_capture_html",
+          "startLine": 546,
+          "endLine": 558,
+          "params": [
+            "payload",
+            "session"
+          ]
+        },
+        {
+          "name": "_save_turbo_artifacts",
+          "startLine": 561,
+          "endLine": 568,
+          "params": [
+            "run_dir",
+            "name",
+            "content",
+            "binary"
+          ]
+        },
+        {
+          "name": "run_turbo_http_booking_flow",
+          "startLine": 571,
+          "endLine": 768,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "run_turbo_booking_flow",
+          "startLine": 771,
+          "endLine": 782,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "health",
+          "startLine": 786,
+          "endLine": 787,
+          "params": []
+        },
+        {
+          "name": "webhook_booker_turbo",
+          "startLine": 791,
+          "endLine": 812,
+          "params": [
+            "payload"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "_turbo_submit_mode",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "_wait_botdetect_ready",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "_capture_captcha_bytes",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "_browser_submit_capture",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "_solve_turbo_captcha",
+          "line": 90,
+          "isDefault": false
+        },
+        {
+          "name": "run_turbo_browser_booking_flow",
+          "line": 118,
+          "isDefault": false
+        },
+        {
+          "name": "_default_headers",
+          "line": 321,
+          "isDefault": false
+        },
+        {
+          "name": "_session_from_payload",
+          "line": 331,
+          "isDefault": false
+        },
+        {
+          "name": "_merge_set_cookie",
+          "line": 338,
+          "isDefault": false
+        },
+        {
+          "name": "turbo_post_select_slot",
+          "line": 353,
+          "isDefault": false
+        },
+        {
+          "name": "turbo_fetch_captcha",
+          "line": 379,
+          "isDefault": false
+        },
+        {
+          "name": "_normalize_sex",
+          "line": 390,
+          "isDefault": false
+        },
+        {
+          "name": "build_turbo_submit_form",
+          "line": 405,
+          "isDefault": false
+        },
+        {
+          "name": "turbo_submit_capture_form",
+          "line": 458,
+          "isDefault": false
+        },
+        {
+          "name": "_verify_start_time",
+          "line": 482,
+          "isDefault": false
+        },
+        {
+          "name": "_payload_nested",
+          "line": 502,
+          "isDefault": false
+        },
+        {
+          "name": "_pick_payload_field",
+          "line": 507,
+          "isDefault": false
+        },
+        {
+          "name": "_fresh_fields_from_payload_override",
+          "line": 517,
+          "isDefault": false
+        },
+        {
+          "name": "_resolve_capture_html",
+          "line": 546,
+          "isDefault": false
+        },
+        {
+          "name": "_save_turbo_artifacts",
+          "line": 561,
+          "isDefault": false
+        },
+        {
+          "name": "run_turbo_http_booking_flow",
+          "line": 571,
+          "isDefault": false
+        },
+        {
+          "name": "run_turbo_booking_flow",
+          "line": 771,
+          "isDefault": false
+        },
+        {
+          "name": "health",
+          "line": 785,
+          "isDefault": false
+        },
+        {
+          "name": "webhook_booker_turbo",
+          "line": 790,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_turbo_submit_mode",
+          "callee": "str(payload.get(\"submitMode\") or os.getenv(\"TURBO_SUBMIT_MODE\", \"browser\")).strip().lower",
+          "lineNumber": 50
+        },
+        {
+          "caller": "_turbo_submit_mode",
+          "callee": "str(payload.get(\"submitMode\") or os.getenv(\"TURBO_SUBMIT_MODE\", \"browser\")).strip",
+          "lineNumber": 50
+        },
+        {
+          "caller": "_turbo_submit_mode",
+          "callee": "str",
+          "lineNumber": 50
+        },
+        {
+          "caller": "_turbo_submit_mode",
+          "callee": "payload.get",
+          "lineNumber": 50
+        },
+        {
+          "caller": "_turbo_submit_mode",
+          "callee": "os.getenv",
+          "lineNumber": 50
+        },
+        {
+          "caller": "_wait_botdetect_ready",
+          "callee": "page.wait_for_selector",
+          "lineNumber": 58
+        },
+        {
+          "caller": "_wait_botdetect_ready",
+          "callee": "page.wait_for_function",
+          "lineNumber": 59
+        },
+        {
+          "caller": "_wait_botdetect_ready",
+          "callee": "page.wait_for_timeout",
+          "lineNumber": 69
+        },
+        {
+          "caller": "_capture_captcha_bytes",
+          "callee": "booker.capture_captcha_bytes_from_dom",
+          "lineNumber": 74
+        },
+        {
+          "caller": "_capture_captcha_bytes",
+          "callee": "booker.fetch_captcha_bytes",
+          "lineNumber": 76
+        },
+        {
+          "caller": "_browser_submit_capture",
+          "callee": "booker._inject_agent_command_next_for_captcha",
+          "lineNumber": 80
+        },
+        {
+          "caller": "_browser_submit_capture",
+          "callee": "booker._submit_captcha_passport_form",
+          "lineNumber": 81
+        },
+        {
+          "caller": "_browser_submit_capture",
+          "callee": "page.wait_for_load_state",
+          "lineNumber": 83
+        },
+        {
+          "caller": "_browser_submit_capture",
+          "callee": "booker.nav_dom_content_loaded_ms",
+          "lineNumber": 83
+        },
+        {
+          "caller": "_browser_submit_capture",
+          "callee": "booker._wait_load_settle",
+          "lineNumber": 86
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "max",
+          "lineNumber": 99
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "booker.solve_captcha_with_gemini",
+          "lineNumber": 102
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "booker.dlog",
+          "lineNumber": 107
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "str",
+          "lineNumber": 112
+        },
+        {
+          "caller": "_solve_turbo_captcha",
+          "callee": "booker.solve_captcha",
+          "lineNumber": 114
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.resolve_run_id",
+          "lineNumber": 122
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "payload.get",
+          "lineNumber": 126
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "payload.get",
+          "lineNumber": 126
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "max",
+          "lineNumber": 128
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "min",
+          "lineNumber": 128
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "int",
+          "lineNumber": 128
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "run_dir.mkdir",
+          "lineNumber": 133
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 135
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str(payload.get(\"captchaText\") or \"\").strip",
+          "lineNumber": 136
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str",
+          "lineNumber": 136
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "payload.get",
+          "lineNumber": 136
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 140
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "sync_playwright",
+          "lineNumber": 151
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "pw.chromium.launch",
+          "lineNumber": 152
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.playwright_headless",
+          "lineNumber": 152
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "browser.new_context",
+          "lineNumber": 153
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.set_context_cookies",
+          "lineNumber": 157
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str",
+          "lineNumber": 157
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "payload.get",
+          "lineNumber": 157
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "context.new_page",
+          "lineNumber": 158
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.goto",
+          "lineNumber": 159
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 161
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.navigate_to_capture_form_via_scheduler_post",
+          "lineNumber": 162
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 165
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_wait_botdetect_ready",
+          "lineNumber": 166
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_save_turbo_artifacts",
+          "lineNumber": 167
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.content",
+          "lineNumber": 167
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.fill_form_fields",
+          "lineNumber": 169
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "range",
+          "lineNumber": 171
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 173
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.navigate_to_capture_form_via_scheduler_post",
+          "lineNumber": 174
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 177
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_wait_botdetect_ready",
+          "lineNumber": 178
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.fill_form_fields",
+          "lineNumber": 179
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.parse_fresh_fields",
+          "lineNumber": 181
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.content",
+          "lineNumber": 181
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_fresh_fields_from_payload_override",
+          "lineNumber": 182
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_verify_start_time",
+          "lineNumber": 183
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 187
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_capture_captcha_bytes",
+          "lineNumber": 188
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str",
+          "lineNumber": 189
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "payload.get",
+          "lineNumber": 189
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 191
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_save_turbo_artifacts",
+          "lineNumber": 192
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 195
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_solve_turbo_captcha",
+          "lineNumber": 196
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 203
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 204
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "len",
+          "lineNumber": 209
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker._fill_captcha_text_like_user",
+          "lineNumber": 212
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 213
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_browser_submit_capture",
+          "lineNumber": 214
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 215
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "page.content",
+          "lineNumber": 217
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "_save_turbo_artifacts",
+          "lineNumber": 218
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 220
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "round",
+          "lineNumber": 228
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.is_success_html",
+          "lineNumber": 233
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 234
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str",
+          "lineNumber": 245
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 246
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow",
+          "lineNumber": 246
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.classify_post_submit_html",
+          "lineNumber": 250
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 256
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str",
+          "lineNumber": 268
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 269
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow",
+          "lineNumber": 269
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 277
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str",
+          "lineNumber": 289
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 290
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow",
+          "lineNumber": 290
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "browser.close",
+          "lineNumber": 294
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 297
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "str",
+          "lineNumber": 307
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 308
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "datetime.utcnow",
+          "lineNumber": 308
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 311
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "result.get",
+          "lineNumber": 316
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "result.get",
+          "lineNumber": 316
+        },
+        {
+          "caller": "run_turbo_browser_booking_flow",
+          "callee": "timings.get",
+          "lineNumber": 316
+        },
+        {
+          "caller": "_default_headers",
+          "callee": "str",
+          "lineNumber": 323
+        },
+        {
+          "caller": "_default_headers",
+          "callee": "payload.get",
+          "lineNumber": 323
+        },
+        {
+          "caller": "_session_from_payload",
+          "callee": "requests.Session",
+          "lineNumber": 332
+        },
+        {
+          "caller": "_session_from_payload",
+          "callee": "booker.parse_cookie_header(str(payload.get(\"sessionCookie\") or \"\")).items",
+          "lineNumber": 333
+        },
+        {
+          "caller": "_session_from_payload",
+          "callee": "booker.parse_cookie_header",
+          "lineNumber": 333
+        },
+        {
+          "caller": "_session_from_payload",
+          "callee": "str",
+          "lineNumber": 333
+        },
+        {
+          "caller": "_session_from_payload",
+          "callee": "payload.get",
+          "lineNumber": 333
+        },
+        {
+          "caller": "_session_from_payload",
+          "callee": "sess.cookies.set",
+          "lineNumber": 334
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "response.headers.get",
+          "lineNumber": 339
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "booker.merge_session_cookie_from_set_cookie",
+          "lineNumber": 342
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "\"; \".join",
+          "lineNumber": 343
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "session.cookies.get_dict().items",
+          "lineNumber": 343
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "session.cookies.get_dict",
+          "lineNumber": 343
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "merged.split",
+          "lineNumber": 346
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "part.strip",
+          "lineNumber": 347
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "part.split",
+          "lineNumber": 349
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "session.cookies.set",
+          "lineNumber": 350
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "k.strip",
+          "lineNumber": 350
+        },
+        {
+          "caller": "_merge_set_cookie",
+          "callee": "v.strip",
+          "lineNumber": 350
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "str",
+          "lineNumber": 355
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "payload.get",
+          "lineNumber": 355
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "str",
+          "lineNumber": 359
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "str",
+          "lineNumber": 360
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "payload.get",
+          "lineNumber": 360
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "time.perf_counter",
+          "lineNumber": 365
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "session.post",
+          "lineNumber": 366
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "_default_headers",
+          "lineNumber": 369
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "time.perf_counter",
+          "lineNumber": 372
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "_merge_set_cookie",
+          "lineNumber": 373
+        },
+        {
+          "caller": "turbo_post_select_slot",
+          "callee": "ValueError",
+          "lineNumber": 375
+        },
+        {
+          "caller": "turbo_fetch_captcha",
+          "callee": "session.get",
+          "lineNumber": 380
+        },
+        {
+          "caller": "turbo_fetch_captcha",
+          "callee": "_default_headers",
+          "lineNumber": 382
+        },
+        {
+          "caller": "turbo_fetch_captcha",
+          "callee": "booker.captcha_ocr_timeout",
+          "lineNumber": 383
+        },
+        {
+          "caller": "turbo_fetch_captcha",
+          "callee": "ValueError",
+          "lineNumber": 386
+        },
+        {
+          "caller": "_normalize_sex",
+          "callee": "str(student.get(\"Sex\", \"\")).strip",
+          "lineNumber": 391
+        },
+        {
+          "caller": "_normalize_sex",
+          "callee": "str",
+          "lineNumber": 391
+        },
+        {
+          "caller": "_normalize_sex",
+          "callee": "student.get",
+          "lineNumber": 391
+        },
+        {
+          "caller": "_normalize_sex",
+          "callee": "sex_map.get",
+          "lineNumber": 401
+        },
+        {
+          "caller": "_normalize_sex",
+          "callee": "sex_value.lower",
+          "lineNumber": 401
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "payload.get",
+          "lineNumber": 411
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "booker.normalize_captcha_text",
+          "lineNumber": 412
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "payload.get",
+          "lineNumber": 414
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "payload.get",
+          "lineNumber": 414
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "isinstance",
+          "lineNumber": 415
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "dsgvo_raw.strip().lower",
+          "lineNumber": 416
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "dsgvo_raw.strip",
+          "lineNumber": 416
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "bool",
+          "lineNumber": 418
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 421
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "payload.get",
+          "lineNumber": 421
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 422
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "payload.get",
+          "lineNumber": 422
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 423
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "payload.get",
+          "lineNumber": 423
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 424
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "payload.get",
+          "lineNumber": 424
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 433
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 433
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 434
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 434
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 435
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 435
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 436
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 436
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 437
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 437
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 438
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 438
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 439
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 439
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 440
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 440
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 441
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 441
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 442
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 442
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 443
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 443
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 444
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 444
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 445
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 445
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "_normalize_sex",
+          "lineNumber": 446
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 447
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 447
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 448
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 448
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 449
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 449
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 450
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 450
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "str",
+          "lineNumber": 451
+        },
+        {
+          "caller": "build_turbo_submit_form",
+          "callee": "student.get",
+          "lineNumber": 451
+        },
+        {
+          "caller": "turbo_submit_capture_form",
+          "callee": "build_turbo_submit_form",
+          "lineNumber": 465
+        },
+        {
+          "caller": "turbo_submit_capture_form",
+          "callee": "fresh.booking_endpoint.startswith",
+          "lineNumber": 466
+        },
+        {
+          "caller": "turbo_submit_capture_form",
+          "callee": "time.perf_counter",
+          "lineNumber": 467
+        },
+        {
+          "caller": "turbo_submit_capture_form",
+          "callee": "session.post",
+          "lineNumber": 468
+        },
+        {
+          "caller": "turbo_submit_capture_form",
+          "callee": "_default_headers",
+          "lineNumber": 472
+        },
+        {
+          "caller": "turbo_submit_capture_form",
+          "callee": "time.perf_counter",
+          "lineNumber": 477
+        },
+        {
+          "caller": "turbo_submit_capture_form",
+          "callee": "_merge_set_cookie",
+          "lineNumber": 478
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "str(payload.get(\"currentSlot\") or \"\").strip",
+          "lineNumber": 483
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "str",
+          "lineNumber": 483
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "payload.get",
+          "lineNumber": 483
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "str(fresh.start_time or \"\").strip",
+          "lineNumber": 484
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "str",
+          "lineNumber": 484
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "booker._normalize_slot_for_compare",
+          "lineNumber": 487
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "booker._normalize_slot_for_compare",
+          "lineNumber": 487
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "booker.dlog",
+          "lineNumber": 488
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "booker.booking_allow_slot_fallback",
+          "lineNumber": 495
+        },
+        {
+          "caller": "_verify_start_time",
+          "callee": "ValueError",
+          "lineNumber": 496
+        },
+        {
+          "caller": "_payload_nested",
+          "callee": "payload.get",
+          "lineNumber": 503
+        },
+        {
+          "caller": "_payload_nested",
+          "callee": "isinstance",
+          "lineNumber": 504
+        },
+        {
+          "caller": "_pick_payload_field",
+          "callee": "payload.get",
+          "lineNumber": 509
+        },
+        {
+          "caller": "_pick_payload_field",
+          "callee": "str",
+          "lineNumber": 510
+        },
+        {
+          "caller": "_pick_payload_field",
+          "callee": "_payload_nested",
+          "lineNumber": 511
+        },
+        {
+          "caller": "_pick_payload_field",
+          "callee": "nested.get",
+          "lineNumber": 512
+        },
+        {
+          "caller": "_pick_payload_field",
+          "callee": "str",
+          "lineNumber": 513
+        },
+        {
+          "caller": "_fresh_fields_from_payload_override",
+          "callee": "_pick_payload_field",
+          "lineNumber": 521
+        },
+        {
+          "caller": "_fresh_fields_from_payload_override",
+          "callee": "_pick_payload_field",
+          "lineNumber": 522
+        },
+        {
+          "caller": "_fresh_fields_from_payload_override",
+          "callee": "_pick_payload_field",
+          "lineNumber": 523
+        },
+        {
+          "caller": "_fresh_fields_from_payload_override",
+          "callee": "_pick_payload_field",
+          "lineNumber": 524
+        },
+        {
+          "caller": "_fresh_fields_from_payload_override",
+          "callee": "_pick_payload_field",
+          "lineNumber": 525
+        },
+        {
+          "caller": "_fresh_fields_from_payload_override",
+          "callee": "_pick_payload_field",
+          "lineNumber": 526
+        },
+        {
+          "caller": "_fresh_fields_from_payload_override",
+          "callee": "_pick_payload_field",
+          "lineNumber": 527
+        },
+        {
+          "caller": "_fresh_fields_from_payload_override",
+          "callee": "_pick_payload_field",
+          "lineNumber": 530
+        },
+        {
+          "caller": "_fresh_fields_from_payload_override",
+          "callee": "booker.FreshFields",
+          "lineNumber": 533
+        },
+        {
+          "caller": "_resolve_capture_html",
+          "callee": "str(payload.get(\"captureFormHtml\") or payload.get(\"captureHtml\") or \"\").strip",
+          "lineNumber": 548
+        },
+        {
+          "caller": "_resolve_capture_html",
+          "callee": "str",
+          "lineNumber": 548
+        },
+        {
+          "caller": "_resolve_capture_html",
+          "callee": "payload.get",
+          "lineNumber": 548
+        },
+        {
+          "caller": "_resolve_capture_html",
+          "callee": "payload.get",
+          "lineNumber": 548
+        },
+        {
+          "caller": "_resolve_capture_html",
+          "callee": "payload.get",
+          "lineNumber": 549
+        },
+        {
+          "caller": "_resolve_capture_html",
+          "callee": "payload.get",
+          "lineNumber": 549
+        },
+        {
+          "caller": "_resolve_capture_html",
+          "callee": "ValueError",
+          "lineNumber": 553
+        },
+        {
+          "caller": "_resolve_capture_html",
+          "callee": "turbo_post_select_slot",
+          "lineNumber": 557
+        },
+        {
+          "caller": "_save_turbo_artifacts",
+          "callee": "run_dir.mkdir",
+          "lineNumber": 562
+        },
+        {
+          "caller": "_save_turbo_artifacts",
+          "callee": "path.write_bytes",
+          "lineNumber": 565
+        },
+        {
+          "caller": "_save_turbo_artifacts",
+          "callee": "path.write_text",
+          "lineNumber": 567
+        },
+        {
+          "caller": "_save_turbo_artifacts",
+          "callee": "str",
+          "lineNumber": 568
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.resolve_run_id",
+          "lineNumber": 572
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "payload.get",
+          "lineNumber": 576
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "payload.get",
+          "lineNumber": 576
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "max",
+          "lineNumber": 578
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "min",
+          "lineNumber": 578
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "int",
+          "lineNumber": 578
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "run_dir.mkdir",
+          "lineNumber": 583
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 586
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 588
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_session_from_payload",
+          "lineNumber": 590
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_resolve_capture_html",
+          "lineNumber": 591
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_save_turbo_artifacts",
+          "lineNumber": 594
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.classify_post_submit_html",
+          "lineNumber": 596
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "ValueError",
+          "lineNumber": 611
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.parse_fresh_fields",
+          "lineNumber": 613
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_fresh_fields_from_payload_override",
+          "lineNumber": 614
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_verify_start_time",
+          "lineNumber": 615
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 617
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "bool",
+          "lineNumber": 628
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_pick_payload_field",
+          "lineNumber": 628
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "str(payload.get(\"captchaText\") or \"\").strip",
+          "lineNumber": 632
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "str",
+          "lineNumber": 632
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "payload.get",
+          "lineNumber": 632
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "range",
+          "lineNumber": 637
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_resolve_capture_html",
+          "lineNumber": 639
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.parse_fresh_fields",
+          "lineNumber": 640
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_fresh_fields_from_payload_override",
+          "lineNumber": 641
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_verify_start_time",
+          "lineNumber": 642
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 648
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "turbo_fetch_captcha",
+          "lineNumber": 649
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 650
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_save_turbo_artifacts",
+          "lineNumber": 651
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 657
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.solve_captcha",
+          "lineNumber": 658
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 661
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "turbo_submit_capture_form",
+          "lineNumber": 664
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "_save_turbo_artifacts",
+          "lineNumber": 668
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 670
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "round",
+          "lineNumber": 677
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "len",
+          "lineNumber": 679
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.is_success_html",
+          "lineNumber": 684
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 685
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "str",
+          "lineNumber": 696
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 698
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "datetime.utcnow",
+          "lineNumber": 698
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.classify_post_submit_html",
+          "lineNumber": 702
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 705
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "str",
+          "lineNumber": 716
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 717
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "datetime.utcnow",
+          "lineNumber": 717
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 725
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "str",
+          "lineNumber": 737
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 738
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "datetime.utcnow",
+          "lineNumber": 738
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "time.perf_counter",
+          "lineNumber": 743
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "str",
+          "lineNumber": 753
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 754
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "datetime.utcnow",
+          "lineNumber": 754
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 757
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "result.get",
+          "lineNumber": 763
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "result.get",
+          "lineNumber": 764
+        },
+        {
+          "caller": "run_turbo_http_booking_flow",
+          "callee": "timings.get",
+          "lineNumber": 765
+        },
+        {
+          "caller": "run_turbo_booking_flow",
+          "callee": "_turbo_submit_mode",
+          "lineNumber": 772
+        },
+        {
+          "caller": "run_turbo_booking_flow",
+          "callee": "booker.dlog",
+          "lineNumber": 773
+        },
+        {
+          "caller": "run_turbo_booking_flow",
+          "callee": "str",
+          "lineNumber": 774
+        },
+        {
+          "caller": "run_turbo_booking_flow",
+          "callee": "payload.get",
+          "lineNumber": 774
+        },
+        {
+          "caller": "run_turbo_booking_flow",
+          "callee": "run_turbo_http_booking_flow",
+          "lineNumber": 781
+        },
+        {
+          "caller": "run_turbo_booking_flow",
+          "callee": "run_turbo_browser_booking_flow",
+          "lineNumber": 782
+        },
+        {
+          "caller": "webhook_booker_turbo",
+          "callee": "booker.dlog",
+          "lineNumber": 792
+        },
+        {
+          "caller": "webhook_booker_turbo",
+          "callee": "str",
+          "lineNumber": 793
+        },
+        {
+          "caller": "webhook_booker_turbo",
+          "callee": "payload.get",
+          "lineNumber": 793
+        },
+        {
+          "caller": "webhook_booker_turbo",
+          "callee": "bool",
+          "lineNumber": 798
+        },
+        {
+          "caller": "webhook_booker_turbo",
+          "callee": "payload.get",
+          "lineNumber": 798
+        },
+        {
+          "caller": "webhook_booker_turbo",
+          "callee": "bool",
+          "lineNumber": 799
+        },
+        {
+          "caller": "webhook_booker_turbo",
+          "callee": "payload.get",
+          "lineNumber": 799
+        },
+        {
+          "caller": "webhook_booker_turbo",
+          "callee": "bool",
+          "lineNumber": 800
+        },
+        {
+          "caller": "webhook_booker_turbo",
+          "callee": "payload.get",
+          "lineNumber": 800
+        },
+        {
+          "caller": "webhook_booker_turbo",
+          "callee": "payload.get",
+          "lineNumber": 804
+        },
+        {
+          "caller": "webhook_booker_turbo",
+          "callee": "HTTPException",
+          "lineNumber": 806
+        },
+        {
+          "caller": "webhook_booker_turbo",
+          "callee": "', '.join",
+          "lineNumber": 806
+        },
+        {
+          "caller": "webhook_booker_turbo",
+          "callee": "run_turbo_booking_flow",
+          "lineNumber": 808
+        },
+        {
+          "caller": "webhook_booker_turbo",
+          "callee": "HTTPException",
+          "lineNumber": 812
+        },
+        {
+          "caller": "webhook_booker_turbo",
+          "callee": "str",
+          "lineNumber": 812
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 24,
+        "functionCount": 24,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/tests/integration/test_booking_concurrency.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 42,
+      "functions": [
+        {
+          "name": "test_max_concurrent_default_is_one",
+          "startLine": 16,
+          "endLine": 17,
+          "params": []
+        },
+        {
+          "name": "test_busy_returns_503_when_slot_held",
+          "startLine": 20,
+          "endLine": 49,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_max_concurrent_default_is_one",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "test_busy_returns_503_when_slot_held",
+          "line": 20,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_max_concurrent_default_is_one",
+          "callee": "max_concurrent_bookings",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_busy_returns_503_when_slot_held",
+          "callee": "app_module._get_booking_semaphore",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_busy_returns_503_when_slot_held",
+          "callee": "sem.acquire",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_busy_returns_503_when_slot_held",
+          "callee": "TestClient",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_busy_returns_503_when_slot_held",
+          "callee": "client.post",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_busy_returns_503_when_slot_held",
+          "callee": "sem.release",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_busy_returns_503_when_slot_held",
+          "callee": "r.headers.get",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_busy_returns_503_when_slot_held",
+          "callee": "r.json",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/tests/integration/test_webhook_smoke.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 22,
+      "functions": [
+        {
+          "name": "test_webhook_rejects_empty_payload",
+          "startLine": 13,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "test_webhook_rejects_partial_payload",
+          "startLine": 21,
+          "endLine": 26,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_webhook_rejects_empty_payload",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "test_webhook_rejects_partial_payload",
+          "line": 21,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_webhook_rejects_empty_payload",
+          "callee": "client.post",
+          "lineNumber": 14
+        },
+        {
+          "caller": "test_webhook_rejects_empty_payload",
+          "callee": "r.json",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_webhook_rejects_partial_payload",
+          "callee": "client.post",
+          "lineNumber": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/tests/unit/test_turbo_captcha_solver.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 150,
+      "nonEmptyLines": 112,
+      "functions": [
+        {
+          "name": "_env_solver",
+          "startLine": 8,
+          "endLine": 12,
+          "params": []
+        },
+        {
+          "name": "_solve",
+          "startLine": 15,
+          "endLine": 24,
+          "params": [
+            "**kwargs"
+          ]
+        },
+        {
+          "name": "test_ocr_with_gemini_fallback_uses_gemini_only_when_ocr_raises",
+          "startLine": 29,
+          "endLine": 41,
+          "params": [
+            "mock_gemini",
+            "mock_ocr"
+          ]
+        },
+        {
+          "name": "test_ocr_round_1_wrong_answer_does_not_call_gemini",
+          "startLine": 46,
+          "endLine": 58,
+          "params": [
+            "mock_gemini",
+            "mock_ocr"
+          ]
+        },
+        {
+          "name": "test_gemini_first_on_captcha_round_2",
+          "startLine": 63,
+          "endLine": 74,
+          "params": [
+            "mock_gemini",
+            "mock_ocr"
+          ]
+        },
+        {
+          "name": "test_ocr_first_on_captcha_round_1",
+          "startLine": 79,
+          "endLine": 90,
+          "params": [
+            "mock_gemini",
+            "mock_ocr"
+          ]
+        },
+        {
+          "name": "test_gemini_first_on_attempt_2_even_at_round_1",
+          "startLine": 95,
+          "endLine": 106,
+          "params": [
+            "mock_gemini",
+            "mock_ocr"
+          ]
+        },
+        {
+          "name": "test_gemini_first_mode_uses_gemini_without_calling_ocr",
+          "startLine": 111,
+          "endLine": 122,
+          "params": [
+            "mock_ocr",
+            "mock_gemini"
+          ]
+        },
+        {
+          "name": "test_gemini_first_falls_back_to_solve_captcha_when_gemini_raises",
+          "startLine": 127,
+          "endLine": 139,
+          "params": [
+            "mock_solve",
+            "mock_gemini"
+          ]
+        },
+        {
+          "name": "test_turbo_captcha_solver_env_overrides_captcha_solver",
+          "startLine": 143,
+          "endLine": 150,
+          "params": [
+            "mock_ocr"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "_env_solver",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "_solve",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "test_ocr_with_gemini_fallback_uses_gemini_only_when_ocr_raises",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "test_ocr_round_1_wrong_answer_does_not_call_gemini",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "test_gemini_first_on_captcha_round_2",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "test_ocr_first_on_captcha_round_1",
+          "line": 77,
+          "isDefault": false
+        },
+        {
+          "name": "test_gemini_first_on_attempt_2_even_at_round_1",
+          "line": 93,
+          "isDefault": false
+        },
+        {
+          "name": "test_gemini_first_mode_uses_gemini_without_calling_ocr",
+          "line": 109,
+          "isDefault": false
+        },
+        {
+          "name": "test_gemini_first_falls_back_to_solve_captcha_when_gemini_raises",
+          "line": 125,
+          "isDefault": false
+        },
+        {
+          "name": "test_turbo_captcha_solver_env_overrides_captcha_solver",
+          "line": 142,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_env_solver",
+          "callee": "base.update",
+          "lineNumber": 11
+        },
+        {
+          "caller": "_env_solver",
+          "callee": "patch.dict",
+          "lineNumber": 12
+        },
+        {
+          "caller": "_solve",
+          "callee": "defaults.update",
+          "lineNumber": 23
+        },
+        {
+          "caller": "_solve",
+          "callee": "_solve_turbo_captcha",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_ocr_with_gemini_fallback_uses_gemini_only_when_ocr_raises",
+          "callee": "ValueError",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_ocr_with_gemini_fallback_uses_gemini_only_when_ocr_raises",
+          "callee": "_env_solver",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_ocr_with_gemini_fallback_uses_gemini_only_when_ocr_raises",
+          "callee": "_solve",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_ocr_with_gemini_fallback_uses_gemini_only_when_ocr_raises",
+          "callee": "mock_gemini.assert_called_once",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_ocr_with_gemini_fallback_uses_gemini_only_when_ocr_raises",
+          "callee": "mock_ocr.assert_called_once",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_ocr_round_1_wrong_answer_does_not_call_gemini",
+          "callee": "_env_solver",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_ocr_round_1_wrong_answer_does_not_call_gemini",
+          "callee": "_solve",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_ocr_round_1_wrong_answer_does_not_call_gemini",
+          "callee": "mock_ocr.assert_called_once",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_ocr_round_1_wrong_answer_does_not_call_gemini",
+          "callee": "mock_gemini.assert_not_called",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_gemini_first_on_captcha_round_2",
+          "callee": "_env_solver",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_gemini_first_on_captcha_round_2",
+          "callee": "_solve",
+          "lineNumber": 69
+        },
+        {
+          "caller": "test_gemini_first_on_captcha_round_2",
+          "callee": "mock_gemini.assert_called_once",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_gemini_first_on_captcha_round_2",
+          "callee": "mock_ocr.assert_not_called",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_ocr_first_on_captcha_round_1",
+          "callee": "_env_solver",
+          "lineNumber": 84
+        },
+        {
+          "caller": "test_ocr_first_on_captcha_round_1",
+          "callee": "_solve",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_ocr_first_on_captcha_round_1",
+          "callee": "mock_ocr.assert_called_once",
+          "lineNumber": 89
+        },
+        {
+          "caller": "test_ocr_first_on_captcha_round_1",
+          "callee": "mock_gemini.assert_not_called",
+          "lineNumber": 90
+        },
+        {
+          "caller": "test_gemini_first_on_attempt_2_even_at_round_1",
+          "callee": "_env_solver",
+          "lineNumber": 100
+        },
+        {
+          "caller": "test_gemini_first_on_attempt_2_even_at_round_1",
+          "callee": "_solve",
+          "lineNumber": 101
+        },
+        {
+          "caller": "test_gemini_first_on_attempt_2_even_at_round_1",
+          "callee": "mock_gemini.assert_called_once",
+          "lineNumber": 105
+        },
+        {
+          "caller": "test_gemini_first_on_attempt_2_even_at_round_1",
+          "callee": "mock_ocr.assert_not_called",
+          "lineNumber": 106
+        },
+        {
+          "caller": "test_gemini_first_mode_uses_gemini_without_calling_ocr",
+          "callee": "_env_solver",
+          "lineNumber": 116
+        },
+        {
+          "caller": "test_gemini_first_mode_uses_gemini_without_calling_ocr",
+          "callee": "_solve",
+          "lineNumber": 117
+        },
+        {
+          "caller": "test_gemini_first_mode_uses_gemini_without_calling_ocr",
+          "callee": "mock_gemini.assert_called_once",
+          "lineNumber": 121
+        },
+        {
+          "caller": "test_gemini_first_mode_uses_gemini_without_calling_ocr",
+          "callee": "mock_ocr.assert_not_called",
+          "lineNumber": 122
+        },
+        {
+          "caller": "test_gemini_first_falls_back_to_solve_captcha_when_gemini_raises",
+          "callee": "ValueError",
+          "lineNumber": 130
+        },
+        {
+          "caller": "test_gemini_first_falls_back_to_solve_captcha_when_gemini_raises",
+          "callee": "_env_solver",
+          "lineNumber": 133
+        },
+        {
+          "caller": "test_gemini_first_falls_back_to_solve_captcha_when_gemini_raises",
+          "callee": "_solve",
+          "lineNumber": 134
+        },
+        {
+          "caller": "test_gemini_first_falls_back_to_solve_captcha_when_gemini_raises",
+          "callee": "mock_gemini.assert_called_once",
+          "lineNumber": 138
+        },
+        {
+          "caller": "test_gemini_first_falls_back_to_solve_captcha_when_gemini_raises",
+          "callee": "mock_solve.assert_called_once",
+          "lineNumber": 139
+        },
+        {
+          "caller": "test_turbo_captcha_solver_env_overrides_captcha_solver",
+          "callee": "_env_solver",
+          "lineNumber": 146
+        },
+        {
+          "caller": "test_turbo_captcha_solver_env_overrides_captcha_solver",
+          "callee": "_solve",
+          "lineNumber": 147
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 10,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {},
+  "command": {},
+  "provider": {
+    "chattyai": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "ChattyAI",
+      "options": {
+        "baseURL": "https://chrome.chattyai.cloud/v1",
+        "apiKey": "sk-rkRdCSSHJr_UxavbpybtjQ"
+      },
+      "models": {
+        "anthropic/claude-sonnet-4-20250514": {
+          "name": "Claude Sonnet 4"
+        },
+        "anthropic/claude-sonnet-4-6": {
+          "name": "Claude Sonnet 4.6"
+        },
+        "anthropic/claude-opus-4-6": {
+          "name": "Claude Opus 4.6"
+        },
+        "gpt-4o": {
+          "name": "GPT-4o"
+        },
+        "deepseek.v3.2": {
+          "name": "DeepSeek V3.2"
+        },
+        "moonshotai/kimi-k2.6": {
+          "name": "Kimi K2.6"
+        },
+        "mistral-large-latest": {
+          "name": "Mistral Large Latest"
+        },
+        "mistral-medium-3-5": {
+          "name": "Mistral Medium 3.5"
+        },
+        "z-ai/glm-5.2": {
+          "name": "Z.AI GLM-5.2"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,3701 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 16,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "python-booker-webhook/scripts/compare_captcha_fetch.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 211,
+      "nonEmptyLines": 177,
+      "functions": [
+        {
+          "name": "_sha256",
+          "startLine": 26,
+          "endLine": 27,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "_pixel_diff_pct",
+          "startLine": 30,
+          "endLine": 44,
+          "params": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "name": "_context_session_cookie",
+          "startLine": 47,
+          "endLine": 53,
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "name": "compare_samples",
+          "startLine": 56,
+          "endLine": 182,
+          "params": [
+            "office",
+            "calendar_id",
+            "samples",
+            "run_id"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 185,
+          "endLine": 207,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_sha256",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "_pixel_diff_pct",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "_context_session_cookie",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "compare_samples",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 185,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_sha256",
+          "callee": "hashlib.sha256(data).hexdigest",
+          "lineNumber": 27
+        },
+        {
+          "caller": "_sha256",
+          "callee": "hashlib.sha256",
+          "lineNumber": 27
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "np.array",
+          "lineNumber": 36
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "Image.open(io.BytesIO(a)).convert",
+          "lineNumber": 36
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "Image.open",
+          "lineNumber": 36
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "io.BytesIO",
+          "lineNumber": 36
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "np.array",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "Image.open(io.BytesIO(b)).convert",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "Image.open",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "io.BytesIO",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "min",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "min",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "np.abs",
+          "lineNumber": 41
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "float",
+          "lineNumber": 42
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "diff.mean",
+          "lineNumber": 42
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "context.cookies",
+          "lineNumber": 49
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "c.get",
+          "lineNumber": 50
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "parts.append",
+          "lineNumber": 52
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "\"; \".join",
+          "lineNumber": 53
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "out_dir.mkdir",
+          "lineNumber": 67
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "time.perf_counter",
+          "lineNumber": 82
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "sync_playwright",
+          "lineNumber": 84
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "pw.chromium.launch",
+          "lineNumber": 85
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.playwright_headless",
+          "lineNumber": 85
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "browser.new_context",
+          "lineNumber": 86
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "context.new_page",
+          "lineNumber": 90
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._open_landing_page",
+          "lineNumber": 92
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "{\n            \"#Office\": office,\n            \"select[name='Office']\": office,\n            \"#Language\": \"en\",\n        }.items",
+          "lineNumber": 93
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._set_scheduler_value",
+          "lineNumber": 98
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 99
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._apply_reservation_calendar_select",
+          "lineNumber": 100
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 101
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.wait_for_selector",
+          "lineNumber": 102
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.person_count_wait_ms",
+          "lineNumber": 102
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._set_scheduler_value",
+          "lineNumber": 103
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 104
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "range",
+          "lineNumber": 106
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.locator(\"input[name='Start']\").count",
+          "lineNumber": 107
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.locator",
+          "lineNumber": 107
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.locator",
+          "lineNumber": 108
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.locator(\"#Monday\").input_value",
+          "lineNumber": 109
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.locator",
+          "lineNumber": 109
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "radios.first.get_attribute",
+          "lineNumber": 110
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 112
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "RuntimeError",
+          "lineNumber": 114
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_context_session_cookie",
+          "lineNumber": 116
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.post_select_slot",
+          "lineNumber": 119
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.set_content",
+          "lineNumber": 120
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.inject_base_href",
+          "lineNumber": 120
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "range",
+          "lineNumber": 122
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.parse_fresh_fields",
+          "lineNumber": 124
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.content",
+          "lineNumber": 124
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._reload_botdetect_captcha",
+          "lineNumber": 125
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.evaluate",
+          "lineNumber": 126
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.wait_for_timeout",
+          "lineNumber": 132
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.wait_botdetect_ready",
+          "lineNumber": 133
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.parse_fresh_fields",
+          "lineNumber": 135
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.content",
+          "lineNumber": 135
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "url.startswith",
+          "lineNumber": 137
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.fetch_captcha_bytes",
+          "lineNumber": 141
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.wait_botdetect_ready",
+          "lineNumber": 142
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.capture_captcha_bytes_from_dom",
+          "lineNumber": 143
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.fetch_captcha_bytes",
+          "lineNumber": 144
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "(out_dir / f\"{prefix}_dom.png\").write_bytes",
+          "lineNumber": 147
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "(out_dir / f\"{prefix}_url_early.png\").write_bytes",
+          "lineNumber": 148
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "(out_dir / f\"{prefix}_url_late.png\").write_bytes",
+          "lineNumber": 149
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_sha256",
+          "lineNumber": 151
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_sha256",
+          "lineNumber": 151
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_sha256",
+          "lineNumber": 152
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_sha256",
+          "lineNumber": 152
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_sha256",
+          "lineNumber": 153
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_sha256",
+          "lineNumber": 153
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "results.append",
+          "lineNumber": 155
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "round",
+          "lineNumber": 162
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_pixel_diff_pct",
+          "lineNumber": 162
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "round",
+          "lineNumber": 163
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_pixel_diff_pct",
+          "lineNumber": 163
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "browser.close",
+          "lineNumber": 167
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "sum",
+          "lineNumber": 174
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "sum",
+          "lineNumber": 175
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "sum",
+          "lineNumber": 176
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "str",
+          "lineNumber": 178
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "round",
+          "lineNumber": 179
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "time.perf_counter",
+          "lineNumber": 179
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "(out_dir / \"compare_result.json\").write_text",
+          "lineNumber": 181
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "json.dumps",
+          "lineNumber": 181
+        },
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 186
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 187
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 188
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 189
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 190
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 191
+        },
+        {
+          "caller": "main",
+          "callee": "compare_samples",
+          "lineNumber": 193
+        },
+        {
+          "caller": "main",
+          "callee": "max",
+          "lineNumber": 196
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 199
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 199
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 202
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/scripts/fix_test_payload.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 38,
+      "nonEmptyLines": 38,
+      "sections": [
+        {
+          "heading": "runId",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "useSchedulerPost",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "bookingFormReady",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "submitMode",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "maxCaptchaRetries",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "captureArtifacts",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "manualReviewSeconds",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "dsgvoAccepted",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "sessionCookie",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "Language",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "Office",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "CalendarId",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "PersonCount",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "currentMonday",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "currentSlot",
+          "level": 1,
+          "line": 16
+        },
+        {
+          "heading": "student",
+          "level": 1,
+          "line": 17
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 16
+      }
+    },
+    {
+      "path": "python-booker-webhook/scripts/run_parallel_4_requests.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 150,
+      "nonEmptyLines": 131,
+      "functions": [
+        {
+          "name": "build_payload",
+          "startLine": 33,
+          "endLine": 69,
+          "params": [
+            "idx"
+          ]
+        },
+        {
+          "name": "fire_one",
+          "startLine": 72,
+          "endLine": 103,
+          "params": [
+            "idx"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 106,
+          "endLine": 146,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "build_payload",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "fire_one",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 106,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fire_one",
+          "callee": "build_payload",
+          "lineNumber": 73
+        },
+        {
+          "caller": "fire_one",
+          "callee": "time.perf_counter",
+          "lineNumber": 74
+        },
+        {
+          "caller": "fire_one",
+          "callee": "datetime.now(timezone.utc).isoformat",
+          "lineNumber": 75
+        },
+        {
+          "caller": "fire_one",
+          "callee": "datetime.now",
+          "lineNumber": 75
+        },
+        {
+          "caller": "fire_one",
+          "callee": "requests.post",
+          "lineNumber": 77
+        },
+        {
+          "caller": "fire_one",
+          "callee": "round",
+          "lineNumber": 78
+        },
+        {
+          "caller": "fire_one",
+          "callee": "time.perf_counter",
+          "lineNumber": 78
+        },
+        {
+          "caller": "fire_one",
+          "callee": "resp.json",
+          "lineNumber": 80
+        },
+        {
+          "caller": "fire_one",
+          "callee": "round",
+          "lineNumber": 101
+        },
+        {
+          "caller": "fire_one",
+          "callee": "time.perf_counter",
+          "lineNumber": 101
+        },
+        {
+          "caller": "fire_one",
+          "callee": "str",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 107
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 109
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 110
+        },
+        {
+          "caller": "main",
+          "callee": "time.perf_counter",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "ThreadPoolExecutor",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "pool.submit",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "range",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "as_completed",
+          "lineNumber": 116
+        },
+        {
+          "caller": "main",
+          "callee": "results.append",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "fut.result",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "results.sort",
+          "lineNumber": 119
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 120
+        },
+        {
+          "caller": "main",
+          "callee": "time.perf_counter",
+          "lineNumber": 120
+        },
+        {
+          "caller": "main",
+          "callee": "out_path.write_text",
+          "lineNumber": 129
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 129
+        },
+        {
+          "caller": "main",
+          "callee": "r.get",
+          "lineNumber": 132
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 134
+        },
+        {
+          "caller": "main",
+          "callee": "detail.get",
+          "lineNumber": 135
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "r.get",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 139
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 144
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 145
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/scripts/run_turbo_3slot_batch.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 171,
+      "nonEmptyLines": 157,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 87,
+          "endLine": 167,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 87,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "time.perf_counter",
+          "lineNumber": 91
+        },
+        {
+          "caller": "main",
+          "callee": "enumerate",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "zip",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "time.perf_counter",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "run_turbo_booking_flow",
+          "lineNumber": 109
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 110
+        },
+        {
+          "caller": "main",
+          "callee": "time.perf_counter",
+          "lineNumber": 110
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "results.append",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 118
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 119
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 120
+        },
+        {
+          "caller": "main",
+          "callee": "timings.get",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "timings.get",
+          "lineNumber": 123
+        },
+        {
+          "caller": "main",
+          "callee": "timings.get",
+          "lineNumber": 124
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 124
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 125
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 128
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 128
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 130
+        },
+        {
+          "caller": "main",
+          "callee": "time.perf_counter",
+          "lineNumber": 130
+        },
+        {
+          "caller": "main",
+          "callee": "sum",
+          "lineNumber": 131
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "sum",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat().replace",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "SCAN.get",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "SESSION.split",
+          "lineNumber": 139
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 143
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 145
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 147
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 149
+        },
+        {
+          "caller": "main",
+          "callee": "min",
+          "lineNumber": 150
+        },
+        {
+          "caller": "main",
+          "callee": "max",
+          "lineNumber": 151
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 156
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 157
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 158
+        },
+        {
+          "caller": "main",
+          "callee": "out_path.parent.mkdir",
+          "lineNumber": 163
+        },
+        {
+          "caller": "main",
+          "callee": "out_path.write_text",
+          "lineNumber": 164
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 164
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 165
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 166
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 166
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 167
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/scripts/run_turbo_clean_333.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 191,
+      "nonEmptyLines": 171,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 84,
+          "endLine": 187,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 84,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "sys.path.insert",
+          "lineNumber": 87
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 87
+        },
+        {
+          "caller": "main",
+          "callee": "(os.getenv(\"CAPTCHA_SOLVER\") or \"ocr_with_gemini_fallback\").strip",
+          "lineNumber": 90
+        },
+        {
+          "caller": "main",
+          "callee": "os.getenv",
+          "lineNumber": 90
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 91
+        },
+        {
+          "caller": "main",
+          "callee": "time.perf_counter",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "scan_slots",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 95
+        },
+        {
+          "caller": "main",
+          "callee": "time.perf_counter",
+          "lineNumber": 95
+        },
+        {
+          "caller": "main",
+          "callee": "scan.get",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "scan.get",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 98
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 98
+        },
+        {
+          "caller": "main",
+          "callee": "time.perf_counter",
+          "lineNumber": 106
+        },
+        {
+          "caller": "main",
+          "callee": "enumerate",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "zip",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "time.sleep",
+          "lineNumber": 110
+        },
+        {
+          "caller": "main",
+          "callee": "time.perf_counter",
+          "lineNumber": 126
+        },
+        {
+          "caller": "main",
+          "callee": "run_turbo_booking_flow",
+          "lineNumber": 127
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 128
+        },
+        {
+          "caller": "main",
+          "callee": "time.perf_counter",
+          "lineNumber": 128
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 129
+        },
+        {
+          "caller": "main",
+          "callee": "results.append",
+          "lineNumber": 131
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 136
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 139
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 141
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 143
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 146
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 146
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 148
+        },
+        {
+          "caller": "main",
+          "callee": "time.perf_counter",
+          "lineNumber": 148
+        },
+        {
+          "caller": "main",
+          "callee": "sum",
+          "lineNumber": 149
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat().replace",
+          "lineNumber": 154
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat",
+          "lineNumber": 154
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now",
+          "lineNumber": 154
+        },
+        {
+          "caller": "main",
+          "callee": "session.split",
+          "lineNumber": 162
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 170
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 171
+        },
+        {
+          "caller": "main",
+          "callee": "sum",
+          "lineNumber": 171
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 171
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 172
+        },
+        {
+          "caller": "main",
+          "callee": "sum",
+          "lineNumber": 172
+        },
+        {
+          "caller": "main",
+          "callee": "out_dir.mkdir",
+          "lineNumber": 182
+        },
+        {
+          "caller": "main",
+          "callee": "(out_dir / \"summary.json\").write_text",
+          "lineNumber": 183
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 183
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 185
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 186
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 186
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/scripts/run_turbo_inject_test.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 326,
+      "nonEmptyLines": 296,
+      "functions": [
+        {
+          "name": "run_inject_test",
+          "startLine": 185,
+          "endLine": 306,
+          "params": [
+            "payload",
+            "method"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 309,
+          "endLine": 322,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "run_inject_test",
+          "line": 185,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 309,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run_inject_test",
+          "callee": "str",
+          "lineNumber": 189
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "payload.get",
+          "lineNumber": 189
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "run_dir.mkdir",
+          "lineNumber": 191
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "payload.get",
+          "lineNumber": 193
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "time.perf_counter",
+          "lineNumber": 195
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "sync_playwright",
+          "lineNumber": 197
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "pw.chromium.launch",
+          "lineNumber": 198
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "booker.playwright_headless",
+          "lineNumber": 198
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "browser.new_context",
+          "lineNumber": 199
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "booker.set_context_cookies",
+          "lineNumber": 203
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "payload.get",
+          "lineNumber": 203
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "context.new_page",
+          "lineNumber": 204
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.goto",
+          "lineNumber": 205
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "time.perf_counter",
+          "lineNumber": 207
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "booker.navigate_to_capture_form_via_scheduler_post",
+          "lineNumber": 208
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "round",
+          "lineNumber": 211
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "time.perf_counter",
+          "lineNumber": 211
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.wait_for_selector",
+          "lineNumber": 215
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.wait_for_function",
+          "lineNumber": 216
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.wait_for_timeout",
+          "lineNumber": 227
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.locator(\"#StartTime\").input_value",
+          "lineNumber": 229
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.locator",
+          "lineNumber": 229
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.locator(\"#StartTime\").count",
+          "lineNumber": 229
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.locator",
+          "lineNumber": 229
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "(run_dir / \"01_capture_dom.html\").write_text",
+          "lineNumber": 230
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.content",
+          "lineNumber": 230
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.screenshot",
+          "lineNumber": 231
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "str",
+          "lineNumber": 231
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.evaluate",
+          "lineNumber": 233
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "time.perf_counter",
+          "lineNumber": 235
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "booker.parse_fresh_fields",
+          "lineNumber": 236
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.content",
+          "lineNumber": 236
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "booker.capture_captcha_bytes_from_dom",
+          "lineNumber": 238
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "booker.fetch_captcha_bytes",
+          "lineNumber": 240
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "payload.get",
+          "lineNumber": 241
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "(run_dir / \"02_captcha.png\").write_bytes",
+          "lineNumber": 243
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "booker.solve_captcha",
+          "lineNumber": 244
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "round",
+          "lineNumber": 247
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "time.perf_counter",
+          "lineNumber": 247
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.locator(\"#BDC_Hs_Captcha\").input_value",
+          "lineNumber": 249
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.locator",
+          "lineNumber": 249
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.locator(\"#BDC_Hs_Captcha\").count",
+          "lineNumber": 249
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.locator",
+          "lineNumber": 249
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "time.perf_counter",
+          "lineNumber": 251
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "booker._fill_captcha_text_like_user",
+          "lineNumber": 253
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "booker._inject_agent_command_next_for_captcha",
+          "lineNumber": 254
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.expect_navigation",
+          "lineNumber": 256
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "booker.submit_next_navigation_ms",
+          "lineNumber": 256
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.locator(\"#nextButton\").first.click",
+          "lineNumber": 257
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.locator",
+          "lineNumber": 257
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "booker.submit_next_click_ms",
+          "lineNumber": 257
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.evaluate",
+          "lineNumber": 259
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.wait_for_load_state",
+          "lineNumber": 266
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "booker.nav_dom_content_loaded_ms",
+          "lineNumber": 266
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.content",
+          "lineNumber": 267
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "round",
+          "lineNumber": 268
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "time.perf_counter",
+          "lineNumber": 268
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "page.evaluate",
+          "lineNumber": 279
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "round",
+          "lineNumber": 281
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "time.perf_counter",
+          "lineNumber": 281
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "result.get",
+          "lineNumber": 282
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "round",
+          "lineNumber": 283
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "time.perf_counter",
+          "lineNumber": 283
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "result.get",
+          "lineNumber": 285
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "(run_dir / \"03_inject_response_snippet.html\").write_text",
+          "lineNumber": 286
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "browser.close",
+          "lineNumber": 290
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "result.get",
+          "lineNumber": 293
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "result.get",
+          "lineNumber": 294
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "payload.get",
+          "lineNumber": 298
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "result.get",
+          "lineNumber": 300
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "str",
+          "lineNumber": 303
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "(run_dir / \"result.json\").write_text",
+          "lineNumber": 305
+        },
+        {
+          "caller": "run_inject_test",
+          "callee": "json.dumps",
+          "lineNumber": 305
+        },
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 310
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 311
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 312
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 318
+        },
+        {
+          "caller": "main",
+          "callee": "json.loads",
+          "lineNumber": 319
+        },
+        {
+          "caller": "main",
+          "callee": "args.payload.read_text",
+          "lineNumber": 319
+        },
+        {
+          "caller": "main",
+          "callee": "run_inject_test",
+          "lineNumber": 320
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 321
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 321
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 322
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/scripts/run_turbo_payload.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 27,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 14,
+          "endLine": 34,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 15
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 16
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 18
+        },
+        {
+          "caller": "main",
+          "callee": "json.loads",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "args.payload.read_text",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "requests.post",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "resp.json",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "run_turbo_booking_flow",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 34
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/scripts/scan_slots.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 176,
+      "nonEmptyLines": 152,
+      "functions": [
+        {
+          "name": "_context_session_cookie",
+          "startLine": 17,
+          "endLine": 23,
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "name": "scan_slots",
+          "startLine": 26,
+          "endLine": 148,
+          "params": [
+            "office",
+            "calendar_id",
+            "language",
+            "person_count",
+            "max_weeks",
+            "run_id"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 151,
+          "endLine": 172,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_context_session_cookie",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "scan_slots",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 151,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_context_session_cookie",
+          "callee": "context.cookies",
+          "lineNumber": 19
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "c.get",
+          "lineNumber": 20
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "parts.append",
+          "lineNumber": 22
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "\"; \".join",
+          "lineNumber": 23
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "time.perf_counter",
+          "lineNumber": 51
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "sync_playwright",
+          "lineNumber": 53
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "pw.chromium.launch",
+          "lineNumber": 54
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker.playwright_headless",
+          "lineNumber": 54
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "browser.new_context",
+          "lineNumber": 55
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "context.new_page",
+          "lineNumber": 59
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "run_dir.mkdir",
+          "lineNumber": 61
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._open_landing_page",
+          "lineNumber": 63
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "landing_sets.items",
+          "lineNumber": 70
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._set_scheduler_value",
+          "lineNumber": 71
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 72
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._apply_reservation_calendar_select",
+          "lineNumber": 74
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._repair_calendar_id_dom_if_needed",
+          "lineNumber": 75
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 76
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.wait_for_selector",
+          "lineNumber": 78
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker.person_count_wait_ms",
+          "lineNumber": 78
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._set_scheduler_value",
+          "lineNumber": 79
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 80
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.wait_for_function",
+          "lineNumber": 82
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker.information_page_wait_ms",
+          "lineNumber": 89
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 91
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._wait_for_start_radios",
+          "lineNumber": 92
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "range",
+          "lineNumber": 94
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._list_start_radio_values",
+          "lineNumber": 95
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator(\"#Monday\").count",
+          "lineNumber": 96
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator",
+          "lineNumber": 96
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "(page.locator(\"#Monday\").first.get_attribute(\"value\") or \"\").strip",
+          "lineNumber": 97
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator(\"#Monday\").first.get_attribute",
+          "lineNumber": 97
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator",
+          "lineNumber": 97
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator(\"input[name='Monday']\").count",
+          "lineNumber": 98
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator",
+          "lineNumber": 98
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "(\n                    page.locator(\"input[name='Monday']\").first.get_attribute(\"value\") or \"\"\n                ).strip",
+          "lineNumber": 99
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator(\"input[name='Monday']\").first.get_attribute",
+          "lineNumber": 100
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator",
+          "lineNumber": 100
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "all_slots.append",
+          "lineNumber": 105
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.screenshot",
+          "lineNumber": 108
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "str",
+          "lineNumber": 108
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "(run_dir / f\"week_{week_idx + 1}.html\").write_text",
+          "lineNumber": 109
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.content",
+          "lineNumber": 109
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator",
+          "lineNumber": 112
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator",
+          "lineNumber": 115
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "loc.count",
+          "lineNumber": 116
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 118
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._wait_for_start_radios",
+          "lineNumber": 119
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "_context_session_cookie",
+          "lineNumber": 127
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "browser.close",
+          "lineNumber": 128
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "round",
+          "lineNumber": 130
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "time.perf_counter",
+          "lineNumber": 130
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "len",
+          "lineNumber": 132
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "len",
+          "lineNumber": 138
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 141
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "datetime.utcnow",
+          "lineNumber": 141
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "(booker.ARTIFACTS_DIR / run_id / \"scan_result.json\").write_text",
+          "lineNumber": 145
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "json.dumps",
+          "lineNumber": 146
+        },
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 152
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 153
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 154
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 155
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 156
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 157
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 158
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 159
+        },
+        {
+          "caller": "main",
+          "callee": "scan_slots",
+          "lineNumber": 161
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 168
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 169
+        },
+        {
+          "caller": "main",
+          "callee": "args.output.write_text",
+          "lineNumber": 171
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 172
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/scripts/smoke_prod_defaults_payload.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 35,
+      "nonEmptyLines": 35,
+      "sections": [
+        {
+          "heading": "runId",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "useSchedulerPost",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "submitMode",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "maxCaptchaRetries",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "captureArtifacts",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "sessionCookie",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "Language",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "Office",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "CalendarId",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "PersonCount",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "currentMonday",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "currentSlot",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "student",
+          "level": 1,
+          "line": 14
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 13
+      }
+    },
+    {
+      "path": "python-booker-webhook/tests/conftest.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 14,
+      "functions": [
+        {
+          "name": "sample_scheduler_html",
+          "startLine": 18,
+          "endLine": 19,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "sample_scheduler_html",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/tests/integration/test_captcha_dataset_pipeline.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 243,
+      "nonEmptyLines": 191,
+      "functions": [
+        {
+          "name": "_load_module",
+          "startLine": 30,
+          "endLine": 35,
+          "params": [
+            "name",
+            "path"
+          ]
+        },
+        {
+          "name": "sample_dataset",
+          "startLine": 39,
+          "endLine": 69,
+          "params": [
+            "tmp_path"
+          ]
+        },
+        {
+          "name": "test_review_ui_accepts_and_verifies",
+          "startLine": 72,
+          "endLine": 81,
+          "params": [
+            "sample_dataset"
+          ]
+        },
+        {
+          "name": "test_review_accept_ignores_edited_label",
+          "startLine": 84,
+          "endLine": 92,
+          "params": [
+            "sample_dataset"
+          ]
+        },
+        {
+          "name": "test_review_accept_fails_without_ocr_guess",
+          "startLine": 95,
+          "endLine": 103,
+          "params": [
+            "sample_dataset"
+          ]
+        },
+        {
+          "name": "test_review_save_preserves_externally_added_rows",
+          "startLine": 106,
+          "endLine": 125,
+          "params": [
+            "sample_dataset"
+          ]
+        },
+        {
+          "name": "test_review_manual_label_without_ocr_marks_wrong",
+          "startLine": 128,
+          "endLine": 140,
+          "params": [
+            "sample_dataset"
+          ]
+        },
+        {
+          "name": "test_review_stats_pending_respects_filter",
+          "startLine": 143,
+          "endLine": 153,
+          "params": [
+            "sample_dataset"
+          ]
+        },
+        {
+          "name": "test_review_ui_marks_ocr_correction",
+          "startLine": 156,
+          "endLine": 164,
+          "params": [
+            "sample_dataset"
+          ]
+        },
+        {
+          "name": "test_review_list_and_unverify",
+          "startLine": 167,
+          "endLine": 176,
+          "params": [
+            "sample_dataset"
+          ]
+        },
+        {
+          "name": "test_review_list_jump_returns_page_containing_id",
+          "startLine": 179,
+          "endLine": 184,
+          "params": [
+            "sample_dataset"
+          ]
+        },
+        {
+          "name": "test_review_http_server_serves_stats",
+          "startLine": 187,
+          "endLine": 203,
+          "params": [
+            "sample_dataset"
+          ]
+        },
+        {
+          "name": "test_split_writes_csv_files",
+          "startLine": 206,
+          "endLine": 221,
+          "params": [
+            "sample_dataset"
+          ]
+        },
+        {
+          "name": "test_prelabel_skips_without_ocr_url",
+          "startLine": 224,
+          "endLine": 228,
+          "params": [
+            "sample_dataset",
+            "monkeypatch"
+          ]
+        },
+        {
+          "name": "test_prelabel_updates_manifest",
+          "startLine": 231,
+          "endLine": 243,
+          "params": [
+            "sample_dataset",
+            "monkeypatch"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "_load_module",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "sample_dataset",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "test_review_ui_accepts_and_verifies",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "test_review_accept_ignores_edited_label",
+          "line": 84,
+          "isDefault": false
+        },
+        {
+          "name": "test_review_accept_fails_without_ocr_guess",
+          "line": 95,
+          "isDefault": false
+        },
+        {
+          "name": "test_review_save_preserves_externally_added_rows",
+          "line": 106,
+          "isDefault": false
+        },
+        {
+          "name": "test_review_manual_label_without_ocr_marks_wrong",
+          "line": 128,
+          "isDefault": false
+        },
+        {
+          "name": "test_review_stats_pending_respects_filter",
+          "line": 143,
+          "isDefault": false
+        },
+        {
+          "name": "test_review_ui_marks_ocr_correction",
+          "line": 156,
+          "isDefault": false
+        },
+        {
+          "name": "test_review_list_and_unverify",
+          "line": 167,
+          "isDefault": false
+        },
+        {
+          "name": "test_review_list_jump_returns_page_containing_id",
+          "line": 179,
+          "isDefault": false
+        },
+        {
+          "name": "test_review_http_server_serves_stats",
+          "line": 187,
+          "isDefault": false
+        },
+        {
+          "name": "test_split_writes_csv_files",
+          "line": 206,
+          "isDefault": false
+        },
+        {
+          "name": "test_prelabel_skips_without_ocr_url",
+          "line": 224,
+          "isDefault": false
+        },
+        {
+          "name": "test_prelabel_updates_manifest",
+          "line": 231,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_load_module",
+          "callee": "importlib.util.spec_from_file_location",
+          "lineNumber": 31
+        },
+        {
+          "caller": "_load_module",
+          "callee": "importlib.util.module_from_spec",
+          "lineNumber": 32
+        },
+        {
+          "caller": "_load_module",
+          "callee": "spec.loader.exec_module",
+          "lineNumber": 34
+        },
+        {
+          "caller": "sample_dataset",
+          "callee": "raw_dir",
+          "lineNumber": 41
+        },
+        {
+          "caller": "sample_dataset",
+          "callee": "out_raw.mkdir",
+          "lineNumber": 42
+        },
+        {
+          "caller": "sample_dataset",
+          "callee": "(out_raw / filename).write_bytes",
+          "lineNumber": 44
+        },
+        {
+          "caller": "sample_dataset",
+          "callee": "empty_row",
+          "lineNumber": 46
+        },
+        {
+          "caller": "sample_dataset",
+          "callee": "empty_row",
+          "lineNumber": 56
+        },
+        {
+          "caller": "sample_dataset",
+          "callee": "(out_raw / rows[1][\"filename\"]).write_bytes",
+          "lineNumber": 67
+        },
+        {
+          "caller": "sample_dataset",
+          "callee": "save_manifest",
+          "lineNumber": 68
+        },
+        {
+          "caller": "sample_dataset",
+          "callee": "manifest_path",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_review_ui_accepts_and_verifies",
+          "callee": "ReviewState",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_review_ui_accepts_and_verifies",
+          "callee": "state.save_action",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_review_ui_accepts_and_verifies",
+          "callee": "load_manifest",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_review_ui_accepts_and_verifies",
+          "callee": "manifest_path",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_review_ui_accepts_and_verifies",
+          "callee": "next",
+          "lineNumber": 78
+        },
+        {
+          "caller": "test_review_accept_ignores_edited_label",
+          "callee": "ReviewState",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_review_accept_ignores_edited_label",
+          "callee": "state.save_action",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_review_accept_ignores_edited_label",
+          "callee": "load_manifest",
+          "lineNumber": 89
+        },
+        {
+          "caller": "test_review_accept_ignores_edited_label",
+          "callee": "manifest_path",
+          "lineNumber": 89
+        },
+        {
+          "caller": "test_review_accept_ignores_edited_label",
+          "callee": "next",
+          "lineNumber": 90
+        },
+        {
+          "caller": "test_review_accept_fails_without_ocr_guess",
+          "callee": "load_manifest",
+          "lineNumber": 96
+        },
+        {
+          "caller": "test_review_accept_fails_without_ocr_guess",
+          "callee": "manifest_path",
+          "lineNumber": 96
+        },
+        {
+          "caller": "test_review_accept_fails_without_ocr_guess",
+          "callee": "save_manifest",
+          "lineNumber": 98
+        },
+        {
+          "caller": "test_review_accept_fails_without_ocr_guess",
+          "callee": "manifest_path",
+          "lineNumber": 98
+        },
+        {
+          "caller": "test_review_accept_fails_without_ocr_guess",
+          "callee": "ReviewState",
+          "lineNumber": 100
+        },
+        {
+          "caller": "test_review_accept_fails_without_ocr_guess",
+          "callee": "state.save_action",
+          "lineNumber": 101
+        },
+        {
+          "caller": "test_review_save_preserves_externally_added_rows",
+          "callee": "ReviewState",
+          "lineNumber": 107
+        },
+        {
+          "caller": "test_review_save_preserves_externally_added_rows",
+          "callee": "load_manifest",
+          "lineNumber": 108
+        },
+        {
+          "caller": "test_review_save_preserves_externally_added_rows",
+          "callee": "manifest_path",
+          "lineNumber": 108
+        },
+        {
+          "caller": "test_review_save_preserves_externally_added_rows",
+          "callee": "rows.append",
+          "lineNumber": 109
+        },
+        {
+          "caller": "test_review_save_preserves_externally_added_rows",
+          "callee": "empty_row",
+          "lineNumber": 110
+        },
+        {
+          "caller": "test_review_save_preserves_externally_added_rows",
+          "callee": "save_manifest",
+          "lineNumber": 118
+        },
+        {
+          "caller": "test_review_save_preserves_externally_added_rows",
+          "callee": "manifest_path",
+          "lineNumber": 118
+        },
+        {
+          "caller": "test_review_save_preserves_externally_added_rows",
+          "callee": "state.save_action",
+          "lineNumber": 120
+        },
+        {
+          "caller": "test_review_save_preserves_externally_added_rows",
+          "callee": "load_manifest",
+          "lineNumber": 123
+        },
+        {
+          "caller": "test_review_save_preserves_externally_added_rows",
+          "callee": "manifest_path",
+          "lineNumber": 123
+        },
+        {
+          "caller": "test_review_save_preserves_externally_added_rows",
+          "callee": "len",
+          "lineNumber": 124
+        },
+        {
+          "caller": "test_review_save_preserves_externally_added_rows",
+          "callee": "any",
+          "lineNumber": 125
+        },
+        {
+          "caller": "test_review_manual_label_without_ocr_marks_wrong",
+          "callee": "load_manifest",
+          "lineNumber": 129
+        },
+        {
+          "caller": "test_review_manual_label_without_ocr_marks_wrong",
+          "callee": "manifest_path",
+          "lineNumber": 129
+        },
+        {
+          "caller": "test_review_manual_label_without_ocr_marks_wrong",
+          "callee": "save_manifest",
+          "lineNumber": 131
+        },
+        {
+          "caller": "test_review_manual_label_without_ocr_marks_wrong",
+          "callee": "manifest_path",
+          "lineNumber": 131
+        },
+        {
+          "caller": "test_review_manual_label_without_ocr_marks_wrong",
+          "callee": "ReviewState",
+          "lineNumber": 133
+        },
+        {
+          "caller": "test_review_manual_label_without_ocr_marks_wrong",
+          "callee": "state.save_action",
+          "lineNumber": 134
+        },
+        {
+          "caller": "test_review_manual_label_without_ocr_marks_wrong",
+          "callee": "load_manifest",
+          "lineNumber": 137
+        },
+        {
+          "caller": "test_review_manual_label_without_ocr_marks_wrong",
+          "callee": "manifest_path",
+          "lineNumber": 137
+        },
+        {
+          "caller": "test_review_manual_label_without_ocr_marks_wrong",
+          "callee": "next",
+          "lineNumber": 138
+        },
+        {
+          "caller": "test_review_stats_pending_respects_filter",
+          "callee": "ReviewState",
+          "lineNumber": 144
+        },
+        {
+          "caller": "test_review_stats_pending_respects_filter",
+          "callee": "state.stats",
+          "lineNumber": 145
+        },
+        {
+          "caller": "test_review_stats_pending_respects_filter",
+          "callee": "state.save_action",
+          "lineNumber": 149
+        },
+        {
+          "caller": "test_review_stats_pending_respects_filter",
+          "callee": "state.stats",
+          "lineNumber": 151
+        },
+        {
+          "caller": "test_review_ui_marks_ocr_correction",
+          "callee": "ReviewState",
+          "lineNumber": 157
+        },
+        {
+          "caller": "test_review_ui_marks_ocr_correction",
+          "callee": "state.save_action",
+          "lineNumber": 158
+        },
+        {
+          "caller": "test_review_ui_marks_ocr_correction",
+          "callee": "load_manifest",
+          "lineNumber": 161
+        },
+        {
+          "caller": "test_review_ui_marks_ocr_correction",
+          "callee": "manifest_path",
+          "lineNumber": 161
+        },
+        {
+          "caller": "test_review_ui_marks_ocr_correction",
+          "callee": "next",
+          "lineNumber": 162
+        },
+        {
+          "caller": "test_review_list_and_unverify",
+          "callee": "ReviewState",
+          "lineNumber": 168
+        },
+        {
+          "caller": "test_review_list_and_unverify",
+          "callee": "state.save_action",
+          "lineNumber": 169
+        },
+        {
+          "caller": "test_review_list_and_unverify",
+          "callee": "len",
+          "lineNumber": 170
+        },
+        {
+          "caller": "test_review_list_and_unverify",
+          "callee": "state.list_items",
+          "lineNumber": 170
+        },
+        {
+          "caller": "test_review_list_and_unverify",
+          "callee": "state.save_action",
+          "lineNumber": 172
+        },
+        {
+          "caller": "test_review_list_and_unverify",
+          "callee": "load_manifest",
+          "lineNumber": 173
+        },
+        {
+          "caller": "test_review_list_and_unverify",
+          "callee": "manifest_path",
+          "lineNumber": 173
+        },
+        {
+          "caller": "test_review_list_and_unverify",
+          "callee": "next",
+          "lineNumber": 174
+        },
+        {
+          "caller": "test_review_list_jump_returns_page_containing_id",
+          "callee": "ReviewState",
+          "lineNumber": 180
+        },
+        {
+          "caller": "test_review_list_jump_returns_page_containing_id",
+          "callee": "state.list_items_page",
+          "lineNumber": 181
+        },
+        {
+          "caller": "test_review_list_jump_returns_page_containing_id",
+          "callee": "len",
+          "lineNumber": 183
+        },
+        {
+          "caller": "test_review_http_server_serves_stats",
+          "callee": "ReviewState",
+          "lineNumber": 188
+        },
+        {
+          "caller": "test_review_http_server_serves_stats",
+          "callee": "make_handler",
+          "lineNumber": 189
+        },
+        {
+          "caller": "test_review_http_server_serves_stats",
+          "callee": "ThreadingHTTPServer",
+          "lineNumber": 190
+        },
+        {
+          "caller": "test_review_http_server_serves_stats",
+          "callee": "Thread",
+          "lineNumber": 192
+        },
+        {
+          "caller": "test_review_http_server_serves_stats",
+          "callee": "thread.start",
+          "lineNumber": 193
+        },
+        {
+          "caller": "test_review_http_server_serves_stats",
+          "callee": "urllib.request.urlopen",
+          "lineNumber": 195
+        },
+        {
+          "caller": "test_review_http_server_serves_stats",
+          "callee": "json.loads",
+          "lineNumber": 196
+        },
+        {
+          "caller": "test_review_http_server_serves_stats",
+          "callee": "resp.read().decode",
+          "lineNumber": 196
+        },
+        {
+          "caller": "test_review_http_server_serves_stats",
+          "callee": "resp.read",
+          "lineNumber": 196
+        },
+        {
+          "caller": "test_review_http_server_serves_stats",
+          "callee": "urllib.request.urlopen",
+          "lineNumber": 199
+        },
+        {
+          "caller": "test_review_http_server_serves_stats",
+          "callee": "json.loads",
+          "lineNumber": 200
+        },
+        {
+          "caller": "test_review_http_server_serves_stats",
+          "callee": "resp.read().decode",
+          "lineNumber": 200
+        },
+        {
+          "caller": "test_review_http_server_serves_stats",
+          "callee": "resp.read",
+          "lineNumber": 200
+        },
+        {
+          "caller": "test_review_http_server_serves_stats",
+          "callee": "len",
+          "lineNumber": 201
+        },
+        {
+          "caller": "test_review_http_server_serves_stats",
+          "callee": "server.shutdown",
+          "lineNumber": 203
+        },
+        {
+          "caller": "test_split_writes_csv_files",
+          "callee": "ReviewState",
+          "lineNumber": 207
+        },
+        {
+          "caller": "test_split_writes_csv_files",
+          "callee": "state.save_action",
+          "lineNumber": 208
+        },
+        {
+          "caller": "test_split_writes_csv_files",
+          "callee": "state.save_action",
+          "lineNumber": 209
+        },
+        {
+          "caller": "test_split_writes_csv_files",
+          "callee": "load_manifest",
+          "lineNumber": 213
+        },
+        {
+          "caller": "test_split_writes_csv_files",
+          "callee": "manifest_path",
+          "lineNumber": 213
+        },
+        {
+          "caller": "test_split_writes_csv_files",
+          "callee": "split_verified_rows",
+          "lineNumber": 214
+        },
+        {
+          "caller": "test_split_writes_csv_files",
+          "callee": "save_manifest",
+          "lineNumber": 215
+        },
+        {
+          "caller": "test_split_writes_csv_files",
+          "callee": "manifest_path",
+          "lineNumber": 215
+        },
+        {
+          "caller": "test_split_writes_csv_files",
+          "callee": "write_split_csvs",
+          "lineNumber": 216
+        },
+        {
+          "caller": "test_split_writes_csv_files",
+          "callee": "len",
+          "lineNumber": 218
+        },
+        {
+          "caller": "test_split_writes_csv_files",
+          "callee": "len",
+          "lineNumber": 218
+        },
+        {
+          "caller": "test_split_writes_csv_files",
+          "callee": "len",
+          "lineNumber": 218
+        },
+        {
+          "caller": "test_split_writes_csv_files",
+          "callee": "paths[\"train\"].is_file",
+          "lineNumber": 219
+        },
+        {
+          "caller": "test_split_writes_csv_files",
+          "callee": "paths[\"val\"].is_file",
+          "lineNumber": 220
+        },
+        {
+          "caller": "test_split_writes_csv_files",
+          "callee": "paths[\"test\"].is_file",
+          "lineNumber": 221
+        },
+        {
+          "caller": "test_prelabel_skips_without_ocr_url",
+          "callee": "_load_module",
+          "lineNumber": 225
+        },
+        {
+          "caller": "test_prelabel_skips_without_ocr_url",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 226
+        },
+        {
+          "caller": "test_prelabel_skips_without_ocr_url",
+          "callee": "pytest.raises",
+          "lineNumber": 227
+        },
+        {
+          "caller": "test_prelabel_skips_without_ocr_url",
+          "callee": "prelabel_mod.prelabel",
+          "lineNumber": 228
+        },
+        {
+          "caller": "test_prelabel_updates_manifest",
+          "callee": "monkeypatch.setenv",
+          "lineNumber": 232
+        },
+        {
+          "caller": "test_prelabel_updates_manifest",
+          "callee": "_load_module",
+          "lineNumber": 237
+        },
+        {
+          "caller": "test_prelabel_updates_manifest",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 238
+        },
+        {
+          "caller": "test_prelabel_updates_manifest",
+          "callee": "prelabel_mod.prelabel",
+          "lineNumber": 240
+        },
+        {
+          "caller": "test_prelabel_updates_manifest",
+          "callee": "load_manifest",
+          "lineNumber": 242
+        },
+        {
+          "caller": "test_prelabel_updates_manifest",
+          "callee": "manifest_path",
+          "lineNumber": 242
+        },
+        {
+          "caller": "test_prelabel_updates_manifest",
+          "callee": "all",
+          "lineNumber": 243
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 15,
+        "functionCount": 15,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/tests/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 18,
+      "nonEmptyLines": 13,
+      "sections": [
+        {
+          "heading": "Tests",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "python-booker-webhook/tests/unit/test_captcha_dataset_lib.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 51,
+      "nonEmptyLines": 42,
+      "functions": [
+        {
+          "name": "test_normalize_and_validate_label",
+          "startLine": 21,
+          "endLine": 25,
+          "params": []
+        },
+        {
+          "name": "test_manifest_roundtrip",
+          "startLine": 28,
+          "endLine": 39,
+          "params": [
+            "tmp_path"
+          ]
+        },
+        {
+          "name": "test_split_verified_rows_stratified",
+          "startLine": 42,
+          "endLine": 51,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_normalize_and_validate_label",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "test_manifest_roundtrip",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "test_split_verified_rows_stratified",
+          "line": 42,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_normalize_and_validate_label",
+          "callee": "normalize_label",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_normalize_and_validate_label",
+          "callee": "validate_label",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_normalize_and_validate_label",
+          "callee": "validate_label",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_normalize_and_validate_label",
+          "callee": "validate_label",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_manifest_roundtrip",
+          "callee": "empty_row",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_manifest_roundtrip",
+          "callee": "empty_row",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_manifest_roundtrip",
+          "callee": "save_manifest",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_manifest_roundtrip",
+          "callee": "load_manifest",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_manifest_roundtrip",
+          "callee": "len",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_split_verified_rows_stratified",
+          "callee": "empty_row",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_split_verified_rows_stratified",
+          "callee": "enumerate",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_split_verified_rows_stratified",
+          "callee": "split_verified_rows",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_split_verified_rows_stratified",
+          "callee": "len",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_split_verified_rows_stratified",
+          "callee": "len",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_split_verified_rows_stratified",
+          "callee": "len",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_split_verified_rows_stratified",
+          "callee": "all",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_split_verified_rows_stratified",
+          "callee": "r.get",
+          "lineNumber": 51
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/tests/unit/test_captcha_harvest_http.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 66,
+      "nonEmptyLines": 48,
+      "functions": [
+        {
+          "name": "test_captcha_image_url",
+          "startLine": 24,
+          "endLine": 26,
+          "params": []
+        },
+        {
+          "name": "test_scheduler_headers_include_cookie",
+          "startLine": 29,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "test_parse_fresh_fields_from_fixture",
+          "startLine": 35,
+          "endLine": 40,
+          "params": []
+        },
+        {
+          "name": "test_session_cache_roundtrip",
+          "startLine": 43,
+          "endLine": 51,
+          "params": [
+            "tmp_path"
+          ]
+        },
+        {
+          "name": "test_refresh_vcid_http_parses_vcid",
+          "startLine": 54,
+          "endLine": 66,
+          "params": [
+            "monkeypatch"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_captcha_image_url",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "test_scheduler_headers_include_cookie",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "test_parse_fresh_fields_from_fixture",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "test_session_cache_roundtrip",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "test_refresh_vcid_http_parses_vcid",
+          "line": 54,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_captcha_image_url",
+          "callee": "captcha_image_url",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_scheduler_headers_include_cookie",
+          "callee": "scheduler_headers",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_parse_fresh_fields_from_fixture",
+          "callee": "booker.parse_fresh_fields",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_session_cache_roundtrip",
+          "callee": "save_session_cache",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_session_cache_roundtrip",
+          "callee": "load_session_cache",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_session_cache_roundtrip",
+          "callee": "load_session_cache",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_refresh_vcid_http_parses_vcid",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_refresh_vcid_http_parses_vcid",
+          "callee": "refresh_vcid_http",
+          "lineNumber": 61
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/workflows/booker.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 3574,
+      "nonEmptyLines": 3574,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "nodes",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "pinData",
+          "level": 1,
+          "line": 3135
+        },
+        {
+          "heading": "connections",
+          "level": 1,
+          "line": 3193
+        },
+        {
+          "heading": "active",
+          "level": 1,
+          "line": 3563
+        },
+        {
+          "heading": "settings",
+          "level": 1,
+          "line": 3564
+        },
+        {
+          "heading": "versionId",
+          "level": 1,
+          "line": 3568
+        },
+        {
+          "heading": "meta",
+          "level": 1,
+          "line": 3569
+        },
+        {
+          "heading": "id",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "tags",
+          "level": 1,
+          "line": 3573
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": "python-booker-webhook/workflows/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 21,
+      "nonEmptyLines": 12,
+      "sections": [
+        {
+          "heading": "n8n workflows",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "booker.json",
+          "level": 2,
+          "line": 7
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    }
+  ]
+}

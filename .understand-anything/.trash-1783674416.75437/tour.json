@@ -1,0 +1,68 @@
+[
+  {
+    "order": 1,
+    "title": "Project Overview",
+    "description": "The Austrian appointment system: an n8n + Python pipeline that watches embassy slots, solves BotDetect captchas, and books appointments on the BMEIA portal. Start with the agent guide.",
+    "nodeIds": [
+      "document:AGENTS.md"
+    ]
+  },
+  {
+    "order": 2,
+    "title": "Booking Webhook Entry Point",
+    "description": "FastAPI app exposing POST /webhook/booker; it receives turbo booking payloads and orchestrates the OCR/Gemini/Playwright pipeline.",
+    "nodeIds": [
+      "file:python-booker-webhook/app.py"
+    ]
+  },
+  {
+    "order": 3,
+    "title": "Playwright Booking Core",
+    "description": "The legacy Playwright engine that drives the BMEIA site: navigation, form filling, and captcha submission.",
+    "nodeIds": [
+      "file:python-booker-webhook/booker_legacy.py"
+    ]
+  },
+  {
+    "order": 4,
+    "title": "Captcha & Scheduler Parsing",
+    "description": "OCR client captures the BotDetect captcha image; scheduler_html parses available appointment slots from the BMEIA HTML.",
+    "nodeIds": [
+      "file:python-booker-webhook/captcha_ocr.py",
+      "file:python-booker-webhook/scheduler_html.py"
+    ]
+  },
+  {
+    "order": 5,
+    "title": "n8n Orchestration",
+    "description": "n8n watcher and booker workflows that enqueue slots and trigger the webhook with booking payloads.",
+    "nodeIds": []
+  },
+  {
+    "order": 6,
+    "title": "Dev Tools & Sandboxes",
+    "description": "Debugging scripts and isolated sandboxes used to exercise the OCR API and harvest captcha images for fine-tuning.",
+    "nodeIds": [
+      "file:python-booker-webhook/scripts/run_ocr_captcha_api.py",
+      "file:python-booker-webhook/scripts/run_turbo_payload.py",
+      "file:python-booker-webhook/scripts/harvest_captcha_images.py"
+    ]
+  },
+  {
+    "order": 7,
+    "title": "Tests & Validation",
+    "description": "Unit and integration tests covering slot selection, scheduler parsing, submit-error classification, and the captcha pipeline.",
+    "nodeIds": [
+      "file:python-booker-webhook/tests/e2e/test_capture_navigation.py",
+      "file:python-booker-webhook/tests/unit/test_calendar_wait.py",
+      "file:python-booker-webhook/tests/unit/test_run_id.py",
+      "file:python-booker-webhook/tests/unit/test_scheduler_parse.py"
+    ]
+  },
+  {
+    "order": 8,
+    "title": "Configuration",
+    "description": "Dependency manifests and environment configuration that tune runtime and captcha-solver behavior.",
+    "nodeIds": []
+  }
+]

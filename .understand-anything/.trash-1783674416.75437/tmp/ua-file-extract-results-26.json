@@ -1,0 +1,6135 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 175,
+      "nonEmptyLines": 130,
+      "sections": [
+        {
+          "heading": "Sandbox lock-integration-v1",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Layout",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Scripts",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "KOPENHAGEN watcher + booker (full E2E)",
+          "level": 2,
+          "line": 36
+        },
+        {
+          "heading": "Five-applicant watcher test",
+          "level": 3,
+          "line": 50
+        },
+        {
+          "heading": "KOPENHAGEN test (dummy data)",
+          "level": 2,
+          "line": 72
+        },
+        {
+          "heading": "Quick start",
+          "level": 2,
+          "line": 86
+        },
+        {
+          "heading": "Sandbox workflow (n8n)",
+          "level": 2,
+          "line": 114
+        },
+        {
+          "heading": "Lock behavior",
+          "level": 2,
+          "line": 126
+        },
+        {
+          "heading": "Python turbo / captcha (sandbox)",
+          "level": 2,
+          "line": 139
+        },
+        {
+          "heading": "Recent test results (KOPENHAGEN sandbox)",
+          "level": 2,
+          "line": 158
+        },
+        {
+          "heading": "Live workflows (unchanged)",
+          "level": 2,
+          "line": 168
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/inspect_pending_state.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 165,
+      "nonEmptyLines": 147,
+      "functions": [
+        {
+          "name": "load_env",
+          "startLine": 17,
+          "endLine": 25,
+          "params": []
+        },
+        {
+          "name": "get_rows",
+          "startLine": 28,
+          "endLine": 39,
+          "params": [
+            "base",
+            "h",
+            "table_id",
+            "limit"
+          ]
+        },
+        {
+          "name": "summarize_execution",
+          "startLine": 42,
+          "endLine": 98,
+          "params": [
+            "base",
+            "h",
+            "eid"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 101,
+          "endLine": 161,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "load_env",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "get_rows",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "summarize_execution",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 101,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "load_env",
+          "callee": "(ROOT / \".env.n8n.local\").read_text(encoding=\"utf-8\").splitlines",
+          "lineNumber": 19
+        },
+        {
+          "caller": "load_env",
+          "callee": "(ROOT / \".env.n8n.local\").read_text",
+          "lineNumber": 19
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.strip",
+          "lineNumber": 20
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.startswith",
+          "lineNumber": 21
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.split",
+          "lineNumber": 23
+        },
+        {
+          "caller": "load_env",
+          "callee": "k.strip",
+          "lineNumber": 24
+        },
+        {
+          "caller": "load_env",
+          "callee": "v.strip",
+          "lineNumber": 24
+        },
+        {
+          "caller": "get_rows",
+          "callee": "requests.get",
+          "lineNumber": 33
+        },
+        {
+          "caller": "get_rows",
+          "callee": "r.json",
+          "lineNumber": 35
+        },
+        {
+          "caller": "get_rows",
+          "callee": "isinstance",
+          "lineNumber": 36
+        },
+        {
+          "caller": "get_rows",
+          "callee": "data.get",
+          "lineNumber": 38
+        },
+        {
+          "caller": "get_rows",
+          "callee": "data.get",
+          "lineNumber": 38
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "requests.get",
+          "lineNumber": 43
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "r.raise_for_status",
+          "lineNumber": 49
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "r.json",
+          "lineNumber": 50
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "ej.get(\"data\", {}).get",
+          "lineNumber": 51
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "ej.get",
+          "lineNumber": 51
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "ej.get",
+          "lineNumber": 54
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "ej.get",
+          "lineNumber": 55
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "rd.get",
+          "lineNumber": 56
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "(rd.get(\"error\") or {}).get",
+          "lineNumber": 57
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "rd.get",
+          "lineNumber": 57
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "rd.get",
+          "lineNumber": 59
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "isinstance",
+          "lineNumber": 74
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "items[0].get",
+          "lineNumber": 75
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "items[0].get",
+          "lineNumber": 78
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "list",
+          "lineNumber": 79
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "j.keys",
+          "lineNumber": 79
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "j.get",
+          "lineNumber": 80
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "j.get(\"body\", {}).get",
+          "lineNumber": 80
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "j.get",
+          "lineNumber": 80
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "j.get",
+          "lineNumber": 81
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "j.get",
+          "lineNumber": 82
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "j.get(\"body\", {}).get",
+          "lineNumber": 82
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "j.get",
+          "lineNumber": 82
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "j.get",
+          "lineNumber": 86
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "j.get",
+          "lineNumber": 87
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "j.get",
+          "lineNumber": 88
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "j.get",
+          "lineNumber": 92
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "j.get",
+          "lineNumber": 93
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "j.get",
+          "lineNumber": 93
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "j.get",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "load_env",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "env[\"N8N_API_BASE_URL\"].rstrip",
+          "lineNumber": 103
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 106
+        },
+        {
+          "caller": "main",
+          "callee": "get_rows",
+          "lineNumber": 107
+        },
+        {
+          "caller": "main",
+          "callee": "str(a.get(\"TraveldocumentNumber\", \"\")).startswith",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "a.get",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "a.get",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "by_status.get",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 113
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 113
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "sorted",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "x.get",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 116
+        },
+        {
+          "caller": "main",
+          "callee": "a.get",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "a.get",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "a.get",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "a.get",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 120
+        },
+        {
+          "caller": "main",
+          "callee": "get_rows",
+          "lineNumber": 121
+        },
+        {
+          "caller": "main",
+          "callee": "str(s.get(\"office\", \"\")).upper",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "s.get",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "s.get",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "s.get",
+          "lineNumber": 125
+        },
+        {
+          "caller": "main",
+          "callee": "by_slot_status.get",
+          "lineNumber": 126
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 127
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 127
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 128
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 128
+        },
+        {
+          "caller": "main",
+          "callee": "sorted",
+          "lineNumber": 129
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 129
+        },
+        {
+          "caller": "main",
+          "callee": "x.get",
+          "lineNumber": 129
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 130
+        },
+        {
+          "caller": "main",
+          "callee": "s.get",
+          "lineNumber": 130
+        },
+        {
+          "caller": "main",
+          "callee": "s.get",
+          "lineNumber": 130
+        },
+        {
+          "caller": "main",
+          "callee": "s.get",
+          "lineNumber": 130
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 132
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get(\n        f\"{base}/api/v1/executions\",\n        headers=h,\n        params={\"workflowId\": BOOKER_ID, \"limit\": 12},\n        timeout=60,\n    ).json().get",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get(\n        f\"{base}/api/v1/executions\",\n        headers=h,\n        params={\"workflowId\": BOOKER_ID, \"limit\": 12},\n        timeout=60,\n    ).json",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "summarize_execution",
+          "lineNumber": 142
+        },
+        {
+          "caller": "main",
+          "callee": "summaries.append",
+          "lineNumber": 143
+        },
+        {
+          "caller": "main",
+          "callee": "s.get",
+          "lineNumber": 144
+        },
+        {
+          "caller": "main",
+          "callee": "s.get",
+          "lineNumber": 145
+        },
+        {
+          "caller": "main",
+          "callee": "s.get",
+          "lineNumber": 146
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 147
+        },
+        {
+          "caller": "main",
+          "callee": "s.get",
+          "lineNumber": 149
+        },
+        {
+          "caller": "main",
+          "callee": "http.get",
+          "lineNumber": 151
+        },
+        {
+          "caller": "main",
+          "callee": "http.get",
+          "lineNumber": 151
+        },
+        {
+          "caller": "main",
+          "callee": "bc.get",
+          "lineNumber": 152
+        },
+        {
+          "caller": "main",
+          "callee": "out_path.write_text",
+          "lineNumber": 156
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 157
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 160
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/loop_kopenhagen_full_test.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 13,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 13,
+          "endLine": 15,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "subprocess.run",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 14
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/n8n_push_booker_lock.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 137,
+      "nonEmptyLines": 117,
+      "functions": [
+        {
+          "name": "load_env",
+          "startLine": 15,
+          "endLine": 27,
+          "params": []
+        },
+        {
+          "name": "sanitize_settings",
+          "startLine": 30,
+          "endLine": 46,
+          "params": [
+            "settings"
+          ]
+        },
+        {
+          "name": "strip_for_create",
+          "startLine": 49,
+          "endLine": 55,
+          "params": [
+            "wf"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 58,
+          "endLine": 133,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "load_env",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "sanitize_settings",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "strip_for_create",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 58,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "load_env",
+          "callee": "path.exists",
+          "lineNumber": 18
+        },
+        {
+          "caller": "load_env",
+          "callee": "path.read_text(encoding=\"utf-8\").splitlines",
+          "lineNumber": 19
+        },
+        {
+          "caller": "load_env",
+          "callee": "path.read_text",
+          "lineNumber": 19
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.strip",
+          "lineNumber": 20
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.startswith",
+          "lineNumber": 21
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.split",
+          "lineNumber": 23
+        },
+        {
+          "caller": "load_env",
+          "callee": "k.strip",
+          "lineNumber": 24
+        },
+        {
+          "caller": "load_env",
+          "callee": "v.strip",
+          "lineNumber": 24
+        },
+        {
+          "caller": "load_env",
+          "callee": "env.setdefault",
+          "lineNumber": 25
+        },
+        {
+          "caller": "load_env",
+          "callee": "os.getenv",
+          "lineNumber": 25
+        },
+        {
+          "caller": "load_env",
+          "callee": "env.setdefault",
+          "lineNumber": 26
+        },
+        {
+          "caller": "load_env",
+          "callee": "os.getenv",
+          "lineNumber": 26
+        },
+        {
+          "caller": "sanitize_settings",
+          "callee": "settings.items",
+          "lineNumber": 46
+        },
+        {
+          "caller": "strip_for_create",
+          "callee": "wf.items",
+          "lineNumber": 50
+        },
+        {
+          "caller": "strip_for_create",
+          "callee": "sanitize_settings",
+          "lineNumber": 54
+        },
+        {
+          "caller": "strip_for_create",
+          "callee": "out.get",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "load_env",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "env[\"N8N_API_BASE_URL\"].rstrip",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "wf_path.exists",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "meta_path.exists",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "json.loads",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "meta_path.read_text",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "json.loads",
+          "lineNumber": 76
+        },
+        {
+          "caller": "main",
+          "callee": "wf_path.read_text",
+          "lineNumber": 76
+        },
+        {
+          "caller": "main",
+          "callee": "strip_for_create",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "(meta.get(\"booker_lock_sandbox\") or {}).get",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "meta.get",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get",
+          "lineNumber": 82
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get",
+          "lineNumber": 87
+        },
+        {
+          "caller": "main",
+          "callee": "list_r.raise_for_status",
+          "lineNumber": 88
+        },
+        {
+          "caller": "main",
+          "callee": "list_r.json().get",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "list_r.json",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "row.get",
+          "lineNumber": 90
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get",
+          "lineNumber": 95
+        },
+        {
+          "caller": "main",
+          "callee": "get_active.json().get",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "get_active.json",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "requests.post",
+          "lineNumber": 98
+        },
+        {
+          "caller": "main",
+          "callee": "requests.put",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "put_r.raise_for_status",
+          "lineNumber": 105
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 106
+        },
+        {
+          "caller": "main",
+          "callee": "requests.post",
+          "lineNumber": 109
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "requests.post",
+          "lineNumber": 113
+        },
+        {
+          "caller": "main",
+          "callee": "post_r.raise_for_status",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "post_r.json().get",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "post_r.json",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 116
+        },
+        {
+          "caller": "main",
+          "callee": "meta_path.parent.mkdir",
+          "lineNumber": 119
+        },
+        {
+          "caller": "main",
+          "callee": "meta_path.exists",
+          "lineNumber": 121
+        },
+        {
+          "caller": "main",
+          "callee": "json.loads",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "meta_path.read_text",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "env.get",
+          "lineNumber": 127
+        },
+        {
+          "caller": "main",
+          "callee": "meta_path.write_text",
+          "lineNumber": 131
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 131
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 132
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/n8n_push_watcher_sandbox.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 95,
+      "nonEmptyLines": 77,
+      "functions": [
+        {
+          "name": "load_env",
+          "startLine": 16,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "sanitize_settings",
+          "startLine": 27,
+          "endLine": 35,
+          "params": [
+            "settings"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 38,
+          "endLine": 91,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "load_env",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "sanitize_settings",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 38,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "load_env",
+          "callee": "(ROOT / \".env.n8n.local\").read_text(encoding=\"utf-8\").splitlines",
+          "lineNumber": 18
+        },
+        {
+          "caller": "load_env",
+          "callee": "(ROOT / \".env.n8n.local\").read_text",
+          "lineNumber": 18
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.strip",
+          "lineNumber": 19
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.startswith",
+          "lineNumber": 20
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.split",
+          "lineNumber": 22
+        },
+        {
+          "caller": "load_env",
+          "callee": "k.strip",
+          "lineNumber": 23
+        },
+        {
+          "caller": "load_env",
+          "callee": "v.strip",
+          "lineNumber": 23
+        },
+        {
+          "caller": "sanitize_settings",
+          "callee": "settings.items",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "load_env",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "env[\"N8N_API_BASE_URL\"].rstrip",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "wf_path.exists",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "json.loads",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "meta_path.read_text",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "meta_path.exists",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "json.loads",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "wf_path.read_text",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "sanitize_settings",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "body.get",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "(meta.get(META_KEY) or {}).get",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "meta.get",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get(f\"{base}/api/v1/workflows\", headers=headers, params={\"limit\": 250}, timeout=60).json().get",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get(f\"{base}/api/v1/workflows\", headers=headers, params={\"limit\": 250}, timeout=60).json",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "row.get",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get(f\"{base}/api/v1/workflows/{existing_id}\", headers=headers, timeout=60).json().get",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get(f\"{base}/api/v1/workflows/{existing_id}\", headers=headers, timeout=60).json",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "requests.post",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "requests.put(f\"{base}/api/v1/workflows/{existing_id}\", headers=headers, json=body, timeout=120).raise_for_status",
+          "lineNumber": 75
+        },
+        {
+          "caller": "main",
+          "callee": "requests.put",
+          "lineNumber": 75
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "requests.post",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "requests.post",
+          "lineNumber": 82
+        },
+        {
+          "caller": "main",
+          "callee": "post_r.raise_for_status",
+          "lineNumber": 83
+        },
+        {
+          "caller": "main",
+          "callee": "post_r.json",
+          "lineNumber": 84
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "meta_path.parent.mkdir",
+          "lineNumber": 88
+        },
+        {
+          "caller": "main",
+          "callee": "meta_path.write_text",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 90
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/patch_booker_lock.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 357,
+      "nonEmptyLines": 331,
+      "functions": [
+        {
+          "name": "nid",
+          "startLine": 118,
+          "endLine": 119,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 122,
+          "endLine": 353,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "nid",
+          "line": 118,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 122,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "nid",
+          "callee": "str",
+          "lineNumber": 119
+        },
+        {
+          "caller": "nid",
+          "callee": "uuid.uuid4",
+          "lineNumber": 119
+        },
+        {
+          "caller": "main",
+          "callee": "json.loads",
+          "lineNumber": 123
+        },
+        {
+          "caller": "main",
+          "callee": "SRC.read_text",
+          "lineNumber": 123
+        },
+        {
+          "caller": "main",
+          "callee": "copy.deepcopy",
+          "lineNumber": 124
+        },
+        {
+          "caller": "main",
+          "callee": "wf.pop",
+          "lineNumber": 126
+        },
+        {
+          "caller": "main",
+          "callee": "wf.pop",
+          "lineNumber": 127
+        },
+        {
+          "caller": "main",
+          "callee": "n.get",
+          "lineNumber": 135
+        },
+        {
+          "caller": "main",
+          "callee": "n.setdefault",
+          "lineNumber": 136
+        },
+        {
+          "caller": "main",
+          "callee": "nid",
+          "lineNumber": 140
+        },
+        {
+          "caller": "main",
+          "callee": "n.get",
+          "lineNumber": 141
+        },
+        {
+          "caller": "main",
+          "callee": "(ROOT / \".env.n8n.local\").read_text",
+          "lineNumber": 142
+        },
+        {
+          "caller": "main",
+          "callee": "(ROOT / \".env.n8n.local\").exists",
+          "lineNumber": 142
+        },
+        {
+          "caller": "main",
+          "callee": "url.splitlines",
+          "lineNumber": 144
+        },
+        {
+          "caller": "main",
+          "callee": "line.startswith",
+          "lineNumber": 145
+        },
+        {
+          "caller": "main",
+          "callee": "line.split(\"=\", 1)[1].strip",
+          "lineNumber": 146
+        },
+        {
+          "caller": "main",
+          "callee": "line.split",
+          "lineNumber": 146
+        },
+        {
+          "caller": "main",
+          "callee": "public.rstrip",
+          "lineNumber": 148
+        },
+        {
+          "caller": "main",
+          "callee": "n.get",
+          "lineNumber": 149
+        },
+        {
+          "caller": "main",
+          "callee": "n.get(\"parameters\", {}).get(\"conditions\", {}).get",
+          "lineNumber": 150
+        },
+        {
+          "caller": "main",
+          "callee": "n.get(\"parameters\", {}).get",
+          "lineNumber": 150
+        },
+        {
+          "caller": "main",
+          "callee": "n.get",
+          "lineNumber": 150
+        },
+        {
+          "caller": "main",
+          "callee": "c.get",
+          "lineNumber": 152
+        },
+        {
+          "caller": "main",
+          "callee": "n.get",
+          "lineNumber": 154
+        },
+        {
+          "caller": "main",
+          "callee": "nid",
+          "lineNumber": 159
+        },
+        {
+          "caller": "main",
+          "callee": "nid",
+          "lineNumber": 171
+        },
+        {
+          "caller": "main",
+          "callee": "nid",
+          "lineNumber": 181
+        },
+        {
+          "caller": "main",
+          "callee": "nid",
+          "lineNumber": 189
+        },
+        {
+          "caller": "main",
+          "callee": "nid",
+          "lineNumber": 201
+        },
+        {
+          "caller": "main",
+          "callee": "nid",
+          "lineNumber": 209
+        },
+        {
+          "caller": "main",
+          "callee": "nid",
+          "lineNumber": 217
+        },
+        {
+          "caller": "main",
+          "callee": "nid",
+          "lineNumber": 225
+        },
+        {
+          "caller": "main",
+          "callee": "nid",
+          "lineNumber": 237
+        },
+        {
+          "caller": "main",
+          "callee": "nid",
+          "lineNumber": 247
+        },
+        {
+          "caller": "main",
+          "callee": "nid",
+          "lineNumber": 255
+        },
+        {
+          "caller": "main",
+          "callee": "nid",
+          "lineNumber": 263
+        },
+        {
+          "caller": "main",
+          "callee": "nodes.extend",
+          "lineNumber": 270
+        },
+        {
+          "caller": "main",
+          "callee": "wf.get",
+          "lineNumber": 347
+        },
+        {
+          "caller": "main",
+          "callee": "wf[\"settings\"].pop",
+          "lineNumber": 350
+        },
+        {
+          "caller": "main",
+          "callee": "OUT.write_text",
+          "lineNumber": 352
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 352
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 353
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/patch_watcher_kopenhagen.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 57,
+      "nonEmptyLines": 44,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 26,
+          "endLine": 53,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 26,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "json.loads",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "SRC.read_text",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "copy.deepcopy",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "wf.pop",
+          "lineNumber": 30
+        },
+        {
+          "caller": "main",
+          "callee": "wf.pop",
+          "lineNumber": 31
+        },
+        {
+          "caller": "main",
+          "callee": "wf.pop",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "n.get",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "n.get",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "n[\"parameters\"].setdefault",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "n.get",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "conn.pop",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "wf.get",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "wf[\"settings\"].pop",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "OUT.write_text",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 53
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_full_watcher_booker_test.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 203,
+      "nonEmptyLines": 165,
+      "functions": [
+        {
+          "name": "load_env",
+          "startLine": 18,
+          "endLine": 26,
+          "params": []
+        },
+        {
+          "name": "load_meta",
+          "startLine": 29,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "headers",
+          "startLine": 34,
+          "endLine": 35,
+          "params": [
+            "env"
+          ]
+        },
+        {
+          "name": "clear_booker_lock",
+          "startLine": 38,
+          "endLine": 45,
+          "params": [
+            "base",
+            "env",
+            "booker_id"
+          ]
+        },
+        {
+          "name": "seed_student",
+          "startLine": 48,
+          "endLine": 53,
+          "params": [
+            "env"
+          ]
+        },
+        {
+          "name": "deactivate_workflow",
+          "startLine": 56,
+          "endLine": 58,
+          "params": [
+            "base",
+            "env",
+            "wf_id"
+          ]
+        },
+        {
+          "name": "activate_workflow",
+          "startLine": 61,
+          "endLine": 65,
+          "params": [
+            "base",
+            "env",
+            "wf_id"
+          ]
+        },
+        {
+          "name": "run_watcher",
+          "startLine": 68,
+          "endLine": 80,
+          "params": [
+            "base",
+            "env",
+            "watcher_id"
+          ]
+        },
+        {
+          "name": "wait_execution",
+          "startLine": 83,
+          "endLine": 93,
+          "params": [
+            "base",
+            "env",
+            "execution_id",
+            "timeout_sec"
+          ]
+        },
+        {
+          "name": "latest_execution_for",
+          "startLine": 96,
+          "endLine": 108,
+          "params": [
+            "base",
+            "env",
+            "workflow_id",
+            "after_iso"
+          ]
+        },
+        {
+          "name": "summarize_execution",
+          "startLine": 111,
+          "endLine": 125,
+          "params": [
+            "base",
+            "env",
+            "execution_id"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 128,
+          "endLine": 199,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "load_env",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "load_meta",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "headers",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "clear_booker_lock",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "seed_student",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "deactivate_workflow",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "activate_workflow",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "run_watcher",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "wait_execution",
+          "line": 83,
+          "isDefault": false
+        },
+        {
+          "name": "latest_execution_for",
+          "line": 96,
+          "isDefault": false
+        },
+        {
+          "name": "summarize_execution",
+          "line": 111,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 128,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "load_env",
+          "callee": "(ROOT / \".env.n8n.local\").read_text(encoding=\"utf-8\").splitlines",
+          "lineNumber": 20
+        },
+        {
+          "caller": "load_env",
+          "callee": "(ROOT / \".env.n8n.local\").read_text",
+          "lineNumber": 20
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.strip",
+          "lineNumber": 21
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.startswith",
+          "lineNumber": 22
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.split",
+          "lineNumber": 24
+        },
+        {
+          "caller": "load_env",
+          "callee": "k.strip",
+          "lineNumber": 25
+        },
+        {
+          "caller": "load_env",
+          "callee": "v.strip",
+          "lineNumber": 25
+        },
+        {
+          "caller": "load_meta",
+          "callee": "json.loads",
+          "lineNumber": 31
+        },
+        {
+          "caller": "load_meta",
+          "callee": "p.read_text",
+          "lineNumber": 31
+        },
+        {
+          "caller": "load_meta",
+          "callee": "p.exists",
+          "lineNumber": 31
+        },
+        {
+          "caller": "clear_booker_lock",
+          "callee": "headers",
+          "lineNumber": 39
+        },
+        {
+          "caller": "clear_booker_lock",
+          "callee": "requests.get(f\"{base}/api/v1/workflows/{booker_id}\", headers=h, timeout=60).json",
+          "lineNumber": 40
+        },
+        {
+          "caller": "clear_booker_lock",
+          "callee": "requests.get",
+          "lineNumber": 40
+        },
+        {
+          "caller": "clear_booker_lock",
+          "callee": "requests.post",
+          "lineNumber": 43
+        },
+        {
+          "caller": "clear_booker_lock",
+          "callee": "requests.put",
+          "lineNumber": 44
+        },
+        {
+          "caller": "clear_booker_lock",
+          "callee": "requests.post",
+          "lineNumber": 45
+        },
+        {
+          "caller": "seed_student",
+          "callee": "sys.path.insert",
+          "lineNumber": 49
+        },
+        {
+          "caller": "seed_student",
+          "callee": "str",
+          "lineNumber": 49
+        },
+        {
+          "caller": "seed_student",
+          "callee": "__import__(\"uuid\").uuid4().hex[:6].upper",
+          "lineNumber": 52
+        },
+        {
+          "caller": "seed_student",
+          "callee": "__import__(\"uuid\").uuid4",
+          "lineNumber": 52
+        },
+        {
+          "caller": "seed_student",
+          "callee": "__import__",
+          "lineNumber": 52
+        },
+        {
+          "caller": "seed_student",
+          "callee": "seed_dummy_applicant",
+          "lineNumber": 53
+        },
+        {
+          "caller": "deactivate_workflow",
+          "callee": "headers",
+          "lineNumber": 57
+        },
+        {
+          "caller": "deactivate_workflow",
+          "callee": "requests.post",
+          "lineNumber": 58
+        },
+        {
+          "caller": "activate_workflow",
+          "callee": "headers",
+          "lineNumber": 62
+        },
+        {
+          "caller": "activate_workflow",
+          "callee": "requests.get(f\"{base}/api/v1/workflows/{wf_id}\", headers=h, timeout=60).json",
+          "lineNumber": 63
+        },
+        {
+          "caller": "activate_workflow",
+          "callee": "requests.get",
+          "lineNumber": 63
+        },
+        {
+          "caller": "activate_workflow",
+          "callee": "wf.get",
+          "lineNumber": 64
+        },
+        {
+          "caller": "activate_workflow",
+          "callee": "requests.post(f\"{base}/api/v1/workflows/{wf_id}/activate\", headers=h, timeout=60).raise_for_status",
+          "lineNumber": 65
+        },
+        {
+          "caller": "activate_workflow",
+          "callee": "requests.post",
+          "lineNumber": 65
+        },
+        {
+          "caller": "run_watcher",
+          "callee": "headers",
+          "lineNumber": 69
+        },
+        {
+          "caller": "run_watcher",
+          "callee": "requests.post",
+          "lineNumber": 74
+        },
+        {
+          "caller": "run_watcher",
+          "callee": "r.json",
+          "lineNumber": 76
+        },
+        {
+          "caller": "run_watcher",
+          "callee": "data.get",
+          "lineNumber": 77
+        },
+        {
+          "caller": "run_watcher",
+          "callee": "data.get",
+          "lineNumber": 77
+        },
+        {
+          "caller": "run_watcher",
+          "callee": "(data.get(\"data\") or [{}])[0].get",
+          "lineNumber": 77
+        },
+        {
+          "caller": "run_watcher",
+          "callee": "data.get",
+          "lineNumber": 77
+        },
+        {
+          "caller": "run_watcher",
+          "callee": "str",
+          "lineNumber": 79
+        },
+        {
+          "caller": "wait_execution",
+          "callee": "headers",
+          "lineNumber": 84
+        },
+        {
+          "caller": "wait_execution",
+          "callee": "time.time",
+          "lineNumber": 85
+        },
+        {
+          "caller": "wait_execution",
+          "callee": "time.time",
+          "lineNumber": 86
+        },
+        {
+          "caller": "wait_execution",
+          "callee": "requests.get",
+          "lineNumber": 87
+        },
+        {
+          "caller": "wait_execution",
+          "callee": "r.raise_for_status",
+          "lineNumber": 88
+        },
+        {
+          "caller": "wait_execution",
+          "callee": "r.json",
+          "lineNumber": 89
+        },
+        {
+          "caller": "wait_execution",
+          "callee": "ej.get",
+          "lineNumber": 90
+        },
+        {
+          "caller": "wait_execution",
+          "callee": "ej.get",
+          "lineNumber": 90
+        },
+        {
+          "caller": "wait_execution",
+          "callee": "time.sleep",
+          "lineNumber": 92
+        },
+        {
+          "caller": "latest_execution_for",
+          "callee": "headers",
+          "lineNumber": 97
+        },
+        {
+          "caller": "latest_execution_for",
+          "callee": "requests.get",
+          "lineNumber": 98
+        },
+        {
+          "caller": "latest_execution_for",
+          "callee": "r.raise_for_status",
+          "lineNumber": 104
+        },
+        {
+          "caller": "latest_execution_for",
+          "callee": "r.json().get",
+          "lineNumber": 105
+        },
+        {
+          "caller": "latest_execution_for",
+          "callee": "r.json",
+          "lineNumber": 105
+        },
+        {
+          "caller": "latest_execution_for",
+          "callee": "row.get",
+          "lineNumber": 106
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "headers",
+          "lineNumber": 112
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "requests.get",
+          "lineNumber": 113
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "r.raise_for_status",
+          "lineNumber": 119
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "r.json",
+          "lineNumber": 120
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "ej.get(\"data\", {}).get",
+          "lineNumber": 121
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "ej.get",
+          "lineNumber": 121
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "rd.get",
+          "lineNumber": 122
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "(rd.get(\"error\") or {}).get",
+          "lineNumber": 123
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "rd.get",
+          "lineNumber": 123
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "list",
+          "lineNumber": 124
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "(rd.get(\"runData\") or {}).keys",
+          "lineNumber": 124
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "rd.get",
+          "lineNumber": 124
+        },
+        {
+          "caller": "summarize_execution",
+          "callee": "ej.get",
+          "lineNumber": 125
+        },
+        {
+          "caller": "main",
+          "callee": "load_env",
+          "lineNumber": 129
+        },
+        {
+          "caller": "main",
+          "callee": "env[\"N8N_API_BASE_URL\"].rstrip",
+          "lineNumber": 130
+        },
+        {
+          "caller": "main",
+          "callee": "load_meta",
+          "lineNumber": 131
+        },
+        {
+          "caller": "main",
+          "callee": "(meta.get(\"watcher_kopenhagen_sandbox\") or {}).get",
+          "lineNumber": 132
+        },
+        {
+          "caller": "main",
+          "callee": "meta.get",
+          "lineNumber": 132
+        },
+        {
+          "caller": "main",
+          "callee": "(meta.get(\"booker_lock_sandbox\") or {}).get",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "meta.get",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 135
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get(\"http://127.0.0.1:8010/health\", timeout=10).raise_for_status",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 139
+        },
+        {
+          "caller": "main",
+          "callee": "seed_student",
+          "lineNumber": 141
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 142
+        },
+        {
+          "caller": "main",
+          "callee": "deactivate_workflow",
+          "lineNumber": 143
+        },
+        {
+          "caller": "main",
+          "callee": "clear_booker_lock",
+          "lineNumber": 144
+        },
+        {
+          "caller": "main",
+          "callee": "activate_workflow",
+          "lineNumber": 145
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).strftime",
+          "lineNumber": 147
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now",
+          "lineNumber": 147
+        },
+        {
+          "caller": "main",
+          "callee": "time.sleep",
+          "lineNumber": 148
+        },
+        {
+          "caller": "main",
+          "callee": "activate_workflow",
+          "lineNumber": 149
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 150
+        },
+        {
+          "caller": "main",
+          "callee": "range",
+          "lineNumber": 152
+        },
+        {
+          "caller": "main",
+          "callee": "time.sleep",
+          "lineNumber": 153
+        },
+        {
+          "caller": "main",
+          "callee": "latest_execution_for",
+          "lineNumber": 154
+        },
+        {
+          "caller": "main",
+          "callee": "deactivate_workflow",
+          "lineNumber": 157
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 158
+        },
+        {
+          "caller": "main",
+          "callee": "deactivate_workflow",
+          "lineNumber": 161
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 162
+        },
+        {
+          "caller": "main",
+          "callee": "wait_execution",
+          "lineNumber": 165
+        },
+        {
+          "caller": "main",
+          "callee": "summarize_execution",
+          "lineNumber": 166
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 167
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 167
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 169
+        },
+        {
+          "caller": "main",
+          "callee": "range",
+          "lineNumber": 171
+        },
+        {
+          "caller": "main",
+          "callee": "latest_execution_for",
+          "lineNumber": 172
+        },
+        {
+          "caller": "main",
+          "callee": "wait_execution",
+          "lineNumber": 174
+        },
+        {
+          "caller": "main",
+          "callee": "time.sleep",
+          "lineNumber": 176
+        },
+        {
+          "caller": "main",
+          "callee": "summarize_execution",
+          "lineNumber": 178
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 179
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 179
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat",
+          "lineNumber": 182
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now",
+          "lineNumber": 182
+        },
+        {
+          "caller": "main",
+          "callee": "out_path.write_text",
+          "lineNumber": 188
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 188
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 189
+        },
+        {
+          "caller": "main",
+          "callee": "watcher_summary.get",
+          "lineNumber": 191
+        },
+        {
+          "caller": "main",
+          "callee": "booker_summary.get",
+          "lineNumber": 191
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 192
+        },
+        {
+          "caller": "main",
+          "callee": "booker_summary.get",
+          "lineNumber": 192
+        },
+        {
+          "caller": "main",
+          "callee": "booker_summary.get",
+          "lineNumber": 192
+        },
+        {
+          "caller": "main",
+          "callee": "booker_summary.get",
+          "lineNumber": 193
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 194
+        },
+        {
+          "caller": "main",
+          "callee": "booker_summary.get",
+          "lineNumber": 196
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 197
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 12,
+        "functionCount": 12,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_lock_integration_tests.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 157,
+      "nonEmptyLines": 130,
+      "functions": [
+        {
+          "name": "load_env",
+          "startLine": 20,
+          "endLine": 28,
+          "params": []
+        },
+        {
+          "name": "headers",
+          "startLine": 31,
+          "endLine": 32,
+          "params": [
+            "env"
+          ]
+        },
+        {
+          "name": "activate_sandbox",
+          "startLine": 35,
+          "endLine": 45,
+          "params": [
+            "base",
+            "env"
+          ]
+        },
+        {
+          "name": "archive_duplicate",
+          "startLine": 48,
+          "endLine": 65,
+          "params": [
+            "base",
+            "env"
+          ]
+        },
+        {
+          "name": "load_payload",
+          "startLine": 68,
+          "endLine": 70,
+          "params": []
+        },
+        {
+          "name": "post_webhook",
+          "startLine": 73,
+          "endLine": 86,
+          "params": [
+            "base",
+            "payload",
+            "label"
+          ]
+        },
+        {
+          "name": "clear_stale_lock",
+          "startLine": 89,
+          "endLine": 97,
+          "params": [
+            "base",
+            "env"
+          ]
+        },
+        {
+          "name": "run_tests",
+          "startLine": 100,
+          "endLine": 139,
+          "params": [
+            "base",
+            "env"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 142,
+          "endLine": 153,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "load_env",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "headers",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "activate_sandbox",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "archive_duplicate",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "load_payload",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "post_webhook",
+          "line": 73,
+          "isDefault": false
+        },
+        {
+          "name": "clear_stale_lock",
+          "line": 89,
+          "isDefault": false
+        },
+        {
+          "name": "run_tests",
+          "line": 100,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 142,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "load_env",
+          "callee": "(ROOT / \".env.n8n.local\").read_text(encoding=\"utf-8\").splitlines",
+          "lineNumber": 22
+        },
+        {
+          "caller": "load_env",
+          "callee": "(ROOT / \".env.n8n.local\").read_text",
+          "lineNumber": 22
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.strip",
+          "lineNumber": 23
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.startswith",
+          "lineNumber": 24
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.split",
+          "lineNumber": 26
+        },
+        {
+          "caller": "load_env",
+          "callee": "k.strip",
+          "lineNumber": 27
+        },
+        {
+          "caller": "load_env",
+          "callee": "v.strip",
+          "lineNumber": 27
+        },
+        {
+          "caller": "activate_sandbox",
+          "callee": "headers",
+          "lineNumber": 36
+        },
+        {
+          "caller": "activate_sandbox",
+          "callee": "requests.get(f\"{base}/api/v1/workflows/{SANDBOX_ID}\", headers=h, timeout=60).json",
+          "lineNumber": 37
+        },
+        {
+          "caller": "activate_sandbox",
+          "callee": "requests.get",
+          "lineNumber": 37
+        },
+        {
+          "caller": "activate_sandbox",
+          "callee": "wf.get",
+          "lineNumber": 38
+        },
+        {
+          "caller": "activate_sandbox",
+          "callee": "print",
+          "lineNumber": 39
+        },
+        {
+          "caller": "activate_sandbox",
+          "callee": "requests.post",
+          "lineNumber": 41
+        },
+        {
+          "caller": "activate_sandbox",
+          "callee": "requests.patch",
+          "lineNumber": 43
+        },
+        {
+          "caller": "activate_sandbox",
+          "callee": "r.raise_for_status",
+          "lineNumber": 44
+        },
+        {
+          "caller": "activate_sandbox",
+          "callee": "print",
+          "lineNumber": 45
+        },
+        {
+          "caller": "archive_duplicate",
+          "callee": "headers",
+          "lineNumber": 49
+        },
+        {
+          "caller": "archive_duplicate",
+          "callee": "requests.get",
+          "lineNumber": 50
+        },
+        {
+          "caller": "archive_duplicate",
+          "callee": "print",
+          "lineNumber": 52
+        },
+        {
+          "caller": "archive_duplicate",
+          "callee": "r.json().get",
+          "lineNumber": 54
+        },
+        {
+          "caller": "archive_duplicate",
+          "callee": "r.json",
+          "lineNumber": 54
+        },
+        {
+          "caller": "archive_duplicate",
+          "callee": "print",
+          "lineNumber": 55
+        },
+        {
+          "caller": "archive_duplicate",
+          "callee": "requests.request",
+          "lineNumber": 61
+        },
+        {
+          "caller": "archive_duplicate",
+          "callee": "print",
+          "lineNumber": 63
+        },
+        {
+          "caller": "archive_duplicate",
+          "callee": "print",
+          "lineNumber": 65
+        },
+        {
+          "caller": "load_payload",
+          "callee": "json.loads",
+          "lineNumber": 69
+        },
+        {
+          "caller": "load_payload",
+          "callee": "(ROOT / \"workflows\" / \"booker-lock-v1.json\").read_text",
+          "lineNumber": 69
+        },
+        {
+          "caller": "post_webhook",
+          "callee": "requests.post",
+          "lineNumber": 76
+        },
+        {
+          "caller": "post_webhook",
+          "callee": "r.json",
+          "lineNumber": 78
+        },
+        {
+          "caller": "post_webhook",
+          "callee": "print",
+          "lineNumber": 82
+        },
+        {
+          "caller": "post_webhook",
+          "callee": "str",
+          "lineNumber": 82
+        },
+        {
+          "caller": "post_webhook",
+          "callee": "print",
+          "lineNumber": 85
+        },
+        {
+          "caller": "post_webhook",
+          "callee": "str",
+          "lineNumber": 86
+        },
+        {
+          "caller": "clear_stale_lock",
+          "callee": "headers",
+          "lineNumber": 90
+        },
+        {
+          "caller": "clear_stale_lock",
+          "callee": "requests.get(f\"{base}/api/v1/workflows/{SANDBOX_ID}\", headers=h, timeout=60).json",
+          "lineNumber": 91
+        },
+        {
+          "caller": "clear_stale_lock",
+          "callee": "requests.get",
+          "lineNumber": 91
+        },
+        {
+          "caller": "clear_stale_lock",
+          "callee": "requests.post",
+          "lineNumber": 94
+        },
+        {
+          "caller": "clear_stale_lock",
+          "callee": "requests.put",
+          "lineNumber": 95
+        },
+        {
+          "caller": "clear_stale_lock",
+          "callee": "requests.post",
+          "lineNumber": 96
+        },
+        {
+          "caller": "clear_stale_lock",
+          "callee": "print",
+          "lineNumber": 97
+        },
+        {
+          "caller": "run_tests",
+          "callee": "clear_stale_lock",
+          "lineNumber": 101
+        },
+        {
+          "caller": "run_tests",
+          "callee": "time.sleep",
+          "lineNumber": 102
+        },
+        {
+          "caller": "run_tests",
+          "callee": "load_payload",
+          "lineNumber": 103
+        },
+        {
+          "caller": "run_tests",
+          "callee": "print",
+          "lineNumber": 104
+        },
+        {
+          "caller": "run_tests",
+          "callee": "ThreadPoolExecutor",
+          "lineNumber": 106
+        },
+        {
+          "caller": "run_tests",
+          "callee": "pool.submit",
+          "lineNumber": 108
+        },
+        {
+          "caller": "run_tests",
+          "callee": "range",
+          "lineNumber": 109
+        },
+        {
+          "caller": "run_tests",
+          "callee": "as_completed",
+          "lineNumber": 111
+        },
+        {
+          "caller": "run_tests",
+          "callee": "results.append",
+          "lineNumber": 112
+        },
+        {
+          "caller": "run_tests",
+          "callee": "f.result",
+          "lineNumber": 112
+        },
+        {
+          "caller": "run_tests",
+          "callee": "isinstance",
+          "lineNumber": 118
+        },
+        {
+          "caller": "run_tests",
+          "callee": "b.get",
+          "lineNumber": 118
+        },
+        {
+          "caller": "run_tests",
+          "callee": "b.get",
+          "lineNumber": 118
+        },
+        {
+          "caller": "run_tests",
+          "callee": "isinstance",
+          "lineNumber": 123
+        },
+        {
+          "caller": "run_tests",
+          "callee": "b.get",
+          "lineNumber": 123
+        },
+        {
+          "caller": "run_tests",
+          "callee": "b.get",
+          "lineNumber": 123
+        },
+        {
+          "caller": "run_tests",
+          "callee": "print",
+          "lineNumber": 128
+        },
+        {
+          "caller": "run_tests",
+          "callee": "print",
+          "lineNumber": 130
+        },
+        {
+          "caller": "run_tests",
+          "callee": "str",
+          "lineNumber": 130
+        },
+        {
+          "caller": "run_tests",
+          "callee": "len",
+          "lineNumber": 132
+        },
+        {
+          "caller": "run_tests",
+          "callee": "print",
+          "lineNumber": 133
+        },
+        {
+          "caller": "run_tests",
+          "callee": "len",
+          "lineNumber": 133
+        },
+        {
+          "caller": "run_tests",
+          "callee": "len",
+          "lineNumber": 133
+        },
+        {
+          "caller": "run_tests",
+          "callee": "all",
+          "lineNumber": 135
+        },
+        {
+          "caller": "run_tests",
+          "callee": "print",
+          "lineNumber": 136
+        },
+        {
+          "caller": "run_tests",
+          "callee": "print",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "load_env",
+          "lineNumber": 143
+        },
+        {
+          "caller": "main",
+          "callee": "env[\"N8N_API_BASE_URL\"].rstrip",
+          "lineNumber": 144
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get",
+          "lineNumber": 146
+        },
+        {
+          "caller": "main",
+          "callee": "health.raise_for_status",
+          "lineNumber": 147
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 148
+        },
+        {
+          "caller": "main",
+          "callee": "activate_sandbox",
+          "lineNumber": 150
+        },
+        {
+          "caller": "main",
+          "callee": "archive_duplicate",
+          "lineNumber": 151
+        },
+        {
+          "caller": "main",
+          "callee": "time.sleep",
+          "lineNumber": 152
+        },
+        {
+          "caller": "main",
+          "callee": "run_tests",
+          "lineNumber": 153
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 9,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_parallel_4_requests.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 150,
+      "nonEmptyLines": 131,
+      "functions": [
+        {
+          "name": "build_payload",
+          "startLine": 33,
+          "endLine": 69,
+          "params": [
+            "idx"
+          ]
+        },
+        {
+          "name": "fire_one",
+          "startLine": 72,
+          "endLine": 103,
+          "params": [
+            "idx"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 106,
+          "endLine": 146,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "build_payload",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "fire_one",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 106,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fire_one",
+          "callee": "build_payload",
+          "lineNumber": 73
+        },
+        {
+          "caller": "fire_one",
+          "callee": "time.perf_counter",
+          "lineNumber": 74
+        },
+        {
+          "caller": "fire_one",
+          "callee": "datetime.now(timezone.utc).isoformat",
+          "lineNumber": 75
+        },
+        {
+          "caller": "fire_one",
+          "callee": "datetime.now",
+          "lineNumber": 75
+        },
+        {
+          "caller": "fire_one",
+          "callee": "requests.post",
+          "lineNumber": 77
+        },
+        {
+          "caller": "fire_one",
+          "callee": "round",
+          "lineNumber": 78
+        },
+        {
+          "caller": "fire_one",
+          "callee": "time.perf_counter",
+          "lineNumber": 78
+        },
+        {
+          "caller": "fire_one",
+          "callee": "resp.json",
+          "lineNumber": 80
+        },
+        {
+          "caller": "fire_one",
+          "callee": "round",
+          "lineNumber": 101
+        },
+        {
+          "caller": "fire_one",
+          "callee": "time.perf_counter",
+          "lineNumber": 101
+        },
+        {
+          "caller": "fire_one",
+          "callee": "str",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 107
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 109
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 110
+        },
+        {
+          "caller": "main",
+          "callee": "time.perf_counter",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "ThreadPoolExecutor",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "pool.submit",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "range",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "as_completed",
+          "lineNumber": 116
+        },
+        {
+          "caller": "main",
+          "callee": "results.append",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "fut.result",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "results.sort",
+          "lineNumber": 119
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 120
+        },
+        {
+          "caller": "main",
+          "callee": "time.perf_counter",
+          "lineNumber": 120
+        },
+        {
+          "caller": "main",
+          "callee": "out_path.write_text",
+          "lineNumber": 129
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 129
+        },
+        {
+          "caller": "main",
+          "callee": "r.get",
+          "lineNumber": 132
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 134
+        },
+        {
+          "caller": "main",
+          "callee": "detail.get",
+          "lineNumber": 135
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "r.get",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "b.get",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "isinstance",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 139
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 144
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 145
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/run_turbo_payload.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 27,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 14,
+          "endLine": 34,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 15
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 16
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 18
+        },
+        {
+          "caller": "main",
+          "callee": "json.loads",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "args.payload.read_text",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "requests.post",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "resp.json",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "run_turbo_booking_flow",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 34
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/lock-integration-v1/scripts/start_ngrok_sandbox.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 104,
+      "nonEmptyLines": 88,
+      "functions": [
+        {
+          "name": "load_env",
+          "startLine": 17,
+          "endLine": 26,
+          "params": []
+        },
+        {
+          "name": "set_booker_url",
+          "startLine": 29,
+          "endLine": 41,
+          "params": [
+            "url"
+          ]
+        },
+        {
+          "name": "read_tunnel_url",
+          "startLine": 44,
+          "endLine": 59,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 62,
+          "endLine": 100,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "load_env",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "set_booker_url",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "read_tunnel_url",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 62,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "load_env",
+          "callee": "ENV_PATH.exists",
+          "lineNumber": 19
+        },
+        {
+          "caller": "load_env",
+          "callee": "ENV_PATH.read_text(encoding=\"utf-8\").splitlines",
+          "lineNumber": 20
+        },
+        {
+          "caller": "load_env",
+          "callee": "ENV_PATH.read_text",
+          "lineNumber": 20
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.strip",
+          "lineNumber": 21
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.startswith",
+          "lineNumber": 22
+        },
+        {
+          "caller": "load_env",
+          "callee": "line.split",
+          "lineNumber": 24
+        },
+        {
+          "caller": "load_env",
+          "callee": "k.strip",
+          "lineNumber": 25
+        },
+        {
+          "caller": "load_env",
+          "callee": "v.strip",
+          "lineNumber": 25
+        },
+        {
+          "caller": "set_booker_url",
+          "callee": "ENV_PATH.exists",
+          "lineNumber": 32
+        },
+        {
+          "caller": "set_booker_url",
+          "callee": "ENV_PATH.read_text(encoding=\"utf-8\").splitlines",
+          "lineNumber": 33
+        },
+        {
+          "caller": "set_booker_url",
+          "callee": "ENV_PATH.read_text",
+          "lineNumber": 33
+        },
+        {
+          "caller": "set_booker_url",
+          "callee": "line.startswith",
+          "lineNumber": 34
+        },
+        {
+          "caller": "set_booker_url",
+          "callee": "lines.append",
+          "lineNumber": 35
+        },
+        {
+          "caller": "set_booker_url",
+          "callee": "lines.append",
+          "lineNumber": 38
+        },
+        {
+          "caller": "set_booker_url",
+          "callee": "lines.append",
+          "lineNumber": 40
+        },
+        {
+          "caller": "set_booker_url",
+          "callee": "ENV_PATH.write_text",
+          "lineNumber": 41
+        },
+        {
+          "caller": "set_booker_url",
+          "callee": "\"\\n\".join",
+          "lineNumber": 41
+        },
+        {
+          "caller": "read_tunnel_url",
+          "callee": "urlopen",
+          "lineNumber": 47
+        },
+        {
+          "caller": "read_tunnel_url",
+          "callee": "json.loads",
+          "lineNumber": 48
+        },
+        {
+          "caller": "read_tunnel_url",
+          "callee": "resp.read().decode",
+          "lineNumber": 48
+        },
+        {
+          "caller": "read_tunnel_url",
+          "callee": "resp.read",
+          "lineNumber": 48
+        },
+        {
+          "caller": "read_tunnel_url",
+          "callee": "data.get",
+          "lineNumber": 49
+        },
+        {
+          "caller": "read_tunnel_url",
+          "callee": "tunnel.get",
+          "lineNumber": 50
+        },
+        {
+          "caller": "read_tunnel_url",
+          "callee": "tunnel.get(\"config\", {}).get",
+          "lineNumber": 51
+        },
+        {
+          "caller": "read_tunnel_url",
+          "callee": "tunnel.get",
+          "lineNumber": 51
+        },
+        {
+          "caller": "read_tunnel_url",
+          "callee": "addr.endswith",
+          "lineNumber": 52
+        },
+        {
+          "caller": "read_tunnel_url",
+          "callee": "tunnel.get",
+          "lineNumber": 53
+        },
+        {
+          "caller": "read_tunnel_url",
+          "callee": "data.get",
+          "lineNumber": 54
+        },
+        {
+          "caller": "read_tunnel_url",
+          "callee": "tunnel.get",
+          "lineNumber": 55
+        },
+        {
+          "caller": "read_tunnel_url",
+          "callee": "tunnel.get",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "load_env",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "int",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "env.get",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "env.get",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "read_tunnel_url",
+          "lineNumber": 70
+        },
+        {
+          "caller": "main",
+          "callee": "set_booker_url",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 75
+        },
+        {
+          "caller": "main",
+          "callee": "subprocess.run",
+          "lineNumber": 78
+        },
+        {
+          "caller": "main",
+          "callee": "subprocess.Popen",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "range",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "time.sleep",
+          "lineNumber": 86
+        },
+        {
+          "caller": "main",
+          "callee": "read_tunnel_url",
+          "lineNumber": 87
+        },
+        {
+          "caller": "main",
+          "callee": "proc.terminate",
+          "lineNumber": 92
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "set_booker_url",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 98
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 99
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 14,
+      "nonEmptyLines": 9,
+      "sections": [
+        {
+          "heading": "Sandboxes",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/artifacts/.gitkeep",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {}
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/docs/CHANGELOG.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 56,
+      "nonEmptyLines": 36,
+      "sections": [
+        {
+          "heading": "Changelog — v1.0.1 sandbox",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "v1.0.1 (2026-06-16)",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Parallel fetch removed (code-level)",
+          "level": 3,
+          "line": 5
+        },
+        {
+          "heading": "Validation (2026-06-16, KOPENHAGEN)",
+          "level": 3,
+          "line": 11
+        },
+        {
+          "heading": "v1.0.1 (2026-06-15)",
+          "level": 2,
+          "line": 25
+        },
+        {
+          "heading": "Included patches (from ocr-fix-v1)",
+          "level": 3,
+          "line": 29
+        },
+        {
+          "heading": "Validation",
+          "level": 3,
+          "line": 45
+        },
+        {
+          "heading": "Prior (ocr-fix-v1, 2026-06-14)",
+          "level": 2,
+          "line": 54
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/fixtures/kopenhagen-dummy-applicant.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 25,
+      "nonEmptyLines": 25,
+      "sections": [
+        {
+          "heading": "Lastname",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "Firstname",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "DateOfBirth",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "TraveldocumentNumber",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "Sex",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "Street",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "Postcode",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "City",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "Country",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "Telephone",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "Email",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "LastnameAtBirth",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "NationalityAtBirth",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "CountryOfBirth",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "PlaceOfBirth",
+          "level": 1,
+          "line": 16
+        },
+        {
+          "heading": "NationalityForApplication",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "TraveldocumentDateOfIssue",
+          "level": 1,
+          "line": 18
+        },
+        {
+          "heading": "TraveldocumentValidUntil",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "TraveldocumentIssuingAuthority",
+          "level": 1,
+          "line": 20
+        },
+        {
+          "heading": "status",
+          "level": 1,
+          "line": 21
+        },
+        {
+          "heading": "notifyTelegram",
+          "level": 1,
+          "line": 22
+        },
+        {
+          "heading": "bookedSlot",
+          "level": 1,
+          "line": 23
+        },
+        {
+          "heading": "bookedAt",
+          "level": 1,
+          "line": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 23
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/python/.env.example",
+      "language": "config",
+      "fileCategory": "config",
+      "totalLines": 16,
+      "nonEmptyLines": 15,
+      "definitions": [
+        {
+          "name": "CAPTCHA_OCR_BASE_URL",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 6,
+          "endLine": 6
+        },
+        {
+          "name": "GEMINI_API_KEY",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 7,
+          "endLine": 7
+        },
+        {
+          "name": "CAPTCHA_SOLVER",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 8,
+          "endLine": 8
+        },
+        {
+          "name": "CAPTCHA_PARALLEL_FETCH",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 9,
+          "endLine": 9
+        },
+        {
+          "name": "CAPTCHA_OCR_ENHANCE",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 10,
+          "endLine": 10
+        },
+        {
+          "name": "CAPTCHA_MAX_STYLE_RELOADS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 11,
+          "endLine": 11
+        },
+        {
+          "name": "CAPTCHA_MIN_STYLE",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 12,
+          "endLine": 12
+        },
+        {
+          "name": "CAPTCHA_KEYSTROKE_DELAY_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 13,
+          "endLine": 13
+        },
+        {
+          "name": "BOTDETECT_SETTLE_MS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 14,
+          "endLine": 14
+        },
+        {
+          "name": "PLAYWRIGHT_HEADLESS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 15,
+          "endLine": 15
+        },
+        {
+          "name": "PLAYWRIGHT_REUSE_BROWSER",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 16,
+          "endLine": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 11
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/python/requirements.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 7,
+      "nonEmptyLines": 7,
+      "metrics": {}
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/python/scheduler_html.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 64,
+      "functions": [
+        {
+          "name": "parse_scheduler_choose_appointment_html",
+          "startLine": 13,
+          "endLine": 73,
+          "params": [
+            "html"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "parse_scheduler_choose_appointment_html",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "re.search",
+          "lineNumber": 25
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "re.search",
+          "lineNumber": 31
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "m.group",
+          "lineNumber": 37
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "re.finditer",
+          "lineNumber": 40
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "starts.append",
+          "lineNumber": 45
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "part.group",
+          "lineNumber": 45
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "re.finditer",
+          "lineNumber": 47
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "starts.append",
+          "lineNumber": 52
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "part.group",
+          "lineNumber": 52
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "re.search",
+          "lineNumber": 54
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "cal_m.group",
+          "lineNumber": 59
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "re.search",
+          "lineNumber": 61
+        },
+        {
+          "caller": "parse_scheduler_choose_appointment_html",
+          "callee": "pc_m.group",
+          "lineNumber": 66
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 64,
+      "nonEmptyLines": 47,
+      "sections": [
+        {
+          "heading": "Sandbox v1.0.1 — OCR captcha iteration (port 8011)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Status (2026-06-16)",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "vs production root",
+          "level": 2,
+          "line": 16
+        },
+        {
+          "heading": "Layout",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "Quick start",
+          "level": 2,
+          "line": 38
+        },
+        {
+          "heading": "Related",
+          "level": 2,
+          "line": 58
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/scripts/compare_captcha_fetch.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 232,
+      "nonEmptyLines": 198,
+      "functions": [
+        {
+          "name": "_sha256",
+          "startLine": 27,
+          "endLine": 28,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "_pixel_diff_pct",
+          "startLine": 31,
+          "endLine": 45,
+          "params": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "name": "_context_session_cookie",
+          "startLine": 48,
+          "endLine": 54,
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "name": "compare_samples",
+          "startLine": 57,
+          "endLine": 203,
+          "params": [
+            "office",
+            "calendar_id",
+            "samples",
+            "run_id"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 206,
+          "endLine": 228,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_sha256",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "_pixel_diff_pct",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "_context_session_cookie",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "compare_samples",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 206,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_sha256",
+          "callee": "hashlib.sha256(data).hexdigest",
+          "lineNumber": 28
+        },
+        {
+          "caller": "_sha256",
+          "callee": "hashlib.sha256",
+          "lineNumber": 28
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "np.array",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "Image.open(io.BytesIO(a)).convert",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "Image.open",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "io.BytesIO",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "np.array",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "Image.open(io.BytesIO(b)).convert",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "Image.open",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "io.BytesIO",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "min",
+          "lineNumber": 39
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "min",
+          "lineNumber": 39
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "np.abs",
+          "lineNumber": 42
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "float",
+          "lineNumber": 43
+        },
+        {
+          "caller": "_pixel_diff_pct",
+          "callee": "diff.mean",
+          "lineNumber": 43
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "context.cookies",
+          "lineNumber": 50
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "c.get",
+          "lineNumber": 51
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "parts.append",
+          "lineNumber": 53
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "\"; \".join",
+          "lineNumber": 54
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "out_dir.mkdir",
+          "lineNumber": 68
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "time.perf_counter",
+          "lineNumber": 83
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "sync_playwright",
+          "lineNumber": 85
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "pw.chromium.launch",
+          "lineNumber": 86
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.playwright_headless",
+          "lineNumber": 86
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "browser.new_context",
+          "lineNumber": 87
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "context.new_page",
+          "lineNumber": 91
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._open_landing_page",
+          "lineNumber": 93
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "{\r\n            \"#Office\": office,\r\n            \"select[name='Office']\": office,\r\n            \"#Language\": \"en\",\r\n        }.items",
+          "lineNumber": 94
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._set_scheduler_value",
+          "lineNumber": 99
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 100
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._apply_reservation_calendar_select",
+          "lineNumber": 101
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 102
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.wait_for_selector",
+          "lineNumber": 103
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.person_count_wait_ms",
+          "lineNumber": 103
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._set_scheduler_value",
+          "lineNumber": 104
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 105
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "range",
+          "lineNumber": 107
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.locator(\"input[name='Start']\").count",
+          "lineNumber": 108
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.locator",
+          "lineNumber": 108
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.locator",
+          "lineNumber": 109
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.locator(\"#Monday\").input_value",
+          "lineNumber": 110
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.locator",
+          "lineNumber": 110
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "radios.first.get_attribute",
+          "lineNumber": 111
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 113
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "RuntimeError",
+          "lineNumber": 115
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_context_session_cookie",
+          "lineNumber": 117
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.post_select_slot",
+          "lineNumber": 120
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.set_content",
+          "lineNumber": 121
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.inject_base_href",
+          "lineNumber": 121
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "range",
+          "lineNumber": 123
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.parse_fresh_fields",
+          "lineNumber": 125
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.content",
+          "lineNumber": 125
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker._reload_botdetect_captcha",
+          "lineNumber": 126
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.evaluate",
+          "lineNumber": 127
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.wait_for_timeout",
+          "lineNumber": 133
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.wait_botdetect_ready",
+          "lineNumber": 134
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.parse_fresh_fields",
+          "lineNumber": 136
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "page.content",
+          "lineNumber": 136
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "url.startswith",
+          "lineNumber": 138
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.fetch_captcha_bytes",
+          "lineNumber": 143
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "str",
+          "lineNumber": 145
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.dlog",
+          "lineNumber": 148
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "str",
+          "lineNumber": 153
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.wait_botdetect_ready",
+          "lineNumber": 157
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.capture_captcha_bytes_from_dom",
+          "lineNumber": 158
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "booker.fetch_captcha_bytes",
+          "lineNumber": 160
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "str",
+          "lineNumber": 162
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "(out_dir / f\"{prefix}_dom.png\").write_bytes",
+          "lineNumber": 168
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "(out_dir / f\"{prefix}_url_early.png\").write_bytes",
+          "lineNumber": 169
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "(out_dir / f\"{prefix}_url_late.png\").write_bytes",
+          "lineNumber": 170
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_sha256",
+          "lineNumber": 172
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_sha256",
+          "lineNumber": 172
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_sha256",
+          "lineNumber": 173
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_sha256",
+          "lineNumber": 173
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_sha256",
+          "lineNumber": 174
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_sha256",
+          "lineNumber": 174
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "results.append",
+          "lineNumber": 176
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "round",
+          "lineNumber": 183
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_pixel_diff_pct",
+          "lineNumber": 183
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "round",
+          "lineNumber": 184
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "_pixel_diff_pct",
+          "lineNumber": 184
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "browser.close",
+          "lineNumber": 188
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "sum",
+          "lineNumber": 195
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "sum",
+          "lineNumber": 196
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "sum",
+          "lineNumber": 197
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "str",
+          "lineNumber": 199
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "round",
+          "lineNumber": 200
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "time.perf_counter",
+          "lineNumber": 200
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "(out_dir / \"compare_result.json\").write_text",
+          "lineNumber": 202
+        },
+        {
+          "caller": "compare_samples",
+          "callee": "json.dumps",
+          "lineNumber": 202
+        },
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 207
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 208
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 209
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 210
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 211
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 212
+        },
+        {
+          "caller": "main",
+          "callee": "compare_samples",
+          "lineNumber": 214
+        },
+        {
+          "caller": "main",
+          "callee": "max",
+          "lineNumber": 217
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 220
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 220
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 223
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/scripts/run_ocr_validation.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 66,
+      "nonEmptyLines": 54,
+      "functions": [
+        {
+          "name": "run_step",
+          "startLine": 16,
+          "endLine": 21,
+          "params": [
+            "cmd",
+            "label"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 24,
+          "endLine": 62,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "run_step",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 24,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run_step",
+          "callee": "print",
+          "lineNumber": 17
+        },
+        {
+          "caller": "run_step",
+          "callee": "subprocess.run",
+          "lineNumber": 18
+        },
+        {
+          "caller": "run_step",
+          "callee": "str",
+          "lineNumber": 18
+        },
+        {
+          "caller": "run_step",
+          "callee": "print",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat().replace",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "run_step",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "report[\"steps\"].append",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "run_step",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "report[\"steps\"].append",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat().replace",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "out_path.write_text",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 61
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/sandboxes/v1.0.1/scripts/start_booker.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 17,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 13,
+          "endLine": 19,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 15
+        },
+        {
+          "caller": "main",
+          "callee": "subprocess.call",
+          "lineNumber": 16
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/scripts/benchmark_captcha_harvest.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 191,
+      "nonEmptyLines": 164,
+      "functions": [
+        {
+          "name": "_benchmark_playwright_dom",
+          "startLine": 29,
+          "endLine": 92,
+          "params": [
+            "samples",
+            "delay_ms",
+            "payload",
+            "run_id"
+          ]
+        },
+        {
+          "name": "run_benchmark",
+          "startLine": 95,
+          "endLine": 152,
+          "params": [
+            "samples",
+            "delay_ms",
+            "office",
+            "calendar_id",
+            "http_only",
+            "run_id"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 155,
+          "endLine": 187,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_benchmark_playwright_dom",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "run_benchmark",
+          "line": 95,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 155,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "set",
+          "lineNumber": 40
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "time.perf_counter",
+          "lineNumber": 42
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "time.perf_counter",
+          "lineNumber": 43
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "sync_playwright",
+          "lineNumber": 45
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "pw.chromium.launch",
+          "lineNumber": 46
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "booker.playwright_headless",
+          "lineNumber": 46
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "browser.new_context",
+          "lineNumber": 47
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "context.new_page",
+          "lineNumber": 48
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "booker.post_select_slot",
+          "lineNumber": 49
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "page.set_content",
+          "lineNumber": 50
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "booker.inject_base_href",
+          "lineNumber": 50
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "booker.wait_botdetect_ready",
+          "lineNumber": 51
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "time.perf_counter",
+          "lineNumber": 52
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "time.perf_counter",
+          "lineNumber": 54
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "range",
+          "lineNumber": 55
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "time.perf_counter",
+          "lineNumber": 57
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "booker.capture_captcha_bytes_from_dom",
+          "lineNumber": 58
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "latencies.append",
+          "lineNumber": 59
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "time.perf_counter",
+          "lineNumber": 59
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "unique_sha.add",
+          "lineNumber": 62
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "hashlib.sha256(data).hexdigest",
+          "lineNumber": 62
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "hashlib.sha256",
+          "lineNumber": 62
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "booker.parse_fresh_fields",
+          "lineNumber": 64
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "page.content",
+          "lineNumber": 64
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "booker._reload_botdetect_captcha",
+          "lineNumber": 65
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "page.evaluate",
+          "lineNumber": 66
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "page.wait_for_timeout",
+          "lineNumber": 69
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "booker.wait_botdetect_ready",
+          "lineNumber": 70
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "page.wait_for_timeout",
+          "lineNumber": 72
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "browser.close",
+          "lineNumber": 75
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "time.perf_counter",
+          "lineNumber": 77
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "len",
+          "lineNumber": 78
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "round",
+          "lineNumber": 84
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "round",
+          "lineNumber": 85
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "round",
+          "lineNumber": 86
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "time.perf_counter",
+          "lineNumber": 86
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "round",
+          "lineNumber": 87
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "round",
+          "lineNumber": 88
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "len",
+          "lineNumber": 89
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "round",
+          "lineNumber": 90
+        },
+        {
+          "caller": "_benchmark_playwright_dom",
+          "callee": "len",
+          "lineNumber": 90
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "time.perf_counter",
+          "lineNumber": 109
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "discover_session_playwright",
+          "lineNumber": 110
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "round",
+          "lineNumber": 117
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "time.perf_counter",
+          "lineNumber": 117
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "benchmark_method_http_burst",
+          "lineNumber": 121
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "results.append",
+          "lineNumber": 127
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "_benchmark_playwright_dom",
+          "lineNumber": 130
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "results.append",
+          "lineNumber": 137
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "max",
+          "lineNumber": 139
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "r.get",
+          "lineNumber": 139
+        },
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 156
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 157
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 158
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 159
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 160
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 161
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 162
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 163
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 164
+        },
+        {
+          "caller": "main",
+          "callee": "run_benchmark",
+          "lineNumber": 166
+        },
+        {
+          "caller": "main",
+          "callee": "max",
+          "lineNumber": 167
+        },
+        {
+          "caller": "main",
+          "callee": "max",
+          "lineNumber": 168
+        },
+        {
+          "caller": "main",
+          "callee": "out.parent.mkdir",
+          "lineNumber": 176
+        },
+        {
+          "caller": "main",
+          "callee": "out.write_text",
+          "lineNumber": 177
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 177
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 179
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 179
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 180
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 182
+        },
+        {
+          "caller": "main",
+          "callee": "row.get",
+          "lineNumber": 183
+        },
+        {
+          "caller": "main",
+          "callee": "row.get",
+          "lineNumber": 184
+        },
+        {
+          "caller": "main",
+          "callee": "row.get",
+          "lineNumber": 184
+        },
+        {
+          "caller": "main",
+          "callee": "row.get",
+          "lineNumber": 184
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 186
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "python-booker-webhook/scripts/captcha_harvest_http.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 384,
+      "nonEmptyLines": 336,
+      "functions": [
+        {
+          "name": "captcha_image_url",
+          "startLine": 17,
+          "endLine": 18,
+          "params": [
+            "origin",
+            "vcid"
+          ]
+        },
+        {
+          "name": "scheduler_headers",
+          "startLine": 21,
+          "endLine": 29,
+          "params": [
+            "session_cookie",
+            "origin",
+            "scheduler_url"
+          ]
+        },
+        {
+          "name": "captcha_get_headers",
+          "startLine": 32,
+          "endLine": 38,
+          "params": [
+            "session_cookie",
+            "scheduler_url"
+          ]
+        },
+        {
+          "name": "post_select_slot_http",
+          "startLine": 41,
+          "endLine": 69,
+          "params": [
+            "session_cookie",
+            "payload",
+            "origin",
+            "scheduler_url",
+            "timeout"
+          ]
+        },
+        {
+          "name": "fetch_captcha_http",
+          "startLine": 72,
+          "endLine": 93,
+          "params": [
+            "session_cookie",
+            "vcid",
+            "origin",
+            "scheduler_url",
+            "timeout"
+          ]
+        },
+        {
+          "name": "discover_session_playwright",
+          "startLine": 96,
+          "endLine": 160,
+          "params": [
+            "office",
+            "calendar_id",
+            "language",
+            "person_count",
+            "run_id"
+          ]
+        },
+        {
+          "name": "open_capture_form_http",
+          "startLine": 163,
+          "endLine": 168,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "refresh_vcid_http",
+          "startLine": 171,
+          "endLine": 194,
+          "params": [
+            "session_cookie",
+            "payload",
+            "origin",
+            "scheduler_url",
+            "timeout"
+          ]
+        },
+        {
+          "name": "save_session_cache",
+          "startLine": 197,
+          "endLine": 199,
+          "params": [
+            "path",
+            "payload"
+          ]
+        },
+        {
+          "name": "load_session_cache",
+          "startLine": 202,
+          "endLine": 211,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "harvest_captcha_batch_http",
+          "startLine": 214,
+          "endLine": 325,
+          "params": [
+            "count",
+            "payload",
+            "delay_ms",
+            "vcid_refresh_every",
+            "session_refresh_every",
+            "on_image",
+            "on_vcid_refresh",
+            "on_session_refresh",
+            "discover_session"
+          ]
+        },
+        {
+          "name": "benchmark_method_http_burst",
+          "startLine": 328,
+          "endLine": 384,
+          "params": [
+            "samples",
+            "delay_ms",
+            "payload",
+            "on_progress"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "captcha_image_url",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "scheduler_headers",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "captcha_get_headers",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "post_select_slot_http",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "fetch_captcha_http",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "discover_session_playwright",
+          "line": 96,
+          "isDefault": false
+        },
+        {
+          "name": "open_capture_form_http",
+          "line": 163,
+          "isDefault": false
+        },
+        {
+          "name": "refresh_vcid_http",
+          "line": 171,
+          "isDefault": false
+        },
+        {
+          "name": "save_session_cache",
+          "line": 197,
+          "isDefault": false
+        },
+        {
+          "name": "load_session_cache",
+          "line": 202,
+          "isDefault": false
+        },
+        {
+          "name": "harvest_captcha_batch_http",
+          "line": 214,
+          "isDefault": false
+        },
+        {
+          "name": "benchmark_method_http_burst",
+          "line": 328,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "post_select_slot_http",
+          "callee": "scheduler_headers",
+          "lineNumber": 52
+        },
+        {
+          "caller": "post_select_slot_http",
+          "callee": "str",
+          "lineNumber": 56
+        },
+        {
+          "caller": "post_select_slot_http",
+          "callee": "str",
+          "lineNumber": 57
+        },
+        {
+          "caller": "post_select_slot_http",
+          "callee": "payload.get",
+          "lineNumber": 57
+        },
+        {
+          "caller": "post_select_slot_http",
+          "callee": "requests.post",
+          "lineNumber": 62
+        },
+        {
+          "caller": "post_select_slot_http",
+          "callee": "ValueError",
+          "lineNumber": 64
+        },
+        {
+          "caller": "post_select_slot_http",
+          "callee": "ValueError",
+          "lineNumber": 66
+        },
+        {
+          "caller": "post_select_slot_http",
+          "callee": "resp.headers.get",
+          "lineNumber": 67
+        },
+        {
+          "caller": "post_select_slot_http",
+          "callee": "resp.headers.get",
+          "lineNumber": 67
+        },
+        {
+          "caller": "post_select_slot_http",
+          "callee": "booker.merge_session_cookie_from_set_cookie",
+          "lineNumber": 68
+        },
+        {
+          "caller": "fetch_captcha_http",
+          "callee": "captcha_image_url",
+          "lineNumber": 80
+        },
+        {
+          "caller": "fetch_captcha_http",
+          "callee": "requests.get",
+          "lineNumber": 81
+        },
+        {
+          "caller": "fetch_captcha_http",
+          "callee": "captcha_get_headers",
+          "lineNumber": 83
+        },
+        {
+          "caller": "fetch_captcha_http",
+          "callee": "ValueError",
+          "lineNumber": 87
+        },
+        {
+          "caller": "fetch_captcha_http",
+          "callee": "ValueError",
+          "lineNumber": 89
+        },
+        {
+          "caller": "fetch_captcha_http",
+          "callee": "len",
+          "lineNumber": 91
+        },
+        {
+          "caller": "fetch_captcha_http",
+          "callee": "ValueError",
+          "lineNumber": 92
+        },
+        {
+          "caller": "fetch_captcha_http",
+          "callee": "len",
+          "lineNumber": 92
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "sync_playwright",
+          "lineNumber": 117
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "pw.chromium.launch",
+          "lineNumber": 118
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "booker.playwright_headless",
+          "lineNumber": 118
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "browser.new_context",
+          "lineNumber": 119
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "context.new_page",
+          "lineNumber": 123
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "booker._open_landing_page",
+          "lineNumber": 124
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "{\n            \"#Office\": office,\n            \"select[name='Office']\": office,\n            \"#Language\": language,\n            \"select[name='Language']\": language,\n        }.items",
+          "lineNumber": 125
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "booker._set_scheduler_value",
+          "lineNumber": 131
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 132
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "booker._apply_reservation_calendar_select",
+          "lineNumber": 133
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "booker._repair_calendar_id_dom_if_needed",
+          "lineNumber": 134
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 135
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "page.wait_for_selector",
+          "lineNumber": 136
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "booker.person_count_wait_ms",
+          "lineNumber": 136
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "booker._set_scheduler_value",
+          "lineNumber": 137
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 138
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "range",
+          "lineNumber": 139
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "page.locator(\"input[name='Start']\").count",
+          "lineNumber": 140
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "page.locator",
+          "lineNumber": 140
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "page.locator(\"#Monday\").input_value",
+          "lineNumber": 141
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "page.locator",
+          "lineNumber": 141
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "page.locator(\"input[name='Start']\").first.get_attribute",
+          "lineNumber": 142
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "page.locator",
+          "lineNumber": 142
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 144
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "browser.close",
+          "lineNumber": 146
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "RuntimeError",
+          "lineNumber": 147
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "context.cookies",
+          "lineNumber": 150
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "c.get",
+          "lineNumber": 151
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "parts.append",
+          "lineNumber": 153
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "browser.close",
+          "lineNumber": 154
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "\"; \".join",
+          "lineNumber": 156
+        },
+        {
+          "caller": "discover_session_playwright",
+          "callee": "RuntimeError",
+          "lineNumber": 158
+        },
+        {
+          "caller": "open_capture_form_http",
+          "callee": "refresh_vcid_http",
+          "lineNumber": 165
+        },
+        {
+          "caller": "refresh_vcid_http",
+          "callee": "post_select_slot_http",
+          "lineNumber": 184
+        },
+        {
+          "caller": "refresh_vcid_http",
+          "callee": "booker.parse_fresh_fields",
+          "lineNumber": 191
+        },
+        {
+          "caller": "refresh_vcid_http",
+          "callee": "ValueError",
+          "lineNumber": 193
+        },
+        {
+          "caller": "save_session_cache",
+          "callee": "path.parent.mkdir",
+          "lineNumber": 198
+        },
+        {
+          "caller": "save_session_cache",
+          "callee": "path.write_text",
+          "lineNumber": 199
+        },
+        {
+          "caller": "save_session_cache",
+          "callee": "json.dumps",
+          "lineNumber": 199
+        },
+        {
+          "caller": "load_session_cache",
+          "callee": "path.is_file",
+          "lineNumber": 203
+        },
+        {
+          "caller": "load_session_cache",
+          "callee": "json.loads",
+          "lineNumber": 206
+        },
+        {
+          "caller": "load_session_cache",
+          "callee": "path.read_text",
+          "lineNumber": 206
+        },
+        {
+          "caller": "load_session_cache",
+          "callee": "isinstance",
+          "lineNumber": 209
+        },
+        {
+          "caller": "load_session_cache",
+          "callee": "data.get",
+          "lineNumber": 209
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "time.perf_counter",
+          "lineNumber": 244
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "open_capture_form_http",
+          "lineNumber": 246
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "max",
+          "lineNumber": 251
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "refresh_vcid_http",
+          "lineNumber": 252
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "on_vcid_refresh",
+          "lineNumber": 263
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "max",
+          "lineNumber": 265
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "discover_session",
+          "lineNumber": 266
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "payload.get",
+          "lineNumber": 267
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "open_capture_form_http",
+          "lineNumber": 268
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "on_session_refresh",
+          "lineNumber": 274
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "fetch_captcha_http",
+          "lineNumber": 276
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "on_image",
+          "lineNumber": 284
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "time.sleep",
+          "lineNumber": 288
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "str",
+          "lineNumber": 291
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "time.sleep",
+          "lineNumber": 292
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "refresh_vcid_http",
+          "lineNumber": 294
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "on_vcid_refresh",
+          "lineNumber": 305
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "time.sleep",
+          "lineNumber": 312
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "time.sleep",
+          "lineNumber": 317
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "round",
+          "lineNumber": 324
+        },
+        {
+          "caller": "harvest_captcha_batch_http",
+          "callee": "time.perf_counter",
+          "lineNumber": 324
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "time.perf_counter",
+          "lineNumber": 338
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "open_capture_form_http",
+          "lineNumber": 339
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "time.perf_counter",
+          "lineNumber": 340
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "set",
+          "lineNumber": 344
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "time.perf_counter",
+          "lineNumber": 346
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "range",
+          "lineNumber": 348
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "time.perf_counter",
+          "lineNumber": 350
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "fetch_captcha_http",
+          "lineNumber": 351
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "latencies.append",
+          "lineNumber": 357
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "time.perf_counter",
+          "lineNumber": 357
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "unique_sha.add",
+          "lineNumber": 360
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "hashlib.sha256(data).hexdigest",
+          "lineNumber": 360
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "hashlib.sha256",
+          "lineNumber": 360
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "on_progress",
+          "lineNumber": 362
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "time.sleep",
+          "lineNumber": 364
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "time.perf_counter",
+          "lineNumber": 368
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "len",
+          "lineNumber": 369
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "round",
+          "lineNumber": 375
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "round",
+          "lineNumber": 376
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "round",
+          "lineNumber": 377
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "round",
+          "lineNumber": 378
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "round",
+          "lineNumber": 379
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "len",
+          "lineNumber": 380
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "round",
+          "lineNumber": 381
+        },
+        {
+          "caller": "benchmark_method_http_burst",
+          "callee": "len",
+          "lineNumber": 381
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 12,
+        "functionCount": 12,
+        "classCount": 0
+      }
+    }
+  ]
+}

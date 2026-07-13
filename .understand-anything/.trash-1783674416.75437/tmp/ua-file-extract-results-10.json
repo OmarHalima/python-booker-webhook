@@ -1,0 +1,293 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".cursor/agents/booker-domain-reviewer.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 52,
+      "nonEmptyLines": 38,
+      "sections": [
+        {
+          "heading": "Review against",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "Severity rubric",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "Required verification evidence",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "Booker-specific red flags",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "Output format",
+          "level": 2,
+          "line": 42
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": ".cursor/agents/captcha-investigator.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 55,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "Read first (mandatory)",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "Known truths (do not re-litigate)",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "Diagnostic workflow",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "Rank hypotheses",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "Fix guidelines",
+          "level": 2,
+          "line": 40
+        },
+        {
+          "heading": "Verify",
+          "level": 2,
+          "line": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": ".cursor/agents/deep-web-debugger.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 109,
+      "nonEmptyLines": 72,
+      "sections": [
+        {
+          "heading": "Operating principles",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "Standard workflow (follow in order)",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "1) Intake — freeze the problem",
+          "level": 3,
+          "line": 20
+        },
+        {
+          "heading": "2) Reconstruct the timeline",
+          "level": 3,
+          "line": 26
+        },
+        {
+          "heading": "3) Console analysis (deep)",
+          "level": 3,
+          "line": 35
+        },
+        {
+          "heading": "4) Network analysis (deep)",
+          "level": 3,
+          "line": 41
+        },
+        {
+          "heading": "5) HTML / DOM analysis",
+          "level": 3,
+          "line": 48
+        },
+        {
+          "heading": "6) Web research (when local evidence is thin)",
+          "level": 3,
+          "line": 55
+        },
+        {
+          "heading": "7) Hypotheses → ranked list",
+          "level": 3,
+          "line": 65
+        },
+        {
+          "heading": "8) Root cause statement",
+          "level": 3,
+          "line": 72
+        },
+        {
+          "heading": "9) Solutions (actionable)",
+          "level": 3,
+          "line": 80
+        },
+        {
+          "heading": "10) Out of scope / escalation",
+          "level": 3,
+          "line": 88
+        },
+        {
+          "heading": "Tooling expectations (when available)",
+          "level": 2,
+          "line": 96
+        },
+        {
+          "heading": "Tone and output format",
+          "level": 2,
+          "line": 102
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 14
+      }
+    },
+    {
+      "path": ".cursor/agents/n8n-booker-specialist.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 55,
+      "nonEmptyLines": 39,
+      "sections": [
+        {
+          "heading": "Canonical files",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "Booker HTTP node (required)",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "Result handling",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "n8n MCP workflow",
+          "level": 2,
+          "line": 38
+        },
+        {
+          "heading": "Test vs production",
+          "level": 2,
+          "line": 45
+        },
+        {
+          "heading": "Do not",
+          "level": 2,
+          "line": 50
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": ".cursor/agents/orchestrator.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 7,
+      "nonEmptyLines": 4,
+      "sections": [
+        {
+          "heading": "Orchestrator",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": ".cursor/agents/vps-booker-operator.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 54,
+      "nonEmptyLines": 39,
+      "sections": [
+        {
+          "heading": "Connection",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "Stack (two processes)",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "Safe ops checklist",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "Common incidents",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "Do not",
+          "level": 2,
+          "line": 40
+        },
+        {
+          "heading": "Verify after ops",
+          "level": 2,
+          "line": 46
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    }
+  ]
+}

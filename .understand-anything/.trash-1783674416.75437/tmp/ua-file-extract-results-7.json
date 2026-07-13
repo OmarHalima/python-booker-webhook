@@ -1,0 +1,991 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/scripts/run_one_http_booking.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 44,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 23,
+          "endLine": 51,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 23,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "requests.get(f\"{BOOKER}/health\", timeout=10).raise_for_status",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "scan_slots",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "uuid.uuid4",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "scan.get",
+          "lineNumber": 31
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "uuid.uuid4().hex[:6].upper",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "uuid.uuid4",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "dummy_student",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "suffix.lower",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "build_turbo_payload",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "time.perf_counter",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "requests.post",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "time.perf_counter",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "r.json",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "body.get",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 50
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/scripts/run_three_turbo_bookings.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 106,
+      "nonEmptyLines": 85,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 26,
+          "endLine": 101,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 26,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 30
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get(f\"{args.booker}/health\", timeout=10).raise_for_status",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "requests.get",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "scan_slots",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "uuid.uuid4",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "scan.get",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "booker.playwright_reuse_browser",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "booker.captcha_parallel_fetch_enabled",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat().replace",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "range",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "uuid.uuid4().hex[:6].upper",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "uuid.uuid4",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "dummy_student",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "suffix.lower",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "build_turbo_payload",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "time.perf_counter",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "requests.post",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 70
+        },
+        {
+          "caller": "main",
+          "callee": "time.perf_counter",
+          "lineNumber": 70
+        },
+        {
+          "caller": "main",
+          "callee": "r.json",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "r.headers.get(\"content-type\", \"\").startswith",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "r.headers.get",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "body.get",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "body.get",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "body.get",
+          "lineNumber": 82
+        },
+        {
+          "caller": "main",
+          "callee": "body.get",
+          "lineNumber": 83
+        },
+        {
+          "caller": "main",
+          "callee": "body.get",
+          "lineNumber": 84
+        },
+        {
+          "caller": "main",
+          "callee": "report[\"results\"].append",
+          "lineNumber": 86
+        },
+        {
+          "caller": "main",
+          "callee": "body.get",
+          "lineNumber": 88
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 90
+        },
+        {
+          "caller": "main",
+          "callee": "body.get",
+          "lineNumber": 90
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 92
+        },
+        {
+          "caller": "main",
+          "callee": "row.get",
+          "lineNumber": 92
+        },
+        {
+          "caller": "main",
+          "callee": "time.sleep",
+          "lineNumber": 95
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat().replace",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "out_path.write_text",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 101
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/scripts/scan_slots.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 177,
+      "nonEmptyLines": 153,
+      "functions": [
+        {
+          "name": "_context_session_cookie",
+          "startLine": 18,
+          "endLine": 24,
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "name": "scan_slots",
+          "startLine": 27,
+          "endLine": 149,
+          "params": [
+            "office",
+            "calendar_id",
+            "language",
+            "person_count",
+            "max_weeks",
+            "run_id"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 152,
+          "endLine": 173,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_context_session_cookie",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "scan_slots",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 152,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_context_session_cookie",
+          "callee": "context.cookies",
+          "lineNumber": 20
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "c.get",
+          "lineNumber": 21
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "parts.append",
+          "lineNumber": 23
+        },
+        {
+          "caller": "_context_session_cookie",
+          "callee": "\"; \".join",
+          "lineNumber": 24
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "time.perf_counter",
+          "lineNumber": 52
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "sync_playwright",
+          "lineNumber": 54
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "pw.chromium.launch",
+          "lineNumber": 55
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker.playwright_headless",
+          "lineNumber": 55
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "browser.new_context",
+          "lineNumber": 56
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "context.new_page",
+          "lineNumber": 60
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "run_dir.mkdir",
+          "lineNumber": 62
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._open_landing_page",
+          "lineNumber": 64
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "landing_sets.items",
+          "lineNumber": 71
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._set_scheduler_value",
+          "lineNumber": 72
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 73
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._apply_reservation_calendar_select",
+          "lineNumber": 75
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._repair_calendar_id_dom_if_needed",
+          "lineNumber": 76
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 77
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.wait_for_selector",
+          "lineNumber": 79
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker.person_count_wait_ms",
+          "lineNumber": 79
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._set_scheduler_value",
+          "lineNumber": 80
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 81
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.wait_for_function",
+          "lineNumber": 83
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker.information_page_wait_ms",
+          "lineNumber": 90
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 92
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._wait_for_start_radios",
+          "lineNumber": 93
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "range",
+          "lineNumber": 95
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._list_start_radio_values",
+          "lineNumber": 96
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator(\"#Monday\").count",
+          "lineNumber": 97
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator",
+          "lineNumber": 97
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "(page.locator(\"#Monday\").first.get_attribute(\"value\") or \"\").strip",
+          "lineNumber": 98
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator(\"#Monday\").first.get_attribute",
+          "lineNumber": 98
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator",
+          "lineNumber": 98
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator(\"input[name='Monday']\").count",
+          "lineNumber": 99
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator",
+          "lineNumber": 99
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "(\r\n                    page.locator(\"input[name='Monday']\").first.get_attribute(\"value\") or \"\"\r\n                ).strip",
+          "lineNumber": 100
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator(\"input[name='Monday']\").first.get_attribute",
+          "lineNumber": 101
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator",
+          "lineNumber": 101
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "all_slots.append",
+          "lineNumber": 106
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.screenshot",
+          "lineNumber": 109
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "str",
+          "lineNumber": 109
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "(run_dir / f\"week_{week_idx + 1}.html\").write_text",
+          "lineNumber": 110
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.content",
+          "lineNumber": 110
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator",
+          "lineNumber": 113
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "page.locator",
+          "lineNumber": 116
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "loc.count",
+          "lineNumber": 117
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._submit_next_command",
+          "lineNumber": 119
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "booker._wait_for_start_radios",
+          "lineNumber": 120
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "_context_session_cookie",
+          "lineNumber": 128
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "browser.close",
+          "lineNumber": 129
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "round",
+          "lineNumber": 131
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "time.perf_counter",
+          "lineNumber": 131
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "len",
+          "lineNumber": 133
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "len",
+          "lineNumber": 139
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "datetime.utcnow().isoformat",
+          "lineNumber": 142
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "datetime.utcnow",
+          "lineNumber": 142
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "(booker.ARTIFACTS_DIR / run_id / \"scan_result.json\").write_text",
+          "lineNumber": 146
+        },
+        {
+          "caller": "scan_slots",
+          "callee": "json.dumps",
+          "lineNumber": 147
+        },
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 153
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 154
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 155
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 156
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 157
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 158
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 159
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 160
+        },
+        {
+          "caller": "main",
+          "callee": "scan_slots",
+          "lineNumber": 162
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 169
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 170
+        },
+        {
+          "caller": "main",
+          "callee": "args.output.write_text",
+          "lineNumber": 172
+        },
+        {
+          "caller": "main",
+          "callee": "out.get",
+          "lineNumber": 173
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "archive/sandboxes/ocr-fix-v1/scripts/turbo_payload.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 68,
+      "nonEmptyLines": 62,
+      "functions": [
+        {
+          "name": "dummy_student",
+          "startLine": 16,
+          "endLine": 30,
+          "params": [
+            "suffix"
+          ]
+        },
+        {
+          "name": "build_turbo_payload",
+          "startLine": 33,
+          "endLine": 68,
+          "params": [
+            "scan",
+            "student",
+            "slot",
+            "run_id"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "dummy_student",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "build_turbo_payload",
+          "line": 33,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "dummy_student",
+          "callee": "json.loads",
+          "lineNumber": 17
+        },
+        {
+          "caller": "dummy_student",
+          "callee": "(FIXTURES / \"kopenhagen-dummy-applicant.json\").read_text",
+          "lineNumber": 17
+        },
+        {
+          "caller": "dummy_student",
+          "callee": "int",
+          "lineNumber": 19
+        },
+        {
+          "caller": "dummy_student",
+          "callee": "sum",
+          "lineNumber": 21
+        },
+        {
+          "caller": "dummy_student",
+          "callee": "ord",
+          "lineNumber": 21
+        },
+        {
+          "caller": "dummy_student",
+          "callee": "suffix.lower",
+          "lineNumber": 23
+        },
+        {
+          "caller": "dummy_student",
+          "callee": "suffix[:5].ljust",
+          "lineNumber": 24
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "scan.get",
+          "lineNumber": 40
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "scan.get",
+          "lineNumber": 45
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "str",
+          "lineNumber": 52
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "str",
+          "lineNumber": 54
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "str",
+          "lineNumber": 56
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "str",
+          "lineNumber": 57
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "str",
+          "lineNumber": 60
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "str",
+          "lineNumber": 61
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "str",
+          "lineNumber": 63
+        },
+        {
+          "caller": "build_turbo_payload",
+          "callee": "str",
+          "lineNumber": 66
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    }
+  ]
+}

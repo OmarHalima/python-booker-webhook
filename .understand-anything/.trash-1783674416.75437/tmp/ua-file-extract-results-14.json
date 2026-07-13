@@ -1,0 +1,360 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "archive/Slots blacklist.csv",
+      "language": "csv",
+      "fileCategory": "data",
+      "totalLines": 4,
+      "nonEmptyLines": 4,
+      "metrics": {}
+    },
+    {
+      "path": "archive/applicants (1).csv",
+      "language": "csv",
+      "fileCategory": "data",
+      "totalLines": 6,
+      "nonEmptyLines": 6,
+      "metrics": {}
+    },
+    {
+      "path": "archive/austria_appointment_bot_documentation.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 565,
+      "nonEmptyLines": 464,
+      "sections": [
+        {
+          "heading": "Austrian Embassy Appointment Bot — Project Documentation",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. Problem Statement",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "2. Site Architecture & Discovery",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "2.1 The Booking Flow (Browser)",
+          "level": 3,
+          "line": 24
+        },
+        {
+          "heading": "2.2 Key Technical Findings",
+          "level": 3,
+          "line": 37
+        },
+        {
+          "heading": "3. n8n Stack & Configuration",
+          "level": 2,
+          "line": 106
+        },
+        {
+          "heading": "3.1 Credentials",
+          "level": 3,
+          "line": 111
+        },
+        {
+          "heading": "3.2 Telegram Setup",
+          "level": 3,
+          "line": 118
+        },
+        {
+          "heading": "4. Workflow 1 — The Watcher",
+          "level": 2,
+          "line": 126
+        },
+        {
+          "heading": "4.1 Node Map",
+          "level": 3,
+          "line": 130
+        },
+        {
+          "heading": "4.2 Node Details",
+          "level": 3,
+          "line": 154
+        },
+        {
+          "heading": "4.3 Verified Outputs",
+          "level": 3,
+          "line": 207
+        },
+        {
+          "heading": "5. Problems Encountered & Solutions",
+          "level": 2,
+          "line": 242
+        },
+        {
+          "heading": "6. Workflow 2 — The Booker",
+          "level": 2,
+          "line": 255
+        },
+        {
+          "heading": "6.1 What It Needs To Do",
+          "level": 3,
+          "line": 260
+        },
+        {
+          "heading": "6.2 2captcha Integration",
+          "level": 3,
+          "line": 276
+        },
+        {
+          "heading": "6.3 Required Before Building",
+          "level": 3,
+          "line": 288
+        },
+        {
+          "heading": "6.4 Timing Concern",
+          "level": 3,
+          "line": 293
+        },
+        {
+          "heading": "7. Key Values Reference",
+          "level": 2,
+          "line": 304
+        },
+        {
+          "heading": "8. Remaining Tasks",
+          "level": 2,
+          "line": 324
+        },
+        {
+          "heading": "9. File Index",
+          "level": 2,
+          "line": 338
+        },
+        {
+          "heading": "10. Workflow 2 — Complete Architecture (Updated)",
+          "level": 2,
+          "line": 347
+        },
+        {
+          "heading": "10.1 The Slot-Student Loop Design",
+          "level": 3,
+          "line": 355
+        },
+        {
+          "heading": "10.2 Student State Machine",
+          "level": 3,
+          "line": 380
+        },
+        {
+          "heading": "10.3 Applicant Data Table Node",
+          "level": 3,
+          "line": 395
+        },
+        {
+          "heading": "10.4 Complete Node Flow",
+          "level": 3,
+          "line": 436
+        },
+        {
+          "heading": "10.5 Watcher Coordination",
+          "level": 3,
+          "line": 525
+        },
+        {
+          "heading": "10.6 Static Data Structure",
+          "level": 3,
+          "line": 538
+        },
+        {
+          "heading": "10.7 Remaining Steps to Build",
+          "level": 3,
+          "line": 560
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 29
+      }
+    },
+    {
+      "path": "archive/workflow2_documentation (1).md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 514,
+      "nonEmptyLines": 406,
+      "sections": [
+        {
+          "heading": "Workflow 2 — The Booker",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Full Technical Documentation",
+          "level": 2,
+          "line": 2
+        },
+        {
+          "heading": "1. Background & Context",
+          "level": 2,
+          "line": 12
+        },
+        {
+          "heading": "1.1 Why Workflow 2 Exists",
+          "level": 3,
+          "line": 14
+        },
+        {
+          "heading": "1.2 The Core Challenge",
+          "level": 3,
+          "line": 24
+        },
+        {
+          "heading": "1.3 How Workflow 1 Connects",
+          "level": 3,
+          "line": 31
+        },
+        {
+          "heading": "2. Critical Findings from Real Submission Analysis",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "2.1 DSGVOAccepted must be sent TWICE",
+          "level": 3,
+          "line": 45
+        },
+        {
+          "heading": "2.2 BDC_BackWorkaround_Captcha flips between 0 and 1",
+          "level": 3,
+          "line": 54
+        },
+        {
+          "heading": "2.3 Date formats",
+          "level": 3,
+          "line": 58
+        },
+        {
+          "heading": "2.4 Command=Next is NOT sent in the booking body",
+          "level": 3,
+          "line": 67
+        },
+        {
+          "heading": "2.5 Success detection via page title",
+          "level": 3,
+          "line": 71
+        },
+        {
+          "heading": "2.6 Error types when form returns",
+          "level": 3,
+          "line": 83
+        },
+        {
+          "heading": "2.7 Fresh CAPTCHA on retry",
+          "level": 3,
+          "line": 90
+        },
+        {
+          "heading": "3. Data Tables",
+          "level": 2,
+          "line": 100
+        },
+        {
+          "heading": "3.1 `applicants` Table (24 columns — exact CSV column names)",
+          "level": 3,
+          "line": 102
+        },
+        {
+          "heading": "3.2 `Slots blacklist` Table (10 columns — exact CSV column names)",
+          "level": 3,
+          "line": 137
+        },
+        {
+          "heading": "4. Webhook Input Payload",
+          "level": 2,
+          "line": 153
+        },
+        {
+          "heading": "5. Complete Booking POST Body",
+          "level": 2,
+          "line": 182
+        },
+        {
+          "heading": "6. Complete Node Flow (20 nodes)",
+          "level": 2,
+          "line": 232
+        },
+        {
+          "heading": "Phase 1 — Entry & Deduplication",
+          "level": 3,
+          "line": 234
+        },
+        {
+          "heading": "Phase 2 — Bulk Slot Registration",
+          "level": 3,
+          "line": 270
+        },
+        {
+          "heading": "Phase 3 — Slot Loop",
+          "level": 3,
+          "line": 285
+        },
+        {
+          "heading": "Phase 4 — CAPTCHA Solve",
+          "level": 3,
+          "line": 320
+        },
+        {
+          "heading": "Phase 5 — Booking Submission",
+          "level": 3,
+          "line": 350
+        },
+        {
+          "heading": "Phase 6 — Result Handling",
+          "level": 3,
+          "line": 385
+        },
+        {
+          "heading": "7. CAPTCHA Retry Architecture",
+          "level": 2,
+          "line": 412
+        },
+        {
+          "heading": "8. Workflow 1 — Final Node to Add",
+          "level": 2,
+          "line": 446
+        },
+        {
+          "heading": "9. Credentials & Configuration",
+          "level": 2,
+          "line": 459
+        },
+        {
+          "heading": "10. Timing Analysis",
+          "level": 2,
+          "line": 477
+        },
+        {
+          "heading": "11. Remaining Tasks",
+          "level": 2,
+          "line": 495
+        },
+        {
+          "heading": "12. File Index",
+          "level": 2,
+          "line": 506
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 32
+      }
+    }
+  ]
+}
