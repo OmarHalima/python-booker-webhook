@@ -1,6 +1,6 @@
 # Agent Handoff — Python Booker Webhook
 
-**Last updated:** 2026-06-16  
+**Last updated:** 2026-07-13  
 **Purpose:** Onboard the next Cursor agent session with accurate project state, decisions, evidence, and open work. Read this before changing captcha, VPS, or n8n integration.
 
 ---
@@ -9,20 +9,18 @@
 
 | Area | Status |
 |------|--------|
-| Turbo booker (`POST /webhook/booker`) | **Working** — scheduler POST + Playwright submit |
+| Turbo booker (`POST /webhook/booker`) | **Working** — scheduler POST + Playwright submit; **no more HTTP 500s** from ValueError crashes |
 | Local dev (Windows) | **v1.0.1 pipeline merged** — 5/5 KOPENHAGEN SUCCESS on `:8000` (2026-06-16) |
-| Repo captcha pipeline | DOM-only capture, HS guard, Gemini on round ≥2, `DomCaptchaCaptureError` (no URL fallback) |
-| Unit/integration tests | **77 passed** (`test_v101_captcha_pipeline.py`, updated solver tests) |
-| VPS production (Docker) | **Not yet updated** — still on pre-merge code + `gemini_first` workaround |
-| n8n integration | Workflow in `workflows/booker.json`; HTTP 300s timeout, serial booking |
+| Repo captcha pipeline | DOM-only capture, HS guard, Gemini on round ≥ `CAPTCHA_GEMINI_FIRST_AFTER` (default 2), `DomCaptchaCaptureError` |
+| Unit/integration tests | **78 passed** (61 unit + 17 integration) |
+| VPS production | **Ran with partial fix** (user manually edited app.py — missing the latest refactor) |
+| n8n integration | Workflow in `workflows/booker.json`; **no more bare "HTTP request failed"** — all errors return `resultType` JSON |
 | KOPENHAGEN test stand-in | Validated; KAIRO = same code, different payload constants |
 | OCR finetune (5k dataset) | **In progress** — see `docs/CAPTCHA_OCR_DATASET.md`; deploy weights before VPS OCR-first retest |
 
-**VPS deploy:** Deferred until OCR finetune completes. See [`V1_0_1_PROBLEMS_AND_MERGE_PLAN.md`](./V1_0_1_PROBLEMS_AND_MERGE_PLAN.md) — S7 canary pending.
+**VPS deploy:** `app.py` from this repo must be copied to VPS and uvicorn restarted. See § VPS deploy below.
 
-**Code default (repo):** `CAPTCHA_SOLVER=ocr_with_gemini_fallback`, `CAPTCHA_MAX_STYLE_RELOADS=0`. Parallel URL fetch **hard-disabled** in code.
-
-**VPS today (until deploy):** Keep `CAPTCHA_SOLVER=gemini_first` on `193.203.191.168:8000`.
+**Code default (repo):** `CAPTCHA_SOLVER=ocr_with_gemini_fallback`, `CAPTCHA_GEMINI_FIRST_AFTER=2`, `CAPTCHA_MAX_STYLE_RELOADS=0`. Parallel URL fetch **hard-disabled** in code.
 
 ---
 
@@ -50,34 +48,49 @@ flowchart LR
 
 ---
 
-## What was completed (production plan session)
+## What was completed (2026-07-13 session)
 
-### Code & config
+### Root cause: scheduler POST ValueError → HTTP 500
 
-| Change | File |
-|--------|------|
-| Turbo default solver → `ocr_with_gemini_fallback` | `app.py` |
-| `captcha_parallel_fetch_enabled()` default → `false` | `booker_legacy.py` |
-| `TURBO_CAPTCHA_SOLVER` documented | `.env`, `.env.example` |
-| Regression script DOM vs URL captcha | `scripts/compare_captcha_fetch.py` |
+`navigate_to_capture_form_via_scheduler_post()` raises `ValueError(f"Scheduler POST: {result_type} — {msg}")` when the slot is already taken during scheduler-POST fast path. This propagated unhandled → `webhook_booker`'s `except Exception → raise HTTPException(500)` → n8n emitted bare "HTTP request failed" telegram instead of routing by `resultType`.
 
-### n8n
+### Fix: three layers of error catching
 
-| Change | Location |
-|--------|----------|
-| HTTP timeout 300000 ms | `workflows/booker.json` |
-| Body: `runId`, `captureArtifacts`, full student map | same |
-| Retry on fail: 2×, 60s wait | same |
-| Version control + import notes | `workflows/README.md` |
+| Layer | What it catches | Returns |
+|-------|----------------|---------|
+| `_navigate_scheduler_post_safe()` | `ValueError` matching `r"^Scheduler POST: (\w+) — (.*)$"` | `(resultType, msg)` tuple → structured JSON with SLOT_TAKEN/ALREADY_BOOKED/CAPTCHA_FAIL; non-matching ValueErrors re-raised |
+| `_solve_turbo_captcha` try/except | OCR/Gemini solver `ValueError` in browser flow | CAPTCHA_FAIL with retry (matching `DomCaptchaCaptureError` pattern) |
+| `turbo_fetch_captcha` + `solve_captcha` try/except | Captcha download/solve `ValueError` in HTTP flow | CAPTCHA_FAIL structured JSON |
+| `fill_form_fields` try/except | Playwright exceptions in browser flow | OTHER_FAIL via `_scheduler_post_failure_result` |
 
-### Documentation synced
+### Environment variable added
 
-- `docs/TURBO_APP.md`, `docs/CAPTCHA_INVESTIGATION.md`, `docs/n8n-booking-result-flow.md` (§7 Production checklist), `README.md`, `docs/TESTING_KOPENHAGEN.md`
+| Env | Default | Purpose |
+|-----|---------|---------|
+| `CAPTCHA_GEMINI_FIRST_AFTER` | `2` | Captcha round/attempt threshold for Gemini-first (replaces hardcoded `>= 2`) |
+
+### Files changed
+
+| File | Changes |
+|------|---------|
+| `app.py` | +`_SCHEDULER_POST_ERR_RE` regex, +`_navigate_scheduler_post_safe` helper, wraps for `_solve_turbo_captcha`, HTTP captcha fetch/solve, and `fill_form_fields` |
+| `AGENTS.md` | Updated to reflect fix |
+| `AGENT_HANDOFF.md` | This document |
+
+### Commits (chronological)
+
+| Commit | Message |
+|--------|---------|
+| `f32b82a` | CAPTCHA_GEMINI_FIRST_AFTER env var (2-line change) |
+| `ce1bc64` | `_scheduler_post_failure_result` + try/except for scheduler POST paths |
+| `8aec6e8` | Catch remaining gaps: fill_form_fields, `_solve_turbo_captcha`, HTTP captcha |
+| `ba74e1b` | Refactor to `_navigate_scheduler_post_safe` with regex matching |
 
 ### Validation
 
-- `python -m py_compile` — pass
-- Local smoke `prod-smoke-defaults-001` — SUCCESS attempt 1, OCR, ~4.5s, `captchaParallelUsed: false`
+- `pytest tests/unit tests/integration -q` — **78 passed**
+- `python -c "import app"` — import OK
+- VPS live test (partial fix): **zero HTTP 500s**, all SLOT_TAKEN returned as structured JSON
 
 ---
 
@@ -97,6 +110,8 @@ uvicorn app:app --host 0.0.0.0 --port 8000 --workers 1
 # Solver — production choice after live testing
 CAPTCHA_SOLVER=gemini_first
 # TURBO_CAPTCHA_SOLVER=gemini_first
+
+CAPTCHA_GEMINI_FIRST_AFTER=2
 
 CAPTCHA_PARALLEL_FETCH=false
 CAPTCHA_OCR_ENHANCE=false
@@ -124,6 +139,25 @@ MAX_CONCURRENT_BOOKINGS=1
 
 **Not on VPS:** `artifacts/`, local `.venv`, test payloads. **n8n gets** `workflows/booker.json` (import in UI, not on booker VPS).
 
+### Deploy the latest fix (IMPORTANT — not yet on VPS)
+
+The latest commit `ba74e1b` has the complete fix with `_navigate_scheduler_post_safe`. The VPS currently has a mix:
+1. The initial `_scheduler_post_failure_result` + try/except code WAS manually added by user
+2. But the latest refactor (`_navigate_scheduler_post_safe` + 3 additional gap fixes) is **NOT deployed**
+
+To deploy:
+```bash
+# Copy app.py to VPS:
+scp python-booker-webhook/app.py root@VPS_IP:/config/workspace/dir/python-booker-webhook/app.py
+
+# Or if git on VPS:
+git pull origin v1.0.1
+
+# Restart:
+# kill old uvicorn, then:
+uvicorn app:app --host 0.0.0.0 --port 8000 --workers 1
+```
+
 ---
 
 ## Captcha: confirmed root causes
@@ -143,7 +177,18 @@ Full detail: [`docs/CAPTCHA_INVESTIGATION.md`](CAPTCHA_INVESTIGATION.md)
 
 ---
 
-## VPS incident log (2026-05-31)
+### Important: `_scheduler_post_failure_result` vs `_navigate_scheduler_post_safe`
+
+Two helper functions exist for converting failures to structured JSON — don't confuse them:
+
+| Helper | Scope | When to use |
+|--------|-------|-------------|
+| `_navigate_scheduler_post_safe()` | **Browser flow only** — wraps `navigate_to_capture_form_via_scheduler_post` | Uses regex `_SCHEDULER_POST_ERR_RE` to match `"Scheduler POST: {type} — {msg}"`; returns `None` or `(resultType, msg)` tuple; **re-raises** non-matching ValueErrors |
+| `_scheduler_post_failure_result()` | **HTTP flow and other errors** — catch-all for `_resolve_capture_html`, `parse_fresh_fields`, `_verify_start_time`, `fill_form_fields` failures | Broad search for result type in uppercase error message; returns full response dict directly |
+
+---
+
+## VPS incident log (2026-05-31 + 2026-07-13)
 
 ### 1. Playwright asyncio 500
 
@@ -167,6 +212,21 @@ Full detail: [`docs/CAPTCHA_INVESTIGATION.md`](CAPTCHA_INVESTIGATION.md)
 
 **Evidence:** Hard captcha, attempt 1, `"source": "gemini"`, `resultType: SUCCESS`, ~4.8s  
 **Session:** fresh cookie, single pass, no n8n retry overwrite
+
+### 5. Scheduler POST ValueError → 500 (2026-07-13)
+
+**Symptom:** `navigate_to_capture_form_via_scheduler_post` raises `ValueError("Scheduler POST: SLOT_TAKEN — ...")` → `except Exception → HTTPException(500)` → n8n "HTTP request failed" telegram  
+**Root cause:** `classify_post_submit_html` returns `(result_type, msg)` on known validation pages; the caller raises ValueError instead of returning structured JSON  
+**Fix:** `_navigate_scheduler_post_safe()` catches the ValueError, parses result type via regex, returns structured JSON  
+**VPS evidence:** After partial fix, zero HTTP 500s in 10+ consecutive requests — all `SLOT_TAKEN` returned as `{"ok": false, "resultType": "SLOT_TAKEN", ...}`  
+
+### 6. Additional unhandled exception paths (2026-07-13)
+
+| Path | Trigger | Fix |
+|------|---------|-----|
+| `fill_form_fields` (browser) | Playwright timeout/error on `page.fill()` | `try/except Exception` → structured OTHER_FAIL |
+| `_solve_turbo_captcha` (browser) | OCR/Gemini ValueError on captcha solve | `try/except ValueError` → CAPTCHA_FAIL with retry |
+| `turbo_fetch_captcha` + `solve_captcha` (HTTP) | Captcha download fails (`raise ValueError`) | `try/except Exception` → CAPTCHA_FAIL structured response |
 
 ---
 
@@ -208,6 +268,8 @@ User manually verified: **OCR text matches a different captcha PNG** than the ar
 | `gemini_first` | Gemini; OCR if Gemini throws |
 | `ocr` / `gemini` | Single solver only |
 
+**`CAPTCHA_GEMINI_FIRST_AFTER`** (default `2`): controls when Gemini is tried first instead of OCR. Replaces hardcoded `captcha_round >= 2 or attempt >= 2`.
+
 Override turbo only: `TURBO_CAPTCHA_SOLVER=...`
 
 ---
@@ -222,6 +284,7 @@ Override turbo only: `TURBO_CAPTCHA_SOLVER=...`
 | `turbo-style-gate-5196311` | Gemini | on | FAIL 5/5 | ~70s | Parallel URL wrong image |
 | `1411526` | OCR | off | FAIL 10× | — | VPS; n8n retry; OCR wrong/desync |
 | `1411570` | Gemini | off | **SUCCESS** | ~4.8s | **VPS production proof** |
+| `debug-ce612b` | OCR (VPS) | off | SLOT_TAKEN × N | ~4-9s | **Zero 500s** after partial fix; all structured JSON |
 
 Debug log: `debug-ce612b.log` (JSONL, same schema as VPS).
 
@@ -310,11 +373,12 @@ Parallel track to production captcha fixes: collect ~5k BMEIA BotDetect images t
 
 ## First actions for next agent
 
-1. Read this file + skim `CAPTCHA_INVESTIGATION.md` § Current State  
-2. Confirm user goal: fix OCR pipeline vs keep `gemini_first` on VPS  
-3. If fixing OCR desync: implement SHA256 + unique OCR filenames + artifact naming  
-4. If improving fallback: Gemini on CAPTCHA_FAIL or on `hard` difficulty  
-5. Tune n8n: disable retry on CAPTCHA_FAIL/500; retry 503 only  
-6. Update `README.md` / `CAPTCHA_INVESTIGATION.md` if production solver choice changes  
+1. **Deploy latest `app.py` to VPS** — the `_navigate_scheduler_post_safe` refactor + 3 additional gap fixes (`ba74e1b`) are not yet on the VPS. Only the initial `_scheduler_post_failure_result` code was manually copied. Copy `app.py` and restart uvicorn.  
+2. Read this file + skim `CAPTCHA_INVESTIGATION.md` § Current State  
+3. Confirm user goal: fix OCR pipeline vs keep `gemini_first` on VPS  
+4. If fixing OCR desync: implement SHA256 + unique OCR filenames + artifact naming  
+5. If improving fallback: Gemini on CAPTCHA_FAIL or on `hard` difficulty  
+6. Tune n8n: disable retry on CAPTCHA_FAIL/500; retry 503 only  
+7. Update `README.md` / `CAPTCHA_INVESTIGATION.md` if production solver choice changes  
 
 **Do not edit** `c:\Users\WD\.cursor\plans\production_n8n_integration_01986103.plan.md`.
