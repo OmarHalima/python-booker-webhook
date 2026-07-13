@@ -328,7 +328,19 @@ def run_turbo_browser_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
         timings["schedulerNavMs"] = (time.perf_counter() - t_nav) * 1000
         _save_turbo_artifacts(run_dir, "01_capture_form.html", page.content())
 
-        booker.fill_form_fields(page, payload)
+        try:
+            booker.fill_form_fields(page, payload)
+        except Exception as exc:
+            booker.dlog(
+                run_id, "H_turbo",
+                "app_turbo:run_turbo_browser_booking_flow", "fill_form_fields_failed",
+                {"error": str(exc)[:300]},
+            )
+            timings["totalMs"] = (time.perf_counter() - t_total) * 1000
+            return _scheduler_post_failure_result(
+                ValueError(f"fill_form_fields failed: {exc}"),
+                run_id=run_id, timings=timings, run_dir=run_dir, submit_mode="browser",
+            )
 
         for attempt in range(1, max_attempts + 1):
             if attempt > 1:
@@ -355,7 +367,19 @@ def run_turbo_browser_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
                         submit_mode="browser",
                     )
                 timings[f"schedulerNavMs_attempt{attempt}"] = (time.perf_counter() - t_nav) * 1000
-                booker.fill_form_fields(page, payload)
+                try:
+                    booker.fill_form_fields(page, payload)
+                except Exception as exc:
+                    booker.dlog(
+                        run_id, "H_turbo",
+                        "app_turbo:run_turbo_browser_booking_flow", "fill_form_fields_failed_retry",
+                        {"attempt": attempt, "error": str(exc)[:300]},
+                    )
+                    timings["totalMs"] = (time.perf_counter() - t_total) * 1000
+                    return _scheduler_post_failure_result(
+                        ValueError(f"fill_form_fields failed: {exc}"),
+                        run_id=run_id, timings=timings, run_dir=run_dir, submit_mode="browser",
+                    )
 
             try:
                 fresh = booker.parse_fresh_fields(page.content())
@@ -471,14 +495,39 @@ def run_turbo_browser_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
                 )
 
                 t0 = time.perf_counter()
-                captcha_text, captcha_source = _solve_turbo_captcha(
-                    last_captcha_bytes,
-                    run_id=run_id,
-                    attempt=attempt,
-                    captcha_round=captcha_round,
-                    vcid=fresh.bdc_vcid,
-                    max_attempts=max_attempts,
-                )
+                try:
+                    captcha_text, captcha_source = _solve_turbo_captcha(
+                        last_captcha_bytes,
+                        run_id=run_id,
+                        attempt=attempt,
+                        captcha_round=captcha_round,
+                        vcid=fresh.bdc_vcid,
+                        max_attempts=max_attempts,
+                    )
+                except ValueError as exc:
+                    timings[f"captchaSolveMs_attempt{attempt}"] = (time.perf_counter() - t0) * 1000
+                    booker.dlog(
+                        run_id, "H_turbo",
+                        "app_turbo:run_turbo_browser_booking_flow", "captcha_solve_failed",
+                        {"attempt": attempt, "error": str(exc)[:300]},
+                    )
+                    if attempt < max_attempts:
+                        provided_captcha = ""
+                        continue
+                    timings["totalMs"] = (time.perf_counter() - t_total) * 1000
+                    result = {
+                        "ok": False,
+                        "resultType": "CAPTCHA_FAIL",
+                        "attempt": attempt,
+                        "message": str(exc),
+                        "mode": "turbo",
+                        "submitMode": "browser",
+                        "runId": run_id,
+                        "timingsMs": timings,
+                        "artifactsDir": str(run_dir),
+                        "timestamp": datetime.utcnow().isoformat() + "Z",
+                    }
+                    break
                 timings[f"captchaSolveMs_attempt{attempt}"] = (time.perf_counter() - t0) * 1000
                 booker.dlog(
                     run_id,
@@ -1068,21 +1117,41 @@ def run_turbo_http_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
         captcha_source = "payload" if captcha_text else ""
 
         if not captcha_text:
-            t0 = time.perf_counter()
-            captcha_bytes = turbo_fetch_captcha(session, fresh.captcha_image_url, payload)
-            timings[f"captchaFetchMs_attempt{attempt}"] = (time.perf_counter() - t0) * 1000
-            _save_turbo_artifacts(
-                run_dir,
-                f"attempt_{attempt:02d}_captcha.png",
-                captcha_bytes,
-                binary=True,
-            )
-            t0 = time.perf_counter()
-            captcha_text = booker.solve_captcha(
-                captcha_bytes, run_id=run_id, attempt=attempt, vcid=fresh.bdc_vcid
-            )
-            timings[f"captchaSolveMs_attempt{attempt}"] = (time.perf_counter() - t0) * 1000
-            captcha_source = "ocr_or_gemini"
+            try:
+                t0 = time.perf_counter()
+                captcha_bytes = turbo_fetch_captcha(session, fresh.captcha_image_url, payload)
+                timings[f"captchaFetchMs_attempt{attempt}"] = (time.perf_counter() - t0) * 1000
+                _save_turbo_artifacts(
+                    run_dir,
+                    f"attempt_{attempt:02d}_captcha.png",
+                    captcha_bytes,
+                    binary=True,
+                )
+                t0 = time.perf_counter()
+                captcha_text = booker.solve_captcha(
+                    captcha_bytes, run_id=run_id, attempt=attempt, vcid=fresh.bdc_vcid
+                )
+                timings[f"captchaSolveMs_attempt{attempt}"] = (time.perf_counter() - t0) * 1000
+                captcha_source = "ocr_or_gemini"
+            except Exception as exc:
+                timings["totalMs"] = (time.perf_counter() - t_total) * 1000
+                booker.dlog(
+                    run_id, "H_turbo",
+                    "app_turbo:run_turbo_http_booking_flow", "captcha_fetch_or_solve_failed",
+                    {"attempt": attempt, "error": str(exc)[:300]},
+                )
+                return {
+                    "ok": False,
+                    "resultType": "CAPTCHA_FAIL",
+                    "attempt": attempt,
+                    "message": str(exc)[:500],
+                    "mode": "turbo",
+                    "submitMode": "http",
+                    "runId": run_id,
+                    "timingsMs": timings,
+                    "artifactsDir": str(run_dir),
+                    "timestamp": datetime.utcnow().isoformat() + "Z",
+                }
 
         submit_html, submit_ms, final_url = turbo_submit_capture_form(
             session, fresh, payload, captcha_text
