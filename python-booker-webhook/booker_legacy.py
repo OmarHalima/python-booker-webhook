@@ -116,6 +116,11 @@ def playwright_slow_mo() -> int:
         return 80
 
 
+def enable_record_video_on_error() -> bool:
+    """Enable Playwright video recording; saves .webm to artifacts/<runId>/video/ on exception."""
+    return _env_bool("RECORD_VIDEO_ON_ERROR", True)
+
+
 def captcha_parallel_fetch_enabled() -> bool:
     """Parallel URL prefetch disabled — always DOM screenshot for OCR (v1.0.1 merge)."""
     return False
@@ -242,19 +247,23 @@ def open_booking_page(
     ignore_https_errors: bool = True,
     base_url: Optional[str] = None,
     viewport: Optional[Dict[str, int]] = None,
+    record_video_on_error: Optional[bool] = None,
 ) -> Tuple[BrowserContext, Page, Optional[Path], Dict[str, Any]]:
+    if record_video_on_error is None:
+        record_video_on_error = enable_record_video_on_error()
     runtime = _acquire_browser_runtime(run_id)
     browser: Browser = runtime["browser"]
     context: Optional[BrowserContext] = None
     page: Optional[Page] = None
     video_dir: Optional[Path] = None
+    exc_info: Optional[BaseException] = None
     try:
         kwargs: Dict[str, Any] = {"ignore_https_errors": ignore_https_errors}
         if base_url:
             kwargs["base_url"] = base_url
         if viewport:
             kwargs["viewport"] = viewport
-        if capture_artifacts:
+        if capture_artifacts or record_video_on_error:
             video_dir = run_dir / "video"
             video_dir.mkdir(parents=True, exist_ok=True)
             kwargs["record_video_dir"] = str(video_dir)
@@ -263,12 +272,26 @@ def open_booking_page(
         _configure_playwright_context(context)
         page = context.new_page()
         yield context, page, video_dir, runtime
+    except BaseException as exc:
+        exc_info = exc
+        raise
     finally:
         try:
             if page is not None:
                 page.close()
         except Exception:
             pass
+        if record_video_on_error and exc_info and video_dir and page is not None:
+            try:
+                page.video.save_as(str(video_dir / f"{run_id}-error.webm"))
+            except Exception:
+                try:
+                    for f in video_dir.glob("*.webm"):
+                        import shutil
+                        shutil.move(str(f), str(video_dir / f"{run_id}-error.webm"))
+                        break
+                except Exception:
+                    pass
         try:
             if context is not None:
                 context.close()
@@ -770,7 +793,7 @@ def post_select_slot(context: BrowserContext, payload: Dict[str, Any]) -> str:
         "Command": "Next",
     }
 
-    response = context.request.post(SCHEDULER_URL, headers=headers, form=form)
+    response = context.request.post(SCHEDULER_URL, headers=headers, form=form, timeout=postback_settle_timeout_ms())
     if not response.ok:
         raise ValueError(f"POST Select Slot failed: {response.status} {response.status_text}")
     return response.text()
@@ -3499,6 +3522,7 @@ def run_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
             run_dir=run_dir,
             capture_artifacts=capture_artifacts,
             ignore_https_errors=True,
+            record_video_on_error=True,
         ) as (context, page, video_dir, runtime_meta):
             dlog(
                 run_id,
