@@ -105,10 +105,19 @@ def _browser_submit_capture(page, run_id: str, attempt: int) -> str:
 
 
 def _turbo_captcha_solver_mode() -> str:
-    """Turbo solver order. Default ocr_with_gemini_fallback; override with TURBO_CAPTCHA_SOLVER or CAPTCHA_SOLVER."""
+    """Turbo solver order. Default fastcaptcha_with_gemini_fallback; override with TURBO_CAPTCHA_SOLVER or CAPTCHA_SOLVER."""
     return (
-        os.getenv("TURBO_CAPTCHA_SOLVER") or os.getenv("CAPTCHA_SOLVER") or "ocr_with_gemini_fallback"
+        os.getenv("TURBO_CAPTCHA_SOLVER") or os.getenv("CAPTCHA_SOLVER") or "fastcaptcha_with_gemini_fallback"
     ).strip().lower()
+
+
+def _primary_solver(solver_mode: str) -> Tuple[Any, str]:
+    """Map solver mode -> (callable, label). FastCaptcha is the sandbox primary."""
+    if solver_mode.startswith("fastcaptcha"):
+        return booker.solve_captcha_with_fastcaptcha, "fastcaptcha"
+    if solver_mode.startswith("ocr"):
+        return booker.solve_captcha_with_ocr, "ocr"
+    return booker.solve_captcha_with_fastcaptcha, "fastcaptcha"
 
 
 def _solve_turbo_captcha(
@@ -120,7 +129,7 @@ def _solve_turbo_captcha(
     vcid: str,
     max_attempts: int,
 ) -> Tuple[str, str]:
-    """Solve captcha per TURBO_CAPTCHA_SOLVER / CAPTCHA_SOLVER (default: ocr_with_gemini_fallback)."""
+    """Solve captcha per TURBO_CAPTCHA_SOLVER / CAPTCHA_SOLVER (default: fastcaptcha_with_gemini_fallback)."""
     mode = _turbo_captcha_solver_mode()
     gemini_first_after = int(os.getenv("CAPTCHA_GEMINI_FIRST_AFTER", "2"))
     use_gemini_first = captcha_round >= gemini_first_after or attempt >= gemini_first_after
@@ -137,7 +146,14 @@ def _solve_turbo_captcha(
         )
         return text, "gemini"
 
-    if mode == "ocr_with_gemini_fallback":
+    if mode == "fastcaptcha":
+        text = booker.solve_captcha_with_fastcaptcha(
+            image_bytes, run_id=run_id, attempt=attempt, vcid=vcid
+        )
+        return text, "fastcaptcha"
+
+    if mode in ("fastcaptcha_with_gemini_fallback", "ocr_with_gemini_fallback"):
+        primary, primary_source = _primary_solver(mode)
         if use_gemini_first:
             try:
                 text = booker.solve_captcha_with_gemini(
@@ -149,21 +165,21 @@ def _solve_turbo_captcha(
                     run_id,
                     "H_turbo",
                     "app_turbo:_solve_turbo_captcha",
-                    "gemini_round_failed_fallback_ocr",
-                    {"attempt": attempt, "captchaRound": captcha_round, "error": str(exc)[:200]},
+                    "gemini_round_failed_fallback_primary",
+                    {"attempt": attempt, "captchaRound": captcha_round, "mode": mode, "error": str(exc)[:200]},
                 )
         try:
-            text = booker.solve_captcha_with_ocr(
+            text = primary(
                 image_bytes, run_id=run_id, attempt=attempt, vcid=vcid
             )
-            return text, "ocr"
+            return text, primary_source
         except Exception as exc:
             booker.dlog(
                 run_id,
                 "H_turbo",
                 "app_turbo:_solve_turbo_captcha",
-                "ocr_failed_fallback_gemini",
-                {"attempt": attempt, "captchaRound": captcha_round, "error": str(exc)[:200]},
+                f"{primary_source}_failed_fallback_gemini",
+                {"attempt": attempt, "captchaRound": captcha_round, "mode": mode, "error": str(exc)[:200]},
             )
         text = booker.solve_captcha_with_gemini(
             image_bytes, run_id=run_id, attempt=attempt, vcid=vcid
@@ -181,11 +197,11 @@ def _solve_turbo_captcha(
             run_id,
             "H_turbo",
             "app_turbo:_solve_turbo_captcha",
-            "gemini_failed_fallback_ocr",
+            "gemini_failed_fallback_solver",
             {"attempt": attempt, "error": str(exc)[:200]},
         )
     text = booker.solve_captcha(image_bytes, run_id=run_id, attempt=attempt, vcid=vcid)
-    return text, "ocr_fallback"
+    return text, "fastcaptcha_fallback"
 
 
 _SLOT_POST_RESULT_TYPES = {
@@ -205,9 +221,8 @@ def _navigate_scheduler_post_safe(
     """Navigate to capture form via scheduler POST.
 
     Returns None on success, or a (resultType, message) tuple if the scheduler
-    POST itself reports SLOT_TAKEN/ALREADY_BOOKED before we ever reach captcha.
-    Re-raises non-matching ValueErrors (genuine navigation failures) so they
-    still surface as 500.
+    POST itself reports a result before we ever reach captcha. Scheduler HTTP
+    failures must be returned as structured results, never as webhook HTTP 500.
     """
     try:
         booker.navigate_to_capture_form_via_scheduler_post(
@@ -218,7 +233,13 @@ def _navigate_scheduler_post_safe(
         m = _SCHEDULER_POST_ERR_RE.match(str(exc))
         if m:
             return m.group(1), m.group(2)
-        raise
+        msg = str(exc)
+        result_type = (
+            "BOOKING_SERVER_BUSY"
+            if re.search(r"\b(?:5\d{2}|429)\b|timed out|request failed", msg, re.IGNORECASE)
+            else "OTHER_FAIL"
+        )
+        return result_type, msg
 
 
 def _scheduler_post_failure_result(
@@ -302,7 +323,6 @@ def run_turbo_browser_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
     last_captcha_vcid = ""
     parallel_used_any = False
     captcha_round = 0
-
     with booker.open_booking_page(
         run_id=run_id,
         run_dir=run_dir,
@@ -369,6 +389,9 @@ def run_turbo_browser_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
             )
 
         for attempt in range(1, max_attempts + 1):
+            # Cleared per attempt: only an image fetched in THIS attempt may
+            # arm the submit floor.
+            image_at = 0.0
             if attempt > 1:
                 html = booker._safe_page_content(page)
                 if "BDC_VCID_Captcha" in html and 'id="Token"' in html:
@@ -539,6 +562,10 @@ def run_turbo_browser_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
                     )
                 last_captcha_vcid = fresh.bdc_vcid or ""
                 last_captcha_bytes = booker.capture_captcha_bytes_from_dom(page)
+                # The image the submit will carry was just captured; the server's
+                # "old enough" timer started when it served it, so it is already
+                # running by the time we get here.
+                image_at = time.monotonic()
                 _save_turbo_artifacts(
                     run_dir, f"attempt_{attempt:02d}_captcha_ocr.png", last_captcha_bytes, binary=True
                 )
@@ -649,6 +676,34 @@ def run_turbo_browser_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
                 )
             except Exception:
                 pass
+
+            # Hold the submit until the captcha image is old enough to be
+            # accepted (measured ~3s floor from image serve, not from capture).
+            # Prefer the response-listener clock (when the site served the
+            # image), then resource timing, then our own capture mark.
+            if image_at:
+                dom_image_age, age_source = booker.resolve_captcha_image_age(
+                    page, fresh.bdc_vcid, image_at
+                )
+                timings[f"captchaImageAgeMs_attempt{attempt}"] = (
+                    round(dom_image_age * 1000, 1) if dom_image_age is not None else -1.0
+                )
+                if age_source == "capture_mark":
+                    booker.dlog(
+                        run_id, "H_submit_captcha",
+                        "app_turbo:run_turbo_browser_booking_flow",
+                        "captcha_image_probe_miss",
+                        {"attempt": attempt, **booker.captcha_image_probe_diag(page)},
+                    )
+                timings[f"captchaImageFloorWaitMs_attempt{attempt}"] = (
+                    booker.wait_out_captcha_image_floor(
+                        image_at,
+                        image_age_sec=dom_image_age,
+                        age_source=age_source,
+                        run_id=run_id,
+                        attempt=attempt,
+                    ) * 1000
+                )
 
             t0 = time.perf_counter()
             submit_path = _browser_submit_capture(page, run_id, attempt)
@@ -813,12 +868,18 @@ def turbo_post_select_slot(session: requests.Session, payload: Dict[str, Any]) -
         "Command": "Next",
     }
     t0 = time.perf_counter()
-    resp = session.post(
-        SCHEDULER_URL,
-        data=form,
-        headers={**_default_headers(payload, referer), "Content-Type": "application/x-www-form-urlencoded"},
-        timeout=60,
-    )
+    timeout_ms = booker.scheduler_post_timeout_ms()
+    try:
+        resp = session.post(
+            SCHEDULER_URL,
+            data=form,
+            headers={**_default_headers(payload, referer), "Content-Type": "application/x-www-form-urlencoded"},
+            timeout=timeout_ms / 1000,
+        )
+    except requests.Timeout as exc:
+        raise ValueError(f"Scheduler POST timed out after {timeout_ms}ms.") from exc
+    except requests.RequestException as exc:
+        raise ValueError(f"Scheduler POST request failed: {exc}") from exc
     ms = (time.perf_counter() - t0) * 1000
     _merge_set_cookie(session, resp)
     if not resp.ok:
@@ -1139,6 +1200,9 @@ def run_turbo_http_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
     result: Dict[str, Any] = {}
 
     for attempt in range(1, max_attempts + 1):
+        # Marks when the captcha IMAGE the submit uses arrived. 0.0 = the text
+        # came from the payload, so the image clock cannot be observed here.
+        image_at = 0.0
         if attempt > 1 and html_source == "scheduler_post":
             try:
                 capture_html, _, _ = _resolve_capture_html(payload, session)
@@ -1169,6 +1233,9 @@ def run_turbo_http_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
             try:
                 t0 = time.perf_counter()
                 captcha_bytes = turbo_fetch_captcha(session, fresh.captcha_image_url, payload)
+                # Server-side clock starts when it serves this image, so mark it
+                # before the solve eats into the mandatory window.
+                image_at = time.monotonic()
                 timings[f"captchaFetchMs_attempt{attempt}"] = (time.perf_counter() - t0) * 1000
                 _save_turbo_artifacts(
                     run_dir,
@@ -1201,6 +1268,13 @@ def run_turbo_http_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
                     "artifactsDir": str(run_dir),
                     "timestamp": datetime.utcnow().isoformat() + "Z",
                 }
+
+        # Hold the submit until the captcha image is old enough to be accepted
+        # (measured ~3s floor from image serve, not from the capture POST).
+        if image_at:
+            timings[f"captchaImageFloorWaitMs_attempt{attempt}"] = (
+                booker.wait_out_captcha_image_floor(image_at, run_id=run_id, attempt=attempt) * 1000
+            )
 
         submit_html, submit_ms, final_url = turbo_submit_capture_form(
             session, fresh, payload, captcha_text

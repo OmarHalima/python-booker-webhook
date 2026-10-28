@@ -15,7 +15,7 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional, Tuple
 import json
 import time
-from urllib.parse import parse_qs
+from urllib.parse import parse_qs, urlsplit
 
 import requests
 from fastapi import HTTPException
@@ -31,6 +31,7 @@ from captcha_ocr import (
     predict_file as ocr_predict_file,
     validate_captcha_text,
 )
+import captcha_fastcaptcha as fastcaptcha_solver
 
 
 APPOINTMENT_ORIGIN = "https://appointment.bmeia.gv.at"
@@ -111,9 +112,12 @@ def playwright_reuse_max_runs() -> int:
 
 def playwright_slow_mo() -> int:
     try:
-        return max(0, int(os.getenv("PLAYWRIGHT_SLOW_MO", "80")))
+        # fill() already writes whole field values immediately.  A global delay
+        # makes every locator/readback slow, without making normal form fields
+        # more reliable. Captcha typing has its own deliberate delay below.
+        return max(0, int(os.getenv("PLAYWRIGHT_SLOW_MO", "0")))
     except (TypeError, ValueError):
-        return 80
+        return 0
 
 
 def enable_record_video_on_error() -> bool:
@@ -271,6 +275,13 @@ def open_booking_page(
         context = browser.new_context(**kwargs)
         _configure_playwright_context(context)
         page = context.new_page()
+        # Anchor for the captcha image clock: the response event fires when the
+        # site serves the image, which is when its "old enough" timer starts.
+        # Resource timing is not dependable (buffers get cleared/evicted).
+        try:
+            page.on("response", _on_browser_response)
+        except Exception:
+            pass
         yield context, page, video_dir, runtime
     except BaseException as exc:
         exc_info = exc
@@ -542,6 +553,11 @@ def postback_settle_timeout_ms() -> int:
     return _env_int("POSTBACK_SETTLE_TIMEOUT_MS", 60000, minimum=1000)
 
 
+def scheduler_post_timeout_ms() -> int:
+    """Maximum wait for the slot-selection POST before returning a failure."""
+    return _env_int("SCHEDULER_POST_TIMEOUT_MS", 3000, minimum=1000)
+
+
 def postback_stuck_reload_max() -> int:
     return _env_int("POSTBACK_STUCK_RELOAD_MAX", 1, minimum=0)
 
@@ -793,7 +809,13 @@ def post_select_slot(context: BrowserContext, payload: Dict[str, Any]) -> str:
         "Command": "Next",
     }
 
-    response = context.request.post(SCHEDULER_URL, headers=headers, form=form, timeout=postback_settle_timeout_ms())
+    timeout_ms = scheduler_post_timeout_ms()
+    try:
+        response = context.request.post(
+            SCHEDULER_URL, headers=headers, form=form, timeout=timeout_ms
+        )
+    except PlaywrightTimeoutError as exc:
+        raise ValueError(f"Scheduler POST timed out after {timeout_ms}ms.") from exc
     if not response.ok:
         raise ValueError(f"POST Select Slot failed: {response.status} {response.status_text}")
     return response.text()
@@ -1087,8 +1109,8 @@ def _extract_captcha_text_from_gemini_json(data: Dict[str, Any]) -> str:
 
 
 def _captcha_solver_mode() -> str:
-    """ocr (default: ocr then gemini fallback), gemini-only, or ocr-only."""
-    return (os.getenv("CAPTCHA_SOLVER") or "ocr_with_gemini_fallback").strip().lower()
+    """fastcaptcha_with_gemini_fallback (default) | fastcaptcha | ocr_with_gemini_fallback | ocr | gemini."""
+    return (os.getenv("CAPTCHA_SOLVER") or "fastcaptcha_with_gemini_fallback").strip().lower()
 
 
 def solve_captcha_with_ocr(
@@ -1160,24 +1182,81 @@ def solve_captcha_with_ocr(
     return captcha
 
 
+def solve_captcha_with_fastcaptcha(
+    image_bytes: bytes, run_id: str = "", attempt: int = 0, vcid: str = ""
+) -> str:
+    """FastCaptcha primary solver (https://fastcaptcha.org)."""
+    if not fastcaptcha_solver.fastcaptcha_api_key():
+        raise ValueError("FASTCAPTCHA_API_KEY is missing.")
+    if run_id:
+        dlog(
+            run_id,
+            "H_fastcaptcha_req",
+            "booker_legacy:solve_captcha_with_fastcaptcha",
+            "fastcaptcha_request_start",
+            {
+                "attempt": attempt,
+                "apiUrl": fastcaptcha_solver.fastcaptcha_api_url(),
+                "imageBytes": len(image_bytes),
+                "vcidTail": vcid[-8:] if vcid else "",
+            },
+        )
+    try:
+        text = fastcaptcha_solver.solve_captcha_with_fastcaptcha(image_bytes)
+    except requests.RequestException as exc:
+        if run_id:
+            dlog(
+                run_id,
+                "H_fastcaptcha_resp",
+                "booker_legacy:solve_captcha_with_fastcaptcha",
+                "fastcaptcha_request_error",
+                {"attempt": attempt, "error": str(exc)[:300]},
+            )
+        raise ValueError(f"FastCaptcha captcha request failed: {exc}") from exc
+    if run_id:
+        dlog(
+            run_id,
+            "H_fastcaptcha_resp",
+            "booker_legacy:solve_captcha_with_fastcaptcha",
+            "fastcaptcha_text_parsed",
+            {
+                "attempt": attempt,
+                "normalizedLen": len(text),
+                "isAlnum": text.isalnum(),
+            },
+        )
+    return text
+
+
 def solve_captcha(image_bytes: bytes, run_id: str = "", attempt: int = 0, vcid: str = "") -> str:
     mode = _captcha_solver_mode()
     if mode == "gemini":
         return solve_captcha_with_gemini(image_bytes, run_id=run_id, attempt=attempt, vcid=vcid)
     if mode == "ocr":
         return solve_captcha_with_ocr(image_bytes, run_id=run_id, attempt=attempt, vcid=vcid)
+    if mode == "fastcaptcha":
+        return solve_captcha_with_fastcaptcha(image_bytes, run_id=run_id, attempt=attempt, vcid=vcid)
 
-    # Default: ocr_with_gemini_fallback (and legacy unset CAPTCHA_SOLVER).
+    # Default: fastcaptcha_with_gemini_fallback. Legacy ocr_with_gemini_fallback still works.
+    primary = (
+        solve_captcha_with_fastcaptcha
+        if mode.startswith("fastcaptcha")
+        else solve_captcha_with_ocr
+    )
     try:
-        return solve_captcha_with_ocr(image_bytes, run_id=run_id, attempt=attempt, vcid=vcid)
-    except Exception as ocr_exc:
+        return primary(image_bytes, run_id=run_id, attempt=attempt, vcid=vcid)
+    except Exception as primary_exc:
         if run_id:
             dlog(
                 run_id,
                 "H_ocr_resp",
                 "app.py:solve_captcha",
-                "ocr_failed_using_gemini_fallback",
-                {"attempt": attempt, "error": str(ocr_exc)[:300]},
+                "primary_failed_using_gemini_fallback",
+                {
+                    "attempt": attempt,
+                    "mode": mode,
+                    "error": str(primary_exc)[:300],
+                },
             )
         return solve_captcha_with_gemini(image_bytes, run_id=run_id, attempt=attempt, vcid=vcid)
 
@@ -1422,6 +1501,9 @@ def _goto_scheduler_page(page: "Page", run_id: str) -> None:
     knobs as _open_landing_page so the turbo path does not crash on the
     first slow response.
     """
+    # This is only a same-origin bootstrap. The scheduler POST below supplies
+    # the real capture-form HTML. BMEIA may render a transient 404 for this
+    # GET, but waiting for the full landing page costs several seconds.
     url = f"{APPOINTMENT_ORIGIN}/HomeWeb/Scheduler"
     max_attempts = landing_goto_max_attempts()
     last_err: Optional[Exception] = None
@@ -1499,10 +1581,9 @@ def fill_form_fields(page: Page, payload: Dict[str, Any]) -> None:
         loc = page.locator(selector)
         count = loc.count()
         if count > 0:
-            # Only log lengths (no PII)
-            before = loc.first.input_value()
+            # fill() dispatches the browser input events BMEIA needs. Avoid the
+            # extra before/after input_value RPCs for every field.
             page.fill(selector, value)
-            after = loc.first.input_value()
             if run_id:
                 dlog(
                     run_id,
@@ -1512,9 +1593,7 @@ def fill_form_fields(page: Page, payload: Dict[str, Any]) -> None:
                     {
                         "selector": selector,
                         "count": count,
-                        "beforeLen": len(before),
                         "valueLen": len(str(value)),
-                        "afterLen": len(after),
                     },
                 )
 
@@ -2064,6 +2143,213 @@ def _wait_load_settle(page: Page, dom_timeout_ms: Optional[int] = None) -> None:
             page.wait_for_load_state("networkidle", timeout=nav_network_idle_ms())
         except Exception:
             pass
+
+
+#: Measured floor on the Booking-Form captcha: BMEIA rejects a perfectly read
+#: captcha when the POST arrives sooner than ~3s after the captcha IMAGE was
+#: served (correct reads: 3.00s 3/3, 3.5s 2/2, but 2.84s 0/1, 1.0-1.2s 0/2).
+#: It is not the capture form's age (a form held 9.9s passed) and not request
+#: rate. Mirrors the v2 engine's CAPTCHA_MIN_IMAGE_AGE_SEC. This is a floor,
+#: not a tunable delay - submitting sooner fails no matter how good the solve
+#: is - so values below it are clamped instead of obeyed.
+_CAPTCHA_MIN_IMAGE_AGE_FLOOR_SEC = 3.1
+
+
+def captcha_min_image_age_sec() -> float:
+    """Seconds the captcha image must exist before the submit may go out."""
+    try:
+        raw = float(os.getenv("CAPTCHA_MIN_IMAGE_AGE_SEC", "3.1"))
+    except (TypeError, ValueError):
+        raw = _CAPTCHA_MIN_IMAGE_AGE_FLOOR_SEC
+    return max(_CAPTCHA_MIN_IMAGE_AGE_FLOOR_SEC, raw)
+
+
+_CAPTCHA_IMAGE_SERVED_AT_LOCK = threading.Lock()
+#: VCID -> time.monotonic() when the browser got the image response headers.
+#: The site's "image is old enough" clock starts when it serves the image, so
+#: this is the authoritative anchor for the submit floor. Kept per VCID (unique
+#: per image) so concurrent bookings and stale pages cannot mix timestamps.
+_CAPTCHA_IMAGE_SERVED_AT: Dict[str, float] = {}
+_CAPTCHA_IMAGE_SERVED_AT_MAX = 256
+
+
+def note_captcha_image_response(url: str) -> None:
+    """Record when the site served a captcha image (called from page events)."""
+    try:
+        if "BotDetectCaptcha" not in url or "get=image" not in url:
+            return
+        vcid = (parse_qs(urlsplit(url).query).get("t") or [""])[0]
+        if not vcid:
+            return
+        now = time.monotonic()
+        with _CAPTCHA_IMAGE_SERVED_AT_LOCK:
+            _CAPTCHA_IMAGE_SERVED_AT[vcid] = now
+            if len(_CAPTCHA_IMAGE_SERVED_AT) > _CAPTCHA_IMAGE_SERVED_AT_MAX:
+                cutoff = now - 600.0
+                for key, ts in list(_CAPTCHA_IMAGE_SERVED_AT.items()):
+                    if ts < cutoff:
+                        _CAPTCHA_IMAGE_SERVED_AT.pop(key, None)
+    except Exception:
+        return
+
+
+def _on_browser_response(response: Any) -> None:
+    try:
+        note_captcha_image_response(str(getattr(response, "url", "") or ""))
+    except Exception:
+        pass
+
+
+def captcha_image_served_age_sec(vcid: str) -> Optional[float]:
+    """Seconds since the site served this VCID's image, or None if unseen."""
+    if not vcid:
+        return None
+    with _CAPTCHA_IMAGE_SERVED_AT_LOCK:
+        served_at = _CAPTCHA_IMAGE_SERVED_AT.get(vcid)
+    if served_at is None:
+        return None
+    return max(0.0, time.monotonic() - served_at)
+
+
+def captcha_image_age_sec_from_dom(page: Page) -> Optional[float]:
+    """Age of the captcha image the browser is displaying, in seconds.
+
+    Browser flow does not fetch the image itself, so a ``time.monotonic()``
+    mark taken at capture is LATER than the moment the site served the image
+    (the element loaded during page render, before fill/solve). Reading the
+    resource-timing entry for ``BotDetectCaptcha.ashx?get=image...t=<vcid>``
+    recovers the real serve time, so the floor wait pads only what is missing
+    instead of re-paying the render + solve time.
+
+    Returns None when the entry cannot be matched (cache miss, timing entry
+    evicted, reloaded captcha) - callers must then fall back to their own mark.
+    """
+    try:
+        return page.evaluate(
+            """() => {
+              const img = document.querySelector('#Captcha_CaptchaImage');
+              if (!img) return null;
+              const vcidEl = document.querySelector('#BDC_VCID_Captcha');
+              const vcid = vcidEl ? String(vcidEl.value || '') : '';
+              const src = String(img.currentSrc || img.src || '');
+              let best = null, bestName = '';
+              for (const e of performance.getEntriesByType('resource')) {
+                const name = String(e.name || '');
+                if (name.indexOf('BotDetectCaptcha') === -1) continue;
+                if (name.indexOf('get=image') === -1) continue;
+                const matchesVcid = vcid && name.indexOf(vcid) !== -1;
+                const matchesSrc = src && name === src;
+                if (!matchesVcid && !matchesSrc) continue;
+                if (best === null || e.responseEnd > best) { best = e.responseEnd; bestName = name; }
+              }
+              if (best === null) return null;
+              const ageMs = performance.now() - best;
+              return ageMs >= 0 ? ageMs / 1000 : null;
+            }"""
+        )
+    except Exception:
+        return None
+
+
+def resolve_captcha_image_age(
+    page: Page,
+    vcid: str,
+    capture_at: float = 0.0,
+) -> Tuple[Optional[float], str]:
+    """Best available age of the captcha image, plus which clock produced it.
+
+    Priority:
+      1. response_listener  - the page event where the site served the image
+                              (exact anchor, survives cleared/evicted timings)
+      2. resource_timing    - performance entry for the image URL
+      3. capture_mark       - our own mark at DOM capture (always safe, slowest)
+    """
+    served_age = captcha_image_served_age_sec(vcid)
+    if served_age is not None:
+        return served_age, "response_listener"
+    dom_age = captcha_image_age_sec_from_dom(page)
+    if dom_age is not None:
+        return dom_age, "resource_timing"
+    if capture_at:
+        return max(0.0, time.monotonic() - capture_at), "capture_mark"
+    return None, "none"
+
+
+def captcha_image_probe_diag(page: Page) -> Dict[str, Any]:
+    """Evidence for why the image clock was not observable (logged on miss)."""
+    try:
+        return page.evaluate(
+            """() => {
+              const img = document.querySelector('#Captcha_CaptchaImage');
+              const entries = performance.getEntriesByType('resource');
+              const bd = entries
+                .filter(e => String(e.name || '').indexOf('BotDetect') !== -1)
+                .slice(-3)
+                .map(e => String(e.name || '').slice(-56));
+              const vcid = document.querySelector('#BDC_VCID_Captcha');
+              return {
+                imgSrcTail: img ? String(img.currentSrc || img.src || '').slice(-56) : '',
+                vcidTail: vcid ? String(vcid.value || '').slice(-8) : '',
+                resourceCount: entries.length,
+                botDetectTails: bd,
+                url: String(location.href).slice(0, 120),
+              };
+            }"""
+        )
+    except Exception as exc:
+        return {"error": str(exc)[:160]}
+
+
+def wait_out_captcha_image_floor(
+    image_at: float = 0.0,
+    *,
+    image_age_sec: Optional[float] = None,
+    age_source: str = "",
+    run_id: str = "",
+    attempt: int = 0,
+) -> float:
+    """Block until the captcha image is old enough for the server to accept it.
+
+    ``image_age_sec`` is the authoritative age (from the response listener or
+    the browser's resource timing, i.e. from when the site actually served the
+    image). ``image_at`` is the ``time.monotonic()`` fallback taken when the
+    bytes arrived here - it under-counts the true age, so it only ever waits
+    longer, never shorter.
+
+    The solve, the Hs guard and the field fill all run inside this window, so
+    the wait usually costs close to nothing - it only pads the leftover (the
+    RTT also works in our favour: the server's clock starts before we receive
+    the image and stops after it receives the POST).
+    Returns the seconds actually waited (0.0 = no wait needed).
+    """
+    floor = captcha_min_image_age_sec()
+    if image_age_sec is not None:
+        age = max(0.0, image_age_sec)
+        age_source = age_source or "explicit_age"
+    elif image_at:
+        age = time.monotonic() - image_at
+        age_source = age_source or "monotonic_mark"
+    else:
+        return 0.0
+    remaining = floor - age
+    if remaining <= 0:
+        return 0.0
+    if run_id:
+        dlog(
+            run_id,
+            "H_submit_captcha",
+            "app.py:wait_out_captcha_image_floor",
+            "captcha_image_floor_wait",
+            {
+                "attempt": attempt,
+                "waitSec": round(remaining, 3),
+                "floorSec": floor,
+                "imageAgeSec": round(age, 3),
+                "ageSource": age_source,
+            },
+        )
+    time.sleep(remaining)
+    return remaining
 
 
 def _captcha_keystroke_delay_ms() -> int:
@@ -3781,6 +4067,10 @@ def run_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
                         "timestamp": datetime.utcnow().isoformat() + "Z",
                     }
                     break
+                # The image clock starts here: the server already started its
+                # "image is old enough" timer when it served these bytes, so the
+                # solve + fill that follow run inside the mandatory window.
+                image_at = time.monotonic()
                 timings_ms[f"captchaParallelWaitMs_attempt{attempt}"] = parallel_timings.get(
                     "captchaParallelWaitMs", 0.0
                 )
@@ -3947,6 +4237,34 @@ def run_booking_flow(payload: Dict[str, Any]) -> Dict[str, Any]:
                         {"attempt": attempt, "error": str(exc)[:200]},
                     )
                 # #endregion agent log
+
+                # Hold the submit until the captcha image is old enough to be
+                # accepted (measured ~3s floor from image serve, not from capture).
+                # Prefer the response-listener clock (when the site served the
+                # image), then resource timing, then our own capture mark.
+                dom_image_age, age_source = resolve_captcha_image_age(
+                    page, fresh.bdc_vcid, image_at
+                )
+                timings_ms[f"captchaImageAgeMs_attempt{attempt}"] = (
+                    round(dom_image_age * 1000, 1) if dom_image_age is not None else -1.0
+                )
+                if age_source == "capture_mark":
+                    dlog(
+                        run_id,
+                        "H_submit_captcha",
+                        "app.py:run_booking_flow",
+                        "captcha_image_probe_miss",
+                        {"attempt": attempt, **captcha_image_probe_diag(page)},
+                    )
+                timings_ms[f"captchaImageFloorWaitMs_attempt{attempt}"] = (
+                    wait_out_captcha_image_floor(
+                        image_at,
+                        image_age_sec=dom_image_age,
+                        age_source=age_source,
+                        run_id=run_id,
+                        attempt=attempt,
+                    ) * 1000
+                )
 
                 captcha_submit_path = _submit_captcha_passport_form(page, run_id, attempt)
                 dlog(
